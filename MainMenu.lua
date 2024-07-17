@@ -123,7 +123,6 @@ function Backdrop()
 end
 function ImportMenu()
     love.graphics.draw(ImportBackdrop,0,0,0,1,1,0,0)
-    ImportSuccess=false
     CenterText(0,350,Paste,Exo24)
     CenterText(0,-100,Input,Exo24)
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
@@ -205,8 +204,7 @@ function ImportMenu()
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
                 ImportMenuOpen = false
-                ImportSuccess=true
-                return Input, Paste
+                ImportAQuizletSet(Input,Paste)
             end
         else
             love.graphics.setColor(255, 153, 0)
@@ -216,8 +214,7 @@ function ImportMenu()
         love.graphics.setColor(255, 255, 255)
     end
     CancelButton()
-    Title, ImportedSet, ImportSuccess=ConfirmButton()
-    return Title, ImportedSet, ImportSuccess
+    ConfirmButton()
 end
 
 
