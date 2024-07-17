@@ -123,6 +123,7 @@ function Backdrop()
 end
 function ImportMenu()
     love.graphics.draw(ImportBackdrop,0,0,0,1,1,0,0)
+    ImportSuccess=false
     CenterText(0,350,Paste,Exo24)
     CenterText(0,-100,Input,Exo24)
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
@@ -146,6 +147,7 @@ function ImportMenu()
     local function CancelButton()
         love.graphics.setFont(Exo24Bold)
         local buttonText = "Cancel"
+        local Title, ImportedSet
         local TH = Exo24Bold:getHeight(buttonText)
         local textWidth = Exo24Bold:getWidth(buttonText)
         
@@ -203,6 +205,7 @@ function ImportMenu()
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
                 ImportMenuOpen = false
+                ImportSuccess=true
                 return Input, Paste
             end
         else
@@ -213,9 +216,8 @@ function ImportMenu()
         love.graphics.setColor(255, 255, 255)
     end
     CancelButton()
-    local Title, ImportedSet
-    Title, ImportedSet=ConfirmButton()
-    return Title, ImportedSet
+    Title, ImportedSet, ImportSuccess=ConfirmButton()
+    return Title, ImportedSet, ImportSuccess
 end
 
 
