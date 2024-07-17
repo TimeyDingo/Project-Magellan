@@ -2,6 +2,7 @@ require "math"--default lua math
 require "TextFuncs"--adds custom functions
 require "MainMenu"--Menu Functions
 require "IOFuncs"
+utf8 = require("utf8")
 function love.load()
     Exofont=love.graphics.newFont("Fonts/Exo2.ttf", 32)--loads fonts
     ExoSmall=love.graphics.newFont("Fonts/Exo2.ttf", 20)
@@ -13,6 +14,9 @@ function love.load()
     StateMachine=0--sets the state machine to 0 for the main menu, 1 for the settings, and 2 for the game
     BackdropImage=love.graphics.newImage('Selectscreenbackdrop.png')
     ImportBackdrop=love.graphics.newImage('ImportMenu.png')
+    Paste="Paste Text Here"
+    Title="Type Text Here"
+    Input=""
     Settings={1920,1080,2}
     ImportMenuOpen=false
     if LoadSettings(Settings) == 1 then--? If loading is successful 

@@ -123,19 +123,94 @@ function Backdrop()
 end
 function ImportMenu()
     love.graphics.draw(ImportBackdrop,0,0,0,1,1,0,0)
-    local Lock=0
-    local Paste
-    local Title
-    if Lock==0 then
-        Paste="Paste Text Here"
-        Title="Type Text Here"
-    end
-    Lock=1
     CenterText(0,350,Paste,Exo24)
-    CenterText(0,-100,Title,Exo24)
+    CenterText(0,-100,Input,Exo24)
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
         Paste=love.system.getClipboardText()
     end
+    function love.textinput(t)
+        Input=Input..t
+    end
+    function love.keypressed(key)
+        if key == "backspace" then
+            -- get the byte offset to the last UTF-8 character in the string.
+            local byteoffset = utf8.offset(Input, -1)
+    
+            if byteoffset then
+                -- remove the last UTF-8 character.
+                -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
+                Input = string.sub(Input, 1, byteoffset - 1)
+            end
+        end
+    end
+    local function CancelButton()
+        love.graphics.setFont(Exo24Bold)
+        local buttonText = "Cancel"
+        local TH = Exo24Bold:getHeight(buttonText)
+        local textWidth = Exo24Bold:getWidth(buttonText)
+        
+        -- Coordinates for the box
+        local boxX = 333
+        local boxY = 931
+        local boxWidth = 418
+        local boxHeight = 120
+        
+        -- Check if mouse is over the box
+        local Selected = isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
+        
+        -- Coordinates for the text
+        local textX = boxX + (boxWidth - textWidth) / 2  -- Center the text horizontally
+        local textY = boxY + (boxHeight - TH) / 2        -- Center the text vertically
+        
+        love.graphics.print(buttonText, textX, textY)
+        love.graphics.setLineWidth(3)
+        if Selected then
+            love.graphics.setColor(255, 255, 255)
+            if love.mouse.isDown(1) then
+                ImportMenuOpen = true
+            end
+        else
+            love.graphics.setColor(255, 153, 0)
+        end
+        love.graphics.rectangle("line", boxX, boxY, boxWidth, boxHeight)
+        love.graphics.setLineWidth(1)
+        love.graphics.setColor(255, 255, 255)
+    end
+    local function ConfirmButton()
+        love.graphics.setFont(Exo24Bold)
+        local buttonText = "Confirm"
+        local TH = Exo24Bold:getHeight(buttonText)
+        local textWidth = Exo24Bold:getWidth(buttonText)
+        
+        -- Coordinates for the box
+        local boxX = 1169
+        local boxY = 931
+        local boxWidth = 418
+        local boxHeight = 120
+        
+        -- Check if mouse is over the box
+        local Selected = isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
+        
+        -- Coordinates for the text
+        local textX = boxX + (boxWidth - textWidth) / 2  -- Center the text horizontally
+        local textY = boxY + (boxHeight - TH) / 2        -- Center the text vertically
+        
+        love.graphics.print(buttonText, textX, textY)
+        love.graphics.setLineWidth(3)
+        if Selected then
+            love.graphics.setColor(255, 255, 255)
+            if love.mouse.isDown(1) then
+                ImportMenuOpen = true
+            end
+        else
+            love.graphics.setColor(255, 153, 0)
+        end
+        love.graphics.rectangle("line", boxX, boxY, boxWidth, boxHeight)
+        love.graphics.setLineWidth(1)
+        love.graphics.setColor(255, 255, 255)
+    end
+    CancelButton()
+    ConfirmButton()
 end
 
 
