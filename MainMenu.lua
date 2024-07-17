@@ -167,7 +167,9 @@ function ImportMenu()
         if Selected then
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
-                ImportMenuOpen = true
+                ImportMenuOpen = false
+                Paste = "Paste Text Here"
+                Input = ""
             end
         else
             love.graphics.setColor(255, 153, 0)
@@ -200,7 +202,8 @@ function ImportMenu()
         if Selected then
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
-                ImportMenuOpen = true
+                ImportMenuOpen = false
+                return Input, Paste
             end
         else
             love.graphics.setColor(255, 153, 0)
@@ -210,7 +213,9 @@ function ImportMenu()
         love.graphics.setColor(255, 255, 255)
     end
     CancelButton()
-    ConfirmButton()
+    local Title, ImportedSet
+    Title, ImportedSet=ConfirmButton()
+    return Title, ImportedSet
 end
 
 
