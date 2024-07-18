@@ -8,7 +8,7 @@ function SetSelectionMenu()
         CreateNewSetButton()
         ImportQuizletSetButton()
         ListofSets()
-        SetPreview()
+        --SetPreview()
     end
 end
 -- Function to check if the mouse is over a box
@@ -116,8 +116,41 @@ function ListofSets()
     CenterText(0,0, tostring(SetData[1][1]), Exo24)
     CenterText(0,100, tostring(SetData[2][1]), Exo24)
     CenterText(0,200, tostring(SetData[3][1]), Exo24)
+    local TopLeftX=267
+    local TopLeftY=156
+    local Width=656
+    local Height=651
+    love.graphics.setLineWidth(5)
+    love.graphics.setColor(22, 22, 22)
+    love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
+    love.graphics.setColor(255,255,255)
+    love.graphics.setLineWidth(1)
+    ButtonStyle1(283,183,624,59,"1",Exo24)
+    ButtonStyle1(283,275,624,59,"2",Exo24)
+    ButtonStyle1(283,367,624,59,"3",Exo24)
+    ButtonStyle1(283,463,624,59,"4",Exo24)
+    ButtonStyle1(283,554,624,59,"5",Exo24)
+    ButtonStyle1(283,642,624,59,"6",Exo24)
+    ButtonStyle1(283,731,624,59,"7",Exo24)
 end
 function SetPreview()
+    SetData = LoadSavedSetsIntoMemory()
+    local y = 0
+
+    for i, set in ipairs(SetData) do
+        local title = tostring(set[1])
+        CenterText(0, y, title, Exo24)
+        y = y + 50  -- Adjust y position for the next line
+
+        local dataSet = set[2]
+        for _, dataPair in ipairs(dataSet) do
+            local dataText = table.concat(dataPair, " ")
+            CenterText(0, y, dataText, Exo24)
+            y = y + 50  -- Adjust y position for the next line
+        end
+
+        y = y + 50  -- Add extra space between sets
+    end
 end
 
 function Backdrop()
