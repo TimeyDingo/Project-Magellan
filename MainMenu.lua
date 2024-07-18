@@ -1,4 +1,5 @@
 function SetSelectionMenu()
+    SetData = LoadSavedSetsIntoMemory()
     Backdrop()
     if ImportMenuOpen==true then
         ImportMenu()
@@ -113,9 +114,6 @@ function ImportQuizletSetButton()
 end
 function ListofSets()
     SetData = LoadSavedSetsIntoMemory()
-    CenterText(0,0, tostring(SetData[1][1]), Exo24)
-    CenterText(0,100, tostring(SetData[2][1]), Exo24)
-    CenterText(0,200, tostring(SetData[3][1]), Exo24)
     local TopLeftX=267
     local TopLeftY=156
     local Width=656
@@ -125,19 +123,32 @@ function ListofSets()
     love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
     love.graphics.setColor(255,255,255)
     love.graphics.setLineWidth(1)
-    ButtonStyle1(283,173,624,59,"1",Exo24)
-    ButtonStyle1(283,266,624,59,"2",Exo24)
-    ButtonStyle1(283,359,624,59,"3",Exo24)
-    ButtonStyle1(283,452,624,59,"4",Exo24)
-    ButtonStyle1(283,545,624,59,"5",Exo24)
-    ButtonStyle1(283,638,624,59,"6",Exo24)
-    ButtonStyle1(283,731,624,59,"7",Exo24)
+    local NumberofSets=CheckSavedSets()
+    if NumberofSets>0 then
+        ButtonStyle1(283,173,624,59,tostring(SetData[1][1]),Exo24)
+    end
+    if NumberofSets>1 then
+        ButtonStyle1(283,266,624,59,tostring(SetData[2][1]),Exo24) 
+    end
+    if NumberofSets>2 then
+        ButtonStyle1(283,359,624,59,tostring(SetData[3][1]),Exo24)
+    end
+    if NumberofSets>3 then
+        ButtonStyle1(283,452,624,59,tostring(SetData[4][1]),Exo24)
+    end
+    if NumberofSets>4 then
+        ButtonStyle1(283,545,624,59,tostring(SetData[5][1]),Exo24)
+    end
+    if NumberofSets>5 then
+        ButtonStyle1(283,638,624,59,tostring(SetData[6][1]),Exo24)
+    end
+    if NumberofSets>6 then
+        ButtonStyle1(283,731,624,59, tostring(SetData[7][1]),Exo24)
+    end
     --Space between top and bottom is 17, space between buttons is 93
 end
 function SetPreview()
-    SetData = LoadSavedSetsIntoMemory()
     local y = 0
-
     for i, set in ipairs(SetData) do
         local title = tostring(set[1])
         CenterText(0, y, title, Exo24)
