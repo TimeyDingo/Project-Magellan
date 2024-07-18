@@ -17,6 +17,7 @@ function love.load()
     Paste="Paste Text Here"
     Title="Type Text Here"
     Input=""
+    SetData={}
     Settings={1920,1080,2}
     ImportMenuOpen=false
     if LoadSettings(Settings) == 1 then--? If loading is successful 

@@ -49,11 +49,64 @@ function AddOneToSavedSetCount()
 end
 function ImportAQuizletSet(Title, SetData)
     local CurrentSetCount=0
-    local CurrentSetCount=CheckSavedSets()
+    CurrentSetCount=CheckSavedSets()
     local NewFileName="SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
     local file=io.open(NewFileName,"w")
     local TextToWrite=Title.."--"..SetData
     file:write(TextToWrite)
     io.close(file)
     AddOneToSavedSetCount()
+end
+function LoadSavedSetsIntoMemory()
+    local NumberofSets = CheckSavedSets()
+    local SetData = {}
+    if NumberofSets > 0 then
+        for i = 1, NumberofSets do
+            local Filename = "SavedSets/Set" .. i .. ".txt"
+            local file = io.open(Filename, "r")
+            if file then
+                local line = file:read("*l") -- Read the first line
+                file:close()
+
+                if line then
+                    local title, data = line:match("^(.-)%-%-(.+)$")
+                    local dataSet = {}
+
+                    if data then
+                        for item in data:gmatch("[^::]+") do
+                            local subData = {}
+                            for subItem in item:gmatch("[^;;]+") do
+                                table.insert(subData, subItem)
+                            end
+                            table.insert(dataSet, subData)
+                        end
+                    end
+
+                    table.insert(SetData, {title, dataSet})
+                end
+            end
+        end
+    end
+    return SetData
+end
+function SaveSetsToFile(SetData, Filename)
+    local file = io.open(Filename, "w")
+    if not file then
+        error("Could not open file for writing: " .. Filename)
+    end
+
+    for _, set in ipairs(SetData) do
+        local title = set[1]
+        local dataSet = set[2]
+        local dataStrings = {}
+
+        for _, data in ipairs(dataSet) do
+            table.insert(dataStrings, table.concat(data, ";;"))
+        end
+
+        local line = title .. "--" .. table.concat(dataStrings, "::")
+        file:write(line .. "\n")
+    end
+
+    file:close()
 end

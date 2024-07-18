@@ -112,12 +112,14 @@ function ImportQuizletSetButton()
     love.graphics.setColor(255, 255, 255)
 end
 function ListofSets()
-    NumberOfSets=CheckSavedSets()
-    love.graphics.print(NumberOfSets, 500, 500)
+    SetData = LoadSavedSetsIntoMemory()
+    CenterText(0,0, tostring(SetData[1][1]), Exo24)
+    CenterText(0,100, tostring(SetData[2][1]), Exo24)
+    CenterText(0,200, tostring(SetData[3][1]), Exo24)
 end
 function SetPreview()
-
 end
+
 function Backdrop()
     love.graphics.draw(BackdropImage,0,0,0,1,1,0,0)
 end
