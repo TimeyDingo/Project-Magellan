@@ -72,7 +72,33 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     if Selected then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then --! clicked
-            
+            return true
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(255, 255, 255)
+end
+function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(3)
+    if Selected or SetToPreview==ClickedValue then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) then --! clicked
+            SetToPreview=ClickedValue
         end
     else
         love.graphics.setColor(255, 153, 0)

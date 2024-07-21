@@ -19,6 +19,7 @@ function love.load()
     Input=""
     SetData={}
     Settings={1920,1080,2}
+    SetToPreview=0
     ImportMenuOpen=false
     if LoadSettings(Settings) == 1 then--? If loading is successful 
         love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed

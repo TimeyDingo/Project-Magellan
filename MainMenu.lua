@@ -9,7 +9,7 @@ function SetSelectionMenu()
         CreateNewSetButton()
         ImportQuizletSetButton()
         ListofSets()
-        --SetPreview()
+        SetPreview()
     end
 end
 -- Function to check if the mouse is over a box
@@ -125,45 +125,52 @@ function ListofSets()
     love.graphics.setLineWidth(1)
     local NumberofSets=CheckSavedSets()
     if NumberofSets>0 then
-        ButtonStyle1(283,173,624,59,tostring(SetData[1][1]),Exo24)
+        ButtonStyle1Mod2(283,173,624,59,tostring(SetData[1][1]),Exo24,1)
     end
     if NumberofSets>1 then
-        ButtonStyle1(283,266,624,59,tostring(SetData[2][1]),Exo24) 
+        ButtonStyle1Mod2(283,266,624,59,tostring(SetData[2][1]),Exo24,2) 
     end
     if NumberofSets>2 then
-        ButtonStyle1(283,359,624,59,tostring(SetData[3][1]),Exo24)
+        ButtonStyle1Mod2(283,359,624,59,tostring(SetData[3][1]),Exo24,3)
     end
     if NumberofSets>3 then
-        ButtonStyle1(283,452,624,59,tostring(SetData[4][1]),Exo24)
+        ButtonStyle1Mod2(283,452,624,59,tostring(SetData[4][1]),Exo24,4)
     end
     if NumberofSets>4 then
-        ButtonStyle1(283,545,624,59,tostring(SetData[5][1]),Exo24)
+        ButtonStyle1Mod2(283,545,624,59,tostring(SetData[5][1]),Exo24,5)
     end
     if NumberofSets>5 then
-        ButtonStyle1(283,638,624,59,tostring(SetData[6][1]),Exo24)
+        ButtonStyle1Mod2(283,638,624,59,tostring(SetData[6][1]),Exo24,6)
     end
     if NumberofSets>6 then
-        ButtonStyle1(283,731,624,59, tostring(SetData[7][1]),Exo24)
+        ButtonStyle1Mod2(283,731,624,59, tostring(SetData[7][1]),Exo24,7)
     end
     --Space between top and bottom is 17, space between buttons is 93
 end
 function SetPreview()
-    local y = 0
-    for i, set in ipairs(SetData) do
-        local title = tostring(set[1])
-        CenterText(0, y, title, Exo24)
-        y = y + 50  -- Adjust y position for the next line
+    local x = 10  -- Starting X position for text drawing
+    local y = 10  -- Starting Y position for text drawing
 
-        local dataSet = set[2]
-        for _, dataPair in ipairs(dataSet) do
-            local dataText = table.concat(dataPair, " ")
-            CenterText(0, y, dataText, Exo24)
-            y = y + 50  -- Adjust y position for the next line
+    if SetToPreview > 0 and SetData[SetToPreview] then
+        local setTitle = SetData[SetToPreview][1]
+        local dataSet = SetData[SetToPreview][2]
+
+        love.graphics.print("Title: " .. setTitle, x, y)
+        y = y + 20  -- Move to the next line
+
+        for i, item in ipairs(dataSet) do
+            for j, subItem in ipairs(item) do
+                love.graphics.print("Item" .. i .. "." .. j .. ": " .. subItem, x, y)
+                y = y + 20  -- Move to the next line
+            end
         end
-
-        y = y + 50  -- Add extra space between sets
+    else
+        love.graphics.print("Invalid SetToPreview value or SetData not found", x, y)
     end
 end
+
+
+
 
 function Backdrop()
     love.graphics.draw(BackdropImage,0,0,0,1,1,0,0)
