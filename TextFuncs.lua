@@ -107,3 +107,39 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
+
+--! converting love2D shitty color space to rgb color
+love.graphics.setColorF = love.graphics.setColor
+function love.graphics.setColor(r,g,b,a)
+	r, g, b = r/255, g/255, b/255
+	love.graphics.setColorF(r,g,b,a)
+end
+function isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
+    return MouseX >= boxX and MouseX <= boxX + boxWidth and MouseY >= boxY and MouseY <= boxY + boxHeight
+end
+function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    love.graphics.print(Text, textX, textY)
+end
+function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont)
+    love.graphics.setFont(TextFont)
+    local textHeight = TextFont:getHeight()  -- Height of a single line of text
+
+    -- Calculate the wrapped text and the number of lines
+    local wrappedText, lines = TextFont:getWrap(Text, BoxW)
+    local totalHeight = #lines * textHeight
+
+    -- Calculate the Y position to vertically center the text
+    local textY = BoxY
+
+    -- Print the wrapped and centered text
+    love.graphics.printf(Text, BoxX, textY, BoxW, "center")
+
+    return totalHeight
+end
+

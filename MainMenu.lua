@@ -13,9 +13,6 @@ function SetSelectionMenu()
     end
 end
 -- Function to check if the mouse is over a box
-function isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
-    return MouseX >= boxX and MouseX <= boxX + boxWidth and MouseY >= boxY and MouseY <= boxY + boxHeight
-end
 
 function SelectButton()
     love.graphics.setFont(Exo24Bold)
@@ -148,26 +145,29 @@ function ListofSets()
     --Space between top and bottom is 17, space between buttons is 93
 end
 function SetPreview()
-    local x = 10  -- Starting X position for text drawing
-    local y = 10  -- Starting Y position for text drawing
+    local x = 976  -- Starting X position for text drawing
+    local y = 156  -- Starting Y position for text drawing
+    local WrapDistance=0
 
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
-
-        love.graphics.print("Title: " .. setTitle, x, y)
+        CenteredTextBox(976, 135, 673, 59, setTitle, Exo24Bold)
+        love.graphics.setFont(Exo24)
         y = y + 20  -- Move to the next line
 
         for i, item in ipairs(dataSet) do
-            for j, subItem in ipairs(item) do
-                love.graphics.print("Item" .. i .. "." .. j .. ": " .. subItem, x, y)
-                y = y + 20  -- Move to the next line
-            end
+            local definition = item[1]
+            local term = item[2]
+            CenteredTextBox(x,y,673,30,term,Exo24)
+            y=y+20
+            WrapDistance=CenteredTextBoxWithWrapping(x,y,673,definition,Exo24)
+            y = y + WrapDistance  -- Move to the next line
         end
-    else
-        love.graphics.print("Invalid SetToPreview value or SetData not found", x, y)
     end
 end
+
+
 
 
 
@@ -269,13 +269,4 @@ function ImportMenu()
     end
     CancelButton()
     ConfirmButton()
-end
-
-
-
---! converting love2D shitty color space to rgb color
-love.graphics.setColorF = love.graphics.setColor
-function love.graphics.setColor(r,g,b,a)
-	r, g, b = r/255, g/255, b/255
-	love.graphics.setColorF(r,g,b,a)
 end
