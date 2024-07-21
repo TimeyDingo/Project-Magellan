@@ -159,12 +159,17 @@ function SetPreview()
         for i, item in ipairs(dataSet) do
             local definition = item[1]
             local term = item[2]
-            CenteredTextBox(x,y,673,30,term,Exo24)
+            CenteredTextBox(x,y,673,30,term,Exo20Bold)
             y=y+20
-            WrapDistance=CenteredTextBoxWithWrapping(x,y,673,definition,Exo24)
+            WrapDistance=CenteredTextBoxWithWrapping(x,y,673,definition,Exo20)
             y = y + WrapDistance  -- Move to the next line
+            if y>945 then
+                love.graphics.setColor(255,255,255,0)
+            end
         end
     end
+    love.graphics.setColor(255,255,255,255)
+    love.graphics.setFont(Exo24)
 end
 
 
