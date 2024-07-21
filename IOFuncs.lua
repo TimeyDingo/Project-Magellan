@@ -88,6 +88,24 @@ function LoadSavedSetsIntoMemory()
         end
     end
     return SetData
+    --[[
+    SetData = {
+    { 
+        "Set1Title", 
+        {
+            { "Item1.1", "Item1.2" }, 
+            { "Item2.1", "Item2.2" }
+        }
+    },
+    { 
+        "Set2Title", 
+        {
+            { "ItemA.1", "ItemA.2", "ItemA.3" }, 
+            { "ItemB.1" }
+        }
+    }
+        ]]
+    --https://chatgpt.com/c/1103cb13-78ec-4355-ba4b-3ac590cb4d2c
 end
 function SaveSetsToFile(SetData, Filename)
     local file = io.open(Filename, "w")
