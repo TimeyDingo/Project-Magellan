@@ -1,19 +1,3 @@
-function SetSelectionMenu()
-    SetData = LoadSavedSetsIntoMemory()
-    Backdrop()
-    if ImportMenuOpen==true then
-        ImportMenu()
-    end
-    if ImportMenuOpen==false then
-        SelectButton()
-        CreateNewSetButton()
-        ImportQuizletSetButton()
-        ListofSets()
-        SetPreview()
-    end
-end
--- Function to check if the mouse is over a box
-
 function SelectButton()
     love.graphics.setFont(Exo24Bold)
     local buttonText = "Select"
@@ -44,7 +28,6 @@ function SelectButton()
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
-
 function CreateNewSetButton()
     love.graphics.setFont(Exo24Bold)
     local buttonText = "Create New Set"
@@ -75,7 +58,6 @@ function CreateNewSetButton()
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
-
 function ImportQuizletSetButton()
     love.graphics.setFont(Exo24Bold)
     local buttonText = "Import Quizlet Set"
@@ -100,7 +82,7 @@ function ImportQuizletSetButton()
     if Selected then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then
-            ImportMenuOpen=true
+            StateMachine=1
         end
     else
         love.graphics.setColor(255, 153, 0)
@@ -171,12 +153,6 @@ function SetPreview()
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)
 end
-
-
-
-
-
-
 function Backdrop()
     love.graphics.draw(BackdropImage,0,0,0,1,1,0,0)
 end
@@ -227,9 +203,9 @@ function ImportMenu()
         if Selected then
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
-                ImportMenuOpen = false
                 Paste = "Paste Text Here"
                 Input = ""
+                StateMachine=0
             end
         else
             love.graphics.setColor(255, 153, 0)
@@ -262,7 +238,7 @@ function ImportMenu()
         if Selected then
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
-                ImportMenuOpen = false
+                StateMachine=0
                 ImportAQuizletSet(Input,Paste)
             end
         else

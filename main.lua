@@ -22,7 +22,6 @@ function love.load()
     SetData={}
     Settings={1920,1080,2}
     SetToPreview=0
-    ImportMenuOpen=false
     if LoadSettings(Settings) == 1 then--? If loading is successful 
         love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed
     end
@@ -30,6 +29,7 @@ end
 
 function love.update(dt)
     dt = love.timer.getDelta()
+    SetData = LoadSavedSetsIntoMemory()
     if love.keyboard.isDown("1") then --? allows game to be closed on 1 keyboard input for debugging
         love.event.quit()
     end
@@ -37,10 +37,18 @@ end
 function love.draw()
     H=love.graphics.getPixelHeight()
     W=love.graphics.getPixelWidth()
+    MouseX = love.mouse.getX()
+    MouseY = love.mouse.getY()
     if StateMachine==0 then --main menu
-        MouseX = love.mouse.getX()
-        MouseY = love.mouse.getY()
-        SetSelectionMenu()
-        love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
+        Backdrop()
+        SelectButton()
+        CreateNewSetButton()
+        ImportQuizletSetButton()
+        ListofSets()
+        SetPreview()
     end
+    if StateMachine==1 then --Import Menu
+        ImportMenu()
+    end
+    love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
 end

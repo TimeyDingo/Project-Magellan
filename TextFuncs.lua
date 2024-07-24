@@ -53,8 +53,6 @@ function MapNumber(Number,InMin,InMax,OutMin,OutMax)
     local Map = (Number - InMin) / (InMax - InMin) * (OutMax - OutMin) + OutMin
     return Map
 end
-
-
 function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
@@ -107,10 +105,8 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
-
---! converting love2D shitty color space to rgb color
 love.graphics.setColorF = love.graphics.setColor
-function love.graphics.setColor(r,g,b,a)
+function love.graphics.setColor(r,g,b,a) --! converting love2D shitty color space to rgb color
 	r, g, b = r/255, g/255, b/255
 	love.graphics.setColorF(r,g,b,a)
 end
@@ -142,4 +138,3 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont)
 
     return totalHeight
 end
-
