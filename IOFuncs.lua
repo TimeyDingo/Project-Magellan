@@ -128,3 +128,30 @@ function SaveSetsToFile(SetData, Filename)
 
     file:close()
 end
+function LoadIndividualSet(SetToLoad)
+    local filename = "SavedSets/Set" .. SetToLoad .. ".txt"
+    local SetData = {}
+    local NumberofSets = CheckSavedSets()
+    if SetToLoad > NumberofSets then
+        return nil
+    end
+    local file = io.open(filename, "r")
+    if file then
+        local line = file:read("*l")
+        file:close()
+        if line then
+            local title, data = line:match("^(.-)%-%-(.+)$")
+            if data then
+                for item in data:gmatch("[^::]+") do
+                    local subData = {}
+                    for subItem in item:gmatch("[^;;]+") do
+                        table.insert(subData, subItem)
+                    end
+                    table.insert(SetData, subData)
+                end
+            end
+        end
+    end
+
+    return SetData
+end
