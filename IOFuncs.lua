@@ -131,6 +131,7 @@ end
 function LoadIndividualSet(SetToLoad)
     local filename = "SavedSets/Set" .. SetToLoad .. ".txt"
     local SetData = {}
+    local Title
     local NumberofSets = CheckSavedSets()
     if SetToLoad > NumberofSets then
         return nil
@@ -141,6 +142,7 @@ function LoadIndividualSet(SetToLoad)
         file:close()
         if line then
             local title, data = line:match("^(.-)%-%-(.+)$")
+            Title=title
             if data then
                 for item in data:gmatch("[^::]+") do
                     local subData = {}
@@ -153,5 +155,5 @@ function LoadIndividualSet(SetToLoad)
         end
     end
 
-    return SetData
+    return Title, SetData
 end

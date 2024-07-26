@@ -21,6 +21,9 @@ function SelectButton()
     love.graphics.setLineWidth(3)
     if Selected then
         love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) and SetToPreview>0 then
+            StateMachine="Set Options"
+        end
     else
         love.graphics.setColor(255, 153, 0)
     end
@@ -82,7 +85,7 @@ function ImportQuizletSetButton()
     if Selected then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then
-            StateMachine=1
+            StateMachine="Import Menu"
         end
     else
         love.graphics.setColor(255, 153, 0)
@@ -205,7 +208,7 @@ function ImportMenu()
             if love.mouse.isDown(1) then
                 Paste = "Paste Text Here"
                 Input = ""
-                StateMachine=0
+                StateMachine="Main Menu"
             end
         else
             love.graphics.setColor(255, 153, 0)
@@ -238,7 +241,7 @@ function ImportMenu()
         if Selected then
             love.graphics.setColor(255, 255, 255)
             if love.mouse.isDown(1) then
-                StateMachine=0
+                StateMachine="Main Menu"
                 ImportAQuizletSet(Input,Paste)
             end
         else

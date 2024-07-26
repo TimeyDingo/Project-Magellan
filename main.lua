@@ -2,6 +2,8 @@ require "math"--default lua math
 require "TextFuncs"--adds custom functions
 require "MainMenu"--Menu Functions
 require "IOFuncs"
+require "CoreChanges"
+require "SetEditing"
 utf8 = require("utf8")
 function love.load()
     Exofont=love.graphics.newFont("Fonts/Exo2.ttf", 32)--loads fonts
@@ -13,7 +15,7 @@ function love.load()
     ExoSmaller=love.graphics.newFont("Fonts/Exo2.ttf", 16)
     ExoLarge=love.graphics.newFont("Fonts/Exo2.ttf", 120)
     SevenSegment=love.graphics.newFont("Fonts/SevenSegment.ttf",200)
-    StateMachine=0--sets the state machine to 0 for the main menu, 1 for the settings, and 2 for the game
+    StateMachine="Main Menu"
     BackdropImage=love.graphics.newImage('Selectscreenbackdrop.png')
     ImportBackdrop=love.graphics.newImage('ImportMenu.png')
     Paste="Paste Text Here"
@@ -26,7 +28,6 @@ function love.load()
         love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed
     end
 end
-
 function love.update(dt)
     dt = love.timer.getDelta()
     SetData = LoadSavedSetsIntoMemory()
@@ -39,7 +40,7 @@ function love.draw()
     W=love.graphics.getPixelWidth()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
-    if StateMachine==0 then --main menu
+    if StateMachine=="Main Menu" then
         Backdrop()
         SelectButton()
         CreateNewSetButton()
@@ -47,8 +48,11 @@ function love.draw()
         ListofSets()
         SetPreview()
     end
-    if StateMachine==1 then --Import Menu
+    if StateMachine=="Import Menu" then
         ImportMenu()
+    end
+    if StateMachine=="Set Options" then
+        SetOptionsMenu(SetToPreview)
     end
     love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
 end

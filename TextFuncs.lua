@@ -49,10 +49,6 @@ function CenterText(X,Y,Text,TextFont)
     local TH=TextFont:getHeight(Text)
     love.graphics.print(Text,((W-TW)/2)+X,((H-TH)/2)+Y)--Screen Width minus text width divided by 2 + change in x
 end
-function MapNumber(Number,InMin,InMax,OutMin,OutMax)
-    local Map = (Number - InMin) / (InMax - InMin) * (OutMax - OutMin) + OutMin
-    return Map
-end
 function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
@@ -104,14 +100,6 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
-end
-love.graphics.setColorF = love.graphics.setColor
-function love.graphics.setColor(r,g,b,a) --! converting love2D shitty color space to rgb color
-	r, g, b = r/255, g/255, b/255
-	love.graphics.setColorF(r,g,b,a)
-end
-function isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
-    return MouseX >= boxX and MouseX <= boxX + boxWidth and MouseY >= boxY and MouseY <= boxY + boxHeight
 end
 function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     love.graphics.setFont(TextFont)
