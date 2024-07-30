@@ -186,7 +186,7 @@ function ImportMenuSetPastingAndPreview()
     end
     if Paste~="" then
         local x = 825  -- Starting X position for text drawing
-        local y = 362  -- Starting Y position for text drawing
+        local y = 340  -- Starting Y position for text drawing
         local WrapDistance = 0
 
         -- Split the inputString into individual sections based on ';;'
@@ -207,7 +207,7 @@ function ImportMenuSetPastingAndPreview()
                 y = y + 20
                 WrapDistance = CenteredTextBoxWithWrapping(x, y, 673, term, Exo20)
                 y = y + WrapDistance  -- Move to the next line
-                if y > 850 then
+                if y > 800 then
                     love.graphics.setColor(255, 255, 255, 0)
                 end
             end
