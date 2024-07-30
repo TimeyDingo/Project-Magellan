@@ -157,10 +157,10 @@ function SetPreview()
     love.graphics.setFont(Exo24)
 end
 function Backdrop()
-    love.graphics.draw(BackdropImage,0,0,0,1,1,0,0)
+    love.graphics.draw(BackdropMainMenu,0,0,0,1,1,0,0)
 end
 function ImportMenu()
-    love.graphics.draw(ImportBackdrop,0,0,0,1,1,0,0)
+    love.graphics.draw(BackdropImport,0,0,0,1,1,0,0)
     CenterText(0,350,Paste,Exo24)
     CenterText(0,-100,Input,Exo24)
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then

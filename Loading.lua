@@ -1,0 +1,17 @@
+function LoadFonts()
+    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24)
+    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24)
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20)
+    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20)
+end
+function LoadBackdrops()
+    BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')
+    BackdropImport=love.graphics.newImage('ImportMenu.png')
+    BackdropSelectAction=love.graphics.newImage('SelectMenu.png')
+end
+function LoadSettings()
+    Settings={1920,1080,2}
+    if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
+        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed
+    end
+end

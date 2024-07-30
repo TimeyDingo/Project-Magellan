@@ -10,7 +10,7 @@ function SaveSettings(Settings)
         return 0--?Error!
     end
 end
-function LoadSettings(Settings)
+function LoadSettingsIO(Settings)
     local file = io.open("Settings.txt", "r")
     if file then
         local index = 1
