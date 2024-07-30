@@ -101,6 +101,40 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
+function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be able to run a function
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2  -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(3)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) then -- Button clicked
+            if Action then
+                local actionFunc, err = load(Action)
+                if actionFunc then
+                    actionFunc()
+                else
+                    print("Error in action string: " .. err)
+                end
+            end
+            return true
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(255, 255, 255)
+end
 function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)

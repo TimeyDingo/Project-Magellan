@@ -1,6 +1,5 @@
-function SetOptionsMenu(SelectedSet)
-    CenterText(0,-20,"SetOptionsMenu",Exo24)
-    local SetTitle, SetData={}
-    SetTitle, SetData = LoadIndividualSet(SelectedSet)
-    CenterText(0,20,SetTitle,Exo24Bold)
+function SetOptionsBackdrop()
+    love.graphics.draw(BackdropSelectAction,0,0,0,1,1,0,0)
+    CenterText(0,-350,SetTitle,Exo32Bold)
+    love.graphics.setFont(Exo24)
 end

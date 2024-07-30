@@ -41,7 +41,19 @@ function love.draw()
         ImportMenu()
     end
     if StateMachine=="Set Options" then
-        SetOptionsMenu(SetToPreview)
+        SetTitle, SetData = LoadIndividualSet(SetToPreview)
+        SetOptionsBackdrop()
+        ButtonStyle1(300,253,402,122,"Edit",Exo24Bold)
+        ButtonStyle1(754,253,402,122,"Flashcards",Exo24Bold)
+        ButtonStyle1(1209,253,402,122,"Matching",Exo24Bold)
+        ButtonStyle1(300,486,402,122,"Missile Defense",Exo24Bold)
+        ButtonStyle1(754,486,402,122,"Word Search",Exo24Bold)
+        ButtonStyle1(1209,486,402,122,"Test",Exo24Bold)
+        ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold)
+        ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold)
+        ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold)
+        ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold, 'StateMachine = "Main Menu"')
+        ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,"love.event.quit()")
     end
     love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
 end
