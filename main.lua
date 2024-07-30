@@ -11,9 +11,8 @@ function love.load()
     LoadBackdrops()
     LoadSettings()
     StateMachine="Main Menu"
-    Paste="Paste Text Here"
-    Title="Type Text Here"
     Input=""
+    Paste=""
     SetData={}
     SetToPreview=0
 end
@@ -38,7 +37,12 @@ function love.draw()
         SetPreview()
     end
     if StateMachine=="Import Menu" then
-        ImportMenu()
+        ImportMenuBackdrop()
+        ImportMenuTitle()
+        ImportMenuSetPastingAndPreview()
+        ButtonStyle1Mod3(1691, 88, 50, 50, "<-", Exo24Bold, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
+        ButtonStyle1Mod3(1751,88,50,50,"X",Exo24Bold,"love.event.quit()")
+        ButtonStyle1Mod3(1020,887,290,96,"Confirm",Exo24Bold,'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""')
     end
     if StateMachine=="Set Options" then
         SetTitle, SetData = LoadIndividualSet(SetToPreview)

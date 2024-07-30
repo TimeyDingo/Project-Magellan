@@ -159,13 +159,11 @@ end
 function Backdrop()
     love.graphics.draw(BackdropMainMenu,0,0,0,1,1,0,0)
 end
-function ImportMenu()
+function ImportMenuBackdrop()
     love.graphics.draw(BackdropImport,0,0,0,1,1,0,0)
-    CenterText(0,350,Paste,Exo24)
-    CenterText(0,-100,Input,Exo24)
-    if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
-        Paste=love.system.getClipboardText()
-    end
+end
+function ImportMenuTitle()
+    CenterText(201,-288,Input,Exo28)
     function love.textinput(t)
         Input=Input..t
     end
@@ -181,76 +179,41 @@ function ImportMenu()
             end
         end
     end
-    local function CancelButton()
-        love.graphics.setFont(Exo24Bold)
-        local buttonText = "Cancel"
-        local Title, ImportedSet
-        local TH = Exo24Bold:getHeight(buttonText)
-        local textWidth = Exo24Bold:getWidth(buttonText)
-        
-        -- Coordinates for the box
-        local boxX = 333
-        local boxY = 931
-        local boxWidth = 418
-        local boxHeight = 120
-        
-        -- Check if mouse is over the box
-        local Selected = isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
-        
-        -- Coordinates for the text
-        local textX = boxX + (boxWidth - textWidth) / 2  -- Center the text horizontally
-        local textY = boxY + (boxHeight - TH) / 2        -- Center the text vertically
-        
-        love.graphics.print(buttonText, textX, textY)
-        love.graphics.setLineWidth(3)
-        if Selected then
-            love.graphics.setColor(255, 255, 255)
-            if love.mouse.isDown(1) then
-                Paste = "Paste Text Here"
-                Input = ""
-                StateMachine="Main Menu"
-            end
-        else
-            love.graphics.setColor(255, 153, 0)
-        end
-        love.graphics.rectangle("line", boxX, boxY, boxWidth, boxHeight)
-        love.graphics.setLineWidth(1)
-        love.graphics.setColor(255, 255, 255)
+end
+function ImportMenuSetPastingAndPreview()
+    if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
+        Paste=love.system.getClipboardText()
     end
-    local function ConfirmButton()
-        love.graphics.setFont(Exo24Bold)
-        local buttonText = "Confirm"
-        local TH = Exo24Bold:getHeight(buttonText)
-        local textWidth = Exo24Bold:getWidth(buttonText)
-        
-        -- Coordinates for the box
-        local boxX = 1169
-        local boxY = 931
-        local boxWidth = 418
-        local boxHeight = 120
-        
-        -- Check if mouse is over the box
-        local Selected = isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
-        
-        -- Coordinates for the text
-        local textX = boxX + (boxWidth - textWidth) / 2  -- Center the text horizontally
-        local textY = boxY + (boxHeight - TH) / 2        -- Center the text vertically
-        
-        love.graphics.print(buttonText, textX, textY)
-        love.graphics.setLineWidth(3)
-        if Selected then
-            love.graphics.setColor(255, 255, 255)
-            if love.mouse.isDown(1) then
-                StateMachine="Main Menu"
-                ImportAQuizletSet(Input,Paste)
-            end
-        else
-            love.graphics.setColor(255, 153, 0)
+    if Paste~="" then
+        local x = 825  -- Starting X position for text drawing
+        local y = 362  -- Starting Y position for text drawing
+        local WrapDistance = 0
+
+        -- Split the inputString into individual sections based on ';;'
+        local sections = {}
+        for section in string.gmatch(Paste, "[^;;]+") do
+            table.insert(sections, section)
         end
-        love.graphics.rectangle("line", boxX, boxY, boxWidth, boxHeight)
-        love.graphics.setLineWidth(1)
-        love.graphics.setColor(255, 255, 255)
+
+        love.graphics.setFont(Exo24)
+        y = y + 20  -- Move to the next line
+
+        for i, section in ipairs(sections) do
+            -- Split each section into definition and term based on '::'
+            local definition, term = section:match("(.+)::(.+)")
+            
+            if definition and term then
+                CenteredTextBox(x, y, 673, 30, definition, Exo20Bold)
+                y = y + 20
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, 673, term, Exo20)
+                y = y + WrapDistance  -- Move to the next line
+                if y > 850 then
+                    love.graphics.setColor(255, 255, 255, 0)
+                end
+            end
+        end
+
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setFont(Exo24)
     end
-    CancelButton()
-    ConfirmButton()
 end

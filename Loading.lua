@@ -4,11 +4,12 @@ function LoadFonts()
     Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20)
     Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20)
     Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28)
+    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28)
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32)
 end
 function LoadBackdrops()
     BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')
-    BackdropImport=love.graphics.newImage('ImportMenu.png')
+    BackdropImport=love.graphics.newImage('ImportMenumk3.png')
     BackdropSelectAction=love.graphics.newImage('SelectMenu.png')
 end
 function LoadSettings()
