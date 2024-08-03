@@ -15,9 +15,11 @@ function love.load()
     Paste=""
     SetData={}
     SetToPreview=0
+    BackspaceTimer=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()
+    BackspaceTimer=BackspaceTimer+1
     SetData = LoadSavedSetsIntoMemory()
     if love.keyboard.isDown("1") then --? allows game to be closed on 1 keyboard input for debugging
         love.event.quit()
@@ -35,6 +37,7 @@ function love.draw()
         ImportQuizletSetButton()
         ListofSets()
         SetPreview()
+        ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,"love.event.quit()")
     end
     if StateMachine=="Import Menu" then
         ImportMenuBackdrop()
