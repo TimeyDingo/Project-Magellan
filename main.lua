@@ -5,6 +5,12 @@ require "IOFuncs"
 require "CoreChanges"
 require "SetEditing"
 require "Loading"
+require "EditActivity"
+require "FlashcardsActivity"
+require "MatchingActivity"
+require "MissileDefenseActivity"
+require "TestActivity"
+require "WordSearchActivity"
 utf8 = require("utf8")
 function love.load()
     LoadFonts()
@@ -65,31 +71,37 @@ function love.draw()
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        EditActivity()
     end
     if StateMachine=="Flashcards" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        FlashcardActivity()
     end
     if StateMachine=="Matching" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        MatchingActivity()
     end
     if StateMachine=="Missile Defense" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        MissileDefenseActivity()
     end
     if StateMachine=="Word Search" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        WordSearchActivity()
     end
     if StateMachine=="Test" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
+        TestActivity()
     end
     love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
 end
