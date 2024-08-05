@@ -22,8 +22,12 @@ function LoadSettings()
 end
 function LoadActivities()
     LoadFlashcards()
+    LoadEdit()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
     FlashCardActivityFlashCardSide=2
+end
+function LoadEdit()
+    EditActivityLoadOnce=false
 end

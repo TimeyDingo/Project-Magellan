@@ -107,27 +107,41 @@ function ListofSets()
     love.graphics.setLineWidth(1)
     local NumberofSets=CheckSavedSets()
     if NumberofSets>0 then
-        ButtonStyle1Mod2(283,173,624,59,tostring(SetData[1][1]),Exo24,1)
+        ButtonStyle1Mod2(283,173,624,59,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
     end
     if NumberofSets>1 then
-        ButtonStyle1Mod2(283,266,624,59,tostring(SetData[2][1]),Exo24,2) 
+        ButtonStyle1Mod2(283,266,624,59,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
     end
     if NumberofSets>2 then
-        ButtonStyle1Mod2(283,359,624,59,tostring(SetData[3][1]),Exo24,3)
+        ButtonStyle1Mod2(283,359,624,59,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
     end
     if NumberofSets>3 then
-        ButtonStyle1Mod2(283,452,624,59,tostring(SetData[4][1]),Exo24,4)
+        ButtonStyle1Mod2(283,452,624,59,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
     end
     if NumberofSets>4 then
-        ButtonStyle1Mod2(283,545,624,59,tostring(SetData[5][1]),Exo24,5)
+        ButtonStyle1Mod2(283,545,624,59,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
     end
     if NumberofSets>5 then
-        ButtonStyle1Mod2(283,638,624,59,tostring(SetData[6][1]),Exo24,6)
+        ButtonStyle1Mod2(283,638,624,59,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
     end
     if NumberofSets>6 then
-        ButtonStyle1Mod2(283,731,624,59, tostring(SetData[7][1]),Exo24,7)
+        ButtonStyle1Mod2(283,731,624,59, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
+    if NumberofSets>6 then
+        love.graphics.setColor(255, 153, 0)
+        love.graphics.rectangle("fill",935,136+(678/NumberofSets)*MainMenuScroll,17,678/NumberofSets*7)
+        love.graphics.setColor(255,255,255)
+        function love.keypressed(key)
+            if key == "up" and MainMenuScroll > 0 then
+                MainMenuScroll = MainMenuScroll - 1
+            end
+            if key == "down" and MainMenuScroll < NumberofSets-7 then
+                MainMenuScroll = MainMenuScroll + 1
+            end
+        end
+    end
+    love.graphics.setColor(255,255,255)
 end
 function SetPreview()
     local x = 976  -- Starting X position for text drawing
@@ -148,7 +162,7 @@ function SetPreview()
             y=y+20
             WrapDistance=CenteredTextBoxWithWrapping(x,y,673,definition,Exo20)
             y = y + WrapDistance  -- Move to the next line
-            if y>945 then
+            if y>905 then
                 love.graphics.setColor(255,255,255,0)
             end
         end

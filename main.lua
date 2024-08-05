@@ -22,6 +22,7 @@ function love.load()
     SetData={}
     SetToPreview=0
     BackspaceTimer=0
+    MainMenuScroll=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()
