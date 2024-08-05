@@ -217,3 +217,10 @@ function ImportMenuSetPastingAndPreview()
         love.graphics.setFont(Exo24)
     end
 end
+function ActivityBackdrop()
+    love.graphics.draw(GameBar,0,0,0,1,1,0,0)
+    love.graphics.setColor(255,255,255)
+    love.graphics.setFont(Exo60Black)
+    love.graphics.print(StateMachine, 596, 1)
+    love.graphics.setFont(Exo24)
+end

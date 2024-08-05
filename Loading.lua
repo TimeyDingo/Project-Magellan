@@ -6,11 +6,13 @@ function LoadFonts()
     Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28)
     Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28)
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32)
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45)
 end
 function LoadBackdrops()
     BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')
     BackdropImport=love.graphics.newImage('ImportMenumk3.png')
     BackdropSelectAction=love.graphics.newImage('SelectMenu.png')
+    GameBar=love.graphics.newImage('GameBar.png')
 end
 function LoadSettings()
     Settings={1920,1080,2}
