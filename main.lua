@@ -3,7 +3,6 @@ require "TextFuncs"--adds custom functions
 require "MainMenu"--Menu Functions
 require "IOFuncs"
 require "CoreChanges"
-require "SetEditing"
 require "Loading"
 require "Activities/EditActivity"
 require "Activities/FlashcardsActivity"
