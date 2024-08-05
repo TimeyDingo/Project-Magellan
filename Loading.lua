@@ -24,7 +24,6 @@ function LoadActivities()
     LoadFlashcards()
 end
 function LoadFlashcards()
-    FlashCardActivityFlashcard=1
+    FlashCardActivityFlashCard=1
     FlashCardActivityFlashCardSide=2
-    flashCardClicked=false
 end

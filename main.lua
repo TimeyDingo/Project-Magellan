@@ -76,7 +76,7 @@ function love.draw()
     end
     if StateMachine=="Flashcards" then
         ActivityBackdrop()
-        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
+        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"; ResetFlashCardActivity()')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
         FlashcardActivity()
     end
