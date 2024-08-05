@@ -5,17 +5,18 @@ require "IOFuncs"
 require "CoreChanges"
 require "SetEditing"
 require "Loading"
-require "EditActivity"
-require "FlashcardsActivity"
-require "MatchingActivity"
-require "MissileDefenseActivity"
-require "TestActivity"
-require "WordSearchActivity"
+require "Activities/EditActivity"
+require "Activities/FlashcardsActivity"
+require "Activities/MatchingActivity"
+require "Activities/MissileDefenseActivity"
+require "Activities/TestActivity"
+require "Activities/WordSearchActivity"
 utf8 = require("utf8")
 function love.load()
     LoadFonts()
     LoadBackdrops()
     LoadSettings()
+    LoadActivities()
     StateMachine="Main Menu"
     Input=""
     Paste=""

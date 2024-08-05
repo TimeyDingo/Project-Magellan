@@ -20,3 +20,11 @@ function LoadSettings()
         love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed
     end
 end
+function LoadActivities()
+    LoadFlashcards()
+end
+function LoadFlashcards()
+    FlashCardActivityFlashcard=1
+    FlashCardActivityFlashCardSide=2
+    flashCardClicked=false
+end
