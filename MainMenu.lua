@@ -128,7 +128,7 @@ function ListofSets()
         ButtonStyle1Mod2(283,731,624,59, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
-    if NumberofSets>6 then
+    if NumberofSets>6 then --?? scroll bar
         love.graphics.setColor(255, 153, 0)
         love.graphics.rectangle("fill",935,136+(678/NumberofSets)*MainMenuScroll,17,678/NumberofSets*7)
         love.graphics.setColor(255,255,255)

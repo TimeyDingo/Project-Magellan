@@ -23,6 +23,7 @@ end
 function LoadActivities()
     LoadFlashcards()
     LoadEdit()
+    LoadMatching()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
@@ -30,4 +31,21 @@ function LoadFlashcards()
 end
 function LoadEdit()
     EditActivityLoadOnce=false
+end
+function LoadMouseClickDebounce()
+    MouseClickDebounceValue=0
+    MouseClickTempValue=0
+end
+function LoadMatching()
+    -- Define the range for random positions
+    local xMin, xMax = 0, 800
+    local yMin, yMax = 0, 600
+
+    MatchingActivityPositions = {}
+    for i = 1, 100 do
+        -- Generate random positions within the specified range
+        local x = math.random(xMin, xMax)
+        local y = math.random(yMin, yMax)
+        table.insert(MatchingActivityPositions, {x, y})
+    end
 end

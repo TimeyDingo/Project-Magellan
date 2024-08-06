@@ -10,3 +10,25 @@ function MapNumber(Number,InMin,InMax,OutMin,OutMax)
     local Map = (Number - InMin) / (InMax - InMin) * (OutMax - OutMin) + OutMin
     return Map
 end
+function IsClickInBox(ClickX,ClickY,boxX, boxY, boxWidth, boxHeight)
+    return ClickX >= boxX and ClickX <= boxX + boxWidth and ClickY >= boxY and ClickY <= boxY + boxHeight
+end
+function MouseClickDebounce(DebouncePeriod)
+    if love.mouse.isDown(1) and MouseClickDebounceValue>DebouncePeriod then
+        MouseClickTempValue=MouseClickDebounceValue
+        MouseClickDebounceValue=0
+        return true
+    else
+        return false
+    end
+end
+function createToggleFlipFlop()
+    local flipFlopState = false
+    
+    return function(pulse)
+        if pulse then
+            flipFlopState = not flipFlopState
+        end
+        return flipFlopState
+    end
+end
