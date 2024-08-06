@@ -1,22 +1,32 @@
 function MatchingActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
-    CenterText(0,-450,SetTitle,Exo32Bold)
-    local NumberOfTerms=#SetData
-    for i=1, NumberOfTerms do
-        for j=1, 2 do
-            DisplayMatchingCard(MatchingActivityPositions[i][1],MatchingActivityPositions[i][2],600,250,SetData[i][j],Exo24,i)
+    CenterText(0, -450, SetTitle, Exo32Bold)
+    local NumberOfTerms = #SetData
+
+    for i = 1, NumberOfTerms do
+        for j = 1, 2 do
+            DisplayMatchingCard(MatchingActivityPositions[i + (j-1) * NumberOfTerms][1], MatchingActivityPositions[i + (j-1) * NumberOfTerms][2], 600, 250, SetData[i][j], Exo24, i + (j-1) * NumberOfTerms)
         end
     end
 end
+
 function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
     -- Handle mouse input
-    if Selected then
-        if love.mouse.isDown(1) then  -- Left mouse button clicked
+    if Selected and love.mouse.isDown(1) then  -- Left mouse button clicked
+        if currentCard == nil then  -- No card is currently selected
+            currentCard = CardNumber  -- Select this card
+        end
+    end
+    
+    if currentCard == CardNumber then
+        if love.mouse.isDown(1) then
             love.graphics.setColor(255, 255, 255)
             MatchingActivityPositions[CardNumber][1] = love.mouse.getX() - BoxW / 2
             MatchingActivityPositions[CardNumber][2] = love.mouse.getY() - BoxH / 2
+        else
+            currentCard = nil  -- Deselect the card when the mouse button is released
         end
     end
     
@@ -35,13 +45,18 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     
     -- Draw the box border
     love.graphics.setLineWidth(3)
-    love.graphics.setColor(255, 153, 0)  -- Set border color
+    if currentCard==CardNumber then
+        love.graphics.setColor(255, 255, 255)  -- Set border color
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     
     -- Reset line width and color
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
+
 
 
 

@@ -38,6 +38,7 @@ function LoadMouseClickDebounce()
 end
 function LoadMatching()
     -- Define the range for random positions
+    currentCard = nil
     local xMin, xMax = 0, 800
     local yMin, yMax = 0, 600
 
