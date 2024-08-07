@@ -5,21 +5,17 @@ function MatchingActivity()
         MatchingActivityLoadOnce=true
     end
     CenterText(0, -450, SetTitle, Exo32Bold)
-    local NumberOfTerms = #SetData
     CenterText(0,-400,tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
+    
+    RemoveMatchingCards()
+
     local CardNumber=0
     for i = 1, #MatchingActivityTable do
-        --[[
-        if MatchingPositionPercentage(MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], 600, 250,MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], 600, 250) > 75 then
-            table.remove(MatchingActivityTable, i)
-        end
-        ]]
         for j = 1, 2 do
             CardNumber=CardNumber+1
             DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], 600, 250, MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
-    CenterText(0,0,tostring(MatchingPositionPercentage(MatchingActivityPositions[1][1][1], MatchingActivityPositions[1][1][2], 600, 250,MatchingActivityPositions[1][2][1], MatchingActivityPositions[1][2][2], 600, 250)),Exo60Black)
 end
 function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairSubset, CardNumber)
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -72,6 +68,26 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     -- Reset line width and color
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
+end
+function RemoveMatchingCards()
+    -- Identify the indices of cards to remove
+    local indicesToRemove = {}
+    for i = 1, #MatchingActivityTable do
+        if MatchingPositionPercentage(
+            MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], 600, 250,
+            MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], 600, 250
+        ) > 75 then
+            table.insert(indicesToRemove, i)
+        end
+    end
+    
+    -- Remove the identified cards and their positions
+    for i = #indicesToRemove, 1, -1 do
+        local index = indicesToRemove[i]
+        table.remove(MatchingActivityTable, index)
+        table.remove(MatchingActivityPositions, index)
+        MatchingActivityCurrentCard=nil
+    end
 end
 
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
