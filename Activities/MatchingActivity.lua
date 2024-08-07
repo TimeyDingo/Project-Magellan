@@ -8,12 +8,18 @@ function MatchingActivity()
     local NumberOfTerms = #SetData
     CenterText(0,-400,tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
     local CardNumber=0
-    for i = 1, NumberOfTerms do
+    for i = 1, #MatchingActivityTable do
+        --[[
+        if MatchingPositionPercentage(MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], 600, 250,MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], 600, 250) > 75 then
+            table.remove(MatchingActivityTable, i)
+        end
+        ]]
         for j = 1, 2 do
             CardNumber=CardNumber+1
             DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], 600, 250, MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
+    CenterText(0,0,tostring(MatchingPositionPercentage(MatchingActivityPositions[1][1][1], MatchingActivityPositions[1][1][2], 600, 250,MatchingActivityPositions[1][2][1], MatchingActivityPositions[1][2][2], 600, 250)),Exo60Black)
 end
 function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairSubset, CardNumber)
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -67,46 +73,6 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
     -- Calculate the edges of the rectangles
