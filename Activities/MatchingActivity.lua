@@ -6,14 +6,16 @@ function MatchingActivity()
     end
     CenterText(0, -450, SetTitle, Exo32Bold)
     local NumberOfTerms = #SetData
-
+    CenterText(0,-400,tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
+    local CardNumber=0
     for i = 1, NumberOfTerms do
         for j = 1, 2 do
-            DisplayMatchingCard(MatchingActivityPositions[i + (j-1) * NumberOfTerms][1], MatchingActivityPositions[i + (j-1) * NumberOfTerms][2], 600, 250, MatchingActivityTable[i][j], Exo24, i + (j-1) * NumberOfTerms)
+            CardNumber=CardNumber+1
+            DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], 600, 250, MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
 end
-function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
+function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairSubset, CardNumber)
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
     -- Handle mouse input
@@ -26,8 +28,8 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     if MatchingActivityCurrentCard == CardNumber then
         if love.mouse.isDown(1) then
             love.graphics.setColor(255, 255, 255)
-            MatchingActivityPositions[CardNumber][1] = love.mouse.getX() - BoxW / 2
-            MatchingActivityPositions[CardNumber][2] = love.mouse.getY() - BoxH / 2
+            MatchingActivityPositions[Pair][PairSubset][1] = love.mouse.getX() - BoxW / 2
+            MatchingActivityPositions[Pair][PairSubset][2] = love.mouse.getY() - BoxH / 2
         else
             MatchingActivityCurrentCard = nil  -- Deselect the card when the mouse button is released
         end
@@ -65,6 +67,47 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
     -- Calculate the edges of the rectangles
     local rightA = XPosA + WidthA

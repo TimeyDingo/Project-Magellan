@@ -38,17 +38,20 @@ function LoadMouseClickDebounce()
 end
 function LoadMatching()
     -- Define the range for random positions
-    MatchingActivityLoadOnce=false
-    MatchingActivityTable={}
+    MatchingActivityLoadOnce = false
+    MatchingActivityTable = {}
     MatchingActivityCurrentCard = nil
-    local xMin, xMax = 0, 800
-    local yMin, yMax = 0, 600
+    local xMin, xMax = 0, 1720
+    local yMin, yMax = 0, 900
 
     MatchingActivityPositions = {}
     for i = 1, 100 do
         -- Generate random positions within the specified range
-        local x = math.random(xMin, xMax)
-        local y = math.random(yMin, yMax)
-        table.insert(MatchingActivityPositions, {x, y})
+        local x1 = math.random(xMin, xMax)
+        local y1 = math.random(yMin, yMax)
+        local x2 = math.random(xMin, xMax)
+        local y2 = math.random(yMin, yMax)
+        table.insert(MatchingActivityPositions, {{x1, y1}, {x2, y2}})
     end
 end
+
