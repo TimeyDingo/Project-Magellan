@@ -84,7 +84,7 @@ function love.draw()
     end
     if StateMachine=="Matching" then
         ActivityBackdrop()
-        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"')
+        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,'StateMachine = "Set Options"; LoadMatching()')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,"love.event.quit()")
         MatchingActivity()
     end
