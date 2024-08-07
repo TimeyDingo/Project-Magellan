@@ -1,51 +1,60 @@
 function MatchingActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
+    if MatchingActivityLoadOnce==false then
+        MatchingActivityTable=SetData
+        MatchingActivityLoadOnce=true
+    end
     CenterText(0, -450, SetTitle, Exo32Bold)
     local NumberOfTerms = #SetData
 
     for i = 1, NumberOfTerms do
         for j = 1, 2 do
-            DisplayMatchingCard(MatchingActivityPositions[i + (j-1) * NumberOfTerms][1], MatchingActivityPositions[i + (j-1) * NumberOfTerms][2], 600, 250, SetData[i][j], Exo24, i + (j-1) * NumberOfTerms)
+            DisplayMatchingCard(MatchingActivityPositions[i + (j-1) * NumberOfTerms][1], MatchingActivityPositions[i + (j-1) * NumberOfTerms][2], 600, 250, MatchingActivityTable[i][j], Exo24, i + (j-1) * NumberOfTerms)
         end
     end
 end
-
 function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
     -- Handle mouse input
     if Selected and love.mouse.isDown(1) then  -- Left mouse button clicked
-        if currentCard == nil then  -- No card is currently selected
-            currentCard = CardNumber  -- Select this card
+        if MatchingActivityCurrentCard == nil then  -- No card is currently selected
+            MatchingActivityCurrentCard = CardNumber  -- Select this card
         end
     end
     
-    if currentCard == CardNumber then
+    if MatchingActivityCurrentCard == CardNumber then
         if love.mouse.isDown(1) then
             love.graphics.setColor(255, 255, 255)
             MatchingActivityPositions[CardNumber][1] = love.mouse.getX() - BoxW / 2
             MatchingActivityPositions[CardNumber][2] = love.mouse.getY() - BoxH / 2
         else
-            currentCard = nil  -- Deselect the card when the mouse button is released
+            MatchingActivityCurrentCard = nil  -- Deselect the card when the mouse button is released
         end
     end
     
-    -- Wrap the text and calculate dimensions
-    love.graphics.setFont(TextFont)
-    local _, wrappedText = TextFont:getWrap(Text, BoxW)
-    local wrappedHeight = #wrappedText * TextFont:getHeight()
-
-    -- Coordinates for the text
-    local textX = BoxX
-    local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
-    
-    -- Draw the wrapped text
-    love.graphics.setColor(255, 255, 255)  -- Set text color to white
-    love.graphics.printf(Text, textX, textY, BoxW, "center")
+    -- Ensure Text is a string before wrapping
+    if type(Text) == "string" then
+        -- Wrap the text and calculate dimensions
+        love.graphics.setFont(TextFont)
+        local _, wrappedText = TextFont:getWrap(Text, BoxW)
+        local wrappedHeight = #wrappedText * TextFont:getHeight()
+        
+        -- Coordinates for the text
+        local textX = BoxX
+        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
+        
+        -- Draw the wrapped text
+        love.graphics.setColor(255, 255, 255)  -- Set text color to white
+        love.graphics.printf(Text, textX, textY, BoxW, "center")
+    else
+        -- Handle the case where Text is not a string (optional)
+        print("Warning: Text is not a string")
+    end
     
     -- Draw the box border
     love.graphics.setLineWidth(3)
-    if currentCard==CardNumber then
+    if MatchingActivityCurrentCard == CardNumber then
         love.graphics.setColor(255, 255, 255)  -- Set border color
     else
         love.graphics.setColor(255, 153, 0)
@@ -56,12 +65,6 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, CardNumber)
     love.graphics.setLineWidth(1)
     love.graphics.setColor(255, 255, 255)
 end
-
-
-
-
-
-
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
     -- Calculate the edges of the rectangles
     local rightA = XPosA + WidthA
