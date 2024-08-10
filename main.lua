@@ -10,6 +10,7 @@ require "Activities/MatchingActivity"
 require "Activities/MissileDefenseActivity"
 require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
+tove = require "tove"
 utf8 = require("utf8")
 function love.load()
     LoadFonts()
@@ -17,6 +18,16 @@ function love.load()
     LoadSettings()
     LoadActivities()
     LoadMouseClickDebounce()
+
+
+
+    --!!! prototype SVG usage
+    TestBackdrop = love.filesystem.read("SVG/Selectscreenbackdrop.svg")
+    svg = tove.newGraphics(TestBackdrop,1920,1080)
+    --!!! prototype SVG usage
+
+
+
     StateMachine="Main Menu"
     Input=""
     Paste=""
@@ -39,7 +50,17 @@ function love.draw()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
     if StateMachine=="Main Menu" then
-        Backdrop()
+        --Backdrop()
+
+        --!!! prototype SVG usage
+        love.graphics.translate(1920/2, 1080/2)
+        svg:draw()
+        love.graphics.translate(-1920/2, -1080/2)
+        --!!! prototype SVG usage
+
+
+
+
         SelectButton()
         CreateNewSetButton()
         ImportQuizletSetButton()
