@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from poke1024.github.io/tove2d/tutorials/Animation/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Aug 2024 00:25:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Animating Things - TÖVE</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="../../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Animating Things";
+    var mkdocs_page_input_path = "tutorials/Animation.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="icon icon-home"> TÖVE</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="https://poke1024.github.io/tove2d/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Overview</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Getting_Started/index.html">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Demos/index.html">The Demos</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../features/index.html">Features</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Renderers/index.html">Choosing Renderers</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Animating Things</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#animating-with-the-stage-api">Animating with the Stage API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flipbooks-and-animations">Flipbooks and Animations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tweens">Tweens</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#flipbooks">Flipbooks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#animations">Animations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#looping">Looping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#a-technical-note">A Technical Note</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#procedural-animation-features">Procedural Animation Features</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#animating-colors">Animating colors</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#animating-by-re-setting-the-color">Animating by re-setting the color</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#animating-by-changing-the-color">Animating by changing the color</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#animating-shapes-with-commands">Animating shapes with Commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#directly-accessing-paths-and-curves">Directly Accessing Paths and Curves</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="https://poke1024.github.io/tove2d-api/">API Documentation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../release-notes/index.html">Release Notes</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">TÖVE</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Animating Things</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="animating-things">Animating Things</h1>
+<p>TÖVE is designed for allowing animating and changing shapes and colors at runtime without getting inefficient.</p>
+<h2 id="animating-with-the-stage-api">Animating with the Stage API</h2>
+<p>Many animations can be achieved by moving, rotating and scaling certain fixed parts of a graphics. TÖVE offers the retained <code>Stage</code> API for simplifying these kind of animations (also see the <a href="https://poke1024.github.io/tove2d-api/modules/stage.html">Stage API documentation</a>).</p>
+<p>At the core is the <code>Shape</code> object. Each <code>Shape</code> holds a <code>Graphics</code> you can access. Each <code>Shape</code> knows about its own position, rotation and scale. You can change these at any time and  they will stay this way across frames until you change them again. So if you have objects on the screen and only want to move some of them, <code>Shape</code> might simplify your code.</p>
+<p>For drawing, <code>Shapes</code> need to added to a <code>Stage</code>. Here's an example:</p>
+<pre><code>local stage = tove.newStage()
+
+local shape = tove.newShape()
+shape.graphics:drawCircle(0, 0, 100)
+shape.graphics:setFillColor(0.7, 0.2, 0.3)
+shape.graphics:fill()
+
+-- add this shape to the stage. from now on
+-- it will get rendered with the stage.
+stage:addChild(shape)
+
+function love.draw()
+    -- change the position of our shape.
+    shape.x = love.mouse.getX()
+    shape.y = love.mouse.getY()
+
+    stage:draw()
+end
+</code></pre>
+
+<h2 id="flipbooks-and-animations">Flipbooks and Animations</h2>
+<p>Let's say you have a couple of SVGs that you want to play back like some sort of sprite sheet. TÖVE has two kinds of API to support you with this. Also see <a href="https://poke1024.github.io/tove2d-api/modules/animation.html">TÖVE's API documentation on animation function</a>.</p>
+<p>First, there are flipbooks. These are prerendered distinct frames. Think of a sprite atlas being played back.</p>
+<p>Second, there are animations. These are interpolated in real time, i.e. they are not prerendered. Note that for these, TÖVE expects all frames to have exactly the same path layout (same number of trajectories and points across all frames)<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>The "blob" demo has code for both animation styles.</p>
+<h3 id="tweens">Tweens</h3>
+<p>For both flipbooks and animations, the first thing to do is to create a tween that gathers all the keyframes and durations, much like a timeline in an animation program.</p>
+<p>Tweens can be created from <code>Graphics</code> or from SVG text data like this:</p>
+<pre><code>svg1 = love.filesystem.read(&quot;frame1.svg&quot;)
+svg2 = love.filesystem.read(&quot;frame2.svg&quot;)
+
+tween = tove.newTween(svg1):to(svg2, 1)
+</code></pre>
+
+<p>The code above creates a tween of two frames, where the second frame happens one second after the other. You can add more frames by calling <code>to</code>. So,  <code>tove.newTween(svg1):to(svg2, 1):to(svg3, 5)</code> would create a tween that adds an additional frame 5 seconds after the second.</p>
+<p><code>to</code> takes an optional third parameter which allows you to ease the transition. It expects a one-parameter Lua function that maps (0, 1).</p>
+<h3 id="flipbooks">Flipbooks</h3>
+<p>Flipbooks consist of distinct prerendered frames. That means flipbooks have high quality but only a discrete time resolution.</p>
+<p>Creating a flipbook is easy:</p>
+<p><code>f = tove.newFlipbook(8, tween)</code></p>
+<p>This creates a flipbook with 8 frames per second, i.e. it prerenders the tween at this frame rate. You can animate this flipbook by calling <code>f:draw()</code> and by setting <code>f.t</code> for its current time (in tween time, i.e. this is not a frame number).</p>
+<p>You can also specify what kind of renderer you want to use for the distinct frames. <code>bitmap</code> is the default, but you can also choose <code>mesh</code> which will prerender your frames as adaptive meshes. You can also specify quality settings as optional follow-up parameters.</p>
+<h3 id="animations">Animations</h3>
+<p>Animations are frames interpolated and rendered in realtime. That means animations have a continuous time resolution but can also be expensive in terms of rendering.</p>
+<p>Animations are created like this:</p>
+<p><code>a = tove.newAnimation(tween, "mesh")</code></p>
+<p>As with flipbooks, you can use <code>a:draw()</code> to draw the current frame, and <code>a.t</code> to set the time.</p>
+<h3 id="looping">Looping</h3>
+<p>By default, animations and flipbooks interpolate as if they bounce forth and back. If you want to look your animation, make sure to transition to the first frame at the end of the tween. This indicates to TÖVE that you want a continuous interpolation from first to last:</p>
+<pre><code>tween = tove.newTween(svg1):to(svg2, 1):to(svg1, 1)
+</code></pre>
+
+<h3 id="a-technical-note">A Technical Note</h3>
+<p>If you're using animations with the <code>"mesh"</code> display mode, TÖVE will use a fixed resolution flattening and try to precalculate all triangulations. That means that the quality will be lower than for adaptive meshes, but things should be fast.</p>
+<h2 id="procedural-animation-features">Procedural Animation Features</h2>
+<p>Sometimes you want even more flexibility for some kind of procedural animation:</p>
+<ul>
+<li>freely animate colors and gradients of a path in realtime</li>
+<li>freely animate a path by modifying its control points in realtime</li>
+</ul>
+<p>TÖVE can do this. Take a look at the "hearts" demo to see working code. Here are some hints:</p>
+<p>The first step to animate colors or points is to tell your <code>Graphics</code> instance about it: call <code>Graphics:setUsage</code> to animate <code>points</code> (the shape of your drawing) or <code>colors</code> (the fill or stroke color of your drawing) or both. </p>
+<pre><code>myDrawing:setUsage(&quot;points&quot;, &quot;stream&quot;) -- animate points
+myDrawing:setUsage(&quot;colors&quot;, &quot;stream&quot;) -- animate colors
+</code></pre>
+
+<p>Without doing this, TÖVE will not be able to animate your objects efficiently and things will be slow.</p>
+<p>Please note that TÖVE does not efficiently support animations that add or delete points.</p>
+<p>You can also choose to use <code>"dynamic"</code> instead of <code>"stream"</code> if your shapes change frequently, but not on every frame (also see <a href="https://love2d.org/wiki/SpriteBatchUsage">LÖVE's docs on <code>SpriteBatchUsage</code></a>).</p>
+<h2 id="animating-colors">Animating colors</h2>
+<p>Animating colors is easy. Here are two examples:</p>
+<h3 id="animating-by-re-setting-the-color">Animating by re-setting the color</h3>
+<p>To animate the triangle from the Getting Started section, you could do this:</p>
+<pre><code>function love.draw()
+    local t = love.timer.getTime() -- current time
+    local r, g, b = math.abs(math.sin(t)), 0.4, 0.2
+    myDrawing.paths[1]:setFillColor(tove.newColor(r, g, b))
+end
+</code></pre>
+
+<p>Note that we do not call <code>setFillColor</code> on the <code>Graphics</code> as that would only change the next new path we fill using <code>Graphics:fill()</code>.  As we actively want to change the color of an already existing  path, we need to grab that path using <code>myDrawing.paths[1]</code>.</p>
+<p>Of course, if you'd like the line color to change, you'd call <code>setLineColor</code> instead.</p>
+<h3 id="animating-by-changing-the-color">Animating by changing the color</h3>
+<p>A slightly different approach is changing the color itself:</p>
+<pre><code>local myColor = tove.newColor()
+myDrawing.paths[1]:setFillColor(myColor)
+
+function love.draw()
+    local r = math.abs(math.sin(love.timer.getTime()))
+    myColor:set(r, 0.4, 0.2)
+</code></pre>
+
+<p>RGB colors can be read and changed by either <code>set(r, g, b, a)</code> and <code>r, g, b, a = get()</code> or directly via attributes, e.g. <code>someColor.r = 0.3</code>.</p>
+<p>So the code above could also be written as:</p>
+<pre><code>local myColor = tove.newColor(0.0, 0.4, 0.2)
+myDrawing.paths[1]:setFillColor(myColor)
+
+function love.draw()
+    myColor.r = math.abs(math.sin(love.timer.getTime()))
+</code></pre>
+
+<h2 id="animating-shapes-with-commands">Animating shapes with Commands</h2>
+<p>Most drawing calls come return a command, that allows you to animate what you have just drawn. Also see the <a href="https://poke1024.github.io/tove2d-api/classes/Command.html">API documentation on Commands</a>.</p>
+<p>An example:</p>
+<pre><code>local shape = tove.newGraphics()
+shape.moveTo(10, 10)
+local myLineTo = shape.lineTo(100, 100)
+shape.moveTo(-50, 200)
+</code></pre>
+
+<p>At any point later in your code, you can now modify the <code>lineTo</code> command:</p>
+<pre><code>myLineTo.x = 200
+</code></pre>
+
+<p>This has the same effect as if you'd recreated the whole graphics with the modified <code>lineTo</code>,  but it's much faster - using mutable commands, TÖVE will animate stuff very efficiently (for example, for the mesh renderer, this boils down to a <code>Mesh:setVertices</code> call in LÖVE).</p>
+<p>The attribute names are <code>x</code> and <code>y</code> for <code>moveTo</code> and <code>lineTo</code>. For <code>curveTo</code> you also have <code>cp1x</code>, <code>cp1y</code>, <code>cp2x</code>, <code>cp2y</code>. You can read and write those properties.</p>
+<h2 id="directly-accessing-paths-and-curves">Directly Accessing Paths and Curves</h2>
+<p>Using  Command  is what you want to animate one path most of the time. Sometimes though want to have a broader access to your curve data. For example you might want to morph whole parts of a path. TÖVE let's you do this. Also see the <a href="https://poke1024.github.io/tove2d-api/classes/Curve.html">Curve API documentation</a>.</p>
+<p>Let's first talk about how TÖVE stores your curves and how it names things:</p>
+<ul>
+<li>A <code>Graphics</code> is a collection of <code>Path</code>s</li>
+<li>A <code>Path</code> is a collection of <code>Subpath</code>s (plus fill and stroke styles etc.)</li>
+<li>A <code>Subpath</code> consists of <code>Curve</code>s</li>
+<li>A <code>Curve</code> is a cubic bezier curve and consists of four control points</li>
+</ul>
+<p>With this scheme, you can access paths, subpaths and curves (all indices are 1-based):</p>
+<pre><code>local myCurve = myGraphics.paths[1].subpaths[2].curves[5]
+</code></pre>
+
+<p>Once you have picked a curve, you can modify its points by accessing its attributes <code>x0</code>, <code>y0</code>,  <code>cp1x</code>, <code>cp1y</code>, <code>cp2x</code>, <code>cp2y</code>, <code>x</code>, <code>y</code> (the latter 6 correspond to the parameters you'd pass to <code>Graphics:curveTo</code>). This works for reading and writing.</p>
+<p>For example, to animate the x target point of curve 1 of some graphics using your mouse, you might do this:</p>
+<pre><code>function love.draw()
+    myDrawing.paths[1].subpaths[1].curves[1].x = love.mouse.getX()
+    myDrawing:Draw()
+end
+</code></pre>
+
+<p>If you want to access a curve's underlying points by index, you can do it like this:</p>
+<pre><code> myGraphics.paths[1].subpaths[2].curves[1].p[2].x
+ myGraphics.paths[1].subpaths[2].curves[3].p[2].y
+</code></pre>
+
+<p>To find out how many paths, subpaths, curves or points you have, you can use the <code>count</code> attribute, e.g.:</p>
+<pre><code>myDrawing.paths.count -- number of paths
+myDrawing.paths[1].subpaths.count -- number of subpaths in path 1
+myDrawing.paths[1].subpaths[1].points.count -- number of points in subpath 1 in path 1
+</code></pre>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>if this is not the case, TÖVE is able to morph shapes (see demos/morph).&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../release-notes/index.html" class="btn btn-neutral float-right" title="Release Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Renderers/index.html" class="btn btn-neutral" title="Choosing Renderers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Renderers/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../release-notes/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../../index.html';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+
+<!-- Mirrored from poke1024.github.io/tove2d/tutorials/Animation/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Aug 2024 00:25:28 GMT -->
+</html>
