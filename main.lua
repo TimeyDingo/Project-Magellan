@@ -58,13 +58,13 @@ function love.draw()
 
 
 
-
-        SelectButton()
-        CreateNewSetButton()
-        ImportQuizletSetButton()
+        
+        ButtonStyle1Mod3(scaling(261,1920,Settings[1]),scaling(833,1080,Settings[2]),scaling(689,1920,Settings[1]),scaling(41,1080,Settings[2]),"Select",Exo24Bold,'if SetToPreview>0 then StateMachine="Set Options" end')
+        ButtonStyle1Mod3(scaling(261,1920,Settings[1]),scaling(889,1080,Settings[2]),scaling(689,1920,Settings[1]),scaling(41,1080,Settings[2]),"Create New Set",Exo24Bold)
+        ButtonStyle1Mod3(scaling(327,1920,Settings[1]),scaling(944,1080,Settings[2]),scaling(624,1920,Settings[1]),scaling(41,1080,Settings[2]),"Import Quizlet Set",Exo24Bold,'StateMachine="Import Menu"')
         ListofSets()
         SetPreview()
-        ButtonStyle1Mod3(scaling(1491,1920,Settings[1]),scaling(88,1080,Settings[2]),scaling(50,1920,Settings[1]),scaling(50,1080,Settings[2]),"~",Exo24Bold,"StateMachine==Settings Menu")
+        ButtonStyle1Mod3(scaling(1491,1920,Settings[1]),scaling(88,1080,Settings[2]),scaling(50,1920,Settings[1]),scaling(50,1080,Settings[2]),"~",Exo24Bold,"StateMachine='Settings Menu'")
         ButtonStyle1Mod3(scaling(1551,1920,Settings[1]),scaling(88,1080,Settings[2]),scaling(50,1920,Settings[1]),scaling(50,1080,Settings[2]),"X",Exo24Bold,"love.event.quit()")
     end
     if StateMachine=="Settings Menu" then
