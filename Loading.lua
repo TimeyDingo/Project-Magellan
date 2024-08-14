@@ -15,9 +15,9 @@ function LoadBackdrops()
     GameBar=love.graphics.newImage('GameBar.png')
 end
 function LoadSettings()
-    Settings={1920,1080,2}
+    Settings={1024,600,2,false}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3]})--! Scaling of various objects need to be correctly done so that resolution can eventually be changed
+        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3], fullscreen=toboolean(Settings[4])})
     end
 end
 function LoadActivities()

@@ -32,3 +32,13 @@ function createToggleFlipFlop()
         return flipFlopState
     end
 end
+function toboolean(str)
+    local bool = false
+    if str == "true" then
+        bool = true
+    end
+    return bool
+end
+function scaling(OriginalPos,OriginalResolution,NewResolution)
+    return (OriginalPos*NewResolution)/OriginalResolution
+end
