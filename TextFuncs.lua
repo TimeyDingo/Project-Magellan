@@ -49,11 +49,16 @@ function CenterText(X,Y,Text,TextFont)
     local TH=TextFont:getHeight(Text)
     love.graphics.print(Text,((W-TW)/2)+X,((H-TH)/2)+Y)--Screen Width minus text width divided by 2 + change in x
 end
-function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
+function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont,Scaling)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
-    
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
@@ -75,11 +80,16 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
+function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
-    
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
@@ -101,11 +111,16 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be able to run a function
+function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Action)--Be able to run a function
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
-    
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
@@ -117,7 +132,7 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be ab
     love.graphics.setLineWidth(MediumLine)
     if Selected then
         love.graphics.setColor(255, 255, 255)
-        if love.mouse.isDown(1) then -- Button clicked
+        if love.mouse.isDown(1) and MouseClickDebounce(30) then -- Button clicked
             if Action then
                 local actionFunc, err = load(Action)
                 if actionFunc then
@@ -135,19 +150,30 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be ab
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
+function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
     local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
     love.graphics.print(Text, textX, textY)
 end
-function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont)
+function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     love.graphics.setFont(TextFont)
     local textHeight = TextFont:getHeight()  -- Height of a single line of text
-
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
     -- Calculate the wrapped text and the number of lines
     local wrappedText, lines = TextFont:getWrap(Text, BoxW)
     local totalHeight = #lines * textHeight
@@ -159,4 +185,9 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont)
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")
 
     return totalHeight
+end
+function BackdropDraw(Backdrop)
+    love.graphics.translate(Settings[1]/2, Settings[2]/2)
+    Backdrop:draw()
+    love.graphics.translate(-Settings[1]/2, -Settings[2]/2)
 end
