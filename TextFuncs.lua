@@ -38,7 +38,7 @@ function TextBox(X,Y,Text,TextFont,Alignment,SoftCorners,backgroundR,backgroundG
     local BottomRightY=(Y+((H-TH-PaddingUD)/2))+TH+PaddingUD
     if Selected==true then
         love.graphics.setColor(backgroundR,backgroundG,backgroundB)
-        love.graphics.setLineWidth(3)
+        love.graphics.setLineWidth(MediumLine)
         love.graphics.rectangle("line",TopLeftX-10,TopLeftY-10,BottomRightX+20-TopLeftX,BottomRightY+20-TopLeftY)
     end
     return TopLeftX,TopLeftY,BottomRightX,BottomRightY
@@ -62,7 +62,7 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
     local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
     
     love.graphics.print(Text, textX, textY)
-    love.graphics.setLineWidth(3)
+    love.graphics.setLineWidth(MediumLine)
     if Selected then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then --! clicked
@@ -72,7 +72,7 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont)
         love.graphics.setColor(255, 153, 0)
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
 function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
@@ -88,7 +88,7 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
     local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
     
     love.graphics.print(Text, textX, textY)
-    love.graphics.setLineWidth(3)
+    love.graphics.setLineWidth(MediumLine)
     if Selected or SetToPreview==ClickedValue then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then --! clicked
@@ -98,7 +98,7 @@ function ButtonStyle1Mod2(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue)
         love.graphics.setColor(255, 153, 0)
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
 function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be able to run a function
@@ -114,7 +114,7 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be ab
     local textY = BoxY + (BoxH - TH) / 2  -- Center the text vertically
     
     love.graphics.print(Text, textX, textY)
-    love.graphics.setLineWidth(3)
+    love.graphics.setLineWidth(MediumLine)
     if Selected then
         love.graphics.setColor(255, 255, 255)
         if love.mouse.isDown(1) then -- Button clicked
@@ -132,7 +132,7 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Action)--Be ab
         love.graphics.setColor(255, 153, 0)
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
 function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont)

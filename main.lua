@@ -13,12 +13,12 @@ require "Activities/WordSearchActivity"
 tove = require "tove"
 utf8 = require("utf8")
 function love.load()
+    LoadSettings()
     LoadFonts()
     LoadBackdrops()
-    LoadSettings()
+    LoadLineThickness()
     LoadActivities()
     LoadMouseClickDebounce()
-
 
 
     --!!! prototype SVG usage
@@ -68,9 +68,9 @@ function love.draw()
         ButtonStyle1Mod3(scaling(1551,1920,Settings[1]),scaling(88,1080,Settings[2]),scaling(50,1920,Settings[1]),scaling(50,1080,Settings[2]),"X",Exo24Bold,"love.event.quit()")
     end
     if StateMachine=="Settings Menu" then
-        ButtonStyle1Mod3(300,253,402,122,"1024x576",Exo24Bold, 'Settings[1]=1024; Settings[2]=576')
-        ButtonStyle1Mod3(754,253,402,122,"1280x720",Exo24Bold, 'Settings[1]=1280; Settings[2]=720')
-        ButtonStyle1Mod3(1209,253,402,122,"1920x1080",Exo24Bold, 'Settings[1]=1920; Settings[2]=1080')
+        ButtonStyle1Mod3(300,253,402,122,"1024x576",Exo24Bold, 'Settings[1]=1024; Settings[2]=576; Settings[5]=4; Settings[6]=3')
+        ButtonStyle1Mod3(754,253,402,122,"1280x720",Exo24Bold, 'Settings[1]=1280; Settings[2]=720; Settings[5]=3; Settings[6]=2')
+        ButtonStyle1Mod3(1209,253,402,122,"1920x1080",Exo24Bold, 'Settings[1]=1920; Settings[2]=1080; Settings[5]=0; Settings[6]=0')
         ButtonStyle1Mod3(300,486,402,122,"Fullscreen",Exo24Bold, 'Settings[4]=true')
         ButtonStyle1Mod3(1209,486,402,122,"Windowed",Exo24Bold, 'Settings[4]=false')
         ButtonStyle1Mod3(754,720,402,122,"Confirm",Exo24Bold, 'SaveSettings(Settings)')

@@ -19,7 +19,7 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
-    love.graphics.setLineWidth(3)
+    love.graphics.setLineWidth(MediumLine)
     if FlashCardActivityFlashCardSide==1 then
         love.graphics.setColor(255, 255, 255)
     else
@@ -33,7 +33,7 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
         end
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
 

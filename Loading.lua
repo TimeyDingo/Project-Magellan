@@ -1,12 +1,12 @@
 function LoadFonts()
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24)
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24)
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20)
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20)
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28)
-    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28)
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32)
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45)
+    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings[5])
+    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings[5])
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings[5])
+    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20-Settings[5])
+    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28-Settings[5])
+    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings[5])
+    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings[5])
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings[5])
 end
 function LoadBackdrops()
     BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')
@@ -54,4 +54,12 @@ function LoadMatching()
         table.insert(MatchingActivityPositions, {{x1, y1}, {x2, y2}})
     end
 end
-
+function LoadLineThickness()
+    local MediumLineSubtraction=0
+    if Settings[6] > 0 then
+        MediumLineSubtraction=1
+    end
+    ThickLine=5-Settings[6]
+    MediumLine=3-MediumLineSubtraction
+    ThinLine=1
+end

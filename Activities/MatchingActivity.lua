@@ -57,7 +57,7 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     end
     
     -- Draw the box border
-    love.graphics.setLineWidth(3)
+    love.graphics.setLineWidth(MediumLine)
     if MatchingActivityCurrentCard == CardNumber then
         love.graphics.setColor(255, 255, 255)  -- Set border color
     else
@@ -66,7 +66,7 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     
     -- Reset line width and color
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
 function RemoveMatchingCards()

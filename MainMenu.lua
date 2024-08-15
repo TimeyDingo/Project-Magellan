@@ -4,11 +4,11 @@ function ListofSets()
     local TopLeftY=scaling(156,1080,Settings[2])
     local Width=scaling(656,1920,Settings[1])
     local Height=scaling(651,1080,Settings[2])
-    love.graphics.setLineWidth(5)
+    love.graphics.setLineWidth(ThickLine)
     love.graphics.setColor(22, 22, 22)
     love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
     love.graphics.setColor(255,255,255)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(ThinLine)
     local NumberofSets=CheckSavedSets()
     local ButtonX=scaling(283,1920,Settings[1])
     local ButtonWidth=scaling(624,1920,Settings[1])
@@ -59,9 +59,9 @@ function SetPreview()
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
-        CenteredTextBox(scaling(976,1920,Settings[1]),scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), setTitle, Exo24Bold)
+        CenteredTextBox(scaling(976,1920,Settings[1]),scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), tostring(setTitle), Exo28Bold)
         love.graphics.setFont(Exo24)
-        y = y + scaling(20,1080,Settings[2])  -- Move to the next line
+        y = y + scaling(25,1080,Settings[2])  -- Move to the next line
 
         for i, item in ipairs(dataSet) do
             local definition = item[1]
