@@ -78,11 +78,8 @@ function SetPreview()
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)
 end
-function ImportMenuBackdrop()
-    love.graphics.draw(BackdropImport,0,0,0,1,1,0,0)
-end
 function ImportMenuTitle()
-    CenterText(201,-288,Input,Exo28)
+    CenterText(scaling(201,1920,Settings[1]),scaling(-288,1080,Settings[2]),Input,Exo28)
     function love.textinput(t)
         Input=Input..t
     end
@@ -104,8 +101,8 @@ function ImportMenuSetPastingAndPreview()
         Paste=love.system.getClipboardText()
     end
     if Paste~="" then
-        local x = 825  -- Starting X position for text drawing
-        local y = 340  -- Starting Y position for text drawing
+        local x = scaling(825,1920,Settings[1])  -- Starting X position for text drawing
+        local y = scaling(340,1080,Settings[2])  -- Starting Y position for text drawing
         local WrapDistance = 0
 
         -- Split the inputString into individual sections based on ';;'
@@ -115,18 +112,18 @@ function ImportMenuSetPastingAndPreview()
         end
 
         love.graphics.setFont(Exo24)
-        y = y + 20  -- Move to the next line
+        y = y + scaling(20,1080,Settings[2])  -- Move to the next line
 
         for i, section in ipairs(sections) do
             -- Split each section into definition and term based on '::'
             local definition, term = section:match("(.+)::(.+)")
             
             if definition and term then
-                CenteredTextBox(x, y, 673, 30, definition, Exo20Bold)
-                y = y + 20
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, 673, term, Exo20)
+                CenteredTextBox(x, y, scaling(673,1920,Settings[1]), scaling(30,1080,Settings[2]), definition, Exo20Bold)
+                y = y + scaling(20,1080,Settings[2])
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), term, Exo20)
                 y = y + WrapDistance  -- Move to the next line
-                if y > 800 then
+                if y > scaling(800,1080,Settings[2]) then
                     love.graphics.setColor(255, 255, 255, 0)
                 end
             end
@@ -140,11 +137,6 @@ function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
     love.graphics.setFont(Exo60Black)
-    love.graphics.print(StateMachine, scaling(596,1920,Settings[1]), 1)
-    love.graphics.setFont(Exo24)
-end
-function SetOptionsBackdrop()
-    love.graphics.draw(BackdropSelectAction,0,0,0,1,1,0,0)
-    CenterText(0,-350,SetTitle,Exo32Bold)
+    love.graphics.print(StateMachine, scaling(596,1920,Settings[1]), scaling(1,1080,Settings[2]))
     love.graphics.setFont(Exo24)
 end

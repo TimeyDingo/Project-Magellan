@@ -6,7 +6,7 @@ function LoadFonts()
     Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28-Settings[5])
     Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings[5])
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings[5])
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings[5])
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings[5]*5)
 end
 function LoadBackdrops()
     --BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')

@@ -62,7 +62,6 @@ function love.draw()
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
     if StateMachine=="Import Menu" then
-        --ImportMenuBackdrop()
         BackdropDraw(ImportMenuBackdrop)
         ImportMenuTitle()
         ImportMenuSetPastingAndPreview()
@@ -72,7 +71,6 @@ function love.draw()
     end
     if StateMachine=="Set Options" then
         SetTitle, SetData = LoadIndividualSet(SetToPreview)
-        --SetOptionsBackdrop
         BackdropDraw(SelectActionBackdrop)
         ButtonStyle1Mod3(300,253,402,122,"Edit",Exo24Bold,true, 'StateMachine = "Edit"')
         ButtonStyle1Mod3(754,253,402,122,"Flashcards",Exo24Bold,true, 'StateMachine = "Flashcards"')
