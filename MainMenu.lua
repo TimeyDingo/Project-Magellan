@@ -1,40 +1,44 @@
 function ListofSets()
     SetData = LoadSavedSetsIntoMemory()
-    local TopLeftX=267
-    local TopLeftY=156
-    local Width=656
-    local Height=651
+    local TopLeftX=scaling(267,1920,Settings[1])
+    local TopLeftY=scaling(156,1080,Settings[2])
+    local Width=scaling(656,1920,Settings[1])
+    local Height=scaling(651,1080,Settings[2])
     love.graphics.setLineWidth(5)
     love.graphics.setColor(22, 22, 22)
     love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
     love.graphics.setColor(255,255,255)
     love.graphics.setLineWidth(1)
     local NumberofSets=CheckSavedSets()
+    local ButtonX=scaling(283,1920,Settings[1])
+    local ButtonWidth=scaling(624,1920,Settings[1])
+    local ButtonHeight=scaling(59,1080,Settings[2])
     if NumberofSets>0 then
-        ButtonStyle1Mod2(283,173,624,59,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(173,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
     end
     if NumberofSets>1 then
-        ButtonStyle1Mod2(283,266,624,59,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
+        ButtonStyle1Mod2(ButtonX,scaling(266,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
     end
     if NumberofSets>2 then
-        ButtonStyle1Mod2(283,359,624,59,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(359,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
     end
     if NumberofSets>3 then
-        ButtonStyle1Mod2(283,452,624,59,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(452,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
     end
     if NumberofSets>4 then
-        ButtonStyle1Mod2(283,545,624,59,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(545,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
     end
     if NumberofSets>5 then
-        ButtonStyle1Mod2(283,638,624,59,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(638,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
     end
     if NumberofSets>6 then
-        ButtonStyle1Mod2(283,731,624,59, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
+        ButtonStyle1Mod2(ButtonX,scaling(731,1080,Settings[2]),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
         love.graphics.setColor(255, 153, 0)
-        love.graphics.rectangle("fill",935,136+(678/NumberofSets)*MainMenuScroll,17,678/NumberofSets*7)
+        local ScrollingOrigin=scaling(678,1080,Settings[2])
+        love.graphics.rectangle("fill",scaling(935,1920,Settings[1]),scaling(136,1080,Settings[2])+(ScrollingOrigin/NumberofSets)*MainMenuScroll,scaling(17,1920,Settings[1]),ScrollingOrigin/NumberofSets*7)
         love.graphics.setColor(255,255,255)
         function love.keypressed(key)
             if key == "up" and MainMenuScroll > 0 then
