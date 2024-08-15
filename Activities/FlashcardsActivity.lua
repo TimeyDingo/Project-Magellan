@@ -36,7 +36,6 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-
 function FlashCardKeyboardControls()
     function love.keypressed(key)
         if key == "left" then

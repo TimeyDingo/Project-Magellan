@@ -51,6 +51,7 @@ function love.draw()
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
     if StateMachine=="Settings Menu" then--!!! bugged
+        BackdropDraw(SelectActionBackdrop)
         ButtonStyle1Mod3(300,253,402,122,"1024x576",Exo24Bold, true,'Settings[1]=1024; Settings[2]=576; Settings[5]=4; Settings[6]=3')
         ButtonStyle1Mod3(754,253,402,122,"1280x720",Exo24Bold, true,'Settings[1]=1280; Settings[2]=720; Settings[5]=3; Settings[6]=2')
         ButtonStyle1Mod3(1209,253,402,122,"1920x1080",Exo24Bold,true, 'Settings[1]=1920; Settings[2]=1080; Settings[5]=0; Settings[6]=0')
@@ -61,7 +62,8 @@ function love.draw()
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
     if StateMachine=="Import Menu" then
-        ImportMenuBackdrop()
+        --ImportMenuBackdrop()
+        BackdropDraw(ImportMenuBackdrop)
         ImportMenuTitle()
         ImportMenuSetPastingAndPreview()
         ButtonStyle1Mod3(1691, 88, 50, 50, "<-", Exo24Bold,true, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
@@ -70,7 +72,8 @@ function love.draw()
     end
     if StateMachine=="Set Options" then
         SetTitle, SetData = LoadIndividualSet(SetToPreview)
-        SetOptionsBackdrop()
+        --SetOptionsBackdrop
+        BackdropDraw(SelectActionBackdrop)
         ButtonStyle1Mod3(300,253,402,122,"Edit",Exo24Bold,true, 'StateMachine = "Edit"')
         ButtonStyle1Mod3(754,253,402,122,"Flashcards",Exo24Bold,true, 'StateMachine = "Flashcards"')
         ButtonStyle1Mod3(1209,253,402,122,"Matching",Exo24Bold,true, 'StateMachine = "Matching"')
@@ -83,7 +86,7 @@ function love.draw()
         ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
-    if StateMachine=="Edit" then
+    if StateMachine=="Edit" then--!! scaling issue on activity backdrops
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
