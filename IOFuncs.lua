@@ -2,7 +2,7 @@ function SaveSettings(Settings)
     local file = io.open("Settings.txt", "w")
     if file then--? Check if successful open
         for i, value in ipairs(Settings) do
-            file:write(value .. "\n")--? each indice to new line
+            file:write(tostring(value) .. "\n")--? each indice to new line
         end
         file:close() -- Close the file
         return 1--?Success!

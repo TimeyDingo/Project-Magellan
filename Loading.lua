@@ -27,6 +27,8 @@ function LoadSettings()
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
         love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3], fullscreen=toboolean(Settings[4])})
     end
+    SettingsResolution=Settings[1]
+    SettingsFullscreen=toboolean(Settings[4])
 end
 function LoadActivities()
     LoadFlashcards()
@@ -71,3 +73,34 @@ function LoadLineThickness()
     MediumLine=3-MediumLineSubtraction
     ThinLine=1
 end
+function ConfirmSettings()
+    if SettingsResolution==1920 then
+        Settings[1]=1920
+        Settings[2]=1080
+        Settings[5]=0
+        Settings[6]=0
+    end
+    if SettingsResolution==1280 then
+        Settings[1]=1280
+        Settings[2]=720
+        Settings[5]=3
+        Settings[6]=2
+    end
+    if SettingsResolution==1024 then
+        Settings[1]=1024
+        Settings[2]=576
+        Settings[5]=4
+        Settings[6]=3
+    end
+    if SettingsFullscreen==true then
+        Settings[4]=true
+    end
+    if SettingsFullscreen==false then
+        Settings[4]=false
+    end
+    SaveSettings(Settings)
+    LoadBackdrops()
+    LoadActivities()
+    LoadSettings()
+end
+ 

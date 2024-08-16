@@ -52,12 +52,12 @@ function love.draw()
     end
     if StateMachine=="Settings Menu" then--!!! bugged
         BackdropDraw(SelectActionBackdrop)
-        ButtonStyle1Mod3(300,253,402,122,"1024x576",Exo24Bold, true,'Settings[1]=1024; Settings[2]=576; Settings[5]=4; Settings[6]=3')
-        ButtonStyle1Mod3(754,253,402,122,"1280x720",Exo24Bold, true,'Settings[1]=1280; Settings[2]=720; Settings[5]=3; Settings[6]=2')
-        ButtonStyle1Mod3(1209,253,402,122,"1920x1080",Exo24Bold,true, 'Settings[1]=1920; Settings[2]=1080; Settings[5]=0; Settings[6]=0')
-        ButtonStyle1Mod3(300,486,402,122,"Fullscreen",Exo24Bold,true, 'Settings[4]=true')
-        ButtonStyle1Mod3(1209,486,402,122,"Windowed",Exo24Bold,true,'Settings[4]=false')
-        ButtonStyle1Mod3(754,720,402,122,"Confirm",Exo24Bold,true, 'SaveSettings(Settings)')
+        SettingResolutionButtons(300,253,402,122,"1024x576",Exo24Bold,1024, true)
+        SettingResolutionButtons(754,253,402,122,"1280x720",Exo24Bold,1280, true)
+        SettingResolutionButtons(1209,253,402,122,"1920x1080",Exo24Bold,1920,true)
+        SettingsFullscreenButtons(300,486,402,122,"Fullscreen",Exo24Bold,true,true)
+        SettingsFullscreenButtons(1209,486,402,122,"Windowed",Exo24Bold,false,true)
+        ButtonStyle1Mod3(754,720,402,122,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
         ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end

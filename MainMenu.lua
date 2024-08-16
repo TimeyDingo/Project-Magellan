@@ -14,25 +14,25 @@ function ListofSets()
     local ButtonWidth=scaling(624,1920,Settings[1])
     local ButtonHeight=scaling(59,1080,Settings[2])
     if NumberofSets>0 then
-        ButtonStyle1Mod2(ButtonX,scaling(173,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(173,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
     end
     if NumberofSets>1 then
-        ButtonStyle1Mod2(ButtonX,scaling(266,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
+        MainMenuSetListButtons(ButtonX,scaling(266,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
     end
     if NumberofSets>2 then
-        ButtonStyle1Mod2(ButtonX,scaling(359,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(359,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
     end
     if NumberofSets>3 then
-        ButtonStyle1Mod2(ButtonX,scaling(452,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(452,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
     end
     if NumberofSets>4 then
-        ButtonStyle1Mod2(ButtonX,scaling(545,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(545,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
     end
     if NumberofSets>5 then
-        ButtonStyle1Mod2(ButtonX,scaling(638,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(638,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
     end
     if NumberofSets>6 then
-        ButtonStyle1Mod2(ButtonX,scaling(731,1080,Settings[2]),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(731,1080,Settings[2]),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -139,4 +139,97 @@ function ActivityBackdrop()
     love.graphics.setFont(Exo60Black)
     love.graphics.print(StateMachine, scaling(596,1920,Settings[1]), scaling(1,1080,Settings[2]))
     love.graphics.setFont(Exo24)
+end
+function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected or SetToPreview==ClickedValue then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) then --! clicked
+            SetToPreview=ClickedValue
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
+end
+function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected or SettingsResolution==ClickedValue then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) then --! clicked
+            SettingsResolution=ClickedValue
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
+end
+function SettingsFullscreenButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected or SettingsFullscreen==ClickedValue then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) then --! clicked
+            SettingsFullscreen=ClickedValue
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
 end
