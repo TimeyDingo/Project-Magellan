@@ -1,9 +1,9 @@
 function FlashcardActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
-    CenterText(0,-450,SetTitle,Exo32Bold)
-    CenterText(0,-400,tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData),Exo32Bold)
+    CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
+    CenterText(0,scaling(-400,1080,Settings[2]),tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData),Exo32Bold)
     --CenterText(0,0,tostring(SetData[2][2]),Exo24)
-    DisplayFlashCard(578,308,763,464,tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
+    DisplayFlashCard(scaling(578,1920,Settings[1]),scaling(308,1080,Settings[2]),scaling(763,1920,Settings[1]),scaling(464,1080,Settings[2]),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
     FlashCardKeyboardControls()
 end
 function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)

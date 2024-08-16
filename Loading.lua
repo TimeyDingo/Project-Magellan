@@ -49,8 +49,8 @@ function LoadMatching()
     MatchingActivityLoadOnce = false
     MatchingActivityTable = {}
     MatchingActivityCurrentCard = nil
-    local xMin, xMax = 0, 1720
-    local yMin, yMax = 0, 900
+    local xMin, xMax = 0, Settings[1]-200
+    local yMin, yMax = 0, Settings[2]-180
 
     MatchingActivityPositions = {}
     for i = 1, 100 do

@@ -4,8 +4,8 @@ function MatchingActivity()
         MatchingActivityTable=SetData
         MatchingActivityLoadOnce=true
     end
-    CenterText(0, -450, SetTitle, Exo32Bold)
-    CenterText(0,-400,tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
+    CenterText(0, scaling(-450,1080,Settings[2]), SetTitle, Exo32Bold)
+    CenterText(0,scaling(-400,1080,Settings[2]),tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
     
     RemoveMatchingCards()
 
@@ -13,7 +13,7 @@ function MatchingActivity()
     for i = 1, #MatchingActivityTable do
         for j = 1, 2 do
             CardNumber=CardNumber+1
-            DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], 600, 250, MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
+            DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], scaling(600,1920,Settings[1]), scaling(250,1080,Settings[2]), MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
 end
