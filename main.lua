@@ -26,6 +26,7 @@ function love.load()
     SetToPreview=0
     BackspaceTimer=0
     MainMenuScroll=0
+    Deleting=false
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -45,12 +46,14 @@ function love.draw()
         ButtonStyle1Mod3(261,833,689,41,"Select",Exo24Bold,true,'if SetToPreview>0 then StateMachine="Set Options" end')
         ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true)
         ButtonStyle1Mod3(327,944,624,41,"Import Quizlet Set",Exo24Bold,true,'StateMachine="Import Menu"')
-        ListofSets()
-        SetPreview()
+        if Deleting==false then--!!! Deleting Set in IOFuncs is bugged
+            ListofSets()
+            SetPreview()
+        end
         ButtonStyle1Mod3(1491,88,50,50,"~",Exo24Bold,true,"StateMachine='Settings Menu'")
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
-    if StateMachine=="Settings Menu" then--!!! bugged
+    if StateMachine=="Settings Menu" then
         BackdropDraw(SelectActionBackdrop)
         SettingResolutionButtons(300,253,402,122,"1024x576",Exo24Bold,1024, true)
         SettingResolutionButtons(754,253,402,122,"1280x720",Exo24Bold,1280, true)

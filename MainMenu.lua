@@ -74,6 +74,9 @@ function SetPreview()
                 love.graphics.setColor(255,255,255,0)
             end
         end
+        love.graphics.setColor(255,255,255)
+        --CenteredTextBox(x,scaling(905,1080,Settings[2])+scaling(35,1080,Settings[2]),scaling(673,1920,Settings[1]),scaling(30,1080,Settings[2]),"Delete Term",Exo20Bold)
+        ButtonStyle1Mod3(x+scaling(80,1920,Settings[1]),scaling(895,1080,Settings[2])+scaling(35,1080,Settings[2]),scaling(673,1920,Settings[1])-scaling(160,1920,Settings[1]),scaling(50,1080,Settings[2]),"Delete Set",Exo24Bold,false,"DeleteSet()")
     end
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)

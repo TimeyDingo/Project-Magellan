@@ -47,6 +47,20 @@ function AddOneToSavedSetCount()
     file:write(NumberofSets + 1)
     io.close(file)
 end
+function RemoveOneFromSavedSetCount()
+    local file = io.open("SavedSets/Sets.txt", "r+")
+    local NumberofSets = 0
+    
+    if file then
+        NumberofSets = file:read("*n") or 0
+        file:seek("set")  -- Move file pointer back to the beginning for writing
+    else
+        file = io.open("SavedSets/Sets.txt", "w")  -- Create file if it doesn't exist
+    end
+    
+    file:write(NumberofSets - 1)
+    io.close(file)
+end
 function ImportAQuizletSet(Title, SetData)
     local CurrentSetCount=0
     CurrentSetCount=CheckSavedSets()
@@ -156,4 +170,18 @@ function LoadIndividualSet(SetToLoad)
     end
 
     return Title, SetData
+end
+function DeleteSet()
+    Deleting=true
+    local NumberofSets=CheckSavedSets()
+    local SetToRemove="SavedSets/Set" .. SetToPreview .. ".txt"
+    os.remove(SetToRemove)
+    RemoveOneFromSavedSetCount()
+    for i=SetToPreview, NumberofSets do
+        local Rename="SavedSets/Set" .. i-1 .. ".txt"
+        os.rename(Rename, i)
+    end
+    SetToPreview=0
+    --os.rename (oldname, newname)
+    --SetToPreview=0
 end
