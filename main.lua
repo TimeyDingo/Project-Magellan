@@ -29,6 +29,7 @@ function love.load()
     MainMenuScroll=0
     Deleting=false
     HeldTime=0
+    ViewActivityScroll=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()

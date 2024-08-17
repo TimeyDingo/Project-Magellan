@@ -1,4 +1,5 @@
 function LoadFonts()
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings[5])
     Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings[5])
     Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings[5])
     Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings[5])
