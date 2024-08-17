@@ -1,3 +1,0 @@
-date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
-20:30:16	347548/347548	---MCZ	200	added ('OK')	text/html	etag:W/%228ce5630e2645594f75f2fd53b7262d9a%22	https://github.com/Ulydev/push	Z:/saved%20website/Push%20docs%202.0/github.com/Ulydev/push.html	(from )
-20:30:16	556/556	---M-Z	200	added ('OK')	text/plain	etag:W/%2266b7653f-5f1%22	https://github.com/robots.txt		(from )

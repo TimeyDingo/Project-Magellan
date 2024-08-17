@@ -10,6 +10,7 @@ require "Activities/MatchingActivity"
 require "Activities/MissileDefenseActivity"
 require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
+require "Activities/ViewSet"
 tove = require "tove"
 utf8 = require("utf8")
 function love.load()
@@ -69,7 +70,7 @@ function love.draw()
         BackdropDraw(ImportMenuBackdrop)
         ImportMenuTitle()
         ImportMenuSetPastingAndPreview()
-        ButtonStyle1Mod3(1691, 88, 50, 50, "<-", Exo24Bold,true, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
+        ButtonStyle1Mod3(1691, 88, 50, 50, "<-",Exo24Bold,true, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
         ButtonStyle1Mod3(1751,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
         ButtonStyle1Mod3(1020,887,290,96,"Confirm",Exo24Bold,true,'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""')
     end
@@ -82,7 +83,7 @@ function love.draw()
         ButtonStyle1Mod3(300,486,402,122,"Missile Defense",Exo24Bold,true, 'StateMachine = "Missile Defense"')
         ButtonStyle1Mod3(754,486,402,122,"Word Search",Exo24Bold,true, 'StateMachine = "Word Search"')
         ButtonStyle1Mod3(1209,486,402,122,"Test",Exo24Bold,true, 'StateMachine = "Test"')
-        ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold,true)
+        ButtonStyle1Mod3(300,720,402,122,"View Set",Exo24Bold,true, 'StateMachine = "View Set"')
         ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)
         ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold,true)
         ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
@@ -123,6 +124,12 @@ function love.draw()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
         TestActivity()
+    end
+    if StateMachine=="View Set" then
+        ActivityBackdrop()
+        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
+        ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+        ViewActivity()
     end
     love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings[1]),scaling(50,1080,Settings[2]))--? Debug for mouse position
 end
