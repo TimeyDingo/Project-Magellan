@@ -86,18 +86,7 @@ function ImportMenuTitle()
     function love.textinput(t)
         Input=Input..t
     end
-    function love.keypressed(key)
-        if key == "backspace" then
-            -- get the byte offset to the last UTF-8 character in the string.
-            local byteoffset = utf8.offset(Input, -1)
-    
-            if byteoffset then
-                -- remove the last UTF-8 character.
-                -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
-                Input = string.sub(Input, 1, byteoffset - 1)
-            end
-        end
-    end
+    Input=BackspaceController(Input,30)
 end
 function ImportMenuSetPastingAndPreview()
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then

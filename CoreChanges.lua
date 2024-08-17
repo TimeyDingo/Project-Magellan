@@ -42,3 +42,31 @@ end
 function scaling(OriginalPos,OriginalResolution,NewResolution)
     return (OriginalPos*NewResolution)/OriginalResolution
 end
+function BackspaceController(String,HoldDelay)
+    String=tostring(String)
+    local Held
+    if love.keyboard.isDown("backspace") then
+        HeldTime=HeldTime+1
+    else
+        HeldTime=0
+    end
+    if love.keyboard.isDown("backspace") and MouseClickDebounceValue>5 and Held~=true then
+        local byteoffset = utf8.offset(String, -1)
+        if byteoffset then
+            -- remove the last UTF-8 character.
+            -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
+            String = string.sub(String, 1, byteoffset - 1)
+        end
+        MouseClickDebounceValue=0
+    end
+    if HeldTime>HoldDelay then
+        Held=true
+        local byteoffset = utf8.offset(String, -1)
+        if byteoffset then
+            -- remove the last UTF-8 character.
+            -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
+            String = string.sub(String, 1, byteoffset - 1)
+        end
+    end
+    return String
+end

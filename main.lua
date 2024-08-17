@@ -27,6 +27,7 @@ function love.load()
     BackspaceTimer=0
     MainMenuScroll=0
     Deleting=false
+    HeldTime=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()

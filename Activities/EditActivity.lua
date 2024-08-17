@@ -5,7 +5,7 @@ function EditActivity()
     end
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
 end
-function EditActivityEditableBox(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
+function EditActivityEditableBox(BoxX, BoxY, BoxW, Text, TextFont,TermOrDefinition,TermOrDefinitionToEdit, Scaling)
     love.graphics.setFont(TextFont)
     local textHeight = TextFont:getHeight()  -- Height of a single line of text
     if Scaling==true then
