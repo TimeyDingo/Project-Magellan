@@ -46,7 +46,7 @@ function love.draw()
         ButtonStyle1Mod3(261,833,689,41,"Select",Exo24Bold,true,'if SetToPreview>0 then StateMachine="Set Options" end')
         ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true)
         ButtonStyle1Mod3(327,944,624,41,"Import Quizlet Set",Exo24Bold,true,'StateMachine="Import Menu"')
-        if Deleting==false then--!!! Deleting Set in IOFuncs is bugged
+        if Deleting==false then
             ListofSets()
             SetPreview()
         end
@@ -87,7 +87,7 @@ function love.draw()
         ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
         ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
     end
-    if StateMachine=="Edit" then--!! scaling issue on activity backdrops
+    if StateMachine=="Edit" then
         ActivityBackdrop()
         ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
@@ -123,5 +123,5 @@ function love.draw()
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
         TestActivity()
     end
-    love.graphics.print(MouseX.."x"..MouseY,200,50)--? Debug for mouse position
+    love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings[1]),scaling(50,1080,Settings[2]))--? Debug for mouse position
 end
