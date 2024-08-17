@@ -178,10 +178,12 @@ function DeleteSet()
     os.remove(SetToRemove)
     RemoveOneFromSavedSetCount()
     for i=SetToPreview, NumberofSets do
+        local NameToChange="SavedSets/Set" .. i .. ".txt"
         local Rename="SavedSets/Set" .. i-1 .. ".txt"
-        os.rename(Rename, i)
+        os.rename(NameToChange, Rename)
     end
     SetToPreview=0
     --os.rename (oldname, newname)
     --SetToPreview=0
+    Deleting=false
 end
