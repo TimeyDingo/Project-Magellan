@@ -29,7 +29,6 @@ function love.load()
     MainMenuScroll=0
     Deleting=false
     HeldTime=0
-    ViewActivityScroll=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -128,7 +127,7 @@ function love.draw()
     end
     if StateMachine=="View Set" then
         ActivityBackdrop()
-        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
+        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadViewSet()')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
         ViewActivity()
     end

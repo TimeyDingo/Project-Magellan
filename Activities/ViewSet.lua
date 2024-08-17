@@ -40,11 +40,6 @@ function ViewActivity()
     end
     love.graphics.setColor(255,255,255)
 end
-
-
-
-
-
 function DisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     love.graphics.setFont(TextFont)
     if Scaling==true then

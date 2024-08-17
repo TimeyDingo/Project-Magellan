@@ -35,6 +35,7 @@ function LoadActivities()
     LoadFlashcards()
     LoadEdit()
     LoadMatching()
+    LoadViewSet()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
@@ -104,4 +105,6 @@ function ConfirmSettings()
     LoadActivities()
     LoadSettings()
 end
- 
+function LoadViewSet()
+    ViewActivityScroll=0
+end
