@@ -26,7 +26,7 @@ end
 function LoadSettings()
     Settings={1024,600,2,false}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3], fullscreen=toboolean(Settings[4])})
+        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3], fullscreen=toboolean(Settings[4]), borderless=toboolean(Settings[4])})
     end
     SettingsResolution=Settings[1]
     SettingsFullscreen=toboolean(Settings[4])
@@ -43,6 +43,7 @@ function LoadFlashcards()
 end
 function LoadEdit()
     EditActivityLoadOnce=false
+    EditActivityScroll=0
 end
 function LoadMouseClickDebounce()
     MouseClickDebounceValue=0
@@ -101,9 +102,9 @@ function ConfirmSettings()
         Settings[4]=false
     end
     SaveSettings(Settings)
+    LoadSettings()
     LoadBackdrops()
     LoadActivities()
-    LoadSettings()
 end
 function LoadViewSet()
     ViewActivityScroll=0
