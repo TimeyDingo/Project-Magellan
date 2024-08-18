@@ -33,9 +33,12 @@ end
 function love.update(dt)
     dt = love.timer.getDelta()
     MouseClickDebounceValue=MouseClickDebounceValue+1
-    SetData = LoadSavedSetsIntoMemory()
     if love.keyboard.isDown("1") then --? allows game to be closed on 1 keyboard input for debugging
         love.event.quit()
+    end
+    if StateMachine=="Edit" and EditActivityLoadOnce==false then
+        SetTitle, SetData=LoadIndividualSet(SetToPreview)
+        EditActivityLoadOnce=true
     end
 end
 function love.draw()
@@ -44,6 +47,7 @@ function love.draw()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
     if StateMachine=="Main Menu" then
+        SetData = LoadSavedSetsIntoMemory()
         BackdropDraw(MainMenuBackdrop)
         ButtonStyle1Mod3(261,833,689,41,"Select",Exo24Bold,true,'if SetToPreview>0 then StateMachine="Set Options" end')
         ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true)

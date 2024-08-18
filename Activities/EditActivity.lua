@@ -1,8 +1,4 @@
 function EditActivity()
-    if toboolean(EditActivityLoadOnce)==false then
-        SetTitle, SetData=LoadIndividualSet(SetToPreview)
-        EditActivityLoadOnce=true
-    end
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
     local TermFont=Exo24
     local DefinitionFont=Exo20
@@ -13,20 +9,20 @@ function EditActivity()
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
     if NumberOfTerms>0 then
-        EditableDisplayTerm(20,200+MediumLine,910,200,SetData[1+EditActivityScroll][2],TermFont,true)
-        EditableDisplayDefinition(990,200+MediumLine,910,200,SetData[1+EditActivityScroll][1],DefinitionFont,true)
+        EditableDisplayTerm(20,200+MediumLine,910,200,1+EditActivityScroll,TermFont,true)
+        --EditableDisplayDefinition(990,200+MediumLine,910,200,SetData[1+EditActivityScroll][1],DefinitionFont,true)
     end
     if NumberOfTerms>1 then
-        EditableDisplayTerm(20,420+MediumLine,910,200,SetData[2+EditActivityScroll][2],TermFont,true)
-        EditableDisplayDefinition(990,420+MediumLine,910,200,SetData[2+EditActivityScroll][1],DefinitionFont,true)
+        EditableDisplayTerm(20,420+MediumLine,910,200,2+EditActivityScroll,TermFont,true)
+        --EditableDisplayDefinition(990,420+MediumLine,910,200,SetData[2+EditActivityScroll][1],DefinitionFont,true)
     end
     if NumberOfTerms>2 then
-        EditableDisplayTerm(20,640+MediumLine,910,200,SetData[3+EditActivityScroll][2],TermFont,true)
-        EditableDisplayDefinition(990,640+MediumLine,910,200,SetData[3+EditActivityScroll][1],DefinitionFont,true)
+        EditableDisplayTerm(20,640+MediumLine,910,200,3+EditActivityScroll,TermFont,true)
+        --EditableDisplayDefinition(990,640+MediumLine,910,200,SetData[3+EditActivityScroll][1],DefinitionFont,true)
     end
     if NumberOfTerms>3 then
-        EditableDisplayTerm(20,860+MediumLine,910,200,SetData[4+EditActivityScroll][2],TermFont,true)
-        EditableDisplayDefinition(990,860+MediumLine,910,200,SetData[4+EditActivityScroll][1],DefinitionFont,true)
+        EditableDisplayTerm(20,860+MediumLine,910,200,4+EditActivityScroll,TermFont,true)
+        --EditableDisplayDefinition(990,860+MediumLine,910,200,SetData[4+EditActivityScroll][1],DefinitionFont,true)
         --? Scrolling stuff below
         love.graphics.setColor(255, 153, 0)
         local ScrollingOrigin=scaling(950,1080,Settings[2])
@@ -43,7 +39,7 @@ function EditActivity()
     end
     love.graphics.setColor(255,255,255)
 end
-function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
+function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont,Scaling)
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
@@ -51,6 +47,17 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
         BoxW=scaling(BoxW,1920,Settings[1])
         BoxH=scaling(BoxH,1080,Settings[2])
     end
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+        function love.textinput(t)
+            SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..t
+        end
+        SetData[TermToDisplayAndEdit][2]=BackspaceController(SetData[TermToDisplayAndEdit][2],30)
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    Text=SetData[TermToDisplayAndEdit][2]
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
@@ -63,7 +70,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
+function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, DefinitionToDisplayAndEdit, TextFont,Scaling)
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])

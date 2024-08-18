@@ -1,5 +1,4 @@
 function ListofSets()
-    SetData = LoadSavedSetsIntoMemory()
     local TopLeftX=scaling(267,1920,Settings[1])
     local TopLeftY=scaling(156,1080,Settings[2])
     local Width=scaling(656,1920,Settings[1])
