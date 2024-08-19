@@ -146,6 +146,7 @@ function LoadIndividualSet(SetToLoad)
     local filename = "SavedSets/Set" .. SetToLoad .. ".txt"
     local SetData = {}
     local Title
+    local Num=0
     local NumberofSets = CheckSavedSets()
     if SetToLoad > NumberofSets then
         return nil
@@ -164,12 +165,12 @@ function LoadIndividualSet(SetToLoad)
                         table.insert(subData, subItem)
                     end
                     table.insert(SetData, subData)
+                    Num=Num+1
                 end
             end
         end
     end
-
-    return Title, SetData
+    return Title, SetData, Num
 end
 function SaveIndividualSet(SetTitle, SetDataTable, SetToSave)
     local filename = "SavedSets/Set" .. SetToSave .. ".txt"

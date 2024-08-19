@@ -29,6 +29,7 @@ function love.load()
     MainMenuScroll=0
     Deleting=false
     HeldTime=0
+    NumberOfTerms=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -37,7 +38,7 @@ function love.update(dt)
         love.event.quit()
     end
     if StateMachine=="Edit" and EditActivityLoadOnce==false then
-        SetTitle, SetData=LoadIndividualSet(SetToPreview)
+        SetTitle, SetData, NumberOfTerms=LoadIndividualSet(SetToPreview)
         EditActivityLoadOnce=true
     end
 end
@@ -95,7 +96,7 @@ function love.draw()
     end
     if StateMachine=="Edit" then
         ActivityBackdrop()
-        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
+        ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadEdit()')
         ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
         EditActivity()
     end
