@@ -60,7 +60,7 @@ function love.draw()
                 SetPreview()
             end
             ButtonStyle1Mod3(1491,88,50,50,"~",Exo24Bold,true,"StateMachine='Settings Menu'")
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SelectActionBackdrop)
