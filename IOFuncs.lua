@@ -171,6 +171,25 @@ function LoadIndividualSet(SetToLoad)
 
     return Title, SetData
 end
+function SaveIndividualSet(SetTitle, SetDataTable, SetToSave)
+    local filename = "SavedSets/Set" .. SetToSave .. ".txt"
+    local file = io.open(filename, "w")
+    if file then
+        local dataToSave = SetTitle .. "--"
+        for i, subData in ipairs(SetDataTable) do
+            dataToSave = dataToSave .. table.concat(subData, ";;")
+            if i < #SetDataTable then
+                dataToSave = dataToSave .. "::"
+            end
+        end
+        file:write(dataToSave)
+        file:close()
+        return true
+    else
+        return false
+    end
+end
+
 function DeleteSet()
     Deleting=true
     local NumberofSets=CheckSavedSets()

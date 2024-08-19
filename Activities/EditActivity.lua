@@ -1,32 +1,38 @@
-function EditActivity()
+function EditActivity()--!!! crash when deleting enough terms that less than 4 are to be displayed
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
     local TermFont=Exo24
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
     love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
     love.graphics.setColor(255,255,255)
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
+    ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
+    ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {"",""})')
     if NumberOfTerms>0 then
-        EditableDisplayTerm(20,200+MediumLine,910,200,1+EditActivityScroll,TermFont,true)
+        EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
         EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
+        ButtonStyle1Mod3(890, 200+MediumLine, 40, 200, "X", Exo24Bold, true, 'table.remove(SetData, 1+EditActivityScroll)')
     end
     if NumberOfTerms>1 then
-        EditableDisplayTerm(20,420+MediumLine,910,200,2+EditActivityScroll,TermFont,true)
+        EditableDisplayTerm(20,420+MediumLine,870,200,2+EditActivityScroll,TermFont,true)
         EditableDisplayDefinition(990,420+MediumLine,910,200,2+EditActivityScroll,DefinitionFont,true)
+        ButtonStyle1Mod3(890, 420+MediumLine, 40, 200, "X", Exo24Bold, true, 'table.remove(SetData, 2+EditActivityScroll)')
     end
     if NumberOfTerms>2 then
-        EditableDisplayTerm(20,640+MediumLine,910,200,3+EditActivityScroll,TermFont,true)
+        EditableDisplayTerm(20,640+MediumLine,870,200,3+EditActivityScroll,TermFont,true)
         EditableDisplayDefinition(990,640+MediumLine,910,200,3+EditActivityScroll,DefinitionFont,true)
+        ButtonStyle1Mod3(890, 640+MediumLine, 40, 200, "X", Exo24Bold, true, 'table.remove(SetData, 3+EditActivityScroll)')
     end
     if NumberOfTerms>3 then
-        EditableDisplayTerm(20,860+MediumLine,910,200,4+EditActivityScroll,TermFont,true)
+        EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
         EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
+        ButtonStyle1Mod3(890, 860+MediumLine, 40, 200, "X", Exo24Bold, true, 'table.remove(SetData, 4+EditActivityScroll)')
         --? Scrolling stuff below
         love.graphics.setColor(255, 153, 0)
         local ScrollingOrigin=scaling(950,1080,Settings[2])
-        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*EditActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms*4)
+        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*EditActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms*4)
         love.graphics.setColor(255,255,255)
         function love.keypressed(key)
             if key == "up" and EditActivityScroll > 0 then
