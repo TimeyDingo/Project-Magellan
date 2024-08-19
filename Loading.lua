@@ -109,3 +109,8 @@ end
 function LoadViewSet()
     ViewActivityScroll=0
 end
+function LoadPopup()
+    PopupCall=false
+    PopupAction=""
+    PopUpMessage=""
+end

@@ -160,3 +160,69 @@ function BackdropDraw(Backdrop)
     Backdrop:draw()
     love.graphics.translate(-Settings[1]/2, -Settings[2]/2)
 end
+function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling,RGB, Action)--Be able to run a function
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2  -- Center the text vertically
+    love.graphics.setColor(RGB[1], RGB[2], RGB[3])
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected then
+        love.graphics.setColor(RGB[1], RGB[2], RGB[3])
+        if love.mouse.isDown(1) and MouseClickDebounce(30) then -- Button clicked
+            if Action then
+                local actionFunc, err = load(Action)
+                if actionFunc then
+                    actionFunc()
+                else
+                    print("Error in action string: " .. err)
+                end
+            end
+            return true
+        end
+    else
+        love.graphics.setColor(RGB[4], RGB[5], RGB[6])
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
+end
+function ConfirmActionPopup(MessageType,TextFont,Scaling,Action)
+    local BoxXUnscalled=600
+    local BoxYUnscalled=480
+    local BoxWUnscalled=660
+    local BoxHUnscalled=220
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(MessageType)
+    local TW = TextFont:getWidth(MessageType)
+    if Scaling==true then
+        BoxX=scaling(BoxXUnscalled,1920,Settings[1])
+        BoxY=scaling(BoxYUnscalled,1080,Settings[2])
+        BoxW=scaling(BoxWUnscalled,1920,Settings[1])
+        BoxH=scaling(BoxHUnscalled,1080,Settings[2])
+    end
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = (BoxY + (BoxH - TH) / 2)-scaling(90,1080,Settings[2])  -- Center the text vertically
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255,255,255)
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255,153,0)
+    love.graphics.print(MessageType, textX, textY)
+    love.graphics.setColor(255, 255, 255)
+    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},"PopupCall=false")
+    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
+end
