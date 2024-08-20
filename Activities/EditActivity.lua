@@ -1,5 +1,5 @@
 function EditActivity()
-    CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
+    EditableTitle(660, 60, 600, 60, Exo32Bold,true)
     local TermFont=Exo24
     local DefinitionFont=Exo20
     love.graphics.setColor(40,40,40)
@@ -118,4 +118,35 @@ function EditActivityCallBackoutPopup()
     PopupCall = true
     PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
     PopUpMessage = "Unsaved Edits will be lost"
+end
+function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
+    love.graphics.setFont(TextFont)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+        function love.textinput(t)
+            SetTitle=SetTitle..t
+        end
+        SetTitle=BackspaceController(SetTitle,30)
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    Text=SetTitle
+    local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
+    local _, wrappedText = TextFont:getWrap(Text, BoxW)
+    local wrappedHeight = #wrappedText * TextFont:getHeight()
+    -- Coordinates for the text
+    local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
+    love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255, 153, 0)
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
 end
