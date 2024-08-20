@@ -114,3 +114,8 @@ function EditActivityRemoveTerm(TermToRemove)
     NumberOfTerms=NumberOfTerms-1
     Deleting=false
 end
+function EditActivityCallBackoutPopup()
+    PopupCall = true
+    PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
+    PopUpMessage = "Unsaved Edits will be lost"
+end

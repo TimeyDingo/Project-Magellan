@@ -42,6 +42,7 @@ function love.update(dt)
         SetTitle, SetData, NumberOfTerms=LoadIndividualSet(SetToPreview)
         EditActivityLoadOnce=true
     end
+    StateMachine=tostring(StateMachine)
 end
 function love.draw()
     H=love.graphics.getPixelHeight()
@@ -71,14 +72,14 @@ function love.draw()
             SettingsFullscreenButtons(1209,486,402,122,"Windowed",Exo24Bold,false,true)
             ButtonStyle1Mod3(754,720,402,122,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
             ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Import Menu" then
             BackdropDraw(ImportMenuBackdrop)
             ImportMenuTitle()
             ImportMenuSetPastingAndPreview()
             ButtonStyle1Mod3(1691, 88, 50, 50, "<-",Exo24Bold,true, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
-            ButtonStyle1Mod3(1751,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1751,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             ButtonStyle1Mod3(1020,887,290,96,"Confirm",Exo24Bold,true,'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""')
         end
         if StateMachine=="Set Options" then
@@ -94,48 +95,48 @@ function love.draw()
             ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)
             ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold,true)
             ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Edit" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadEdit()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1797, 3, 50, 50, "<-", Exo24Bold, true, 'EditActivityCallBackoutPopup()')            
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             EditActivity()
         end
         if StateMachine=="Flashcards" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; ResetFlashCardActivity()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             FlashcardActivity()
         end
         if StateMachine=="Matching" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadMatching()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             MatchingActivity()
         end
         if StateMachine=="Missile Defense" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             MissileDefenseActivity()
         end
         if StateMachine=="Word Search" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             WordSearchActivity()
         end
         if StateMachine=="Test" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             TestActivity()
         end
         if StateMachine=="View Set" then
             ActivityBackdrop()
             ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadViewSet()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"love.event.quit()")
+            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             ViewActivity()
         end
     end
