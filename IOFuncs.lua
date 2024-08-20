@@ -207,3 +207,13 @@ function DeleteSet()
     --SetToPreview=0
     Deleting=false
 end
+function CreateNewSet()
+    Deleting=true
+    local AmountOfSets=CheckSavedSets()
+    local BlankSet={{"Definition","Term"}}
+    SaveIndividualSet("Title Here", BlankSet, AmountOfSets+1)
+    AddOneToSavedSetCount()
+    SetToPreview=CheckSavedSets()
+    StateMachine ="Edit"
+    Deleting=false
+end

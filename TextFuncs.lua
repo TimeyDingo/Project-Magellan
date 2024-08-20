@@ -45,6 +45,9 @@ function TextBox(X,Y,Text,TextFont,Alignment,SoftCorners,backgroundR,backgroundG
 end
 function CenterText(X,Y,Text,TextFont)
     love.graphics.setFont(TextFont)
+    if Text==nil or TextFont==nil or X==nil or Y==nil then
+        return
+    end
     local TW=TextFont:getWidth(Text)
     local TH=TextFont:getHeight(Text)
     love.graphics.print(Text,((W-TW)/2)+X,((H-TH)/2)+Y)--Screen Width minus text width divided by 2 + change in x

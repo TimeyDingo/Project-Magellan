@@ -51,12 +51,12 @@ function love.draw()
     MouseY = love.mouse.getY()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
-            SetData = LoadSavedSetsIntoMemory()
             BackdropDraw(MainMenuBackdrop)
             ButtonStyle1Mod3(261,833,689,41,"Select",Exo24Bold,true,'if SetToPreview>0 then StateMachine="Set Options" end')
-            ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true)
+            ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true, "CreateNewSet()")
             ButtonStyle1Mod3(327,944,624,41,"Import Quizlet Set",Exo24Bold,true,'StateMachine="Import Menu"')
             if Deleting==false then
+                SetData = LoadSavedSetsIntoMemory()
                 ListofSets()
                 SetPreview()
             end
