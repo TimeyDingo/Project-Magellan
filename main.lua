@@ -34,7 +34,7 @@ function love.load()
 end
 function love.update(dt)
     dt = love.timer.getDelta()
-    MouseClickDebounceValue=MouseClickDebounceValue+1
+    DebounceTimer=DebounceTimer+1
     if love.keyboard.isDown("1") then --? allows game to be closed on 1 keyboard input for debugging
         love.event.quit()
     end

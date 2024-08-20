@@ -39,13 +39,11 @@ function ListofSets()
         local ScrollingOrigin=scaling(678,1080,Settings[2])
         love.graphics.rectangle("fill",scaling(935,1920,Settings[1]),scaling(136,1080,Settings[2])+(ScrollingOrigin/NumberofSets)*MainMenuScroll,scaling(17,1920,Settings[1]),ScrollingOrigin/NumberofSets*7)
         love.graphics.setColor(255,255,255)
-        function love.keypressed(key)
-            if key == "up" and MainMenuScroll > 0 then
-                MainMenuScroll = MainMenuScroll - 1
-            end
-            if key == "down" and MainMenuScroll < NumberofSets-7 then
-                MainMenuScroll = MainMenuScroll + 1
-            end
+        if ButtonDebounce("up", 30) and MainMenuScroll > 0 then
+            MainMenuScroll = MainMenuScroll - 1
+        end
+        if ButtonDebounce("down", 30) and MainMenuScroll < NumberofSets-7 then
+            MainMenuScroll = MainMenuScroll + 1
         end
     end
     love.graphics.setColor(255,255,255)

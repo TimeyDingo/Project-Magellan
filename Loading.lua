@@ -46,8 +46,7 @@ function LoadEdit()
     EditActivityScroll=0
 end
 function LoadMouseClickDebounce()
-    MouseClickDebounceValue=0
-    MouseClickTempValue=0
+    DebounceTimer=0
 end
 function LoadMatching()
     -- Define the range for random positions

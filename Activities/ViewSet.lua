@@ -29,13 +29,11 @@ function ViewActivity()
         local ScrollingOrigin=scaling(950,1080,Settings[2])
         love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*ViewActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms*4)
         love.graphics.setColor(255,255,255)
-        function love.keypressed(key)
-            if key == "up" and ViewActivityScroll > 0 then
-                ViewActivityScroll = ViewActivityScroll - 1
-            end
-            if key == "down" and ViewActivityScroll < NumberOfTerms-4 then
-                ViewActivityScroll = ViewActivityScroll + 1
-            end
+        if ButtonDebounce("up", 30) and ViewActivityScroll > 0 then
+            ViewActivityScroll = ViewActivityScroll - 1
+        end
+        if ButtonDebounce("down", 30) and ViewActivityScroll < NumberOfTerms-4 then
+            ViewActivityScroll = ViewActivityScroll + 1
         end
     end
     love.graphics.setColor(255,255,255)

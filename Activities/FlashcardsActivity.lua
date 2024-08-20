@@ -37,8 +37,7 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     love.graphics.setColor(255, 255, 255)
 end
 function FlashCardKeyboardControls()
-    function love.keypressed(key)
-        if key == "left" then
+        if ButtonDebounce("left", 30) then
             if FlashCardActivityFlashCard==1 then
                 FlashCardActivityFlashCard=#SetData
             else
@@ -46,7 +45,7 @@ function FlashCardKeyboardControls()
             end
             FlashCardActivityFlashCardSide=2
         end
-        if key == "right" then
+        if ButtonDebounce("right", 30) then
             if FlashCardActivityFlashCard==#SetData then
                 FlashCardActivityFlashCard=1
             else
@@ -54,13 +53,12 @@ function FlashCardKeyboardControls()
             end
             FlashCardActivityFlashCardSide=2
         end
-        if key =="up" then
+        if ButtonDebounce("up", 30) then
             FlipCard()
         end
-        if key=="down" then
+        if ButtonDebounce("down", 30) then
             FlipCard()
         end
-    end
 end
 function FlipCard()
     if FlashCardActivityFlashCardSide==1 then
