@@ -89,7 +89,6 @@ function RemoveMatchingCards()
         MatchingActivityCurrentCard=nil
     end
 end
-
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
     -- Calculate the edges of the rectangles
     local rightA = XPosA + WidthA
