@@ -120,6 +120,9 @@ function EditActivityCallBackoutPopup()
     PopUpMessage = "Unsaved Edits will be lost"
 end
 function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or Scaling==nil or SetTitle==nil then
+        return
+    end
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
