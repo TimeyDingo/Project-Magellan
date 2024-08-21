@@ -1,5 +1,6 @@
 function EditActivity()
     EditableTitle(660, 60, 600, 60, Exo32Bold,true)
+    ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'StateMachine="View Set"')
     local TermFont=Exo24
     local DefinitionFont=Exo20
     love.graphics.setColor(40,40,40)

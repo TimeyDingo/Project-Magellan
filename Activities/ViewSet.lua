@@ -1,6 +1,7 @@
 function ViewActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
+    ButtonStyle1Mod3(830, 0, 240, 55, "-> Edit Mode", Exo24Bold, true, 'StateMachine="Edit"')
     local TermFont=Exo24
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
