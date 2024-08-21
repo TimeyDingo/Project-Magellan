@@ -55,7 +55,10 @@ function LoadMatching()
     MatchingActivityCurrentCard = nil
     local xMin, xMax = 0, Settings[1]-200
     local yMin, yMax = 0, Settings[2]-180
-
+    local w1=100
+    local h1=100
+    local w2=100
+    local h2=100
     MatchingActivityPositions = {}
     for i = 1, 100 do
         -- Generate random positions within the specified range
@@ -63,7 +66,7 @@ function LoadMatching()
         local y1 = math.random(yMin, yMax)
         local x2 = math.random(xMin, xMax)
         local y2 = math.random(yMin, yMax)
-        table.insert(MatchingActivityPositions, {{x1, y1}, {x2, y2}})
+        table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
     end
 end
 function LoadLineThickness()

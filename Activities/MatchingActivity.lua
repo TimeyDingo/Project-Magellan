@@ -13,11 +13,33 @@ function MatchingActivity()
     for i = 1, #MatchingActivityTable do
         for j = 1, 2 do
             CardNumber=CardNumber+1
-            DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], scaling(600,1920,Settings[1]), scaling(250,1080,Settings[2]), MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
+            MatchingActivityPositions[i][j][3], MatchingActivityPositions[i][j][4] = DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
 end
-function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairSubset, CardNumber)
+function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardNumber)
+    local BoxW=100
+    local BoxH=100
+    if type(Text) == "string" then
+        -- Wrap the text and calculate dimensions
+        BoxW=CalculateWrap(TextFont, Text, 0.8, 0.15, 10, 5)
+        love.graphics.setFont(TextFont)
+        local _, wrappedText = TextFont:getWrap(Text, BoxW)
+        local wrappedHeight = #wrappedText * TextFont:getHeight()
+        BoxH=wrappedHeight
+        -- Coordinates for the text
+        local textX = BoxX
+        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
+        
+        -- Draw the wrapped text
+        love.graphics.setColor(255, 255, 255)  -- Set text color to white
+        love.graphics.printf(Text, textX, textY, BoxW, "center")
+    else
+        -- Handle the case where Text is not a string (optional)
+        print("Warning: Text is not a string")
+    end
+    
+    
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
     -- Handle mouse input
@@ -38,23 +60,6 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     end
     
     -- Ensure Text is a string before wrapping
-    if type(Text) == "string" then
-        -- Wrap the text and calculate dimensions
-        love.graphics.setFont(TextFont)
-        local _, wrappedText = TextFont:getWrap(Text, BoxW)
-        local wrappedHeight = #wrappedText * TextFont:getHeight()
-        
-        -- Coordinates for the text
-        local textX = BoxX
-        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
-        
-        -- Draw the wrapped text
-        love.graphics.setColor(255, 255, 255)  -- Set text color to white
-        love.graphics.printf(Text, textX, textY, BoxW, "center")
-    else
-        -- Handle the case where Text is not a string (optional)
-        print("Warning: Text is not a string")
-    end
     
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
@@ -68,15 +73,16 @@ function DisplayMatchingCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Pair, PairS
     -- Reset line width and color
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
+    return BoxW, BoxH
 end
 function RemoveMatchingCards()
     -- Identify the indices of cards to remove
     local indicesToRemove = {}
     for i = 1, #MatchingActivityTable do
         if MatchingPositionPercentage(
-            MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], 600, 250,
-            MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], 600, 250
-        ) > 75 then
+            MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], MatchingActivityPositions[i][1][3], MatchingActivityPositions[i][1][4],
+            MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], MatchingActivityPositions[i][2][3], MatchingActivityPositions[i][2][4]
+        ) > 50 then
             table.insert(indicesToRemove, i)
         end
     end
@@ -121,4 +127,38 @@ function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB,
     local overallOverlap = (percentageA + percentageB) / 2
     
     return overallOverlap
+end
+function CalculateWrap(TextFont, Text, baseRatio, targetRatio, transitionPoint, minWordCount)
+    -- Count the number of words in the text by counting the spaces
+    local wordCount = 1  -- Start with 1 because the last word won't have a trailing space
+    for _ in string.gmatch(Text, "%S+") do
+        wordCount = wordCount + 1
+    end
+
+    -- Get the width of the text using the provided font
+    local textWidth = TextFont:getWidth(Text)
+    
+    -- If the word count is below the minimum word count, return the full text width
+    if wordCount < minWordCount then
+        return textWidth
+    end
+    
+    -- Calculate the ratio based on the number of words
+    local ratio
+    if wordCount <= transitionPoint then
+        ratio = baseRatio
+    else
+        -- Gradually approach the target ratio
+        local excessWords = wordCount - transitionPoint
+        ratio = baseRatio - (baseRatio - targetRatio) * (excessWords / (25 - transitionPoint))
+        -- Ensure the ratio does not fall below the target ratio
+        if ratio < targetRatio then
+            ratio = targetRatio
+        end
+    end
+    
+    -- Calculate the wrap width based on the adjusted ratio
+    local wrapWidth = textWidth * ratio
+
+    return wrapWidth
 end
