@@ -119,7 +119,9 @@ function LoadPopup()
 end
 function LoadMissileDefense()
     MissileDefenseTimer=0
+    MissileDefenseChallengeCount=0
     MissileDefenseTypedResponse=""
+    MissileDefenseChallenges={"","",""}
     TerrainPoints=GenerateTerrainPoints(MediumLine,scaling(915,1920,Settings[1]),scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
