@@ -43,6 +43,9 @@ function love.update(dt)
         EditActivityLoadOnce=true
     end
     StateMachine=tostring(StateMachine)
+    if StateMachine=="Missile Defense" then
+        MissileDefenseTimer=MissileDefenseTimer+1
+    end
 end
 function love.draw()
     H=love.graphics.getPixelHeight()

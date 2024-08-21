@@ -36,6 +36,7 @@ function LoadActivities()
     LoadEdit()
     LoadMatching()
     LoadViewSet()
+    LoadMissileDefense()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
@@ -115,4 +116,27 @@ function LoadPopup()
     PopupCall=false
     PopupAction=""
     PopUpMessage=""
+end
+function LoadMissileDefense()
+    MissileDefenseTimer=0
+    MissileDefenseTypedResponse=""
+    TerrainPoints=GenerateTerrainPoints(MediumLine,scaling(915,1920,Settings[1]),scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
+end
+function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
+    local TableOfPoints = {}
+    
+    -- Starting point
+    table.insert(TableOfPoints, {MinX, MinY})
+    
+    -- Generate intermediate points
+    for i = 1, Subdivisions do
+        local X = MinX + (Width / (Subdivisions - 1)) * (i - 1)
+        local Y = MinY - math.random(0, Height)
+        table.insert(TableOfPoints, {X, Y})
+    end
+    
+    -- Ending point
+    table.insert(TableOfPoints, {MinX + Width, MinY})
+    
+    return TableOfPoints
 end
