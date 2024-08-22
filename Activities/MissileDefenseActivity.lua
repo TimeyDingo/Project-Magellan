@@ -1,29 +1,42 @@
 function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
-    MissileDefenseDisplay()
-    MissileDefenseDisplayChallenges()
-    MissileDefenseResponse()
+    CenterText(0,20,MissileDefenseChallengeCount,Exo24)
+
+    if Deleting==false then
+        MissileDefenseDisplay()
+        MissileDefenseDisplayChallenges()
+        MissileDefenseResponse()
+    end
 end
 function MissileDefenseDisplayChallenges()
     CenterText(0,0,MissileDefenseTimer,Exo24)
-    local ChallengeQuestion
+    local ChallengeQuestion=""
+    local ChallengeAnswer=""
+    local RandomChallenge=1
     if MissileDefenseTimer>200 then
         if MissileDefenseChallengeCount<3 then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount+1
-            ChallengeQuestion=SetData[math.random(1, #SetData)][1]
-            MissileDefenseChallenges[MissileDefenseChallengeCount]=ChallengeQuestion
+            RandomChallenge=math.random(1, #SetData)
+            CenterText(0,40,RandomChallenge,Exo24)
+            if RandomChallenge==nil then
+                return
+            end
+            ChallengeQuestion=SetData[RandomChallenge][1]
+            ChallengeAnswer=SetData[RandomChallenge][2]
+            MissileDefenseChallenges[MissileDefenseChallengeCount][1]=ChallengeQuestion
+            MissileDefenseChallenges[MissileDefenseChallengeCount][2]=ChallengeAnswer
         end
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        DisplayChallenge(1320,65,600,300,MissileDefenseChallenges[1],true)
+        DisplayChallenge(1320,65,600,300,MissileDefenseChallenges[1][1],true)
     end
     if MissileDefenseChallengeCount>1 then
-        DisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2],true)
+        DisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2][1],true)
     end
     if MissileDefenseChallengeCount>2 then
-        DisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3],true)
+        DisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3][1],true)
     end
 end
 function MissileDefenseResponse()--!! add manual button to confirm response and enter button to also confirm
@@ -58,6 +71,9 @@ function MissileDefenseResponse()--!! add manual button to confirm response and 
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
+    if ButtonDebounce("return", 30) then
+        MissileDefenseCheckResponse()
+    end
 end
 function MissileDefenseDisplay()
     love.graphics.setColor(255,153,0)
@@ -104,4 +120,31 @@ function DisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling)
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
+end
+function MissileDefenseCheckResponse()
+    Deleting=true
+    local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
+    --MissileDefenseTypedResponse
+    if MissileDefenseChallengeCount>0 then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[1][2]) then
+            MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            table.remove(MissileDefenseChallenges, 1)
+            table.insert(MissileDefenseChallenges, {"",""})
+        end
+    end
+    if MissileDefenseChallengeCount>1 then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[2][2]) then
+            MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            table.remove(MissileDefenseChallenges, 2)
+            table.insert(MissileDefenseChallenges, {"",""})
+        end
+    end
+    if MissileDefenseChallengeCount>2 then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[3][2]) then
+            MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            table.remove(MissileDefenseChallenges, 3)
+            table.insert(MissileDefenseChallenges, {"",""})
+        end
+    end
+    Deleting=false
 end
