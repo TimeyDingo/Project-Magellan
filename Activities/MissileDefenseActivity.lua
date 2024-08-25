@@ -43,21 +43,21 @@ function MissileDefenseDisplayChallenges()
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenges[1][3]=MissileDefenseChallenges[1][3]+1
         end
-        CenterText(100,-100,"First: "..MissileDefenseChallenges[1][3],Exo24)
+        --CenterText(100,-100,"First: "..MissileDefenseChallenges[1][3],Exo24)
     end
     if MissileDefenseChallengeCount>1 then
         MissileDefenseDisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
         if MissileDefenseChallenge2Failed==false then
             MissileDefenseChallenges[2][3]=MissileDefenseChallenges[2][3]+1
         end
-        CenterText(100,0,"Second: "..MissileDefenseChallenges[2][3],Exo24)
+        --CenterText(100,0,"Second: "..MissileDefenseChallenges[2][3],Exo24)
     end
     if MissileDefenseChallengeCount>2 then
         MissileDefenseDisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
         if MissileDefenseChallenge3Failed==false then
             MissileDefenseChallenges[3][3]=MissileDefenseChallenges[3][3]+1 --update timer that its been on screen
         end
-        CenterText(100,100,"Third: "..MissileDefenseChallenges[3][3],Exo24)
+        --CenterText(100,100,"Third: "..MissileDefenseChallenges[3][3],Exo24)
     end
 end
 function MissileDefenseResponse()
@@ -110,6 +110,7 @@ function MissileDefenseDisplay()
     love.graphics.polygon('line', unpack(flattenedPoints))
     --?
     --? inbound missiles
+    love.graphics.setPointSize(20)
     if MissileDefenseChallengeCount>0 then
         --missile 1
         love.graphics.setColor(255,0,0,255)
@@ -125,7 +126,8 @@ function MissileDefenseDisplay()
         love.graphics.setColor(0,0,255,255)
         love.graphics.points(Missile3Points[MissileDefenseChallenges[3][3]+1][1], Missile3Points[MissileDefenseChallenges[3][3]+1][2])
         love.graphics.setColor(255,255,255)
-    end
+    end 
+    love.graphics.setPointSize(1)
     --??
 end
 function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, Failed)

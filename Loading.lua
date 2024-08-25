@@ -182,7 +182,7 @@ function GenerateMissilePoints(StartingX, StartingY, EndingX, EndingY, Time)
         table.insert(Table, {CalculatedX, CalculatedY})
     end
     for i=1, 100 do--?? extra range just in case
-        table.insert(Table, {1000000,1000000})
+        table.insert(Table, {EndingX,EndingY})
     end
     return Table
 end
