@@ -122,8 +122,15 @@ function LoadMissileDefense()
     MissileDefenseTimer=0
     MissileDefenseChallengeCount=0
     MissileDefenseTypedResponse=""
-    MissileDefenseChallenges={{"",""},{"",""},{"",""}}
+    MissileDefenseChallenges={{"","",0},{"","",0},{"","",0}}
     TerrainPoints=GenerateTerrainPoints(MediumLine,scaling(915,1920,Settings[1]),scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
+    MissileDefenseSurviveTimer=0
+    MissileDefenseLivesRemaining=3
+    MissileDefenseChallenge1Failed=false
+    MissileDefenseChallenge2Failed=false
+    MissileDefenseChallenge3Failed=false
+    MissileDefenseChallengeFailedStep1Timer=0
+    MissileDefenseAChallengeFailed=false
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
