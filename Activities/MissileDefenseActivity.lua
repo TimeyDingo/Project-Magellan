@@ -1,14 +1,13 @@
 function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
-    CenterText(0,20,MissileDefenseChallengeCount,Exo24)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+1
     CenterText(scaling(-296,1920,Settings[1]),scaling(-450,1080,Settings[2]),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer/60)),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings[1]),scaling(-410,1080,Settings[2]),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
         MissileDefenseResponse()
-        CenterText(-100,0,"Failedtimer= "..MissileDefenseChallengeFailedStep1Timer,Exo24)
         local ChallengeFailedPassThrough=MissileDefenseCheckLives()
         if MissileDefenseAChallengeFailed==true then
             MissileDefenseChallengeFailedStep1Timer=MissileDefenseChallengeFailedStep1Timer+1
@@ -16,10 +15,12 @@ function MissileDefenseActivity()
         if MissileDefenseChallengeFailedStep1Timer>160 then
             MissileDefenseChallengeFailedStep2(ChallengeFailedPassThrough)
         end
+        if MissileDefenseLivesRemaining<=0 then
+            MissileDefenseFailed()
+        end
     end
 end
 function MissileDefenseDisplayChallenges()
-    CenterText(0,0,MissileDefenseTimer,Exo24)
     local ChallengeQuestion=""
     local ChallengeAnswer=""
     local RandomChallenge=1
@@ -27,7 +28,6 @@ function MissileDefenseDisplayChallenges()
         if MissileDefenseChallengeCount<3 then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount+1
             RandomChallenge=math.random(1, #SetData)
-            CenterText(0,40,RandomChallenge,Exo24)
             if RandomChallenge==nil then
                 return
             end
@@ -39,28 +39,28 @@ function MissileDefenseDisplayChallenges()
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        DisplayChallenge(1320,65,600,300,MissileDefenseChallenges[1][1],true,MissileDefenseChallenge1Failed)
+        MissileDefenseDisplayChallenge(1320,65,600,300,MissileDefenseChallenges[1][1],true,MissileDefenseChallenge1Failed)
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenges[1][3]=MissileDefenseChallenges[1][3]+1
         end
         CenterText(100,-100,"First: "..MissileDefenseChallenges[1][3],Exo24)
     end
     if MissileDefenseChallengeCount>1 then
-        DisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
+        MissileDefenseDisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
         if MissileDefenseChallenge2Failed==false then
             MissileDefenseChallenges[2][3]=MissileDefenseChallenges[2][3]+1
         end
         CenterText(100,0,"Second: "..MissileDefenseChallenges[2][3],Exo24)
     end
     if MissileDefenseChallengeCount>2 then
-        DisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
+        MissileDefenseDisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
         if MissileDefenseChallenge3Failed==false then
             MissileDefenseChallenges[3][3]=MissileDefenseChallenges[3][3]+1 --update timer that its been on screen
         end
         CenterText(100,100,"Third: "..MissileDefenseChallenges[3][3],Exo24)
     end
 end
-function MissileDefenseResponse()--!! add manual button to confirm response and enter button to also confirm
+function MissileDefenseResponse()
     local TextFont=Exo32Bold
     love.graphics.setFont(TextFont)
     local BoxX=0
@@ -94,6 +94,7 @@ function MissileDefenseResponse()--!! add manual button to confirm response and 
     love.graphics.setColor(255, 255, 255)
     if ButtonDebounce("return", 30) then
         MissileDefenseCheckResponse()
+        MissileDefenseTypedResponse=""
     end
 end
 function MissileDefenseDisplay()
@@ -108,8 +109,19 @@ function MissileDefenseDisplay()
     end
     love.graphics.polygon('line', unpack(flattenedPoints))
     --?
+    --? inbound missiles
+    if MissileDefenseChallengeCount>0 then
+
+    end
+    if MissileDefenseChallengeCount>1 then
+
+    end
+    if MissileDefenseChallengeCount>2 then
+
+    end
+    --??
 end
-function DisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, Failed)
+function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, Failed)
     if Failed==false then
         local InitialFont=Exo28
         local newSize=28
@@ -187,7 +199,6 @@ function MissileDefenseCheckLives()
     end
     return ReturnValue
 end
-
 function MissileDefenseChallengeFailedStep1(ChallengeThatWasFailed)
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=true
@@ -208,10 +219,6 @@ function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
     table.remove(MissileDefenseChallenges, ChallengeThatWasFailed)
     table.insert(MissileDefenseChallenges, {"","",0})
-    MissileDefenseLivesRemaining=MissileDefenseLivesRemaining-1
-    if MissileDefenseLivesRemaining==0 then
-        MissileDefenseFailed()
-    end
     Deleting=false
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=false
@@ -225,7 +232,12 @@ function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     MissileDefenseChallengeFailedStep1Timer=0
     MissileDefenseAChallengeFailed=false
     MissileDefenseChallenges[ChallengeThatWasFailed][3]=0
+    MissileDefenseLivesRemaining=MissileDefenseLivesRemaining-1
 end
 function MissileDefenseFailed()
-
+    StateMachine="Set Options"
+    PopupCall = true
+    PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'
+    PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer/60))
+    BackoutAction= 'PopupCall=false'
 end

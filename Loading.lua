@@ -117,6 +117,7 @@ function LoadPopup()
     PopupCall=false
     PopupAction=""
     PopUpMessage=""
+    BackoutAction=""
 end
 function LoadMissileDefense()
     MissileDefenseTimer=0
@@ -142,6 +143,15 @@ function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     for i = 1, Subdivisions do
         local X = MinX + (Width / (Subdivisions - 1)) * (i - 1)
         local Y = MinY - math.random(0, Height)
+        if i>Subdivisions/2-Subdivisions/8 and i<Subdivisions/2+Subdivisions/8 then
+            Y=MinY-scaling(150,1080,Settings[2])
+            if i>Subdivisions/2-Subdivisions/12 and i<Subdivisions/2+Subdivisions/12 then
+                Y=MinY-scaling(170,1080,Settings[2])
+                if i>Subdivisions/2-Subdivisions/16 and i<Subdivisions/2+Subdivisions/16 then
+                    Y=MinY-scaling(200,1080,Settings[2])
+                end
+            end
+        end
         table.insert(TableOfPoints, {X, Y})
     end
     
