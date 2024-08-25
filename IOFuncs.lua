@@ -190,7 +190,6 @@ function SaveIndividualSet(SetTitle, SetDataTable, SetToSave)
         return false
     end
 end
-
 function DeleteSet()
     Deleting=true
     local NumberofSets=CheckSavedSets()

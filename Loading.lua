@@ -124,7 +124,8 @@ function LoadMissileDefense()
     MissileDefenseChallengeCount=0
     MissileDefenseTypedResponse=""
     MissileDefenseChallenges={{"","",0},{"","",0},{"","",0}}
-    TerrainPoints=GenerateTerrainPoints(MediumLine,scaling(915,1920,Settings[1]),scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
+    local TerrainMinY=scaling(915,1920,Settings[1])
+    TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
     MissileDefenseSurviveTimer=0
     MissileDefenseLivesRemaining=3
     MissileDefenseChallenge1Failed=false
@@ -132,6 +133,9 @@ function LoadMissileDefense()
     MissileDefenseChallenge3Failed=false
     MissileDefenseChallengeFailedStep1Timer=0
     MissileDefenseAChallengeFailed=false
+    Missile1Points=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    Missile2Points=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    Missile3Points=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
@@ -159,4 +163,26 @@ function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     table.insert(TableOfPoints, {MinX + Width, MinY})
     
     return TableOfPoints
+end
+function GenerateMissilePoints(StartingX, StartingY, EndingX, EndingY, Time)    
+    -- Create the table to store the interpolated points
+    Table = {}
+    
+    -- Insert the starting position
+    table.insert(Table, {StartingX, StartingY})
+    
+    -- Calculate the step increment for each point
+    local stepX = (EndingX - StartingX) / Time
+    local stepY = (EndingY - StartingY) / Time
+    
+    -- Generate the points and insert them into the table
+    for i = 1, Time do
+        local CalculatedX = StartingX + stepX * i
+        local CalculatedY = StartingY + stepY * i
+        table.insert(Table, {CalculatedX, CalculatedY})
+    end
+    for i=1, 100 do--?? extra range just in case
+        table.insert(Table, {1000000,1000000})
+    end
+    return Table
 end

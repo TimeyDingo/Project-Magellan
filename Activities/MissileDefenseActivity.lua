@@ -111,13 +111,20 @@ function MissileDefenseDisplay()
     --?
     --? inbound missiles
     if MissileDefenseChallengeCount>0 then
-
+        --missile 1
+        love.graphics.setColor(255,0,0,255)
+        love.graphics.points(Missile1Points[MissileDefenseChallenges[1][3]+1][1], Missile1Points[MissileDefenseChallenges[1][3]+1][2])
+        love.graphics.setColor(255,255,255)
     end
     if MissileDefenseChallengeCount>1 then
-
+        love.graphics.setColor(0,255,0,255)
+        love.graphics.points(Missile2Points[MissileDefenseChallenges[2][3]+1][1], Missile2Points[MissileDefenseChallenges[2][3]+1][2])
+        love.graphics.setColor(255,255,255)
     end
     if MissileDefenseChallengeCount>2 then
-
+        love.graphics.setColor(0,0,255,255)
+        love.graphics.points(Missile3Points[MissileDefenseChallenges[3][3]+1][1], Missile3Points[MissileDefenseChallenges[3][3]+1][2])
+        love.graphics.setColor(255,255,255)
     end
     --??
 end
