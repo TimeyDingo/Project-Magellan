@@ -111,22 +111,22 @@ function MissileDefenseDisplay()
     --?
     --? inbound missiles
     love.graphics.setPointSize(20)
-    if MissileDefenseChallengeCount>0 then
+    if MissileDefenseChallenges[1][3]>0 then
         --missile 1
-        love.graphics.setColor(255,0,0,255)
-        love.graphics.points(Missile1Points[MissileDefenseChallenges[1][3]+1][1], Missile1Points[MissileDefenseChallenges[1][3]+1][2])
+        love.graphics.setColor(MissileDefenseChallenges[1][5][1],MissileDefenseChallenges[1][5][2],MissileDefenseChallenges[1][5][3],255)
+        love.graphics.points(MissileDefenseChallenges[1][4][MissileDefenseChallenges[1][3]+1][1], MissileDefenseChallenges[1][4][MissileDefenseChallenges[1][3]+1][2])
         love.graphics.setColor(255,255,255)
     end
-    if MissileDefenseChallengeCount>1 then
-        love.graphics.setColor(0,255,0,255)
-        love.graphics.points(Missile2Points[MissileDefenseChallenges[2][3]+1][1], Missile2Points[MissileDefenseChallenges[2][3]+1][2])
+    if MissileDefenseChallenges[2][3]>0 then
+        love.graphics.setColor(MissileDefenseChallenges[2][5][1],MissileDefenseChallenges[2][5][2],MissileDefenseChallenges[2][5][3],255)
+        love.graphics.points(MissileDefenseChallenges[2][4][MissileDefenseChallenges[2][3]+1][1], MissileDefenseChallenges[2][4][MissileDefenseChallenges[2][3]+1][2])
         love.graphics.setColor(255,255,255)
     end
-    if MissileDefenseChallengeCount>2 then
-        love.graphics.setColor(0,0,255,255)
-        love.graphics.points(Missile3Points[MissileDefenseChallenges[3][3]+1][1], Missile3Points[MissileDefenseChallenges[3][3]+1][2])
+    if MissileDefenseChallenges[3][3]>0 then
+        love.graphics.setColor(MissileDefenseChallenges[3][5][1],MissileDefenseChallenges[3][5][2],MissileDefenseChallenges[3][5][3],255)
+        love.graphics.points(MissileDefenseChallenges[3][4][MissileDefenseChallenges[3][3]+1][1], MissileDefenseChallenges[3][4][MissileDefenseChallenges[3][3]+1][2])
         love.graphics.setColor(255,255,255)
-    end 
+    end
     love.graphics.setPointSize(1)
     --??
 end
@@ -175,22 +175,28 @@ function MissileDefenseCheckResponse()
     if MissileDefenseChallengeCount>0 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[1][2]) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            local TransferTable=MissileDefenseChallenges[1][4]
+            local RGBTransfer=MissileDefenseChallenges[1][5]
             table.remove(MissileDefenseChallenges, 1)
-            table.insert(MissileDefenseChallenges, {"","",0})
+            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
         end
     end
     if MissileDefenseChallengeCount>1 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[2][2]) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            local TransferTable=MissileDefenseChallenges[2][4]
+            local RGBTransfer=MissileDefenseChallenges[1][5]
             table.remove(MissileDefenseChallenges, 2)
-            table.insert(MissileDefenseChallenges, {"","",0})
+            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
         end
     end
     if MissileDefenseChallengeCount>2 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[3][2]) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+            local TransferTable=MissileDefenseChallenges[3][4]
+            local RGBTransfer=MissileDefenseChallenges[1][5]
             table.remove(MissileDefenseChallenges, 3)
-            table.insert(MissileDefenseChallenges, {"","",0})
+            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
         end
     end
     Deleting=false
@@ -226,8 +232,10 @@ end
 function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     Deleting=true
     MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
+    local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed][4]
+    local RGBTransfer=MissileDefenseChallenges[1][5]
     table.remove(MissileDefenseChallenges, ChallengeThatWasFailed)
-    table.insert(MissileDefenseChallenges, {"","",0})
+    table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
     Deleting=false
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=false
