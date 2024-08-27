@@ -127,7 +127,7 @@ function LoadMissileDefense()
     local TerrainMinY=scaling(915,1920,Settings[1])
     TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
     MissileDefenseSurviveTimer=0
-    MissileDefenseLivesRemaining=3
+    MissileDefenseLivesRemaining=20
     MissileDefenseChallenge1Failed=false
     MissileDefenseChallenge2Failed=false
     MissileDefenseChallenge3Failed=false
@@ -164,7 +164,7 @@ function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     
     return TableOfPoints
 end
-function GenerateMissilePoints(StartingX, StartingY, EndingX, EndingY, Time)    
+function GenerateMissilePoints(StartingX, StartingY, EndingX, EndingY, Time)
     -- Create the table to store the interpolated points
     Table = {}
     
