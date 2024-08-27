@@ -4,7 +4,7 @@ function EditActivity()
     local TermFont=Exo24
     local DefinitionFont=Exo20
     love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
     love.graphics.setColor(255,255,255)
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)

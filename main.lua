@@ -46,6 +46,9 @@ function love.update(dt)
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer=MissileDefenseTimer+1
     end
+    if StateMachine=="Set Options" then --?? Load for the testing activity
+        GenerateTestingData()
+    end
 end
 function love.draw()
     H=love.graphics.getPixelHeight()
@@ -132,7 +135,7 @@ function love.draw()
         end
         if StateMachine=="Test" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
+            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadTestActivity()')
             ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             TestActivity()
         end

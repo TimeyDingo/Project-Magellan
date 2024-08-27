@@ -77,3 +77,33 @@ function ButtonDebounce(ButtonToDebounce, DebouncePeriod)
         return false
     end
 end
+function generateUniqueNumbersExclude(count, maxValue, exclude)
+    local uniqueNumbers = {}
+    local uniqueList = {}
+    
+    while #uniqueList < count do
+        local num = math.random(1, maxValue)
+        
+        if num ~= exclude and not uniqueNumbers[num] then
+            uniqueNumbers[num] = true
+            table.insert(uniqueList, num)
+        end
+    end
+    
+    return uniqueList
+end
+function generateUniqueNumbers(count, maxValue)
+    local uniqueNumbers = {}
+    local uniqueList = {}
+    
+    while #uniqueList < count do
+        local num = math.random(1, maxValue)
+        
+        if not uniqueNumbers[num] then
+            uniqueNumbers[num] = true
+            table.insert(uniqueList, num)
+        end
+    end
+    
+    return uniqueList
+end

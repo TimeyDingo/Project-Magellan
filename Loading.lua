@@ -38,6 +38,7 @@ function LoadActivities()
     LoadMatching()
     LoadViewSet()
     LoadMissileDefense()
+    LoadTestActivity()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
@@ -185,4 +186,28 @@ function GenerateMissilePoints(StartingX, StartingY, EndingX, EndingY, Time)
         table.insert(Table, {EndingX,EndingY})
     end
     return Table
+end
+function LoadTestActivity()
+    TestActivityScroll=0
+end
+function GenerateTestingData()
+    SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
+    TestActivityTestTable={}
+    for i = 1, NumberOfTerms do
+        local wrongAnswers = generateUniqueNumbersExclude(3, NumberOfTerms, i)
+        local Positions = generateUniqueNumbers(4, 4)
+        table.insert(TestActivityTestTable, {
+            TermToTest = SetData[i][2],
+            CorrectAnswer = SetData[i][1],
+            WrongAnswer1 = SetData[wrongAnswers[1]][1],
+            WrongAnswer2 = SetData[wrongAnswers[2]][1],
+            WrongAnswer3 = SetData[wrongAnswers[3]][1],
+            IndiceOfAnswer = math.random(1, 4),
+            CorrectAnswerPos = Positions[1],
+            WrongAnswer1Pos = Positions[2],
+            WrongAnswer2Pos = Positions[3],
+            WrongAnswer3Pos = Positions[4]
+            SelectedAnswer = 0
+        })
+    end
 end
