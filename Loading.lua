@@ -202,11 +202,10 @@ function GenerateTestingData()
             WrongAnswer1 = SetData[wrongAnswers[1]][1],
             WrongAnswer2 = SetData[wrongAnswers[2]][1],
             WrongAnswer3 = SetData[wrongAnswers[3]][1],
-            IndiceOfAnswer = math.random(1, 4),
             CorrectAnswerPos = Positions[1],
             WrongAnswer1Pos = Positions[2],
             WrongAnswer2Pos = Positions[3],
-            WrongAnswer3Pos = Positions[4]
+            WrongAnswer3Pos = Positions[4],
             SelectedAnswer = 0
         })
     end

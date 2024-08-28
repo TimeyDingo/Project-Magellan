@@ -21,16 +21,6 @@ function MouseClickDebounce(DebouncePeriod)
         return false
     end
 end
-function createToggleFlipFlop()
-    local flipFlopState = false
-    
-    return function(pulse)
-        if pulse then
-            flipFlopState = not flipFlopState
-        end
-        return flipFlopState
-    end
-end
 function toboolean(str)
     local bool = false
     if str == "true" then

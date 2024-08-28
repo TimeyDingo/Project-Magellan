@@ -1,5 +1,4 @@
 function TestActivity()--! potential scrolling bug with the positioning of the scroll bar vertically when bottoming out the position
-    
     TestActivityCheckIfEnoughTerms()
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
     local TermFont=Exo24
@@ -9,12 +8,14 @@ function TestActivity()--! potential scrolling bug with the positioning of the s
     love.graphics.setColor(255,255,255)
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Term",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
-    
+    local AnsweredCount, TotalQuestions = TestActivityCalculateHowManyHaveBeenAnswered()
+    CenterText(0, scaling(-400, 1080, Settings[2]), AnsweredCount.."/"..TotalQuestions, Exo24Bold)
     TestActivityDisplayTerm(20,530+MediumLine,910,200,TestActivityTestTable[1+TestActivityScroll].TermToTest,TermFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].CorrectAnswerPos,910,200,TestActivityTestTable[1+TestActivityScroll].CorrectAnswer,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3,DefinitionFont,true)
+    ButtonStyle1Mod3(20, 120, 300, 80, "Check Answers", Exo24Bold, true, 'TestActivityCheckAnswers()')
     --? Scrolling stuff below
     love.graphics.setColor(255, 153, 0)
     local ScrollingOrigin=scaling(950,1080,Settings[2])
@@ -74,8 +75,16 @@ function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFon
     -- Coordinates for the text
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    if Selected or TestActivityTestTable[1+TestActivityScroll].SelectedAnswer==Position then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1)==true and TestActivityTestTable[1+TestActivityScroll].SelectedAnswer~=Position then
+            TestActivityTestTable[1+TestActivityScroll].SelectedAnswer=Position
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
@@ -88,4 +97,28 @@ function TestActivityCheckIfEnoughTerms()
         PopUpMessage = "Too few terms, 4 or more is needed"
         BackoutAction= 'PopupCall=false'
     end
+end
+function TestActivityCalculateHowManyHaveBeenAnswered()
+    local AnsweredCount=0
+    local TotalQuestions=#TestActivityTestTable
+    for i=1, TotalQuestions do
+        if TestActivityTestTable[i].SelectedAnswer~=0 then
+            AnsweredCount=AnsweredCount+1
+        end
+    end
+    return AnsweredCount, TotalQuestions
+end
+function TestActivityCheckAnswers()
+    local CorrectAnswers=0
+    local TotalQuestions=#TestActivityTestTable
+    for i=1, TotalQuestions do
+        if TestActivityTestTable[i].SelectedAnswer==TestActivityTestTable[i].CorrectAnswerPos then
+            CorrectAnswers=CorrectAnswers+1
+        end
+    end
+    StateMachine="Set Options"
+    PopupCall = true
+    PopupAction = 'StateMachine = "Set Options"; LoadTestActivity(); PopupCall=false'
+    PopUpMessage = "You got: "..CorrectAnswers.."/"..TotalQuestions
+    BackoutAction= 'PopupCall=false'
 end
