@@ -582,7 +582,8 @@ tove.init = function(path)
 	}
 
 
-	libPath = love.filesystem.getSource() .. "/tove/" .. libName[love.system.getOS()]
+	--libPath = libName[love.system.getOS()] --!! DEPLYOMENT
+	libPath = love.filesystem.getSource() .. "/tove/" .. libName[love.system.getOS()] --!! DEV
 	local lib = ffi.load(libPath)
 	tove.lib = lib
 	tove.getVersion = function()

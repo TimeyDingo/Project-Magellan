@@ -123,6 +123,10 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Actio
     love.graphics.setColor(255, 255, 255)
 end
 function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or Scaling==nil then
+        print("CenteredTextBox is crashing"..tostring(BoxX)..tostring(BoxY)..tostring(BoxW)..tostring(BoxH)..tostring(Text)..tostring(Scaling))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)

@@ -1,1 +1,1 @@
-Math 2--Sec^2 = to what Pythagorean identity;;1+tan^2::1= to what Pythagorean identity;;sin^2+cos^2::Cosec^2= to what Pythagorean identity;;1+cot^2::csc or cosecant;;1/sin::sec or secant;;1/cos::amp;;a::frequency;;b÷2pi::period;;2pi÷b::phase shift;;c/b::
+Testing Set Title--MatchA;;MatchA::MatchB;;MatchB::MatchC;;MatchC::MatchD;;MatchD::MatchE;;MatchE
