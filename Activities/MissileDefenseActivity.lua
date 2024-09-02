@@ -21,7 +21,7 @@ function MissileDefenseActivity()
     end
 end
 function MissileDefenseDisplayChallenges()
-    if SetData==nil or MissileDefenseChallenges==nil or MissileDefenseChallengeCount<1 then
+    if SetData==nil or MissileDefenseChallenges==nil or MissileDefenseChallengeCount==nil then
         print("In MissileDefenseDisplayChallenges() SetData is reporting as: "..tostring(SetData))
         print("In MissileDefenseDisplayChallenges() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
         print("In MissileDefenseDisplayChallenges() MissileDefenseChallengeCount is reporting as: "..tostring(MissileDefenseChallengeCount))

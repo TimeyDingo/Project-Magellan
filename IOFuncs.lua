@@ -63,7 +63,7 @@ function ImportAQuizletSet(Title, SetData)
         print("In ImportAQuizletSet() SetData is reporting as: " .. tostring(SetData))
         return
     end
-    SetData = SetData:gsub("[%c]", " ") --?? %c matches control characters (newline, carriage return, etc.)
+    SetData = SetData:gsub("[%c]", " ")
     local CurrentSetCount = 0
     CurrentSetCount = CheckSavedSets()
     local NewFileName = "SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
@@ -72,7 +72,7 @@ function ImportAQuizletSet(Title, SetData)
     file:write(TextToWrite)
     io.close(file)
     AddOneToSavedSetCount()
-end
+end--!!https://chatgpt.com/c/0f4b5924-9d67-4384-a2b8-a57466c3ad53
 function LoadSavedSetsIntoMemory()
     local NumberofSets = CheckSavedSets()
     local SetData = {}
@@ -167,7 +167,7 @@ function LoadIndividualSet(SetToLoad)
         print("In LoadIndividualSet() file is reporting as: "..tostring(file))
         return
     end
-    local line = file:read("*l")
+    local line = file:read("*l")    
     file:close()
     if line then
         local title, data = line:match("^(.-)%-%-(.+)$")
