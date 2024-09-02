@@ -12,7 +12,7 @@ function ViewActivity()
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
     love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
     love.graphics.setColor(255,255,255)
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
@@ -31,17 +31,7 @@ function ViewActivity()
     if NumberOfTerms>3 then
         DisplayTerm(20,860+MediumLine,910,200,SetData[4+ViewActivityScroll][2],TermFont,true)
         DisplayDefinition(990,860+MediumLine,910,200,SetData[4+ViewActivityScroll][1],DefinitionFont,true)
-        --? Scrolling stuff below
-        love.graphics.setColor(255, 153, 0)
-        local ScrollingOrigin=scaling(950,1080,Settings[2])
-        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*ViewActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms*4)
-        love.graphics.setColor(255,255,255)
-        if ButtonDebounce("up", 30) and ViewActivityScroll > 0 then
-            ViewActivityScroll = ViewActivityScroll - 1
-        end
-        if ButtonDebounce("down", 30) and ViewActivityScroll < NumberOfTerms-4 then
-            ViewActivityScroll = ViewActivityScroll + 1
-        end
+        ViewActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,ViewActivityScroll,true)
     end
     love.graphics.setColor(255,255,255)
 end

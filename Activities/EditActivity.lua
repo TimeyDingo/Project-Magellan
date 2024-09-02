@@ -13,7 +13,7 @@ function EditActivity()
         local TermFont=Exo24
         local DefinitionFont=Exo20
         love.graphics.setColor(40,40,40)
-        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
         love.graphics.setColor(255,255,255)
         CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
         CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
@@ -38,17 +38,7 @@ function EditActivity()
             EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
             ButtonStyle1Mod3(890, 860+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(4+EditActivityScroll)')
-            --? Scrolling stuff below
-            love.graphics.setColor(255, 153, 0)
-            local ScrollingOrigin=scaling(950,1080,Settings[2])
-            love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*EditActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms*4)
-            love.graphics.setColor(255,255,255)
-            if ButtonDebounce("up", 30) and EditActivityScroll > 0 then
-                EditActivityScroll = EditActivityScroll - 1
-            end
-            if ButtonDebounce("down", 30) and EditActivityScroll < NumberOfTerms-4 then
-                EditActivityScroll = EditActivityScroll + 1
-            end
+            EditActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
         end
     end
     love.graphics.setColor(255,255,255)
