@@ -57,7 +57,6 @@ function love.update(dt)
     end
     function love.wheelmoved(x, y)
         YScroll=y
-        print(YScroll)
     end
 end
 function love.draw()
