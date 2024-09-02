@@ -1,0 +1,9 @@
+1. in tove/init.lua at line 585 un comment out the line of code and comment out the line at 586, can also be found by searcing "!!"
+2. Select all files in root of project file and zip files
+3. rename from .zip to .love
+4. move love file into the portable file of love installation
+5. open cmd at root of portable love installation
+6. run command
+copy /b [drag and drop the location of the love.exe from the portable installation into the cmd] + [drag and drop the location of the zipped project files into the cmd] [name of desired output file].exe
+7. in user file you'll locate outputted file
+8. move file to the portable installation of love2d
