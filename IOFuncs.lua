@@ -63,7 +63,18 @@ function ImportAQuizletSet(Title, SetData)
         print("In ImportAQuizletSet() SetData is reporting as: " .. tostring(SetData))
         return
     end
+    --?? string processing to remove newlines and errant ; or :
     SetData = SetData:gsub("[%c]", " ")
+    for i = 1, #SetData do
+        local char = string.sub(SetData, i, i)
+        if (char == ";" or char == ":") and i < #SetData then
+            local char2 = string.sub(SetData, i + 1, i + 1)
+            local charback = string.sub(SetData, i - 1, i - 1)
+            if char2 ~= char and charback~=char then
+                SetData = string.sub(SetData, 1, i - 1) .. "|" .. string.sub(SetData, i + 1)
+            end
+        end
+    end
     local CurrentSetCount = 0
     CurrentSetCount = CheckSavedSets()
     local NewFileName = "SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
