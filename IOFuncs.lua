@@ -24,8 +24,6 @@ function LoadSettingsIO(Settings)
         return 0 -- Error
     end
 end
-
-
 function CheckSavedSets()
     local file=io.open("SavedSets/Sets.txt", "r")
     if file==nil then
@@ -228,10 +226,6 @@ function DeleteSet()
             local NameToChange="SavedSets/Set" .. i .. ".txt"
             local Rename="SavedSets/Set" .. i-1 .. ".txt"
             local Renamed=os.rename(NameToChange, Rename)
-            if Renamed~=true then
-                print("In DeleteSet() Renaming files has failed")
-                return
-            end
         end
         SetToPreview=0
     end
