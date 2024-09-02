@@ -242,3 +242,31 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
     ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},BackoutAction)
     ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
 end
+function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then
+        print("In ScrollBar() BoxX is reporting as: "..tostring(BoxX))
+        print("In ScrollBar() BoxY is reporting as: "..tostring(BoxY))
+        print("In ScrollBar() BoxW is reporting as: "..tostring(BoxW))
+        print("In ScrollBar() BoxH is reporting as: "..tostring(BoxH))
+        print("In ScrollBar() MinNumberOfItems is reporting as: "..tostring(MinNumberOfItems))
+        print("In ScrollBar() NumberOfItems is reporting as: "..tostring(NumberOfItems))
+        return 0
+    end
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        BoxW=scaling(BoxW,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    love.graphics.setColor(255, 153, 0)
+    local ScrollingOrigin=BoxY+BoxH
+    love.graphics.rectangle("fill",BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems)
+    if ButtonDebounce("up", 30) and CurrentScroll > 0 then
+        CurrentScroll = CurrentScroll - 1
+    end
+    if ButtonDebounce("down", 30) and CurrentScroll < NumberOfItems-MinNumberOfItems then
+        CurrentScroll = CurrentScroll + 1
+    end
+    love.graphics.setColor(255,255,255)
+    return CurrentScroll
+end

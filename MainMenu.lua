@@ -1,6 +1,7 @@
 function ListofSets()
-    if Settings==nil then
+    if Settings==nil or MainMenuScroll==nil then
         print("In ListofSets() Settings is reporting as: "..tostring(Settings))
+        print("In ListofSets() MainMenuScroll is reporting as: "..tostring(MainMenuScroll))
         return
     end
     local TopLeftX=scaling(267,1920,Settings[1])
@@ -22,28 +23,58 @@ function ListofSets()
     local ButtonWidth=scaling(624,1920,Settings[1])
     local ButtonHeight=scaling(59,1080,Settings[2])
     if NumberofSets>0 then
+        if SetData[1+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(173,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
     end
     if NumberofSets>1 then
+        if SetData[2+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(266,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
     end
     if NumberofSets>2 then
+        if SetData[3+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(359,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
     end
     if NumberofSets>3 then
+        if SetData[4+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(452,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
     end
     if NumberofSets>4 then
+        if SetData[5+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(545,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
     end
     if NumberofSets>5 then
+        if SetData[6+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(638,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
     end
     if NumberofSets>6 then
+        if SetData[7+MainMenuScroll]==nil then
+            MainMenuScroll=0
+            return
+        end
         MainMenuSetListButtons(ButtonX,scaling(731,1080,Settings[2]),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
+        MainMenuScroll=ScrollBar(935,136,17,542,7,NumberofSets,MainMenuScroll,true)
+        --[[
         love.graphics.setColor(255, 153, 0)
         local ScrollingOrigin=scaling(678,1080,Settings[2])
         love.graphics.rectangle("fill",scaling(935,1920,Settings[1]),scaling(136,1080,Settings[2])+(ScrollingOrigin/NumberofSets)*MainMenuScroll,scaling(17,1920,Settings[1]),ScrollingOrigin/NumberofSets*7)
@@ -54,6 +85,7 @@ function ListofSets()
         if ButtonDebounce("down", 30) and MainMenuScroll < NumberofSets-7 then
             MainMenuScroll = MainMenuScroll + 1
         end
+        ]]
     end
     love.graphics.setColor(255,255,255)
 end

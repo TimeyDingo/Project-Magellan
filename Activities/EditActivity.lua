@@ -1,24 +1,24 @@
 function EditActivity()
-    if SetTitle==nil or SetData==nil or NumberOfTerms==nil or Settings==nil or EditActivityScroll==nil then
-        print("In EditActivity() SetTitle is reporting as: "..tostring(SetTitle))
-        print("In EditActivity() SetData is reporting as: "..tostring(SetData))
-        print("In EditActivity() NumberOfTerms is reporting as: "..tostring(NumberOfTerms))
-        print("In EditActivity() Settings is reporting as: "..tostring(Settings))
-        print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
-        return
-    end
-    EditableTitle(660, 60, 600, 60, Exo32Bold,true)
-    ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'StateMachine="View Set"')
-    local TermFont=Exo24
-    local DefinitionFont=Exo20
-    love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
-    love.graphics.setColor(255,255,255)
-    CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
-    CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
-    ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
-    ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {"",""});NumberOfTerms=NumberOfTerms+1')
     if Deleting==false then
+        if SetTitle==nil or SetData==nil or NumberOfTerms==nil or Settings==nil or EditActivityScroll==nil or Deleting==true then
+            print("In EditActivity() SetTitle is reporting as: "..tostring(SetTitle))
+            print("In EditActivity() SetData is reporting as: "..tostring(SetData))
+            print("In EditActivity() NumberOfTerms is reporting as: "..tostring(NumberOfTerms))
+            print("In EditActivity() Settings is reporting as: "..tostring(Settings))
+            print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
+            return
+        end
+        EditableTitle(660, 60, 600, 60, Exo32Bold,true)
+        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'StateMachine="View Set"')
+        local TermFont=Exo24
+        local DefinitionFont=Exo20
+        love.graphics.setColor(40,40,40)
+        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(130-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+        love.graphics.setColor(255,255,255)
+        CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
+        CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
+        ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
+        ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {"",""});NumberOfTerms=NumberOfTerms+1')
         if NumberOfTerms>0 then
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)

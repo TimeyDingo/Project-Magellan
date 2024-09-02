@@ -33,7 +33,17 @@ function CheckSavedSets()
     local NumberofSets=0
     NumberofSets=file:read("n")
     io.close(file)
-    return NumberofSets
+    local Confirmation=false
+    local TrueAmount=0
+    Confirmation, TrueAmount=ConfirmAmountOfSetsIsValid(NumberofSets)
+    if Confirmation==true then
+        return NumberofSets
+    end
+    if Confirmation==false then
+        print("In CheckSavedSets() amount of sets is reporting as: "..tostring(NumberofSets))
+        print("In CheckSavedSets() trueamount of sets is reporting as: "..tostring(TrueAmount))
+        return
+    end
 end
 function AddOneToSavedSetCount()
     local file = io.open("SavedSets/Sets.txt", "r+")
@@ -250,6 +260,18 @@ function CreateNewSet()
     SaveIndividualSet("Title Here", BlankSet, AmountOfSets+1)
     AddOneToSavedSetCount()
     SetToPreview=CheckSavedSets()
-    StateMachine ="Edit"
     Deleting=false
 end
+function ConfirmAmountOfSetsIsValid(NumOfSets)
+    for i=1, NumOfSets do
+        local Filename="SavedSets/Set"..i..".txt"
+        if file_exists(Filename)==false then
+            return false
+        end
+    end
+    return true
+end
+function file_exists(name)
+    local f=io.open(name,"r")
+    if f~=nil then io.close(f) return true else return false end
+ end
