@@ -42,7 +42,12 @@ function CheckSavedSets()
     if Confirmation==false then
         print("In CheckSavedSets() amount of sets is reporting as: "..tostring(NumberofSets))
         print("In CheckSavedSets() trueamount of sets is reporting as: "..tostring(TrueAmount))
-        return
+        file=io.open("SavedSets/Sets.txt", "w")
+        if file then
+            file:write(tonumber(TrueAmount))
+            io.close(file)
+        end
+        return TrueAmount
     end
 end
 function AddOneToSavedSetCount()
@@ -263,13 +268,16 @@ function CreateNewSet()
     Deleting=false
 end
 function ConfirmAmountOfSetsIsValid(NumOfSets)
+    local TrueAmount=0
     for i=1, NumOfSets do
         local Filename="SavedSets/Set"..i..".txt"
         if file_exists(Filename)==false then
-            return false
+            return false, TrueAmount
+        else
+            TrueAmount=TrueAmount+1
         end
     end
-    return true
+    return true, TrueAmount
 end
 function file_exists(name)
     local f=io.open(name,"r")
