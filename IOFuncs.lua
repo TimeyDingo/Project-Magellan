@@ -58,16 +58,17 @@ function RemoveOneFromSavedSetCount()
     io.close(file)
 end
 function ImportAQuizletSet(Title, SetData)
-    if Title==nil or SetData==nil then
-        print("In ImportAQuizletSet() Title is reporting as: "..tostring(Title))
-        print("In ImportAQuizletSet() SetData is reporting as: "..tostring(SetData))
+    if Title == nil or SetData == nil then
+        print("In ImportAQuizletSet() Title is reporting as: " .. tostring(Title))
+        print("In ImportAQuizletSet() SetData is reporting as: " .. tostring(SetData))
         return
     end
-    local CurrentSetCount=0
-    CurrentSetCount=CheckSavedSets()
-    local NewFileName="SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
-    local file=io.open(NewFileName,"w")
-    local TextToWrite=Title.."--"..SetData
+    SetData = SetData:gsub("[%c]", " ") --?? %c matches control characters (newline, carriage return, etc.)
+    local CurrentSetCount = 0
+    CurrentSetCount = CheckSavedSets()
+    local NewFileName = "SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
+    local file = io.open(NewFileName, "w")
+    local TextToWrite = Title .. "--" .. SetData
     file:write(TextToWrite)
     io.close(file)
     AddOneToSavedSetCount()
