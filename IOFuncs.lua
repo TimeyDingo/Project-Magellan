@@ -83,7 +83,7 @@ function ImportAQuizletSet(Title, SetData)
     file:write(TextToWrite)
     io.close(file)
     AddOneToSavedSetCount()
-end--!!https://chatgpt.com/c/0f4b5924-9d67-4384-a2b8-a57466c3ad53
+end
 function LoadSavedSetsIntoMemory()
     local NumberofSets = CheckSavedSets()
     local SetData = {}
