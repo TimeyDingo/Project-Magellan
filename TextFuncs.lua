@@ -261,11 +261,13 @@ function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScr
     love.graphics.setColor(255, 153, 0)
     local ScrollingOrigin=BoxY+BoxH
     love.graphics.rectangle("fill",BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems)
-    if ButtonDebounce("up", 30) and CurrentScroll > 0 then
+    if (ButtonDebounce("up", 30) or YScroll>0)and CurrentScroll > 0 then
         CurrentScroll = CurrentScroll - 1
+        YScroll=0
     end
-    if ButtonDebounce("down", 30) and CurrentScroll < NumberOfItems-MinNumberOfItems then
+    if (ButtonDebounce("down", 30) or YScroll<0) and CurrentScroll < NumberOfItems-MinNumberOfItems then
         CurrentScroll = CurrentScroll + 1
+        YScroll=0
     end
     love.graphics.setColor(255,255,255)
     return CurrentScroll

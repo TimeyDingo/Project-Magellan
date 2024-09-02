@@ -256,6 +256,7 @@ function DeleteSet()
         end
         SetToPreview=0
     end
+    YScroll=0
     Deleting=false
 end
 function CreateNewSet()

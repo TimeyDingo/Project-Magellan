@@ -31,6 +31,7 @@ function love.load()
     Deleting=false
     HeldTime=0
     NumberOfTerms=0
+    YScroll=0
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -53,6 +54,10 @@ function love.update(dt)
     end
     if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing activity
         GenerateTestingData()
+    end
+    function love.wheelmoved(x, y)
+        YScroll=y
+        print(YScroll)
     end
 end
 function love.draw()
