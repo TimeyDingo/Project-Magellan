@@ -5,5 +5,4 @@
 5. open cmd at root of portable love installation
 6. run command
 copy /b [drag and drop the location of the love.exe from the portable installation into the cmd] + [drag and drop the location of the zipped project files into the cmd] [name of desired output file].exe
-7. in user file you'll locate outputted file
-8. move file to the portable installation of love2d
+7. move file to the portable installation of love2d

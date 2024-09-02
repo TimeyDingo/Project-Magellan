@@ -35,8 +35,13 @@ end
 function love.update(dt)
     dt = love.timer.getDelta()
     DebounceTimer=DebounceTimer+1
-    if love.keyboard.isDown("1") then --? allows game to be closed on 1 keyboard input for debugging
+    if love.keyboard.isDown("lshift") and love.keyboard.isDown("escape") then --? allows game to be closed quickly for debugging
         love.event.quit()
+    end
+    if love.keyboard.isDown("escape") then
+        PopupCall=true
+        PopupAction="love.event.quit()"
+        PopUpMessage="Close Software?"
     end
     if StateMachine=="Edit" and EditActivityLoadOnce==false then
         SetTitle, SetData, NumberOfTerms=LoadIndividualSet(SetToPreview)
