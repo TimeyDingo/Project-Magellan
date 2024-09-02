@@ -1,5 +1,12 @@
 function MatchingActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
+    if SetTitle==nil or SetData==nil or MatchingActivityTable==nil or MatchingActivityPositions==nil then
+        print("In MatchingActivity() SetTitle is reporting as: "..tostring(SetTitle))
+        print("In MatchingActivity() SetData is reporting as: "..tostring(SetData))
+        print("In MatchingActivity() MatchingActivityTable is reporting as: "..tostring(MatchingActivityTable))
+        print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
+        return
+    end
     if MatchingActivityLoadOnce==false then
         MatchingActivityTable=SetData
         MatchingActivityLoadOnce=true
@@ -20,35 +27,36 @@ end
 function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardNumber)
     local BoxW=100
     local BoxH=100
-    if type(Text) == "string" then
-        -- Wrap the text and calculate dimensions
-        BoxW=CalculateWrap(TextFont, Text, 0.8, 0.15, 10, 5)
-        love.graphics.setFont(TextFont)
-        local _, wrappedText = TextFont:getWrap(Text, BoxW)
-        local wrappedHeight = #wrappedText * TextFont:getHeight()
-        BoxH=wrappedHeight
-        -- Coordinates for the text
-        local textX = BoxX
-        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
-        
-        -- Draw the wrapped text
-        love.graphics.setColor(255, 255, 255)  -- Set text color to white
-        love.graphics.printf(Text, textX, textY, BoxW, "center")
-    else
-        -- Handle the case where Text is not a string (optional)
-        print("Warning: Text is not a string")
+    if BoxX==nil or BoxY==nil or Text==nil or TextFont==nil or Pair==nil or PairSubset==nil or CardNumber==nil then
+        print("In DisplayMatchingCard() BoxX is reporting as: "..tostring(BoxX))
+        print("In DisplayMatchingCard() BoxY is reporting as: "..tostring(BoxY))
+        print("In DisplayMatchingCard() Text is reporting as: "..tostring(Text))
+        print("In DisplayMatchingCard() TextFont is reporting as: "..tostring(TextFont))
+        print("In DisplayMatchingCard() Pair is reporting as: "..tostring(Pair))
+        print("In DisplayMatchingCard() PairSubset is reporting as: "..tostring(PairSubset))
+        print("In DisplayMatchingCard() CardNumber is reporting as: "..tostring(CardNumber))
+        return
     end
+    -- Wrap the text and calculate dimensions
+    BoxW=CalculateWrap(TextFont, Text, 0.8, 0.15, 10, 5)
+    love.graphics.setFont(TextFont)
+    local _, wrappedText = TextFont:getWrap(Text, BoxW)
+    local wrappedHeight = #wrappedText * TextFont:getHeight()
+    BoxH=wrappedHeight
+    -- Coordinates for the text
+    local textX = BoxX
+    local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     
-    
+    -- Draw the wrapped text
+    love.graphics.setColor(255, 255, 255)  -- Set text color to white
+    love.graphics.printf(Text, textX, textY, BoxW, "center")
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
-    
     -- Handle mouse input
     if Selected and love.mouse.isDown(1) then  -- Left mouse button clicked
         if MatchingActivityCurrentCard == nil then  -- No card is currently selected
             MatchingActivityCurrentCard = CardNumber  -- Select this card
         end
     end
-    
     if MatchingActivityCurrentCard == CardNumber then
         if love.mouse.isDown(1) then
             love.graphics.setColor(255, 255, 255)
@@ -58,9 +66,7 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
             MatchingActivityCurrentCard = nil  -- Deselect the card when the mouse button is released
         end
     end
-    
     -- Ensure Text is a string before wrapping
-    
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
     if MatchingActivityCurrentCard == CardNumber then
@@ -76,8 +82,11 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
     return BoxW, BoxH
 end
 function RemoveMatchingCards()
-    -- Identify the indices of cards to remove
     local indicesToRemove = {}
+    if MatchingActivityTable==nil or MatchingActivityPositions==nil then
+        print("Crash in RemoveMatchingCards".."MatchingActivityTable:"..tostring(MatchingActivityTable).."MatchingActivityPositions:"..tostring(MatchingActivityPositions))
+        return
+    end
     for i = 1, #MatchingActivityTable do
         if MatchingPositionPercentage(
             MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], MatchingActivityPositions[i][1][3], MatchingActivityPositions[i][1][4],
@@ -96,6 +105,17 @@ function RemoveMatchingCards()
     end
 end
 function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB, WidthB, HeightB)
+    if XPosA==nil or YPosA==nil or WidthA==nil or HeightA==nil or XPosB==nil or YPosB==nil or WidthB==nil or HeightB==nil then
+        print("In MatchingPositionPercentage() XPosA is reporting as: "..tostring(XPosA))
+        print("In MatchingPositionPercentage() YPosA is reporting as: "..tostring(YPosA))
+        print("In MatchingPositionPercentage() WidthA is reporting as: "..tostring(WidthA))
+        print("In MatchingPositionPercentage() HeightA is reporting as: "..tostring(HeightA))
+        print("In MatchingPositionPercentage() XPosB is reporting as: "..tostring(XPosB))
+        print("In MatchingPositionPercentage() YPosB is reporting as: "..tostring(YPosB))
+        print("In MatchingPositionPercentage() WidthB is reporting as: "..tostring(WidthB))
+        print("In MatchingPositionPercentage() HeightB is reporting as: "..tostring(HeightB))
+        return
+    end
     -- Calculate the edges of the rectangles
     local rightA = XPosA + WidthA
     local bottomA = YPosA + HeightA
@@ -129,6 +149,15 @@ function MatchingPositionPercentage(XPosA, YPosA, WidthA, HeightA, XPosB, YPosB,
     return overallOverlap
 end
 function CalculateWrap(TextFont, Text, baseRatio, targetRatio, transitionPoint, minWordCount)
+    if TextFont==nil or Text==nil or baseRatio==nil or targetRatio==nil or transitionPoint==nil or minWordCount==nil then
+        print("In CalculateWrap() TextFont is reporting as: "..tostring(TextFont))
+        print("In CalculateWrap() Text is reporting as: "..tostring(Text))
+        print("In CalculateWrap() baseRatio is reporting as: "..tostring(baseRatio))
+        print("In CalculateWrap() targetRatio is reporting as: "..tostring(targetRatio))
+        print("In CalculateWrap() transitionPoint is reporting as: "..tostring(transitionPoint))
+        print("In CalculateWrap() minWordCount is reporting as: "..tostring(minWordCount))
+        return
+    end
     -- Count the number of words in the text by counting the spaces
     local wordCount = 1  -- Start with 1 because the last word won't have a trailing space
     for _ in string.gmatch(Text, "%S+") do

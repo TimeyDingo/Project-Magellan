@@ -29,7 +29,16 @@ function TestActivity()--! potential scrolling bug with the positioning of the s
     end
     love.graphics.setColor(255,255,255)
 end
-function TestActivityDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
+function TestActivityDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In TestActivityDisplayTerm() BoxX is reporting as: "..tostring(BoxX))
+        print("In TestActivityDisplayTerm() BoxY is reporting as: "..tostring(BoxY))
+        print("In TestActivityDisplayTerm() BoxW is reporting as: "..tostring(BoxW))
+        print("In TestActivityDisplayTerm() BoxH is reporting as: "..tostring(BoxH))
+        print("In TestActivityDisplayTerm() Text is reporting as: "..tostring(Text))
+        print("In TestActivityDisplayTerm() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
@@ -50,6 +59,17 @@ function TestActivityDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     love.graphics.setColor(255, 255, 255)
 end
 function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFont, Scaling)
+    if BoxX==nil or Position==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or TestActivityTestTable==nil or TestActivityScroll==nil then
+        print("In TestActivityDisplayDefinition() BoxX is reporting as: "..tostring(BoxX))
+        print("In TestActivityDisplayDefinition() Position is reporting as: "..tostring(Position))
+        print("In TestActivityDisplayDefinition() BoxW is reporting as: "..tostring(BoxW))
+        print("In TestActivityDisplayDefinition() BoxH is reporting as: "..tostring(BoxH))
+        print("In TestActivityDisplayDefinition() Text is reporting as: "..tostring(Text))
+        print("In TestActivityDisplayDefinition() TextFont is reporting as: "..tostring(TextFont))
+        print("In TestActivityDisplayDefinition() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
+        print("In TestActivityDisplayDefinition() TestActivityScroll is reporting as: "..tostring(TestActivityScroll))
+        return
+    end
     if Position==1 then
         BoxY=200+MediumLine
     end
@@ -99,6 +119,10 @@ function TestActivityCheckIfEnoughTerms()
     end
 end
 function TestActivityCalculateHowManyHaveBeenAnswered()
+    if TestActivityTestTable==nil then
+        print("In TestActivityCalculateHowManyHaveBeenAnswered() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
+        return
+    end
     local AnsweredCount=0
     local TotalQuestions=#TestActivityTestTable
     for i=1, TotalQuestions do
@@ -109,6 +133,10 @@ function TestActivityCalculateHowManyHaveBeenAnswered()
     return AnsweredCount, TotalQuestions
 end
 function TestActivityCheckAnswers()
+    if TestActivityTestTable==nil then
+        print("In TestActivityCheckAnswers() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
+        return
+    end
     local CorrectAnswers=0
     local TotalQuestions=#TestActivityTestTable
     for i=1, TotalQuestions do

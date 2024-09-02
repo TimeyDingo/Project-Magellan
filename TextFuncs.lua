@@ -1,51 +1,10 @@
-function TextBox(X,Y,Text,TextFont,Alignment,SoftCorners,backgroundR,backgroundG,backgroundB,TextR,TextG,TextB,PaddingLR,PaddingUD,OverRidePadding,OverrideX,OverrideY,Selected)
-    love.graphics.setFont(TextFont)
-    local TW=0
-    local TH=0
-    if OverRidePadding=="false" then
-        TW=TextFont:getWidth(Text)
-        TH=TextFont:getHeight(Text)
-    end
-    if OverRidePadding=="true" then
-        TW=OverrideX
-        TH=OverrideY
-    end
-    if Alignment=="left" then
-        AlignmentFactor=PaddingLR/-2
-        --add alignments, add padding amounts on each side to the box
-    end
-    if Alignment=="right" then
-        AlignmentFactor=PaddingLR/2
-    end
-    if Alignment=="center" then
-        AlignmentFactor=0
-    end
-    if SoftCorners=="true" then
-        local rx=5
-        local ry=5
-    else if SoftCorners=="false" then
-        local rx=0
-        local ry=0
-    end
-    end
-    love.graphics.setColor(backgroundR,backgroundG,backgroundB)
-    love.graphics.rectangle("fill",X+((W-TW-PaddingLR)/2),Y+((H-TH-PaddingUD)/2),TW+PaddingLR,TH+PaddingUD,rx,ry)
-    love.graphics.setColor(TextR,TextG,TextB)
-    love.graphics.print(Text,(((W-TW-PaddingLR)/2)+X+PaddingLR/2)+AlignmentFactor,((H-TH+PaddingUD)/2)+Y-PaddingUD/2)
-    local TopLeftX=X+((W-TW-PaddingLR)/2)
-    local TopLeftY=Y+((H-TH-PaddingUD)/2)
-    local BottomRightX=(X+((W-TW-PaddingLR)/2))+TW+PaddingLR
-    local BottomRightY=(Y+((H-TH-PaddingUD)/2))+TH+PaddingUD
-    if Selected==true then
-        love.graphics.setColor(backgroundR,backgroundG,backgroundB)
-        love.graphics.setLineWidth(MediumLine)
-        love.graphics.rectangle("line",TopLeftX-10,TopLeftY-10,BottomRightX+20-TopLeftX,BottomRightY+20-TopLeftY)
-    end
-    return TopLeftX,TopLeftY,BottomRightX,BottomRightY
-end
 function CenterText(X,Y,Text,TextFont)
     love.graphics.setFont(TextFont)
     if Text==nil or TextFont==nil or X==nil or Y==nil then
+        print("In CenterText() X is reporting as: "..tostring(X))
+        print("In CenterText() Y is reporting as: "..tostring(Y))
+        print("In CenterText() Text is reporting as: "..tostring(Text))
+        print("In CenterText() TextFont is reporting as: "..tostring(TextFont))
         return
     end
     local TW=TextFont:getWidth(Text)
@@ -53,6 +12,15 @@ function CenterText(X,Y,Text,TextFont)
     love.graphics.print(Text,((W-TW)/2)+X,((H-TH)/2)+Y)--Screen Width minus text width divided by 2 + change in x
 end
 function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In ButtonStyle1() BoxX is reporting as: "..tostring(BoxX))
+        print("In ButtonStyle1() BoxY is reporting as: "..tostring(BoxY))
+        print("In ButtonStyle1() BoxW is reporting as: "..tostring(BoxW))
+        print("In ButtonStyle1() BoxH is reporting as: "..tostring(BoxH))
+        print("In ButtonStyle1() Text is reporting as: "..tostring(Text))
+        print("In ButtonStyle1() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
@@ -84,6 +52,15 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont,Scaling)
     love.graphics.setColor(255, 255, 255)
 end
 function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Action)--Be able to run a function
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
+        print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
+        print("In ButtonStyle1Mod3() BoxW is reporting as: "..tostring(BoxW))
+        print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
+        print("In ButtonStyle1Mod3() Text is reporting as: "..tostring(Text))
+        print("In ButtonStyle1Mod3() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
@@ -123,8 +100,13 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Actio
     love.graphics.setColor(255, 255, 255)
 end
 function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
-    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or Scaling==nil then
-        print("CenteredTextBox is crashing"..tostring(BoxX)..tostring(BoxY)..tostring(BoxW)..tostring(BoxH)..tostring(Text)..tostring(Scaling))
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In CenteredTextBox() BoxX is reporting as: "..tostring(BoxX))
+        print("In CenteredTextBox() BoxY is reporting as: "..tostring(BoxY))
+        print("In CenteredTextBox() BoxW is reporting as: "..tostring(BoxW))
+        print("In CenteredTextBox() BoxH is reporting as: "..tostring(BoxH))
+        print("In CenteredTextBox() Text is reporting as: "..tostring(Text))
+        print("In CenteredTextBox() TextFont is reporting as: "..tostring(TextFont))
         return
     end
     love.graphics.setFont(TextFont)
@@ -142,6 +124,15 @@ function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
     love.graphics.print(Text, textX, textY)
 end
 function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or Text==nil or TextFont==nil then
+        print("In CenteredTextBoxWithWrapping() BoxX is reporting as: "..tostring(BoxX))
+        print("In CenteredTextBoxWithWrapping() BoxY is reporting as: "..tostring(BoxY))
+        print("In CenteredTextBoxWithWrapping() BoxW is reporting as: "..tostring(BoxW))
+        print("In CenteredTextBoxWithWrapping() BoxH is reporting as: "..tostring(BoxH))
+        print("In CenteredTextBoxWithWrapping() Text is reporting as: "..tostring(Text))
+        print("In CenteredTextBoxWithWrapping() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
     love.graphics.setFont(TextFont)
     local textHeight = TextFont:getHeight()  -- Height of a single line of text
     if Scaling==true then
@@ -159,7 +150,6 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
 
     -- Print the wrapped and centered text
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")
-
     return totalHeight
 end
 function BackdropDraw(Backdrop)
@@ -168,6 +158,16 @@ function BackdropDraw(Backdrop)
     love.graphics.translate(-Settings[1]/2, -Settings[2]/2)
 end
 function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling,RGB, Action)--Be able to run a function
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or RGB==nil then
+        print("In ButtonStyle1Mod3WithRGB() BoxX is reporting as: "..tostring(BoxX))
+        print("In ButtonStyle1Mod3WithRGB() BoxY is reporting as: "..tostring(BoxY))
+        print("In ButtonStyle1Mod3WithRGB() BoxW is reporting as: "..tostring(BoxW))
+        print("In ButtonStyle1Mod3WithRGB() BoxH is reporting as: "..tostring(BoxH))
+        print("In ButtonStyle1Mod3WithRGB() Text is reporting as: "..tostring(Text))
+        print("In ButtonStyle1Mod3WithRGB() TextFont is reporting as: "..tostring(TextFont))
+        print("In ButtonStyle1Mod3WithRGB() RGB is reporting as: "..tostring(RGB))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
@@ -207,6 +207,12 @@ function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling
     love.graphics.setColor(255, 255, 255)
 end
 function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
+    if MessageType==nil or TextFont==nil or Action==nil then
+        print("In ConfirmActionPopup() MessageType is reporting as: "..tostring(MessageType))
+        print("In ConfirmActionPopup() TextFont is reporting as: "..tostring(TextFont))
+        print("In ConfirmActionPopup() Action is reporting as: "..tostring(Action))
+        return
+    end
     local BoxXUnscalled=600
     local BoxYUnscalled=480
     local BoxWUnscalled=660

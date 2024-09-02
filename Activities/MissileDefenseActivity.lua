@@ -21,6 +21,12 @@ function MissileDefenseActivity()
     end
 end
 function MissileDefenseDisplayChallenges()
+    if SetData==nil or MissileDefenseChallenges==nil or MissileDefenseChallengeCount<1 then
+        print("In MissileDefenseDisplayChallenges() SetData is reporting as: "..tostring(SetData))
+        print("In MissileDefenseDisplayChallenges() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
+        print("In MissileDefenseDisplayChallenges() MissileDefenseChallengeCount is reporting as: "..tostring(MissileDefenseChallengeCount))
+        return
+    end
     local ChallengeQuestion=""
     local ChallengeAnswer=""
     local RandomChallenge=1
@@ -61,6 +67,10 @@ function MissileDefenseDisplayChallenges()
     end
 end
 function MissileDefenseResponse()
+    if MissileDefenseTypedResponse==nil then
+        print("In MissileDefenseResponse() MissileDefenseTypedResponse is reporting as: "..tostring(MissileDefenseTypedResponse))
+        return
+    end
     local TextFont=Exo32Bold
     love.graphics.setFont(TextFont)
     local BoxX=0
@@ -98,6 +108,11 @@ function MissileDefenseResponse()
     end
 end
 function MissileDefenseDisplay()
+    if MissileDefenseChallenges==nil or TerrainPoints==nil then
+        print("In MissileDefenseDisplay() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
+        print("In MissileDefenseDisplay() TerrainPoints is reporting as: "..tostring(TerrainPoints))
+        return
+    end
     love.graphics.setColor(255,153,0)
     love.graphics.rectangle("line", 0, scaling(65,1080, Settings[2]), scaling(1320, 1920, Settings[1]), scaling(850, 1080, Settings[2]))
     love.graphics.setColor(255,255,255)
@@ -131,6 +146,15 @@ function MissileDefenseDisplay()
     --??
 end
 function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, Failed)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or Failed==nil then
+        print("In MissileDefenseDisplayChallenge() BoxX is reporting as: "..tostring(BoxX))
+        print("In MissileDefenseDisplayChallenge() BoxY is reporting as: "..tostring(BoxY))
+        print("In MissileDefenseDisplayChallenge() BoxW is reporting as: "..tostring(BoxW))
+        print("In MissileDefenseDisplayChallenge() BoxH is reporting as: "..tostring(BoxH))
+        print("In MissileDefenseDisplayChallenge() Text is reporting as: "..tostring(Text))
+        print("In MissileDefenseDisplayChallenge() Failed is reporting as: "..tostring(Failed))
+        return
+    end
     if Failed==false then
         local InitialFont=Exo28
         local newSize=28
@@ -169,9 +193,14 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
     end
 end
 function MissileDefenseCheckResponse()
+    if MissileDefenseTypedResponse==nil or MissileDefenseChallengeCount==nil or MissileDefenseChallenges==nil then
+        print("In MissileDefenseCheckResponse() MissileDefenseTypedResponse is reporting as: "..tostring(MissileDefenseTypedResponse))
+        print("In MissileDefenseCheckResponse() MissileDefenseChallengeCount is reporting as: "..tostring(MissileDefenseChallengeCount))
+        print("In MissileDefenseCheckResponse() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
+        return
+    end
     Deleting=true
     local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
-    --MissileDefenseTypedResponse
     if MissileDefenseChallengeCount>0 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[1][2]) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
@@ -202,6 +231,10 @@ function MissileDefenseCheckResponse()
     Deleting=false
 end
 function MissileDefenseCheckLives()
+    if MissileDefenseChallenges==nil then
+        print("In MissileDefenseCheckLives() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
+        return
+    end
     local ReturnValue=0
     if MissileDefenseChallenges[1][3]>600 then
         ReturnValue=MissileDefenseChallengeFailedStep1(1)
@@ -215,6 +248,10 @@ function MissileDefenseCheckLives()
     return ReturnValue
 end
 function MissileDefenseChallengeFailedStep1(ChallengeThatWasFailed)
+    if ChallengeThatWasFailed==nil then
+        print("In MissileDefenseChallengeFailedStep1() ChallengeThatWasFailed is reporting as: "..tostring(ChallengeThatWasFailed))
+        return
+    end
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=true
         MissileDefenseAChallengeFailed=true
@@ -230,6 +267,12 @@ function MissileDefenseChallengeFailedStep1(ChallengeThatWasFailed)
     return ChallengeThatWasFailed
 end
 function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
+    if ChallengeThatWasFailed<1 or MissileDefenseChallenges==nil or MissileDefenseChallengeCount==nil then
+        print("In MissileDefenseChallengeFailedStep2() ChallengeThatWasFailed is reporting as: "..tostring(ChallengeThatWasFailed))
+        print("In MissileDefenseChallengeFailedStep2() MissileDefenseChallenges is reporting as: "..tostring(MissileDefenseChallenges))
+        print("In MissileDefenseChallengeFailedStep2() MissileDefenseChallengeCount is reporting as: "..tostring(MissileDefenseChallengeCount))
+        return
+    end
     Deleting=true
     MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
     local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed][4]

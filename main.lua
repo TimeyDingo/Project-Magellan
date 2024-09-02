@@ -46,7 +46,7 @@ function love.update(dt)
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer=MissileDefenseTimer+1
     end
-    if StateMachine=="Set Options" then --?? Load for the testing activity
+    if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing activity
         GenerateTestingData()
     end
 end
@@ -90,7 +90,7 @@ function love.draw()
             ButtonStyle1Mod3(1020,887,290,96,"Confirm",Exo24Bold,true,'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""')
         end
         if StateMachine=="Set Options" then
-            SetTitle, SetData = LoadIndividualSet(SetToPreview)
+            SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
             BackdropDraw(SelectActionBackdrop)
             ButtonStyle1Mod3(300,253,402,122,"View/Edit",Exo24Bold,true, 'StateMachine = "View Set"')
             ButtonStyle1Mod3(754,253,402,122,"Flashcards",Exo24Bold,true, 'StateMachine = "Flashcards"')
@@ -112,7 +112,7 @@ function love.draw()
         end
         if StateMachine=="Flashcards" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; ResetFlashCardActivity()')
+            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadFlashcards()')
             ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             FlashcardActivity()
         end

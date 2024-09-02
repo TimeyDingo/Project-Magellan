@@ -24,44 +24,47 @@ function LoadSettingsIO(Settings)
         return 0 -- Error
     end
 end
+
+
 function CheckSavedSets()
     local file=io.open("SavedSets/Sets.txt", "r")
+    if file==nil then
+        print("In CheckSavedSets() file is reporting as: "..tostring(file))
+        return
+    end 
     local NumberofSets=0
-    if file then
-        NumberofSets=file:read("n")
-    end
+    NumberofSets=file:read("n")
     io.close(file)
     return NumberofSets
 end
 function AddOneToSavedSetCount()
     local file = io.open("SavedSets/Sets.txt", "r+")
     local NumberofSets = 0
-    
     if file then
         NumberofSets = file:read("*n") or 0
         file:seek("set")  -- Move file pointer back to the beginning for writing
     else
         file = io.open("SavedSets/Sets.txt", "w")  -- Create file if it doesn't exist
     end
-    
     file:write(NumberofSets + 1)
     io.close(file)
 end
 function RemoveOneFromSavedSetCount()
     local file = io.open("SavedSets/Sets.txt", "r+")
     local NumberofSets = 0
-    
     if file then
         NumberofSets = file:read("*n") or 0
         file:seek("set")  -- Move file pointer back to the beginning for writing
-    else
-        file = io.open("SavedSets/Sets.txt", "w")  -- Create file if it doesn't exist
+        file:write(NumberofSets - 1)
     end
-    
-    file:write(NumberofSets - 1)
     io.close(file)
 end
 function ImportAQuizletSet(Title, SetData)
+    if Title==nil or SetData==nil then
+        print("In ImportAQuizletSet() Title is reporting as: "..tostring(Title))
+        print("In ImportAQuizletSet() SetData is reporting as: "..tostring(SetData))
+        return
+    end
     local CurrentSetCount=0
     CurrentSetCount=CheckSavedSets()
     local NewFileName="SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
@@ -122,11 +125,16 @@ function LoadSavedSetsIntoMemory()
     --https://chatgpt.com/c/1103cb13-78ec-4355-ba4b-3ac590cb4d2c
 end
 function SaveSetsToFile(SetData, Filename)
-    local file = io.open(Filename, "w")
-    if not file then
-        error("Could not open file for writing: " .. Filename)
+    if SetData==nil or Filename==nil then
+        print("In SaveSetsToFile() SetData is reporting as: "..tostring(SetData))
+        print("In SaveSetsToFile() Filename is reporting as: "..tostring(Filename))
+        return
     end
-
+    local file = io.open(Filename, "w")
+    if file==nil then
+        print("In SaveSetsToFile() file is reporting as: "..tostring(file))
+        return
+    end
     for _, set in ipairs(SetData) do
         local title = set[1]
         local dataSet = set[2]
@@ -139,71 +147,94 @@ function SaveSetsToFile(SetData, Filename)
         local line = title .. "--" .. table.concat(dataStrings, "::")
         file:write(line .. "\n")
     end
-
     file:close()
 end
 function LoadIndividualSet(SetToLoad)
+    if SetToLoad==nil then
+        print("In LoadIndividualSet() SetToLoad is reporting as: "..tostring(SetToLoad))
+        return
+    end
     local filename = "SavedSets/Set" .. SetToLoad .. ".txt"
     local SetData = {}
     local Title
     local Num=0
     local NumberofSets = CheckSavedSets()
     if SetToLoad > NumberofSets then
-        return nil
+        print("In LoadIndividualSet() SetToLoad is greater then NumberofSets")
+        return
     end
     local file = io.open(filename, "r")
-    if file then
-        local line = file:read("*l")
-        file:close()
-        if line then
-            local title, data = line:match("^(.-)%-%-(.+)$")
-            Title=title
-            if data then
-                for item in data:gmatch("[^::]+") do
-                    local subData = {}
-                    for subItem in item:gmatch("[^;;]+") do
-                        table.insert(subData, subItem)
-                    end
-                    table.insert(SetData, subData)
-                    Num=Num+1
+    if file==nil then
+        print("In LoadIndividualSet() file is reporting as: "..tostring(file))
+        return
+    end
+    local line = file:read("*l")
+    file:close()
+    if line then
+        local title, data = line:match("^(.-)%-%-(.+)$")
+        Title=title
+        if data then
+            for item in data:gmatch("[^::]+") do
+                local subData = {}
+                for subItem in item:gmatch("[^;;]+") do
+                    table.insert(subData, subItem)
                 end
+                table.insert(SetData, subData)
+                Num=Num+1
             end
         end
     end
     return Title, SetData, Num
 end
 function SaveIndividualSet(SetTitle, SetDataTable, SetToSave)
+    if SetTitle==nil or SetDataTable==nil or SetToSave==nil then
+        print("In SaveIndividualSet() SetTitle is reporting as: "..tostring(SetTitle))
+        print("In SaveIndividualSet() SetDataTable is reporting as: "..tostring(SetDataTable))
+        print("In SaveIndividualSet() SetToSave is reporting as: "..tostring(SetToSave))
+        return
+    end
     local filename = "SavedSets/Set" .. SetToSave .. ".txt"
     local file = io.open(filename, "w")
-    if file then
-        local dataToSave = SetTitle .. "--"
-        for i, subData in ipairs(SetDataTable) do
-            dataToSave = dataToSave .. table.concat(subData, ";;")
-            if i < #SetDataTable then
-                dataToSave = dataToSave .. "::"
-            end
-        end
-        file:write(dataToSave)
-        file:close()
-        return true
-    else
-        return false
+    if file==nil then
+        print("In SaveIndividualSet() file is reporting as: "..tostring(file))
+        return
     end
+    local dataToSave = SetTitle .. "--"
+    for i, subData in ipairs(SetDataTable) do
+        dataToSave = dataToSave .. table.concat(subData, ";;")
+        if i < #SetDataTable then
+            dataToSave = dataToSave .. "::"
+        end
+    end
+    file:write(dataToSave)
+    file:close()
 end
 function DeleteSet()
+    if SetToPreview==nil then
+        print("In DeleteSet() SetToPreview is reporting as: "..tostring(SetToPreview))
+        return
+    end
     Deleting=true
     local NumberofSets=CheckSavedSets()
-    local SetToRemove="SavedSets/Set" .. SetToPreview .. ".txt"
-    os.remove(SetToRemove)
-    RemoveOneFromSavedSetCount()
-    for i=SetToPreview, NumberofSets do
-        local NameToChange="SavedSets/Set" .. i .. ".txt"
-        local Rename="SavedSets/Set" .. i-1 .. ".txt"
-        os.rename(NameToChange, Rename)
+    if SetToPreview>NumberofSets then
+        print("In DeleteSet() SetToPreview is larger then NumberofSets")
+        return
     end
-    SetToPreview=0
-    --os.rename (oldname, newname)
-    --SetToPreview=0
+    local SetToRemove="SavedSets/Set" .. SetToPreview .. ".txt"
+    local Removed=os.remove(SetToRemove)
+    if Removed==true then
+        RemoveOneFromSavedSetCount()
+        for i=SetToPreview, NumberofSets do
+            local NameToChange="SavedSets/Set" .. i .. ".txt"
+            local Rename="SavedSets/Set" .. i-1 .. ".txt"
+            local Renamed=os.rename(NameToChange, Rename)
+            if Renamed~=true then
+                print("In DeleteSet() Renaming files has failed")
+                return
+            end
+        end
+        SetToPreview=0
+    end
     Deleting=false
 end
 function CreateNewSet()

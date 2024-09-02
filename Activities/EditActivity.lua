@@ -1,4 +1,12 @@
 function EditActivity()
+    if SetTitle==nil or SetData==nil or NumberOfTerms==nil or Settings==nil or EditActivityScroll==nil then
+        print("In EditActivity() SetTitle is reporting as: "..tostring(SetTitle))
+        print("In EditActivity() SetData is reporting as: "..tostring(SetData))
+        print("In EditActivity() NumberOfTerms is reporting as: "..tostring(NumberOfTerms))
+        print("In EditActivity() Settings is reporting as: "..tostring(Settings))
+        print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
+        return
+    end
     EditableTitle(660, 60, 600, 60, Exo32Bold,true)
     ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'StateMachine="View Set"')
     local TermFont=Exo24
@@ -45,7 +53,16 @@ function EditActivity()
     end
     love.graphics.setColor(255,255,255)
 end
-function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont,Scaling)
+function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or TermToDisplayAndEdit==nil then
+        print("In EditableDisplayTerm() BoxX is reporting as: "..tostring(BoxX))
+        print("In EditableDisplayTerm() BoxY is reporting as: "..tostring(BoxY))
+        print("In EditableDisplayTerm() BoxW is reporting as: "..tostring(BoxW))
+        print("In EditableDisplayTerm() BoxH is reporting as: "..tostring(BoxH))
+        print("In EditableDisplayTerm() TextFont is reporting as: "..tostring(TextFont))
+        print("In EditableDisplayTerm() TermToDisplayAndEdit is reporting as: "..tostring(TermToDisplayAndEdit))
+        return
+    end
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
@@ -63,7 +80,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     else
         love.graphics.setColor(255, 153, 0)
     end
-    Text=SetData[TermToDisplayAndEdit][2]
+    local Text=SetData[TermToDisplayAndEdit][2]
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
@@ -77,6 +94,15 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     love.graphics.setColor(255, 255, 255)
 end
 function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or TermToDisplayAndEdit==nil then
+        print("In EditableDisplayDefinition() BoxX is reporting as: "..tostring(BoxX))
+        print("In EditableDisplayDefinition() BoxY is reporting as: "..tostring(BoxY))
+        print("In EditableDisplayDefinition() BoxW is reporting as: "..tostring(BoxW))
+        print("In EditableDisplayDefinition() BoxH is reporting as: "..tostring(BoxH))
+        print("In EditableDisplayDefinition() TextFont is reporting as: "..tostring(TextFont))
+        print("In EditableDisplayDefinition() TermToDisplayAndEdit is reporting as: "..tostring(TermToDisplayAndEdit))
+        return
+    end
     love.graphics.setFont(TextFont)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
@@ -94,7 +120,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     else
         love.graphics.setColor(255, 153, 0)
     end
-    Text=SetData[TermToDisplayAndEdit][1]
+    local Text=SetData[TermToDisplayAndEdit][1]
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
@@ -108,6 +134,10 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     love.graphics.setColor(255, 255, 255)
 end
 function EditActivityRemoveTerm(TermToRemove)
+    if TermToRemove==nil then
+        print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
+        return
+    end
     Deleting=true
     table.remove(SetData, TermToRemove)
     NumberOfTerms=NumberOfTerms-1
@@ -120,6 +150,13 @@ function EditActivityCallBackoutPopup()
 end
 function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or Scaling==nil or SetTitle==nil then
+        print("In EditableTitle() BoxX is reporting as: "..tostring(BoxX))
+        print("In EditableTitle() BoxY is reporting as: "..tostring(BoxY))
+        print("In EditableTitle() BoxW is reporting as: "..tostring(BoxW))
+        print("In EditableTitle() BoxH is reporting as: "..tostring(BoxH))
+        print("In EditableTitle() TextFont is reporting as: "..tostring(TextFont))
+        print("In EditableTitle() Scaling is reporting as: "..tostring(Scaling))
+        print("In EditableTitle() SetTitle is reporting as: "..tostring(SetTitle))
         return
     end
     love.graphics.setFont(TextFont)
@@ -139,7 +176,7 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     else
         love.graphics.setColor(255, 153, 0)
     end
-    Text=SetTitle
+    local Text=SetTitle
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()

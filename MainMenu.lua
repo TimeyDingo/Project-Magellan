@@ -1,4 +1,8 @@
 function ListofSets()
+    if Settings==nil then
+        print("In ListofSets() Settings is reporting as: "..tostring(Settings))
+        return
+    end
     local TopLeftX=scaling(267,1920,Settings[1])
     local TopLeftY=scaling(156,1080,Settings[2])
     local Width=scaling(656,1920,Settings[1])
@@ -9,6 +13,11 @@ function ListofSets()
     love.graphics.setColor(255,255,255)
     love.graphics.setLineWidth(ThinLine)
     local NumberofSets=CheckSavedSets()
+    if NumberofSets==nil or SetData==nil then
+        print("In ListofSets() NumberofSets is reporting as: "..tostring(NumberofSets))
+        print("In ListofSets() SetData is reporting as: "..tostring(SetData))
+        return
+    end
     local ButtonX=scaling(283,1920,Settings[1])
     local ButtonWidth=scaling(624,1920,Settings[1])
     local ButtonHeight=scaling(59,1080,Settings[2])
@@ -52,14 +61,22 @@ function SetPreview()
     local x = scaling(976,1920,Settings[1])  -- Starting X position for text drawing
     local y = scaling(156,1080,Settings[2])  -- Starting Y position for text drawing
     local WrapDistance=0
-
+    if SetToPreview==nil or SetData==nil or Settings==nil then
+        print("In SetPreview() SetToPreview is reporting as: "..tostring(SetToPreview))
+        print("In SetPreview() SetData is reporting as: "..tostring(SetData))
+        print("In SetPreview() Settings is reporting as: "..tostring(Settings))
+        return
+    end
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
         CenteredTextBox(scaling(976,1920,Settings[1]),scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), tostring(setTitle), Exo28Bold)
         love.graphics.setFont(Exo24)
         y = y + scaling(25,1080,Settings[2])  -- Move to the next line
-
+        if dataSet==nil then
+            print("In SetPreview() dataSet is reporting as: "..tostring(dataSet))
+            return
+        end
         for i, item in ipairs(dataSet) do
             local definition = item[1]
             local term = item[2]
@@ -86,6 +103,11 @@ function ImportMenuTitle()
     Input=BackspaceController(Input,30)
 end
 function ImportMenuSetPastingAndPreview()
+    if Paste==nil or Settings==nil then
+        print("In ImportMenuSetPastingAndPreview() Paste is reporting as: "..tostring(Paste))
+        print("In ImportMenuSetPastingAndPreview() Settings is reporting as: "..tostring(Settings))
+        return
+    end
     if love.keyboard.isDown('v')==true and love.keyboard.isDown('lctrl')==true then
         Paste=love.system.getClipboardText()
     end
@@ -130,6 +152,17 @@ function ActivityBackdrop()
     love.graphics.setFont(Exo24)
 end
 function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or ClickedValue==nil or SetToPreview==nil then
+        print("In MainMenuSetListButtons() BoxX is reporting as: "..tostring(BoxX))
+        print("In MainMenuSetListButtons() BoxY is reporting as: "..tostring(BoxY))
+        print("In MainMenuSetListButtons() BoxW is reporting as: "..tostring(BoxW))
+        print("In MainMenuSetListButtons() BoxH is reporting as: "..tostring(BoxH))
+        print("In MainMenuSetListButtons() Text is reporting as: "..tostring(Text))
+        print("In MainMenuSetListButtons() TextFont is reporting as: "..tostring(TextFont))
+        print("In MainMenuSetListButtons() ClickedValue is reporting as: "..tostring(ClickedValue))
+        print("In MainMenuSetListButtons() SetToPreview is reporting as: "..tostring(SetToPreview))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
@@ -161,6 +194,16 @@ function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,S
     love.graphics.setColor(255, 255, 255)
 end
 function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or ClickedValue==nil then
+        print("In SettingResolutionButtons() BoxX is reporting as: "..tostring(BoxX))
+        print("In SettingResolutionButtons() BoxY is reporting as: "..tostring(BoxY))
+        print("In SettingResolutionButtons() BoxW is reporting as: "..tostring(BoxW))
+        print("In SettingResolutionButtons() BoxH is reporting as: "..tostring(BoxH))
+        print("In SettingResolutionButtons() Text is reporting as: "..tostring(Text))
+        print("In SettingResolutionButtons() TextFont is reporting as: "..tostring(TextFont))
+        print("In SettingResolutionButtons() ClickedValue is reporting as: "..tostring(ClickedValue))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
@@ -192,6 +235,16 @@ function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue
     love.graphics.setColor(255, 255, 255)
 end
 function SettingsFullscreenButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or ClickedValue==nil then
+        print("In SettingsFullscreenButtons() BoxX is reporting as: "..tostring(BoxX))
+        print("In SettingsFullscreenButtons() BoxY is reporting as: "..tostring(BoxY))
+        print("In SettingsFullscreenButtons() BoxW is reporting as: "..tostring(BoxW))
+        print("In SettingsFullscreenButtons() BoxH is reporting as: "..tostring(BoxH))
+        print("In SettingsFullscreenButtons() Text is reporting as: "..tostring(Text))
+        print("In SettingsFullscreenButtons() TextFont is reporting as: "..tostring(TextFont))
+        print("In SettingsFullscreenButtons() ClickedValue is reporting as: "..tostring(ClickedValue))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)

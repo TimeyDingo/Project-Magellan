@@ -1,5 +1,11 @@
 function FlashcardActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
+    if FlashCardActivityFlashCardSide==nil or SetTitle==nil or SetData==nil then
+        print("In FlashcardActivity() FlashCardActivityFlashCardSide is reporting as: "..tostring(FlashCardActivityFlashCardSide))
+        print("In FlashcardActivity() SetTitle is reporting as: "..tostring(SetTitle))
+        print("In FlashcardActivity() SetData is reporting as: "..tostring(SetData))
+        return
+    end
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
     CenterText(0,scaling(-400,1080,Settings[2]),tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData),Exo32Bold)
     --CenterText(0,0,tostring(SetData[2][2]),Exo24)
@@ -7,6 +13,15 @@ function FlashcardActivity()
     FlashCardKeyboardControls()
 end
 function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In DisplayFlashCard() BoxX is reporting as: "..tostring(BoxX))
+        print("In DisplayFlashCard() BoxY is reporting as: "..tostring(BoxY))
+        print("In DisplayFlashCard() BoxW is reporting as: "..tostring(BoxW))
+        print("In DisplayFlashCard() BoxH is reporting as: "..tostring(BoxH))
+        print("In DisplayFlashCard() Text is reporting as: "..tostring(Text))
+        print("In DisplayFlashCard() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
     love.graphics.setFont(TextFont)
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
@@ -66,7 +81,4 @@ function FlipCard()
     else
         FlashCardActivityFlashCardSide=1
     end
-end
-function ResetFlashCardActivity()
-    LoadFlashcards()
 end
