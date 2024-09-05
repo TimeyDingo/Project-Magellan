@@ -97,3 +97,19 @@ function generateUniqueNumbers(count, maxValue)
     
     return uniqueList
 end
+function ShuffleTableCopy(original)
+    -- Create a new table and copy the contents of the original table
+    local copy = {}
+    for i, v in ipairs(original) do
+        copy[i] = v
+    end
+    
+    -- Shuffle the new table
+    local n = #copy
+    for i = n, 2, -1 do
+        local j = math.random(i)
+        copy[i], copy[j] = copy[j], copy[i]
+    end
+    
+    return copy
+end

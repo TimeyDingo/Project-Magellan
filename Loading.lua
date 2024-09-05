@@ -213,4 +213,5 @@ function GenerateTestingData()
             SelectedAnswer = 0
         })
     end
+    TestActivityTestTable=ShuffleTableCopy(TestActivityTestTable)
 end
