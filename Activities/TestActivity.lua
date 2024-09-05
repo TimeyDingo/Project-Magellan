@@ -1,4 +1,4 @@
-function TestActivity()--! potential scrolling bug with the positioning of the scroll bar vertically when bottoming out the position
+function TestActivity()
     TestActivityCheckIfEnoughTerms()
     CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
     local TermFont=Exo24
@@ -9,6 +9,11 @@ function TestActivity()--! potential scrolling bug with the positioning of the s
     CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Term",Exo24Bold)
     CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
     local AnsweredCount, TotalQuestions = TestActivityCalculateHowManyHaveBeenAnswered()
+    if AnsweredCount==nil or TotalQuestions==nil or TestActivityTestTable==nil then
+        print("In TestActivity() AnsweredCount is reporting as: "..tostring(AnsweredCount))
+        print("In TestActivity() TotalQuestions is reporting as: "..tostring(TotalQuestions))
+        print("In TestActivity() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
+    end
     CenterText(0, scaling(-400, 1080, Settings[2]), AnsweredCount.."/"..TotalQuestions, Exo24Bold)
     TestActivityDisplayTerm(20,530+MediumLine,910,200,TestActivityTestTable[1+TestActivityScroll].TermToTest,TermFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].CorrectAnswerPos,910,200,TestActivityTestTable[1+TestActivityScroll].CorrectAnswer,DefinitionFont,true)

@@ -80,8 +80,8 @@ end
 function SetPreview()
     local x = scaling(976,1920,Settings[1])  -- Starting X position for text drawing
     local y = scaling(156,1080,Settings[2])  -- Starting Y position for text drawing
-    local WrapDistance=0
-    if SetToPreview==nil or SetData==nil or Settings==nil then
+    local WrapDistance = 0
+    if SetToPreview == nil or SetData == nil or Settings == nil then
         print("In SetPreview() SetToPreview is reporting as: "..tostring(SetToPreview))
         print("In SetPreview() SetData is reporting as: "..tostring(SetData))
         print("In SetPreview() Settings is reporting as: "..tostring(Settings))
@@ -90,27 +90,34 @@ function SetPreview()
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
-        CenteredTextBox(scaling(976,1920,Settings[1]),scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), tostring(setTitle), Exo28Bold)
+        CenteredTextBox(scaling(976,1920,Settings[1]), scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), tostring(setTitle), Exo28Bold)
         love.graphics.setFont(Exo24)
         y = y + scaling(25,1080,Settings[2])  -- Move to the next line
-        if dataSet==nil then
+        if dataSet == nil then
             print("In SetPreview() dataSet is reporting as: "..tostring(dataSet))
             return
         end
         for i, item in ipairs(dataSet) do
             local definition = item[1]
             local term = item[2]
-            CenteredTextBox(x,y,scaling(673,1920,Settings[1]),scaling(30,1080,Settings[2]),term,Exo20Bold)
-            y=y+scaling(20,1080,Settings[2])
-            WrapDistance=CenteredTextBoxWithWrapping(x,y,scaling(673,1920,Settings[1]),definition,Exo20)
+            if y > scaling(850,1080,Settings[2]) then
+                love.graphics.setColor(255,255,255,0)
+            end
+            -- Add wrapping for the term text box
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), term, Exo20Bold)
+            y = y + WrapDistance + scaling(0,1080,Settings[2])  -- Move to the next line after wrapping
+            if y > scaling(850,1080,Settings[2]) then
+                love.graphics.setColor(255,255,255,0)
+            end
+            -- Wrap the definition as you already have
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), definition, Exo20)
             y = y + WrapDistance  -- Move to the next line
-            if y>scaling(905,1080,Settings[2]) then
+            if y > scaling(850,1080,Settings[2]) then
                 love.graphics.setColor(255,255,255,0)
             end
         end
-        love.graphics.setColor(255,255,255)
-        --CenteredTextBox(x,scaling(905,1080,Settings[2])+scaling(35,1080,Settings[2]),scaling(673,1920,Settings[1]),scaling(30,1080,Settings[2]),"Delete Term",Exo20Bold)
-        ButtonStyle1Mod3(x+scaling(80,1920,Settings[1]),scaling(895,1080,Settings[2])+scaling(35,1080,Settings[2]),scaling(673,1920,Settings[1])-scaling(160,1920,Settings[1]),scaling(50,1080,Settings[2]),"Delete Set",Exo24Bold,false,"DeleteSet()")
+        love.graphics.setColor(255,255,255,255)
+        ButtonStyle1Mod3(x + scaling(80,1920,Settings[1]), scaling(895,1080,Settings[2]) + scaling(35,1080,Settings[2]), scaling(673,1920,Settings[1]) - scaling(160,1920,Settings[1]), scaling(50,1080,Settings[2]), "Delete Set", Exo24Bold, false, "DeleteSet()")
     end
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)
