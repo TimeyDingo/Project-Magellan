@@ -52,8 +52,9 @@ function love.update(dt)
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer = MissileDefenseTimer + dt
     end
-    if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing activity
+    if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing/matching activity
         GenerateTestingData()
+        GenerateMatchingData()
     end
     function love.wheelmoved(x, y)
         YScroll=y

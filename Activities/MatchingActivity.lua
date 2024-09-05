@@ -1,26 +1,25 @@
 function MatchingActivity()
     SetTitle, SetData = LoadIndividualSet(SetToPreview)
-    if SetTitle==nil or SetData==nil or MatchingActivityTable==nil or MatchingActivityPositions==nil then
+    if SetTitle==nil or SetData==nil or MatchingActivity4XTable==nil or MatchingActivityPositions==nil then
         print("In MatchingActivity() SetTitle is reporting as: "..tostring(SetTitle))
         print("In MatchingActivity() SetData is reporting as: "..tostring(SetData))
-        print("In MatchingActivity() MatchingActivityTable is reporting as: "..tostring(MatchingActivityTable))
+        print("In MatchingActivity() MatchingActivity4XTable is reporting as: "..tostring(MatchingActivity4XTable))
         print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
         return
     end
-    if MatchingActivityLoadOnce==false then
-        MatchingActivityTable=SetData
-        MatchingActivityLoadOnce=true
-    end
     CenterText(0, scaling(-450,1080,Settings[2]), SetTitle, Exo32Bold)
-    CenterText(0,scaling(-400,1080,Settings[2]),tostring(#MatchingActivityTable).."/"..tostring(#SetData),Exo32Bold)--?? The count
-    
+    CenterText(0,scaling(-400,1080,Settings[2]),tostring(#MatchingActivity4XTable).."/4",Exo32Bold)--?? The count
+    if #MatchingActivity4XTable==0 then
+        GenerateMatchingData()
+        LoadMatching()
+    end
     RemoveMatchingCards()
 
     local CardNumber=0
-    for i = 1, #MatchingActivityTable do
+    for i = 1, #MatchingActivity4XTable do
         for j = 1, 2 do
             CardNumber=CardNumber+1
-            MatchingActivityPositions[i][j][3], MatchingActivityPositions[i][j][4] = DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], MatchingActivityTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
+            MatchingActivityPositions[i][j][3], MatchingActivityPositions[i][j][4] = DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], MatchingActivity4XTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
 end
@@ -83,11 +82,11 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
 end
 function RemoveMatchingCards()
     local indicesToRemove = {}
-    if MatchingActivityTable==nil or MatchingActivityPositions==nil then
-        print("Crash in RemoveMatchingCards".."MatchingActivityTable:"..tostring(MatchingActivityTable).."MatchingActivityPositions:"..tostring(MatchingActivityPositions))
+    if MatchingActivity4XTable==nil or MatchingActivityPositions==nil then
+        print("Crash in RemoveMatchingCards".."MatchingActivity4XTable:"..tostring(MatchingActivity4XTable).."MatchingActivityPositions:"..tostring(MatchingActivityPositions))
         return
     end
-    for i = 1, #MatchingActivityTable do
+    for i = 1, #MatchingActivity4XTable do
         if MatchingPositionPercentage(
             MatchingActivityPositions[i][1][1], MatchingActivityPositions[i][1][2], MatchingActivityPositions[i][1][3], MatchingActivityPositions[i][1][4],
             MatchingActivityPositions[i][2][1], MatchingActivityPositions[i][2][2], MatchingActivityPositions[i][2][3], MatchingActivityPositions[i][2][4]
@@ -99,7 +98,7 @@ function RemoveMatchingCards()
     -- Remove the identified cards and their positions
     for i = #indicesToRemove, 1, -1 do
         local index = indicesToRemove[i]
-        table.remove(MatchingActivityTable, index)
+        table.remove(MatchingActivity4XTable, index)
         table.remove(MatchingActivityPositions, index)
         MatchingActivityCurrentCard=nil
     end

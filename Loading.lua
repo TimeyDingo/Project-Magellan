@@ -52,27 +52,6 @@ end
 function LoadMouseClickDebounce()
     DebounceTimer=0
 end
-function LoadMatching()
-    -- Define the range for random positions
-    MatchingActivityLoadOnce = false
-    MatchingActivityTable = {}
-    MatchingActivityCurrentCard = nil
-    local xMin, xMax = 0, Settings[1]-200
-    local yMin, yMax = 0, Settings[2]-180
-    local w1=100
-    local h1=100
-    local w2=100
-    local h2=100
-    MatchingActivityPositions = {}
-    for i = 1, 100 do
-        -- Generate random positions within the specified range
-        local x1 = math.random(xMin, xMax)
-        local y1 = math.random(yMin, yMax)
-        local x2 = math.random(xMin, xMax)
-        local y2 = math.random(yMin, yMax)
-        table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
-    end
-end
 function LoadLineThickness()
     local MediumLineSubtraction=0
     if Settings[6] > 0 then
@@ -214,4 +193,33 @@ function GenerateTestingData()
         })
     end
     TestActivityTestTable=ShuffleTableCopy(TestActivityTestTable)
+end
+function GenerateMatchingData()
+    SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
+    local WhichCardsToMatchWith=generateUniqueNumbers(4, #SetData)
+        MatchingActivity4XTable={
+        {SetData[WhichCardsToMatchWith[1]][1],SetData[WhichCardsToMatchWith[1]][2]},
+        {SetData[WhichCardsToMatchWith[2]][1],SetData[WhichCardsToMatchWith[2]][2]},
+        {SetData[WhichCardsToMatchWith[3]][1],SetData[WhichCardsToMatchWith[3]][2]},
+        {SetData[WhichCardsToMatchWith[4]][1],SetData[WhichCardsToMatchWith[4]][2]}
+    }
+end
+function LoadMatching()
+    -- Define the range for random positions
+    MatchingActivityCurrentCard = nil
+    local xMin, xMax = 0, Settings[1]-200
+    local yMin, yMax = 100, Settings[2]-180
+    local w1=100
+    local h1=100
+    local w2=100
+    local h2=100
+    MatchingActivityPositions = {}
+    for i = 1, 4 do
+        -- Generate random positions within the specified range
+        local x1 = math.random(xMin, xMax)
+        local y1 = math.random(yMin, yMax)
+        local x2 = math.random(xMin, xMax)
+        local y2 = math.random(yMin, yMax)
+        table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
+    end
 end
