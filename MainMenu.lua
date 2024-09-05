@@ -74,18 +74,6 @@ function ListofSets()
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
         MainMenuScroll=ScrollBar(935,136,17,542,7,NumberofSets,MainMenuScroll,true)
-        --[[
-        love.graphics.setColor(255, 153, 0)
-        local ScrollingOrigin=scaling(678,1080,Settings[2])
-        love.graphics.rectangle("fill",scaling(935,1920,Settings[1]),scaling(136,1080,Settings[2])+(ScrollingOrigin/NumberofSets)*MainMenuScroll,scaling(17,1920,Settings[1]),ScrollingOrigin/NumberofSets*7)
-        love.graphics.setColor(255,255,255)
-        if ButtonDebounce("up", 30) and MainMenuScroll > 0 then
-            MainMenuScroll = MainMenuScroll - 1
-        end
-        if ButtonDebounce("down", 30) and MainMenuScroll < NumberofSets-7 then
-            MainMenuScroll = MainMenuScroll + 1
-        end
-        ]]
     end
     love.graphics.setColor(255,255,255)
 end
@@ -132,7 +120,7 @@ function ImportMenuTitle()
     function love.textinput(t)
         Input=Input..t
     end
-    Input=BackspaceController(Input,30)
+    Input=BackspaceController(Input,2)
 end
 function ImportMenuSetPastingAndPreview()
     if Paste==nil or Settings==nil then

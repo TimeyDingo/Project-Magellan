@@ -35,7 +35,7 @@ function love.load()
 end
 function love.update(dt)
     dt = love.timer.getDelta()
-    DebounceTimer=DebounceTimer+1
+    DebounceTimer=DebounceTimer+dt
     if love.keyboard.isDown("lshift") and love.keyboard.isDown("escape") then --? allows game to be closed quickly for debugging
         love.event.quit()
     end
@@ -50,7 +50,7 @@ function love.update(dt)
     end
     StateMachine=tostring(StateMachine)
     if StateMachine=="Missile Defense" then
-        MissileDefenseTimer=MissileDefenseTimer+1
+        MissileDefenseTimer = MissileDefenseTimer + dt
     end
     if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing activity
         GenerateTestingData()

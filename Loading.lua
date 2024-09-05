@@ -134,6 +134,9 @@ function LoadMissileDefense()
     MissileDefenseChallenge3Failed=false
     MissileDefenseChallengeFailedStep1Timer=0
     MissileDefenseAChallengeFailed=false
+    MissileDefenseChallenge1AccumulatedTime=0
+    MissileDefenseChallenge2AccumulatedTime=0
+    MissileDefenseChallenge3AccumulatedTime=0
     MissileDefenseChallenges[1][4]=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
     MissileDefenseChallenges[2][4]=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
     MissileDefenseChallenges[3][4]=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)

@@ -16,17 +16,7 @@ function TestActivity()--! potential scrolling bug with the positioning of the s
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3,DefinitionFont,true)
     ButtonStyle1Mod3(20, 120, 300, 80, "Check Answers", Exo24Bold, true, 'TestActivityCheckAnswers()')
-    --? Scrolling stuff below
-    love.graphics.setColor(255, 153, 0)
-    local ScrollingOrigin=scaling(950,1080,Settings[2])
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200,1080,Settings[2])+(ScrollingOrigin/NumberOfTerms)*TestActivityScroll,scaling(40,1920,Settings[1]),ScrollingOrigin/NumberOfTerms)
-    love.graphics.setColor(255,255,255)
-    if ButtonDebounce("up", 30) and TestActivityScroll > 0 then
-        TestActivityScroll = TestActivityScroll - 1
-    end
-    if ButtonDebounce("down", 30) and TestActivityScroll < NumberOfTerms-1 then
-        TestActivityScroll = TestActivityScroll + 1
-    end
+    TestActivityScroll=ScrollBar(940,200,40,680,1,NumberOfTerms,TestActivityScroll,true)
     love.graphics.setColor(255,255,255)
 end
 function TestActivityDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling)

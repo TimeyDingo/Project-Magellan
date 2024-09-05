@@ -35,11 +35,11 @@ function BackspaceController(String,HoldDelay)
     String=tostring(String)
     local Held
     if love.keyboard.isDown("backspace") then
-        HeldTime=HeldTime+1
+        HeldTime=HeldTime+love.timer.getDelta()
     else
         HeldTime=0
     end
-    if love.keyboard.isDown("backspace") and DebounceTimer>5 and Held~=true then
+    if love.keyboard.isDown("backspace") and DebounceTimer>0.05 and Held~=true then
         local byteoffset = utf8.offset(String, -1)
         if byteoffset then
             -- remove the last UTF-8 character.
