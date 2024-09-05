@@ -52,28 +52,42 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     love.graphics.setColor(255, 255, 255)
 end
 function FlashCardKeyboardControls()
-        if ButtonDebounce("left", 0.5) then
-            if FlashCardActivityFlashCard==1 then
-                FlashCardActivityFlashCard=#SetData
-            else
-                FlashCardActivityFlashCard=FlashCardActivityFlashCard-1
-            end
-            FlashCardActivityFlashCardSide=2
+    if ButtonDebounce("left", 0.5) or YScroll>0 then
+        if FlashCardActivityFlashCard==1 then
+            FlashCardActivityFlashCard=#SetData
+            YScroll=0
+        else
+            FlashCardActivityFlashCard=FlashCardActivityFlashCard-1
+            YScroll=0
         end
-        if ButtonDebounce("right", 0.5) then
-            if FlashCardActivityFlashCard==#SetData then
-                FlashCardActivityFlashCard=1
-            else
-                FlashCardActivityFlashCard=FlashCardActivityFlashCard+1
-            end
-            FlashCardActivityFlashCardSide=2
+        FlashCardActivityFlashCardSide=2
+    end
+    if ButtonDebounce("right", 0.5) or YScroll<0 then
+        if FlashCardActivityFlashCard==#SetData then
+            FlashCardActivityFlashCard=1
+            YScroll=0
+        else
+            FlashCardActivityFlashCard=FlashCardActivityFlashCard+1
+            YScroll=0
         end
-        if ButtonDebounce("up", 0.5) then
-            FlipCard()
-        end
-        if ButtonDebounce("down", 0.5) then
-            FlipCard()
-        end
+        FlashCardActivityFlashCardSide=2
+    end
+    if ButtonDebounce("up", 0.5) then
+        FlipCard()
+    end
+    if ButtonDebounce("down", 0.5) then
+        FlipCard()
+    end
+    --[[
+        if (ButtonDebounce("up", 0.1) or YScroll>0)and CurrentScroll > 0 then
+        CurrentScroll = CurrentScroll - 1
+        YScroll=0
+    end
+    if (ButtonDebounce("down", 0.1) or YScroll<0) and CurrentScroll < NumberOfItems-MinNumberOfItems then
+        CurrentScroll = CurrentScroll + 1
+        YScroll=0
+    end
+    ]]
 end
 function FlipCard()
     if FlashCardActivityFlashCardSide==1 then
