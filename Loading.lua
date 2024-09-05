@@ -43,6 +43,7 @@ end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
     FlashCardActivityFlashCardSide=2
+    FlashCardActivityDisplaySideFirst=2
 end
 function LoadEdit()
     EditActivityLoadOnce=false

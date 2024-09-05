@@ -11,6 +11,7 @@ function FlashcardActivity()
     --CenterText(0,0,tostring(SetData[2][2]),Exo24)
     DisplayFlashCard(scaling(578,1920,Settings[1]),scaling(308,1080,Settings[2]),scaling(763,1920,Settings[1]),scaling(464,1080,Settings[2]),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
     FlashCardKeyboardControls()
+    ButtonStyle1Mod3(578, 800, 763, 100, "Swap Display Order", Exo24Bold, true, "FlashCardChangeDisplaySideFirst()")
 end
 function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
@@ -60,7 +61,7 @@ function FlashCardKeyboardControls()
             FlashCardActivityFlashCard=FlashCardActivityFlashCard-1
             YScroll=0
         end
-        FlashCardActivityFlashCardSide=2
+        FlashCardActivityFlashCardSide=FlashCardActivityDisplaySideFirst
     end
     if ButtonDebounce("right", 0.5) or YScroll<0 then
         if FlashCardActivityFlashCard==#SetData then
@@ -70,7 +71,7 @@ function FlashCardKeyboardControls()
             FlashCardActivityFlashCard=FlashCardActivityFlashCard+1
             YScroll=0
         end
-        FlashCardActivityFlashCardSide=2
+        FlashCardActivityFlashCardSide=FlashCardActivityDisplaySideFirst
     end
     if ButtonDebounce("up", 0.5) then
         FlipCard()
@@ -78,16 +79,6 @@ function FlashCardKeyboardControls()
     if ButtonDebounce("down", 0.5) then
         FlipCard()
     end
-    --[[
-        if (ButtonDebounce("up", 0.1) or YScroll>0)and CurrentScroll > 0 then
-        CurrentScroll = CurrentScroll - 1
-        YScroll=0
-    end
-    if (ButtonDebounce("down", 0.1) or YScroll<0) and CurrentScroll < NumberOfItems-MinNumberOfItems then
-        CurrentScroll = CurrentScroll + 1
-        YScroll=0
-    end
-    ]]
 end
 function FlipCard()
     if FlashCardActivityFlashCardSide==1 then
@@ -95,4 +86,7 @@ function FlipCard()
     else
         FlashCardActivityFlashCardSide=1
     end
+end
+function FlashCardChangeDisplaySideFirst()
+    FlashCardActivityDisplaySideFirst = (FlashCardActivityDisplaySideFirst == 1) and 2 or 1
 end
