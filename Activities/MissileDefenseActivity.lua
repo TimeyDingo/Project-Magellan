@@ -54,8 +54,7 @@ function MissileDefenseDisplayChallenges()
                 MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
-        CenterText(100,-100,"First: "..MissileDefenseChallenges[1][3],Exo24)
-        MissileDefenseTimerDisplay(1320,60+MediumLine,40-MediumLine,true,1)
+        MissileDefenseTimerDisplay(1320,60+ThickLine,40-ThickLine,true,1)
     end
     if MissileDefenseChallengeCount>1 then
         MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
@@ -66,8 +65,7 @@ function MissileDefenseDisplayChallenges()
                 MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
-        CenterText(100,0,"Second: "..MissileDefenseChallenges[2][3],Exo24)
-        MissileDefenseTimerDisplay(1320,400+MediumLine,40-MediumLine,true,2)
+        MissileDefenseTimerDisplay(1320,400+ThickLine,40-ThickLine,true,2)
     end
     if MissileDefenseChallengeCount>2 then
         MissileDefenseDisplayChallenge(1320,780,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
@@ -78,8 +76,7 @@ function MissileDefenseDisplayChallenges()
                 MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
-        CenterText(100,100,"Third: "..MissileDefenseChallenges[3][3],Exo24)
-        MissileDefenseTimerDisplay(1320,740+MediumLine,40-MediumLine,true,3)
+        MissileDefenseTimerDisplay(1320,740+ThickLine,40-ThickLine,true,3)
     end
 end
 function MissileDefenseResponse()
@@ -171,7 +168,11 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         print("In MissileDefenseDisplayChallenge() Failed is reporting as: "..tostring(Failed))
         return
     end
-    if Failed==false then
+    local BoxR,BoxG,BoxB=255,153,0
+    if Failed==true then
+        Text="FAILED"
+        BoxR,BoxG,BoxB=215,54,64
+    end
         local InitialFont=Exo28
         local newSize=28
         if Scaling==true then
@@ -199,14 +200,11 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         
         love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
         love.graphics.setLineWidth(MediumLine)
-        love.graphics.setColor(255, 153, 0)
+        love.graphics.setColor(BoxR, BoxG, BoxB)
         love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
         love.graphics.setLineWidth(ThinLine)
         love.graphics.setColor(255, 255, 255)
-    end
-    if Failed==true then
-        CenterText(300,0,"ChallengeFailed",Exo32Bold)
-    end
+
 end
 function MissileDefenseCheckResponse()
     if MissileDefenseTypedResponse==nil or MissileDefenseChallengeCount==nil or MissileDefenseChallenges==nil then
