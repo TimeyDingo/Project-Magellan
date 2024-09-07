@@ -46,7 +46,7 @@ function MissileDefenseDisplayChallenges()
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        MissileDefenseDisplayChallenge(1320,65,600,300,MissileDefenseChallenges[1][1],true,MissileDefenseChallenge1Failed)
+        MissileDefenseDisplayChallenge(1320,100,600,300,MissileDefenseChallenges[1][1],true,MissileDefenseChallenge1Failed)
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge1AccumulatedTime >= 1 then
@@ -55,9 +55,10 @@ function MissileDefenseDisplayChallenges()
             end
         end
         CenterText(100,-100,"First: "..MissileDefenseChallenges[1][3],Exo24)
+        MissileDefenseTimerDisplay(1320,60+MediumLine,40-MediumLine,true,1)
     end
     if MissileDefenseChallengeCount>1 then
-        MissileDefenseDisplayChallenge(1320,415,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
+        MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
         if MissileDefenseChallenge2Failed==false then
             MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge2AccumulatedTime >= 1 then
@@ -66,9 +67,10 @@ function MissileDefenseDisplayChallenges()
             end
         end
         CenterText(100,0,"Second: "..MissileDefenseChallenges[2][3],Exo24)
+        MissileDefenseTimerDisplay(1320,400+MediumLine,40-MediumLine,true,2)
     end
     if MissileDefenseChallengeCount>2 then
-        MissileDefenseDisplayChallenge(1320,765,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
+        MissileDefenseDisplayChallenge(1320,780,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
         if MissileDefenseChallenge3Failed==false then
             MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge3AccumulatedTime >= 1 then
@@ -77,6 +79,7 @@ function MissileDefenseDisplayChallenges()
             end
         end
         CenterText(100,100,"Third: "..MissileDefenseChallenges[3][3],Exo24)
+        MissileDefenseTimerDisplay(1320,740+MediumLine,40-MediumLine,true,3)
     end
 end
 function MissileDefenseResponse()
@@ -312,4 +315,19 @@ function MissileDefenseFailed()
     PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'
     PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer/60))
     BackoutAction= 'PopupCall=false'
+end
+function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
+    local Time=MissileDefenseChallenges[Challenge][3]
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings[1])
+        BoxY=scaling(BoxY,1080,Settings[2])
+        Time=scaling(Time,1920,Settings[1])
+        BoxH=scaling(BoxH,1080,Settings[2])
+    end
+    local StartColor = {r = 132, g = 195, b = 24}
+    local TargetColor = {r = 215, g = 54, b = 64}
+    local color = SmudgeColor(StartColor, TargetColor, (Time/600)*2)
+    love.graphics.setColor(color.r, color.g, color.b)
+    love.graphics.rectangle("fill",BoxX,BoxY,Time,BoxH)
+    love.graphics.setColor(255,255,255)
 end
