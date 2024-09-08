@@ -40,39 +40,39 @@ function MissileDefenseDisplayChallenges()
             end
             ChallengeQuestion=SetData[RandomChallenge][1]
             ChallengeAnswer=SetData[RandomChallenge][2]
-            MissileDefenseChallenges[MissileDefenseChallengeCount][1]=ChallengeQuestion
-            MissileDefenseChallenges[MissileDefenseChallengeCount][2]=ChallengeAnswer
+            MissileDefenseChallenges[MissileDefenseChallengeCount].Challenge=ChallengeQuestion
+            MissileDefenseChallenges[MissileDefenseChallengeCount].Answer=ChallengeAnswer
         end
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        MissileDefenseDisplayChallenge(1320,100,600,300,MissileDefenseChallenges[1][1],true,MissileDefenseChallenge1Failed)
+        MissileDefenseDisplayChallenge(1320,100,600,300,MissileDefenseChallenges[1].Challenge,true,MissileDefenseChallenge1Failed)
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge1AccumulatedTime >= 1 then
-                MissileDefenseChallenges[1][3] = MissileDefenseChallenges[1][3] + 1
+                MissileDefenseChallenges[1].IndividualTimer = MissileDefenseChallenges[1].IndividualTimer + MissileDefenseSpeedFactor
                 MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
         MissileDefenseTimerDisplay(1320,60+ThickLine,40-ThickLine,true,1)
     end
     if MissileDefenseChallengeCount>1 then
-        MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2][1],true,MissileDefenseChallenge2Failed)
+        MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2].Challenge,true,MissileDefenseChallenge2Failed)
         if MissileDefenseChallenge2Failed==false then
             MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge2AccumulatedTime >= 1 then
-                MissileDefenseChallenges[2][3] = MissileDefenseChallenges[2][3] + 1
+                MissileDefenseChallenges[2].IndividualTimer = MissileDefenseChallenges[2].IndividualTimer + MissileDefenseSpeedFactor
                 MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
         MissileDefenseTimerDisplay(1320,400+ThickLine,40-ThickLine,true,2)
     end
     if MissileDefenseChallengeCount>2 then
-        MissileDefenseDisplayChallenge(1320,780,600,300,MissileDefenseChallenges[3][1],true,MissileDefenseChallenge3Failed)
+        MissileDefenseDisplayChallenge(1320,780,600,300,MissileDefenseChallenges[3].Challenge,true,MissileDefenseChallenge3Failed)
         if MissileDefenseChallenge3Failed==false then
             MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge3AccumulatedTime >= 1 then
-                MissileDefenseChallenges[3][3] = MissileDefenseChallenges[3][3] + 1
+                MissileDefenseChallenges[3].IndividualTimer = MissileDefenseChallenges[3].IndividualTimer + MissileDefenseSpeedFactor
                 MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
@@ -138,21 +138,21 @@ function MissileDefenseDisplay()
     love.graphics.polygon('line', unpack(flattenedPoints))
     --?
     --? inbound missiles
-    love.graphics.setPointSize(20)
-    if MissileDefenseChallenges[1][3]>0 then
+    love.graphics.setPointSize(10)
+    if MissileDefenseChallenges[1].IndividualTimer>0 then
         --missile 1
-        love.graphics.setColor(MissileDefenseChallenges[1][5][1],MissileDefenseChallenges[1][5][2],MissileDefenseChallenges[1][5][3],255)
-        love.graphics.points(MissileDefenseChallenges[1][4][MissileDefenseChallenges[1][3]+1][1], MissileDefenseChallenges[1][4][MissileDefenseChallenges[1][3]+1][2])
+        love.graphics.setColor(MissileDefenseChallenges[1].IncomingMissileRGB[1],MissileDefenseChallenges[1].IncomingMissileRGB[2],MissileDefenseChallenges[1].IncomingMissileRGB[3],255)
+        love.graphics.points(MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1], MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2])
         love.graphics.setColor(255,255,255)
     end
-    if MissileDefenseChallenges[2][3]>0 then
-        love.graphics.setColor(MissileDefenseChallenges[2][5][1],MissileDefenseChallenges[2][5][2],MissileDefenseChallenges[2][5][3],255)
-        love.graphics.points(MissileDefenseChallenges[2][4][MissileDefenseChallenges[2][3]+1][1], MissileDefenseChallenges[2][4][MissileDefenseChallenges[2][3]+1][2])
+    if MissileDefenseChallenges[2].IndividualTimer>0 then
+        love.graphics.setColor(MissileDefenseChallenges[2].IncomingMissileRGB[1],MissileDefenseChallenges[2].IncomingMissileRGB[2],MissileDefenseChallenges[2].IncomingMissileRGB[3],255)
+        love.graphics.points(MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][1], MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][2])
         love.graphics.setColor(255,255,255)
     end
-    if MissileDefenseChallenges[3][3]>0 then
-        love.graphics.setColor(MissileDefenseChallenges[3][5][1],MissileDefenseChallenges[3][5][2],MissileDefenseChallenges[3][5][3],255)
-        love.graphics.points(MissileDefenseChallenges[3][4][MissileDefenseChallenges[3][3]+1][1], MissileDefenseChallenges[3][4][MissileDefenseChallenges[3][3]+1][2])
+    if MissileDefenseChallenges[3].IndividualTimer>0 then
+        love.graphics.setColor(MissileDefenseChallenges[3].IncomingMissileRGB[1],MissileDefenseChallenges[3].IncomingMissileRGB[2],MissileDefenseChallenges[3].IncomingMissileRGB[3],255)
+        love.graphics.points(MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][1], MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][2])
         love.graphics.setColor(255,255,255)
     end
     love.graphics.setPointSize(1)
@@ -216,30 +216,30 @@ function MissileDefenseCheckResponse()
     Deleting=true
     local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
     if MissileDefenseChallengeCount>0 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[1][2]) then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[1].Answer) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
-            local TransferTable=MissileDefenseChallenges[1][4]
-            local RGBTransfer=MissileDefenseChallenges[1][5]
+            local TransferTable=MissileDefenseChallenges[1].IncomingMissilePathingPoints
+            local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 1)
-            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
         end
     end
     if MissileDefenseChallengeCount>1 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[2][2]) then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[2].Answer) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
-            local TransferTable=MissileDefenseChallenges[2][4]
-            local RGBTransfer=MissileDefenseChallenges[1][5]
+            local TransferTable=MissileDefenseChallenges[2].IncomingMissilePathingPoints
+            local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 2)
-            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
         end
     end
     if MissileDefenseChallengeCount>2 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[3][2]) then
+        if LowerCaseResponse==string.lower(MissileDefenseChallenges[3].Answer) then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
-            local TransferTable=MissileDefenseChallenges[3][4]
-            local RGBTransfer=MissileDefenseChallenges[1][5]
+            local TransferTable=MissileDefenseChallenges[3].IncomingMissilePathingPoints
+            local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 3)
-            table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
         end
     end
     Deleting=false
@@ -250,13 +250,13 @@ function MissileDefenseCheckLives()
         return
     end
     local ReturnValue=0
-    if MissileDefenseChallenges[1][3]>600 then
+    if MissileDefenseChallenges[1].IndividualTimer>600 then
         ReturnValue=MissileDefenseChallengeFailedStep1(1)
     end
-    if MissileDefenseChallenges[2][3]>600 then
+    if MissileDefenseChallenges[2].IndividualTimer>600 then
         ReturnValue=MissileDefenseChallengeFailedStep1(2)
     end
-    if MissileDefenseChallenges[3][3]>600 then
+    if MissileDefenseChallenges[3].IndividualTimer>600 then
         ReturnValue=MissileDefenseChallengeFailedStep1(3)
     end
     return ReturnValue
@@ -289,10 +289,10 @@ function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     end
     Deleting=true
     MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
-    local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed][4]
-    local RGBTransfer=MissileDefenseChallenges[1][5]
+    local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed].MissileDefenseChallenges
+    local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
     table.remove(MissileDefenseChallenges, ChallengeThatWasFailed)
-    table.insert(MissileDefenseChallenges, {"","",0,TransferTable,RGBTransfer})
+    table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
     Deleting=false
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=false
@@ -315,7 +315,7 @@ function MissileDefenseFailed()
     BackoutAction= 'PopupCall=false'
 end
 function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
-    local Time=MissileDefenseChallenges[Challenge][3]
+    local Time=MissileDefenseChallenges[Challenge].IndividualTimer
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings[1])
         BoxY=scaling(BoxY,1080,Settings[2])

@@ -102,9 +102,14 @@ function LoadPopup()
 end
 function LoadMissileDefense()
     MissileDefenseTimer=0
+    MissileDefenseSpeedFactor=1
     MissileDefenseChallengeCount=0
     MissileDefenseTypedResponse=""
-    MissileDefenseChallenges={{"","",0,{0,0},{255, 43, 28}},{"","",0,{0,0},{248, 255, 38}},{"","",0,{0,0},{255, 38, 179}}}
+    MissileDefenseChallenges={
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 43, 28}},
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={248, 255, 38}},
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 38, 179}}
+    }
     local TerrainMinY=scaling(915,1920,Settings[1])
     TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
     MissileDefenseSurviveTimer=0
@@ -117,9 +122,9 @@ function LoadMissileDefense()
     MissileDefenseChallenge1AccumulatedTime=0
     MissileDefenseChallenge2AccumulatedTime=0
     MissileDefenseChallenge3AccumulatedTime=0
-    MissileDefenseChallenges[1][4]=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    MissileDefenseChallenges[2][4]=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    MissileDefenseChallenges[3][4]=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
