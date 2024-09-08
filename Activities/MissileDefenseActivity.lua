@@ -10,7 +10,7 @@ function MissileDefenseActivity()
         MissileDefenseDisplayChallenges()
         MissileDefenseResponse()
         local ChallengeFailedPassThrough=MissileDefenseCheckLives()
-        if MissileDefenseCorrectResponses>6 then
+        if MissileDefenseCorrectResponses>4 then
             MissileDefenseCorrectResponses=0
             MissileDefenseSpeedFactor=MissileDefenseSpeedFactor+1
             MissileDefenseLevelUp=true
