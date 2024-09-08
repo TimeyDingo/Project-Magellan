@@ -51,6 +51,12 @@ function MissileDefenseDisplayChallenges()
             MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge1AccumulatedTime >= 1 then
                 MissileDefenseChallenges[1].IndividualTimer = MissileDefenseChallenges[1].IndividualTimer + MissileDefenseSpeedFactor
+                if MissileDefenseChallenges[1].IndividualTimer % 20==0 then
+                    local x = MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1]
+                    local y = MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2]
+                    table.insert(MissileDefenseChallenges[1].TrailPoints, x)
+                    table.insert(MissileDefenseChallenges[1].TrailPoints, y)
+                end
                 MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
@@ -62,6 +68,12 @@ function MissileDefenseDisplayChallenges()
             MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge2AccumulatedTime >= 1 then
                 MissileDefenseChallenges[2].IndividualTimer = MissileDefenseChallenges[2].IndividualTimer + MissileDefenseSpeedFactor
+                if MissileDefenseChallenges[2].IndividualTimer % 20==0 then
+                    local x = MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][1]
+                    local y = MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][2]
+                    table.insert(MissileDefenseChallenges[2].TrailPoints, x)
+                    table.insert(MissileDefenseChallenges[2].TrailPoints, y)
+                end
                 MissileDefenseChallenge2AccumulatedTime = MissileDefenseChallenge2AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
@@ -73,6 +85,14 @@ function MissileDefenseDisplayChallenges()
             MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge3AccumulatedTime >= 1 then
                 MissileDefenseChallenges[3].IndividualTimer = MissileDefenseChallenges[3].IndividualTimer + MissileDefenseSpeedFactor
+                
+                if MissileDefenseChallenges[3].IndividualTimer % 20==0 then
+                    local x = MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][1]
+                    local y = MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][2]
+                    table.insert(MissileDefenseChallenges[3].TrailPoints, x)
+                    table.insert(MissileDefenseChallenges[3].TrailPoints, y)
+                end
+
                 MissileDefenseChallenge3AccumulatedTime = MissileDefenseChallenge3AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
@@ -126,6 +146,8 @@ function MissileDefenseDisplay()
         print("In MissileDefenseDisplay() TerrainPoints is reporting as: "..tostring(TerrainPoints))
         return
     end
+    local LargePoint=10
+    local TrailingPoint=2
     love.graphics.setColor(255,153,0)
     love.graphics.rectangle("line", 0, scaling(65,1080, Settings[2]), scaling(1320, 1920, Settings[1]), scaling(850, 1080, Settings[2]))
     love.graphics.setColor(255,255,255)
@@ -138,21 +160,29 @@ function MissileDefenseDisplay()
     love.graphics.polygon('line', unpack(flattenedPoints))
     --?
     --? inbound missiles
-    love.graphics.setPointSize(10)
     if MissileDefenseChallenges[1].IndividualTimer>0 then
         --missile 1
+        love.graphics.setPointSize(LargePoint)
         love.graphics.setColor(MissileDefenseChallenges[1].IncomingMissileRGB[1],MissileDefenseChallenges[1].IncomingMissileRGB[2],MissileDefenseChallenges[1].IncomingMissileRGB[3],255)
-        love.graphics.points(MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1], MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2])
+        love.graphics.points(MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1],MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2])
+        love.graphics.setPointSize(TrailingPoint)
+        love.graphics.points(MissileDefenseChallenges[1].TrailPoints)
         love.graphics.setColor(255,255,255)
     end
     if MissileDefenseChallenges[2].IndividualTimer>0 then
+        love.graphics.setPointSize(LargePoint)
         love.graphics.setColor(MissileDefenseChallenges[2].IncomingMissileRGB[1],MissileDefenseChallenges[2].IncomingMissileRGB[2],MissileDefenseChallenges[2].IncomingMissileRGB[3],255)
         love.graphics.points(MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][1], MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][2])
+        love.graphics.setPointSize(TrailingPoint)
+        love.graphics.points(MissileDefenseChallenges[2].TrailPoints)
         love.graphics.setColor(255,255,255)
     end
     if MissileDefenseChallenges[3].IndividualTimer>0 then
+        love.graphics.setPointSize(LargePoint)
         love.graphics.setColor(MissileDefenseChallenges[3].IncomingMissileRGB[1],MissileDefenseChallenges[3].IncomingMissileRGB[2],MissileDefenseChallenges[3].IncomingMissileRGB[3],255)
         love.graphics.points(MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][1], MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][2])
+        love.graphics.setPointSize(TrailingPoint)
+        love.graphics.points(MissileDefenseChallenges[3].TrailPoints)
         love.graphics.setColor(255,255,255)
     end
     love.graphics.setPointSize(1)
@@ -221,7 +251,7 @@ function MissileDefenseCheckResponse()
             local TransferTable=MissileDefenseChallenges[1].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 1)
-            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer,TrailPoints={0,0}})
         end
     end
     if MissileDefenseChallengeCount>1 then
@@ -230,7 +260,7 @@ function MissileDefenseCheckResponse()
             local TransferTable=MissileDefenseChallenges[2].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 2)
-            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer,TrailPoints={0,0}})
         end
     end
     if MissileDefenseChallengeCount>2 then
@@ -239,7 +269,7 @@ function MissileDefenseCheckResponse()
             local TransferTable=MissileDefenseChallenges[3].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
             table.remove(MissileDefenseChallenges, 3)
-            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
+            table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer,TrailPoints={0,0}})
         end
     end
     Deleting=false
@@ -289,10 +319,10 @@ function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     end
     Deleting=true
     MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
-    local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed].MissileDefenseChallenges
+    local TransferTable=MissileDefenseChallenges[ChallengeThatWasFailed].IncomingMissilePathingPoints
     local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
     table.remove(MissileDefenseChallenges, ChallengeThatWasFailed)
-    table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer})
+    table.insert(MissileDefenseChallenges, {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=TransferTable,IncomingMissileRGB=RGBTransfer, TrailPoints={0,0}})
     Deleting=false
     if ChallengeThatWasFailed==1 then
         MissileDefenseChallenge1Failed=false

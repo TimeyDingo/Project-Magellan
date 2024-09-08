@@ -106,9 +106,9 @@ function LoadMissileDefense()
     MissileDefenseChallengeCount=0
     MissileDefenseTypedResponse=""
     MissileDefenseChallenges={
-        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 43, 28}},
-        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={248, 255, 38}},
-        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 38, 179}}
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 43, 28},TrailPoints={0,0}},
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={248, 255, 38},TrailPoints={0,0}},
+        {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 38, 179},TrailPoints={0,0}}
     }
     local TerrainMinY=scaling(915,1920,Settings[1])
     TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
