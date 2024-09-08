@@ -113,7 +113,7 @@ function LoadMissileDefense()
     local TerrainMinY=scaling(915,1920,Settings[1])
     TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
     MissileDefenseSurviveTimer=0
-    MissileDefenseLivesRemaining=20
+    MissileDefenseLivesRemaining=4
     MissileDefenseChallenge1Failed=false
     MissileDefenseChallenge2Failed=false
     MissileDefenseChallenge3Failed=false
@@ -122,6 +122,9 @@ function LoadMissileDefense()
     MissileDefenseChallenge1AccumulatedTime=0
     MissileDefenseChallenge2AccumulatedTime=0
     MissileDefenseChallenge3AccumulatedTime=0
+    MissileDefenseCorrectResponses=0
+    MissileDefenseLevelUpTimer=0
+    MissileDefenseLevelUp=false
     MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
     MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
     MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)

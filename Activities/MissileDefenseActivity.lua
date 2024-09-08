@@ -4,11 +4,17 @@ function MissileDefenseActivity()
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
     CenterText(scaling(-296,1920,Settings[1]),scaling(-450,1080,Settings[2]),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
     CenterText(scaling(-296,1920,Settings[1]),scaling(-410,1080,Settings[2]),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings[1]),scaling(-370,1080,Settings[2]),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
         MissileDefenseResponse()
         local ChallengeFailedPassThrough=MissileDefenseCheckLives()
+        if MissileDefenseCorrectResponses>6 then
+            MissileDefenseCorrectResponses=0
+            MissileDefenseSpeedFactor=MissileDefenseSpeedFactor+1
+            MissileDefenseLevelUp=true
+        end
         if MissileDefenseAChallengeFailed==true then
             MissileDefenseChallengeFailedStep1Timer=MissileDefenseChallengeFailedStep1Timer+1
         end
@@ -18,6 +24,13 @@ function MissileDefenseActivity()
         if MissileDefenseLivesRemaining<=0 then
             MissileDefenseFailed()
         end
+    end
+    if MissileDefenseLevelUp==true then
+        MissileDefenseLevelUp1()
+        MissileDefenseDisplay()
+    end
+    if MissileDefenseLevelUpTimer>2.5 then
+        MissileDefenseLevelUp2()
     end
 end
 function MissileDefenseDisplayChallenges()
@@ -160,30 +173,32 @@ function MissileDefenseDisplay()
     love.graphics.polygon('line', unpack(flattenedPoints))
     --?
     --? inbound missiles
-    if MissileDefenseChallenges[1].IndividualTimer>0 then
-        --missile 1
-        love.graphics.setPointSize(LargePoint)
-        love.graphics.setColor(MissileDefenseChallenges[1].IncomingMissileRGB[1],MissileDefenseChallenges[1].IncomingMissileRGB[2],MissileDefenseChallenges[1].IncomingMissileRGB[3],255)
-        love.graphics.points(MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1],MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2])
-        love.graphics.setPointSize(TrailingPoint)
-        love.graphics.points(MissileDefenseChallenges[1].TrailPoints)
-        love.graphics.setColor(255,255,255)
-    end
-    if MissileDefenseChallenges[2].IndividualTimer>0 then
-        love.graphics.setPointSize(LargePoint)
-        love.graphics.setColor(MissileDefenseChallenges[2].IncomingMissileRGB[1],MissileDefenseChallenges[2].IncomingMissileRGB[2],MissileDefenseChallenges[2].IncomingMissileRGB[3],255)
-        love.graphics.points(MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][1], MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][2])
-        love.graphics.setPointSize(TrailingPoint)
-        love.graphics.points(MissileDefenseChallenges[2].TrailPoints)
-        love.graphics.setColor(255,255,255)
-    end
-    if MissileDefenseChallenges[3].IndividualTimer>0 then
-        love.graphics.setPointSize(LargePoint)
-        love.graphics.setColor(MissileDefenseChallenges[3].IncomingMissileRGB[1],MissileDefenseChallenges[3].IncomingMissileRGB[2],MissileDefenseChallenges[3].IncomingMissileRGB[3],255)
-        love.graphics.points(MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][1], MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][2])
-        love.graphics.setPointSize(TrailingPoint)
-        love.graphics.points(MissileDefenseChallenges[3].TrailPoints)
-        love.graphics.setColor(255,255,255)
+    if MissileDefenseLevelUp==false then
+        if MissileDefenseChallenges[1].IndividualTimer>0 then
+            --missile 1
+            love.graphics.setPointSize(LargePoint)
+            love.graphics.setColor(MissileDefenseChallenges[1].IncomingMissileRGB[1],MissileDefenseChallenges[1].IncomingMissileRGB[2],MissileDefenseChallenges[1].IncomingMissileRGB[3],255)
+            love.graphics.points(MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][1],MissileDefenseChallenges[1].IncomingMissilePathingPoints[MissileDefenseChallenges[1].IndividualTimer+1][2])
+            love.graphics.setPointSize(TrailingPoint)
+            love.graphics.points(MissileDefenseChallenges[1].TrailPoints)
+            love.graphics.setColor(255,255,255)
+        end
+        if MissileDefenseChallenges[2].IndividualTimer>0 then
+            love.graphics.setPointSize(LargePoint)
+            love.graphics.setColor(MissileDefenseChallenges[2].IncomingMissileRGB[1],MissileDefenseChallenges[2].IncomingMissileRGB[2],MissileDefenseChallenges[2].IncomingMissileRGB[3],255)
+            love.graphics.points(MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][1], MissileDefenseChallenges[2].IncomingMissilePathingPoints[MissileDefenseChallenges[2].IndividualTimer+1][2])
+            love.graphics.setPointSize(TrailingPoint)
+            love.graphics.points(MissileDefenseChallenges[2].TrailPoints)
+            love.graphics.setColor(255,255,255)
+        end
+        if MissileDefenseChallenges[3].IndividualTimer>0 then
+            love.graphics.setPointSize(LargePoint)
+            love.graphics.setColor(MissileDefenseChallenges[3].IncomingMissileRGB[1],MissileDefenseChallenges[3].IncomingMissileRGB[2],MissileDefenseChallenges[3].IncomingMissileRGB[3],255)
+            love.graphics.points(MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][1], MissileDefenseChallenges[3].IncomingMissilePathingPoints[MissileDefenseChallenges[3].IndividualTimer+1][2])
+            love.graphics.setPointSize(TrailingPoint)
+            love.graphics.points(MissileDefenseChallenges[3].TrailPoints)
+            love.graphics.setColor(255,255,255)
+        end
     end
     love.graphics.setPointSize(1)
     --??
@@ -247,6 +262,7 @@ function MissileDefenseCheckResponse()
     local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
     if MissileDefenseChallengeCount>0 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[1].Answer) then
+            MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[1].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
@@ -256,6 +272,7 @@ function MissileDefenseCheckResponse()
     end
     if MissileDefenseChallengeCount>1 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[2].Answer) then
+            MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[2].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
@@ -265,6 +282,7 @@ function MissileDefenseCheckResponse()
     end
     if MissileDefenseChallengeCount>2 then
         if LowerCaseResponse==string.lower(MissileDefenseChallenges[3].Answer) then
+            MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[3].IncomingMissilePathingPoints
             local RGBTransfer=MissileDefenseChallenges[1].IncomingMissileRGB
@@ -358,4 +376,33 @@ function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
     love.graphics.setColor(color.r, color.g, color.b)
     love.graphics.rectangle("fill",BoxX,BoxY,Time,BoxH)
     love.graphics.setColor(255,255,255)
+end
+function MissileDefenseLevelUp1()
+    local TerrainMinY=scaling(915,1920,Settings[1])
+    CenterText(scaling(-296,1920,Settings[1]),scaling(-300,1080,Settings[2]),"Next Level",Exo60Black)
+    Deleting=true
+    table.remove(MissileDefenseChallenges,3)
+    table.remove(MissileDefenseChallenges,2)
+    table.remove(MissileDefenseChallenges,1)
+    MissileDefenseLevelUpTimer=MissileDefenseLevelUpTimer+love.timer.getDelta()
+end
+function MissileDefenseLevelUp2()
+    local TerrainMinY=scaling(915,1920,Settings[1])
+    CenterText(scaling(-296,1920,Settings[1]),scaling(-300,1080,Settings[2]),"Next Level",Exo60Black)
+    Deleting=true
+    table.remove(MissileDefenseChallenges,3)
+    table.remove(MissileDefenseChallenges,2)
+    table.remove(MissileDefenseChallenges,1)
+    local RGB3={255, 38, 179}
+    local RGB2={248, 255, 38}
+    local RGB1={255, 43, 28}
+    local Points1=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    local Points2=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    local Points3=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points1,IncomingMissileRGB=RGB1,TrailPoints={0,0}})
+    table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points2,IncomingMissileRGB=RGB2,TrailPoints={0,0}})
+    table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points3,IncomingMissileRGB=RGB3,TrailPoints={0,0}})
+    Deleting=false
+    MissileDefenseLevelUp=false
+    MissileDefenseLevelUpTimer=0
 end
