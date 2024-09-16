@@ -113,3 +113,8 @@ function ShuffleTableCopy(original)
     
     return copy
 end
+function SmudgeColor(colorA, colorB, percent)
+    local r, g, b = colorA.r-(colorA.r-colorB.r)*percent, colorA.g-(colorA.g-colorB.g)*percent, colorA.b-(colorA.b-colorB.b)*percent
+    return {r=r,g=g,b=b}
+  end
+   
