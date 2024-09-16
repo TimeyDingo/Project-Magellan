@@ -127,7 +127,7 @@ function ImportMenuTitle()
     function love.textinput(t)
         Input=Input..t
     end
-    Input=BackspaceController(Input,2)
+    Input=BackspaceController(Input,2,0.1)
 end
 function ImportMenuSetPastingAndPreview()
     if Paste==nil or Settings==nil then

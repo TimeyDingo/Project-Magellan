@@ -31,7 +31,7 @@ end
 function scaling(OriginalPos,OriginalResolution,NewResolution)
     return (OriginalPos*NewResolution)/OriginalResolution
 end
-function BackspaceController(String,HoldDelay)
+function BackspaceController(String,HoldDelay, ShortHoldDelay)
     String=tostring(String)
     local Held
     if love.keyboard.isDown("backspace") then
@@ -39,7 +39,10 @@ function BackspaceController(String,HoldDelay)
     else
         HeldTime=0
     end
-    if love.keyboard.isDown("backspace") and DebounceTimer>0.05 and Held~=true then
+    if ShortHoldDelay==nil then
+        ShortHoldDelay=0.1
+    end
+    if love.keyboard.isDown("backspace") and DebounceTimer>ShortHoldDelay and Held~=true then
         local byteoffset = utf8.offset(String, -1)
         if byteoffset then
             -- remove the last UTF-8 character.

@@ -66,7 +66,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         function love.textinput(t)
             SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..t
         end
-        SetData[TermToDisplayAndEdit][2]=BackspaceController(SetData[TermToDisplayAndEdit][2],0.5)
+        SetData[TermToDisplayAndEdit][2]=BackspaceController(SetData[TermToDisplayAndEdit][2],0.5,0.1)
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
             SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..love.system.getClipboardText()
         end
@@ -109,7 +109,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         function love.textinput(t)
             SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..t
         end
-        SetData[TermToDisplayAndEdit][1]=BackspaceController(SetData[TermToDisplayAndEdit][1],0.5)
+        SetData[TermToDisplayAndEdit][1]=BackspaceController(SetData[TermToDisplayAndEdit][1],0.5,0.1)
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
             SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..love.system.getClipboardText()
         end
@@ -168,7 +168,7 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
         function love.textinput(t)
             SetTitle=SetTitle..t
         end
-        SetTitle=BackspaceController(SetTitle,0.5)
+        SetTitle=BackspaceController(SetTitle,1,0.1)
     else
         love.graphics.setColor(255, 153, 0)
     end

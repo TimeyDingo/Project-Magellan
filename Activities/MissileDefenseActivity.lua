@@ -135,7 +135,7 @@ function MissileDefenseResponse()
     function love.textinput(t)
         MissileDefenseTypedResponse=MissileDefenseTypedResponse..t
     end
-    MissileDefenseTypedResponse=BackspaceController(MissileDefenseTypedResponse,0.5)
+    MissileDefenseTypedResponse=BackspaceController(MissileDefenseTypedResponse,0.5,0.1)
     Text=MissileDefenseTypedResponse
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
