@@ -157,17 +157,22 @@ function ImportMenuSetPastingAndPreview()
             local definition, term = section:match("(.+)::(.+)")
             
             if definition and term then
-                CenteredTextBox(x, y, scaling(673,1920,Settings[1]), scaling(30,1080,Settings[2]), definition, Exo20Bold)
-                y = y + scaling(20,1080,Settings[2])
+                -- Draw the definition text box with wrapping
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), definition, Exo20Bold)
+                y = y + WrapDistance  -- Move to the next line after wrapping
+                
+                -- Draw the term text box with wrapping
                 WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), term, Exo20)
-                y = y + WrapDistance  -- Move to the next line
+                y = y + WrapDistance  -- Move to the next line after wrapping
+
+                -- Check for overflow and hide text if necessary
                 if y > scaling(800,1080,Settings[2]) then
-                    love.graphics.setColor(255, 255, 255, 0)
+                    love.graphics.setColor(255, 255, 255, 0)  -- Hide text if it goes too far down the screen
                 end
             end
         end
 
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(255, 255, 255, 255)  -- Reset the color after hiding
         love.graphics.setFont(Exo24)
     end
 end

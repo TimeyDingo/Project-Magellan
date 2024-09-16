@@ -9,7 +9,7 @@ function EditActivity()
             return
         end
         EditableTitle(660, 60, 600, 60, Exo32Bold,true)
-        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'StateMachine="View Set"')
+        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"')
         local TermFont=Exo24
         local DefinitionFont=Exo20
         love.graphics.setColor(40,40,40)
@@ -67,6 +67,9 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
             SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..t
         end
         SetData[TermToDisplayAndEdit][2]=BackspaceController(SetData[TermToDisplayAndEdit][2],0.5)
+        if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
+            SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..love.system.getClipboardText()
+        end
     else
         love.graphics.setColor(255, 153, 0)
     end
@@ -107,6 +110,9 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
             SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..t
         end
         SetData[TermToDisplayAndEdit][1]=BackspaceController(SetData[TermToDisplayAndEdit][1],0.5)
+        if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
+            SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..love.system.getClipboardText()
+        end
     else
         love.graphics.setColor(255, 153, 0)
     end
