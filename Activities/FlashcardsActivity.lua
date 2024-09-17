@@ -6,10 +6,10 @@ function FlashcardActivity()
         print("In FlashcardActivity() SetData is reporting as: "..tostring(SetData))
         return
     end
-    CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
-    CenterText(0,scaling(-400,1080,Settings[2]),tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData),Exo32Bold)
+    CenterText(0,scaling(-450,1080,Settings.YRes),SetTitle,Exo32Bold)
+    CenterText(0,scaling(-400,1080,Settings.YRes),tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData),Exo32Bold)
     --CenterText(0,0,tostring(SetData[2][2]),Exo24)
-    DisplayFlashCard(scaling(578,1920,Settings[1]),scaling(308,1080,Settings[2]),scaling(763,1920,Settings[1]),scaling(464,1080,Settings[2]),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
+    DisplayFlashCard(scaling(578,1920,Settings.XRes),scaling(308,1080,Settings.YRes),scaling(763,1920,Settings.XRes),scaling(464,1080,Settings.YRes),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
     FlashCardKeyboardControls()
     ButtonStyle1Mod3(578, 800, 763, 100, "Swap Display Order", Exo24Bold, true, "FlashCardChangeDisplaySideFirst()")
 end

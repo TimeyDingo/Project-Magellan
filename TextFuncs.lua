@@ -25,10 +25,10 @@ function ButtonStyle1(BoxX,BoxY,BoxW,BoxH,Text,TextFont,Scaling)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -65,10 +65,10 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Actio
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -113,10 +113,10 @@ function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
@@ -136,10 +136,10 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     love.graphics.setFont(TextFont)
     local textHeight = TextFont:getHeight()  -- Height of a single line of text
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Calculate the wrapped text and the number of lines
     local wrappedText, lines = TextFont:getWrap(Text, BoxW)
@@ -153,9 +153,9 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     return totalHeight
 end
 function BackdropDraw(Backdrop)
-    love.graphics.translate(Settings[1]/2, Settings[2]/2)
+    love.graphics.translate(Settings.XRes/2, Settings.YRes/2)
     Backdrop:draw()
-    love.graphics.translate(-Settings[1]/2, -Settings[2]/2)
+    love.graphics.translate(-Settings.XRes/2, -Settings.YRes/2)
 end
 function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling,RGB, Action)--Be able to run a function
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or RGB==nil then
@@ -172,10 +172,10 @@ function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -221,14 +221,14 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
     local TH = TextFont:getHeight(MessageType)
     local TW = TextFont:getWidth(MessageType)
     if Scaling==true then
-        BoxX=scaling(BoxXUnscalled,1920,Settings[1])
-        BoxY=scaling(BoxYUnscalled,1080,Settings[2])
-        BoxW=scaling(BoxWUnscalled,1920,Settings[1])
-        BoxH=scaling(BoxHUnscalled,1080,Settings[2])
+        BoxX=scaling(BoxXUnscalled,1920,Settings.XRes)
+        BoxY=scaling(BoxYUnscalled,1080,Settings.YRes)
+        BoxW=scaling(BoxWUnscalled,1920,Settings.XRes)
+        BoxH=scaling(BoxHUnscalled,1080,Settings.YRes)
     end
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
-    local textY = (BoxY + (BoxH - TH) / 2)-scaling(90,1080,Settings[2])  -- Center the text vertically
+    local textY = (BoxY + (BoxH - TH) / 2)-scaling(90,1080,Settings.YRes)  -- Center the text vertically
     love.graphics.setLineWidth(MediumLine)
     love.graphics.setColor(255,255,255)
     love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
@@ -239,8 +239,8 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
     if BackoutAction==nil then
         BackoutAction="PopupCall=false"
     end
-    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},BackoutAction)
-    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+scaling(120,1080,Settings[2]), 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
+    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine, BoxYUnscalled+scaling(120,1080,Settings.YRes), 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},BackoutAction)
+    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+scaling(120,1080,Settings.YRes), 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
 end
 function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then
@@ -253,10 +253,10 @@ function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScr
         return 0
     end
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     love.graphics.setColor(255, 153, 0)
     local ScrollingOrigin=BoxY+BoxH

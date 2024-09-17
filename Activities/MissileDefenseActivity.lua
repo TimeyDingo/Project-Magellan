@@ -2,9 +2,9 @@ function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
-    CenterText(scaling(-296,1920,Settings[1]),scaling(-450,1080,Settings[2]),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings[1]),scaling(-410,1080,Settings[2]),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings[1]),scaling(-370,1080,Settings[2]),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-450,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-410,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-370,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
@@ -125,10 +125,10 @@ function MissileDefenseResponse()
     local BoxH=165
     local Scaling=true
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     love.graphics.setColor(255, 255, 255)
@@ -162,7 +162,7 @@ function MissileDefenseDisplay()
     local LargePoint=10
     local TrailingPoint=2
     love.graphics.setColor(255,153,0)
-    love.graphics.rectangle("line", 0, scaling(65,1080, Settings[2]), scaling(1320, 1920, Settings[1]), scaling(850, 1080, Settings[2]))
+    love.graphics.rectangle("line", 0, scaling(65,1080, Settings.YRes), scaling(1320, 1920, Settings.XRes), scaling(850, 1080, Settings.YRes))
     love.graphics.setColor(255,255,255)
     --? Terrain
     local flattenedPoints = {}
@@ -221,10 +221,10 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         local InitialFont=Exo28
         local newSize=28
         if Scaling==true then
-            BoxX=scaling(BoxX,1920,Settings[1])
-            BoxY=scaling(BoxY,1080,Settings[2])
-            BoxW=scaling(BoxW,1920,Settings[1])
-            BoxH=scaling(BoxH,1080,Settings[2])
+            BoxX=scaling(BoxX,1920,Settings.XRes)
+            BoxY=scaling(BoxY,1080,Settings.YRes)
+            BoxW=scaling(BoxW,1920,Settings.XRes)
+            BoxH=scaling(BoxH,1080,Settings.YRes)
         end
         local function getWrappedHeight(font, text, width)
             local _, wrappedText = font:getWrap(text, width)
@@ -365,10 +365,10 @@ end
 function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
     local Time=MissileDefenseChallenges[Challenge].IndividualTimer
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        Time=scaling(Time,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        Time=scaling(Time,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local StartColor = {r = 132, g = 195, b = 24}
     local TargetColor = {r = 215, g = 54, b = 64}
@@ -378,8 +378,8 @@ function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
     love.graphics.setColor(255,255,255)
 end
 function MissileDefenseLevelUp1()
-    local TerrainMinY=scaling(915,1920,Settings[1])
-    CenterText(scaling(-296,1920,Settings[1]),scaling(-300,1080,Settings[2]),"Next Level",Exo60Black)
+    local TerrainMinY=scaling(915,1920,Settings.XRes)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
@@ -387,8 +387,8 @@ function MissileDefenseLevelUp1()
     MissileDefenseLevelUpTimer=MissileDefenseLevelUpTimer+love.timer.getDelta()
 end
 function MissileDefenseLevelUp2()
-    local TerrainMinY=scaling(915,1920,Settings[1])
-    CenterText(scaling(-296,1920,Settings[1]),scaling(-300,1080,Settings[2]),"Next Level",Exo60Black)
+    local TerrainMinY=scaling(915,1920,Settings.XRes)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
@@ -396,9 +396,9 @@ function MissileDefenseLevelUp2()
     local RGB3={255, 38, 179}
     local RGB2={248, 255, 38}
     local RGB1={255, 43, 28}
-    local Points1=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    local Points2=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    local Points3=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    local Points1=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    local Points2=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    local Points3=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
     table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points1,IncomingMissileRGB=RGB1,TrailPoints={0,0}})
     table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points2,IncomingMissileRGB=RGB2,TrailPoints={0,0}})
     table.insert(MissileDefenseChallenges,{Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints=Points3,IncomingMissileRGB=RGB3,TrailPoints={0,0}})

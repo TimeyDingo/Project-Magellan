@@ -4,10 +4,10 @@ function ListofSets()
         print("In ListofSets() MainMenuScroll is reporting as: "..tostring(MainMenuScroll))
         return
     end
-    local TopLeftX=scaling(267,1920,Settings[1])
-    local TopLeftY=scaling(156,1080,Settings[2])
-    local Width=scaling(656,1920,Settings[1])
-    local Height=scaling(651,1080,Settings[2])
+    local TopLeftX=scaling(267,1920,Settings.XRes)
+    local TopLeftY=scaling(156,1080,Settings.YRes)
+    local Width=scaling(656,1920,Settings.XRes)
+    local Height=scaling(651,1080,Settings.YRes)
     love.graphics.setLineWidth(ThickLine)
     love.graphics.setColor(22, 22, 22)
     love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
@@ -19,57 +19,57 @@ function ListofSets()
         print("In ListofSets() SetData is reporting as: "..tostring(SetData))
         return
     end
-    local ButtonX=scaling(283,1920,Settings[1])
-    local ButtonWidth=scaling(624,1920,Settings[1])
-    local ButtonHeight=scaling(59,1080,Settings[2])
+    local ButtonX=scaling(283,1920,Settings.XRes)
+    local ButtonWidth=scaling(624,1920,Settings.XRes)
+    local ButtonHeight=scaling(59,1080,Settings.YRes)
     if NumberofSets>0 then
         if SetData[1+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(173,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(173,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
     end
     if NumberofSets>1 then
         if SetData[2+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(266,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
+        MainMenuSetListButtons(ButtonX,scaling(266,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
     end
     if NumberofSets>2 then
         if SetData[3+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(359,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(359,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
     end
     if NumberofSets>3 then
         if SetData[4+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(452,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(452,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
     end
     if NumberofSets>4 then
         if SetData[5+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(545,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(545,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
     end
     if NumberofSets>5 then
         if SetData[6+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(638,1080,Settings[2]),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(638,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
     end
     if NumberofSets>6 then
         if SetData[7+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(731,1080,Settings[2]),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
+        MainMenuSetListButtons(ButtonX,scaling(731,1080,Settings.YRes),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -78,8 +78,8 @@ function ListofSets()
     love.graphics.setColor(255,255,255)
 end
 function SetPreview()
-    local x = scaling(976,1920,Settings[1])  -- Starting X position for text drawing
-    local y = scaling(156,1080,Settings[2])  -- Starting Y position for text drawing
+    local x = scaling(976,1920,Settings.XRes)  -- Starting X position for text drawing
+    local y = scaling(156,1080,Settings.YRes)  -- Starting Y position for text drawing
     local WrapDistance = 0
     if SetToPreview == nil or SetData == nil or Settings == nil then
         print("In SetPreview() SetToPreview is reporting as: "..tostring(SetToPreview))
@@ -90,9 +90,9 @@ function SetPreview()
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
-        CenteredTextBox(scaling(976,1920,Settings[1]), scaling(135,1080,Settings[2]), scaling(673,1920,Settings[1]), scaling(59,1080,Settings[2]), tostring(setTitle), Exo28Bold)
+        CenteredTextBox(scaling(976,1920,Settings.XRes), scaling(135,1080,Settings.YRes), scaling(673,1920,Settings.XRes), scaling(59,1080,Settings.YRes), tostring(setTitle), Exo28Bold)
         love.graphics.setFont(Exo24)
-        y = y + scaling(25,1080,Settings[2])  -- Move to the next line
+        y = y + scaling(25,1080,Settings.YRes)  -- Move to the next line
         if dataSet == nil then
             print("In SetPreview() dataSet is reporting as: "..tostring(dataSet))
             return
@@ -100,30 +100,30 @@ function SetPreview()
         for i, item in ipairs(dataSet) do
             local definition = item[1]
             local term = item[2]
-            if y > scaling(850,1080,Settings[2]) then
+            if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
             -- Add wrapping for the term text box
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), term, Exo20Bold)
-            y = y + WrapDistance + scaling(0,1080,Settings[2])  -- Move to the next line after wrapping
-            if y > scaling(850,1080,Settings[2]) then
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, Exo20Bold)
+            y = y + WrapDistance + scaling(0,1080,Settings.YRes)  -- Move to the next line after wrapping
+            if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
             -- Wrap the definition as you already have
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), definition, Exo20)
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, Exo20)
             y = y + WrapDistance  -- Move to the next line
-            if y > scaling(850,1080,Settings[2]) then
+            if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
         end
         love.graphics.setColor(255,255,255,255)
-        ButtonStyle1Mod3(x + scaling(80,1920,Settings[1]), scaling(895,1080,Settings[2]) + scaling(35,1080,Settings[2]), scaling(673,1920,Settings[1]) - scaling(160,1920,Settings[1]), scaling(50,1080,Settings[2]), "Delete Set", Exo24Bold, false, "DeleteSet()")
+        ButtonStyle1Mod3(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), "Delete Set", Exo24Bold, false, "DeleteSet()")
     end
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)
 end
 function ImportMenuTitle()
-    CenterText(scaling(201,1920,Settings[1]),scaling(-288,1080,Settings[2]),Input,Exo28)
+    CenterText(scaling(201,1920,Settings.XRes),scaling(-288,1080,Settings.YRes),Input,Exo28)
     function love.textinput(t)
         Input=Input..t
     end
@@ -139,8 +139,8 @@ function ImportMenuSetPastingAndPreview()
         Paste=love.system.getClipboardText()
     end
     if Paste~="" then
-        local x = scaling(825,1920,Settings[1])  -- Starting X position for text drawing
-        local y = scaling(340,1080,Settings[2])  -- Starting Y position for text drawing
+        local x = scaling(825,1920,Settings.XRes)  -- Starting X position for text drawing
+        local y = scaling(340,1080,Settings.YRes)  -- Starting Y position for text drawing
         local WrapDistance = 0
 
         -- Split the inputString into individual sections based on ';;'
@@ -150,7 +150,7 @@ function ImportMenuSetPastingAndPreview()
         end
 
         love.graphics.setFont(Exo24)
-        y = y + scaling(20,1080,Settings[2])  -- Move to the next line
+        y = y + scaling(20,1080,Settings.YRes)  -- Move to the next line
 
         for i, section in ipairs(sections) do
             -- Split each section into definition and term based on '::'
@@ -158,15 +158,15 @@ function ImportMenuSetPastingAndPreview()
             
             if definition and term then
                 -- Draw the definition text box with wrapping
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), definition, Exo20Bold)
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, Exo20Bold)
                 y = y + WrapDistance  -- Move to the next line after wrapping
                 
                 -- Draw the term text box with wrapping
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings[1]), term, Exo20)
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, Exo20)
                 y = y + WrapDistance  -- Move to the next line after wrapping
 
                 -- Check for overflow and hide text if necessary
-                if y > scaling(800,1080,Settings[2]) then
+                if y > scaling(800,1080,Settings.YRes) then
                     love.graphics.setColor(255, 255, 255, 0)  -- Hide text if it goes too far down the screen
                 end
             end
@@ -180,7 +180,7 @@ function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
     love.graphics.setFont(Exo60Black)
-    love.graphics.print(StateMachine, scaling(596,1920,Settings[1]), scaling(1,1080,Settings[2]))
+    love.graphics.print(StateMachine, scaling(596,1920,Settings.XRes), scaling(1,1080,Settings.YRes))
     love.graphics.setFont(Exo24)
 end
 function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
@@ -199,10 +199,10 @@ function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,S
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -240,10 +240,10 @@ function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
@@ -281,10 +281,10 @@ function SettingsFullscreenButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValu
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     -- Check if mouse is over the box
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)

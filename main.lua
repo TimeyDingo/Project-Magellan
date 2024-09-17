@@ -161,7 +161,7 @@ function love.draw()
             ViewActivity()
         end
     end
-    love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings[1]),scaling(50,1080,Settings[2]))--? Debug for mouse position
+    love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,Exo24Bold,true,PopupAction)
     end

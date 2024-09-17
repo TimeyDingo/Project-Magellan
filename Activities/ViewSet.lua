@@ -6,16 +6,16 @@ function ViewActivity()
         print("In ViewActivity() ViewActivityScroll is reporting as: "..tostring(ViewActivityScroll))
         return
     end
-    CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
+    CenterText(0,scaling(-450,1080,Settings.YRes),SetTitle,Exo32Bold)
     ButtonStyle1Mod3(830, 0, 240, 55, "-> Edit Mode", Exo24Bold, true, 'StateMachine="Edit"')
     local TermFont=Exo24
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
     love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+    love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
     love.graphics.setColor(255,255,255)
-    CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
-    CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
+    CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Terms",Exo24Bold)
+    CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
     if NumberOfTerms>0 then
         DisplayTerm(20,200+MediumLine,910,200,SetData[1+ViewActivityScroll][2],TermFont,true)
         DisplayDefinition(990,200+MediumLine,910,200,SetData[1+ViewActivityScroll][1],DefinitionFont,true)
@@ -47,10 +47,10 @@ function DisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
@@ -76,10 +76,10 @@ function DisplayDefinition(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
