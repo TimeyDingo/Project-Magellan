@@ -13,10 +13,10 @@ function EditActivity()
         local TermFont=Exo24
         local DefinitionFont=Exo20
         love.graphics.setColor(40,40,40)
-        love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200-MediumLine,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+        love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
-        CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Terms",Exo24Bold)
-        CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
+        CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Terms",Exo24Bold)
+        CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
         ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
         ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1')
         if NumberOfTerms>0 then
@@ -55,10 +55,10 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
@@ -98,10 +98,10 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
@@ -157,10 +157,10 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then

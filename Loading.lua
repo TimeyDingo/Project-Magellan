@@ -1,35 +1,35 @@
 function LoadFonts()
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings[5])
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings[5])
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings[5])
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings[5])
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20-Settings[5])
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28-Settings[5])
-    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings[5])
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings[5])
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings[5]*5)
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings.FontModifier)
+    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings.FontModifier)
+    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings.FontModifier)
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings.FontModifier)
+    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20-Settings.FontModifier)
+    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28-Settings.FontModifier)
+    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings.FontModifier)
+    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings.FontModifier)
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings.FontModifier*5)
 end
 function LoadBackdrops()
     --BackdropMainMenu=love.graphics.newImage('Selectscreenbackdrop.png')
         local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
-        MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings[1],Settings[2])
+        MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings.XRes,Settings.YRes)
     --BackdropImport=love.graphics.newImage('ImportMenumk3.png')
         local ImportMenuFile = love.filesystem.read("SVG/ImportMenu.svg")
-        ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings[1],Settings[2])
+        ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
     --BackdropSelectAction=love.graphics.newImage('SelectMenu.png')
         local SelectActionMenuFile = love.filesystem.read("SVG/SelectMenu.svg")
-        SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings[1],Settings[2])
+        SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
     --GameBar=love.graphics.newImage('GameBar.png')
         local GameBarFile = love.filesystem.read("SVG/GameBar.svg")
-        GameBarBackdrop = tove.newGraphics(GameBarFile,Settings[1],Settings[2])
+        GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
 end
 function LoadSettings()
-    Settings={1024,600,2,false}
+    Settings={XRes=1024,YRes=600,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings[1],Settings[2],{msaa=Settings[3], fullscreen=toboolean(Settings[4]), borderless=toboolean(Settings[4])})
+        love.window.setMode(Settings.Xres,Settings.Yres,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
     end
-    SettingsResolution=Settings[1]
-    SettingsFullscreen=toboolean(Settings[4])
+    SettingsResolution=Settings.XRes
+    SettingsFullscreen=toboolean(Settings.Fullscreen)
     math.randomseed (os.time())
 end
 function LoadActivities()
@@ -54,37 +54,37 @@ function LoadMouseClickDebounce()
 end
 function LoadLineThickness()
     local MediumLineSubtraction=0
-    if Settings[6] > 0 then
+    if Settings.LineModifier > 0 then
         MediumLineSubtraction=1
     end
-    ThickLine=5-Settings[6]
+    ThickLine=5-Settings.LineModifier
     MediumLine=3-MediumLineSubtraction
     ThinLine=1
 end
 function ConfirmSettings()
     if SettingsResolution==1920 then
-        Settings[1]=1920
-        Settings[2]=1080
-        Settings[5]=0
-        Settings[6]=0
+        Settings.XRes=1920
+        Settings.YRes=1080
+        Settings.FontModifier=0
+        Settings.LineModifier=0
     end
     if SettingsResolution==1280 then
-        Settings[1]=1280
-        Settings[2]=720
-        Settings[5]=3
-        Settings[6]=2
+        Settings.XRes=1280
+        Settings.YRes=720
+        Settings.FontModifier=3
+        Settings.LineModifier=2
     end
     if SettingsResolution==1024 then
-        Settings[1]=1024
-        Settings[2]=576
-        Settings[5]=4
-        Settings[6]=3
+        Settings.XRes=1024
+        Settings.YRes=576
+        Settings.FontModifier=4
+        Settings.LineModifier=3
     end
     if SettingsFullscreen==true then
-        Settings[4]=true
+        Settings.Fullscreen=true
     end
     if SettingsFullscreen==false then
-        Settings[4]=false
+        Settings.Fullscreen=false
     end
     SaveSettings(Settings)
     LoadSettings()
@@ -110,8 +110,8 @@ function LoadMissileDefense()
         {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={248, 255, 38},TrailPoints={0,0}},
         {Challenge="",Answer="",IndividualTimer=0,IncomingMissilePathingPoints={0,0},IncomingMissileRGB={255, 38, 179},TrailPoints={0,0}}
     }
-    local TerrainMinY=scaling(915,1920,Settings[1])
-    TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings[2])-MediumLine,scaling(200,1920,Settings[1]),50)
+    local TerrainMinY=scaling(915,1920,Settings.XRes)
+    TerrainPoints=GenerateTerrainPoints(MediumLine,TerrainMinY,scaling(1320,1080,Settings.YRes)-MediumLine,scaling(200,1920,Settings.XRes),50)
     MissileDefenseSurviveTimer=0
     MissileDefenseLivesRemaining=4
     MissileDefenseChallenge1Failed=false
@@ -125,9 +125,9 @@ function LoadMissileDefense()
     MissileDefenseCorrectResponses=0
     MissileDefenseLevelUpTimer=0
     MissileDefenseLevelUp=false
-    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
-    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings[1]), scaling(65,1080, Settings[2]), scaling(664,1920, Settings[1]), TerrainMinY-scaling(200,1080,Settings[2]), 600)
+    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
@@ -140,11 +140,11 @@ function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
         local X = MinX + (Width / (Subdivisions - 1)) * (i - 1)
         local Y = MinY - math.random(0, Height)
         if i>Subdivisions/2-Subdivisions/8 and i<Subdivisions/2+Subdivisions/8 then
-            Y=MinY-scaling(150,1080,Settings[2])
+            Y=MinY-scaling(150,1080,Settings.YRes)
             if i>Subdivisions/2-Subdivisions/12 and i<Subdivisions/2+Subdivisions/12 then
-                Y=MinY-scaling(170,1080,Settings[2])
+                Y=MinY-scaling(170,1080,Settings.YRes)
                 if i>Subdivisions/2-Subdivisions/16 and i<Subdivisions/2+Subdivisions/16 then
-                    Y=MinY-scaling(200,1080,Settings[2])
+                    Y=MinY-scaling(200,1080,Settings.YRes)
                 end
             end
         end
@@ -215,8 +215,8 @@ end
 function LoadMatching()
     -- Define the range for random positions
     MatchingActivityCurrentCard = nil
-    local xMin, xMax = 0, Settings[1]-200
-    local yMin, yMax = 100, Settings[2]-180
+    local xMin, xMax = 0, Settings.XRes-200
+    local yMin, yMax = 100, Settings.YRes-180
     local w1=100
     local h1=100
     local w2=100

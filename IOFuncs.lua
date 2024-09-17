@@ -1,27 +1,39 @@
 function SaveSettings(Settings)
     local file = io.open("Settings.txt", "w")
-    if file then--? Check if successful open
-        for i, value in ipairs(Settings) do
-            file:write(tostring(value) .. "\n")--? each indice to new line
-        end
+    if file then
+        -- Write each setting in the format key=value
+        file:write("XRes=" .. tostring(Settings.XRes) .. "\n")
+        file:write("YRes=" .. tostring(Settings.YRes) .. "\n")
+        file:write("MSAA=" .. tostring(Settings.MSAA) .. "\n")
+        file:write("Fullscreen=" .. tostring(Settings.Fullscreen) .. "\n")
+        file:write("FontModifier=" .. tostring(Settings.FontModifier) .. "\n")
+        file:write("LineModifier=" .. tostring(Settings.LineModifier) .. "\n")
+        
         file:close() -- Close the file
-        return 1--?Success!
+        return 1 -- Success
     else
-        return 0--?Error!
+        return 0 -- Error
     end
 end
 function LoadSettingsIO(Settings)
     local file = io.open("Settings.txt", "r")
     if file then
-        local index = 1
-        for line in file:lines() do
-            Settings[index] = tonumber(line) or line -- Store the value in the Settings table
-            index = index + 1
-        end
+        line=file:read("*l")
+        Settings.Xres=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.Yres=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.MSAA=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.Fullscreen=toboolean(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.FontModifier=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.LineModifier=tonumber(line:match("=(.+)"))
         file:close()
         return 1 -- Success
     else
-        return 0 -- Error
+        return 0 -- Error: file couldn't be opened
     end
 end
 function CheckSavedSets()

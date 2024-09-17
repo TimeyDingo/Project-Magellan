@@ -7,8 +7,8 @@ function MatchingActivity()
         print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
         return
     end
-    CenterText(0, scaling(-450,1080,Settings[2]), SetTitle, Exo32Bold)
-    CenterText(0,scaling(-400,1080,Settings[2]),tostring(#MatchingActivity4XTable).."/4",Exo32Bold)--?? The count
+    CenterText(0, scaling(-450,1080,Settings.YRes), SetTitle, Exo32Bold)
+    CenterText(0,scaling(-400,1080,Settings.YRes),tostring(#MatchingActivity4XTable).."/4",Exo32Bold)--?? The count
     if #MatchingActivity4XTable==0 then
         GenerateMatchingData()
         LoadMatching()

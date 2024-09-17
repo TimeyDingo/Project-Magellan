@@ -1,20 +1,20 @@
 function TestActivity()
     TestActivityCheckIfEnoughTerms()
-    CenterText(0,scaling(-450,1080,Settings[2]),SetTitle,Exo32Bold)
+    CenterText(0,scaling(-450,1080,Settings.YRes),SetTitle,Exo32Bold)
     local TermFont=Exo24
     local DefinitionFont=Exo20
     love.graphics.setColor(40,40,40)
-    love.graphics.rectangle("fill",scaling(940,1920,Settings[1]),scaling(200,1080,Settings[2]),scaling(40,1920,Settings[1]),scaling(950,1080,Settings[2]))
+    love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
     love.graphics.setColor(255,255,255)
-    CenterText(scaling(-485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Term",Exo24Bold)
-    CenterText(scaling(485,1920,Settings[1]),scaling(-380,1080,Settings[2]),"Definitions",Exo24Bold)
+    CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Term",Exo24Bold)
+    CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
     local AnsweredCount, TotalQuestions = TestActivityCalculateHowManyHaveBeenAnswered()
     if AnsweredCount==nil or TotalQuestions==nil or TestActivityTestTable==nil then
         print("In TestActivity() AnsweredCount is reporting as: "..tostring(AnsweredCount))
         print("In TestActivity() TotalQuestions is reporting as: "..tostring(TotalQuestions))
         print("In TestActivity() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
     end
-    CenterText(0, scaling(-400, 1080, Settings[2]), AnsweredCount.."/"..TotalQuestions, Exo24Bold)
+    CenterText(0, scaling(-400, 1080, Settings.YRes), AnsweredCount.."/"..TotalQuestions, Exo24Bold)
     TestActivityDisplayTerm(20,530+MediumLine,910,200,TestActivityTestTable[1+TestActivityScroll].TermToTest,TermFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].CorrectAnswerPos,910,200,TestActivityTestTable[1+TestActivityScroll].CorrectAnswer,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1,DefinitionFont,true)
@@ -36,10 +36,10 @@ function TestActivityDisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
@@ -79,10 +79,10 @@ function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFon
     end
     love.graphics.setFont(TextFont)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings[1])
-        BoxY=scaling(BoxY,1080,Settings[2])
-        BoxW=scaling(BoxW,1920,Settings[1])
-        BoxH=scaling(BoxH,1080,Settings[2])
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)

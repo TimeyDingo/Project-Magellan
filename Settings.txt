@@ -1,6 +1,6 @@
-1024
-576
-2
-false
-4
-3
+XRes=1024
+YRes=576
+MSAA=2
+Fullscreen=false
+FontModifier=4
+LineModifier=3
