@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.window.title = "Flashcard Project by Timey"
+    t.window.title = "M.O.S.S"
     t.window.icon = "icon.jpg"
     t.window.width = 1024
     t.window.height = 576
