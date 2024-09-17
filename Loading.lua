@@ -24,9 +24,9 @@ function LoadBackdrops()
         GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
 end
 function LoadSettings()
-    Settings={XRes=1024,YRes=600,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
+    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings.Xres,Settings.Yres,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+        love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
     end
     SettingsResolution=Settings.XRes
     SettingsFullscreen=toboolean(Settings.Fullscreen)

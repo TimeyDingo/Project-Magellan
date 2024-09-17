@@ -19,9 +19,9 @@ function LoadSettingsIO(Settings)
     local file = io.open("Settings.txt", "r")
     if file then
         line=file:read("*l")
-        Settings.Xres=tonumber(line:match("=(.+)"))
+        Settings.XRes=tonumber(line:match("=(.+)"))
         line=file:read("*l")
-        Settings.Yres=tonumber(line:match("=(.+)"))
+        Settings.YRes=tonumber(line:match("=(.+)"))
         line=file:read("*l")
         Settings.MSAA=tonumber(line:match("=(.+)"))
         line=file:read("*l")
@@ -33,6 +33,7 @@ function LoadSettingsIO(Settings)
         file:close()
         return 1 -- Success
     else
+        print("Error in LoadSettingsIO, file could not be opened")
         return 0 -- Error: file couldn't be opened
     end
 end
