@@ -359,7 +359,7 @@ function MissileDefenseFailed()
     StateMachine="Set Options"
     PopupCall = true
     PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'
-    PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer/60))
+    PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer))
     BackoutAction= 'PopupCall=false'
 end
 function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
