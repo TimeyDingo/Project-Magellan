@@ -62,7 +62,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(255, 153, 0)
         function love.textinput(t)
             SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..t
         end
@@ -70,8 +70,6 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
             SetData[TermToDisplayAndEdit][2]=SetData[TermToDisplayAndEdit][2]..love.system.getClipboardText()
         end
-    else
-        love.graphics.setColor(255, 153, 0)
     end
     local Text=SetData[TermToDisplayAndEdit][2]
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
@@ -81,7 +79,11 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
@@ -105,7 +107,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(255, 153, 0)
         function love.textinput(t)
             SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..t
         end
@@ -113,8 +115,6 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl')==true then
             SetData[TermToDisplayAndEdit][1]=SetData[TermToDisplayAndEdit][1]..love.system.getClipboardText()
         end
-    else
-        love.graphics.setColor(255, 153, 0)
     end
     local Text=SetData[TermToDisplayAndEdit][1]
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
@@ -124,7 +124,11 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
@@ -164,13 +168,11 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(255, 153, 0)
         function love.textinput(t)
             SetTitle=SetTitle..t
         end
         SetTitle=BackspaceController(SetTitle,1,0.1)
-    else
-        love.graphics.setColor(255, 153, 0)
     end
     local Text=SetTitle
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
@@ -180,7 +182,11 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
