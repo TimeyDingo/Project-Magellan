@@ -9,7 +9,7 @@ function EditActivity()
             return
         end
         EditableTitle(660, 60, 600, 60, Exo32Bold,true)
-        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"')
+        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0')
         local TermFont=Exo24
         local DefinitionFont=Exo20
         love.graphics.setColor(40,40,40)
@@ -139,6 +139,7 @@ function EditActivityRemoveTerm(TermToRemove)
         return
     end
     Deleting=true
+    EditActivityScroll=0
     table.remove(SetData, TermToRemove)
     NumberOfTerms=NumberOfTerms-1
     Deleting=false

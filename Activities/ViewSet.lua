@@ -7,7 +7,7 @@ function ViewActivity()
         return
     end
     CenterText(0,scaling(-450,1080,Settings.YRes),SetTitle,Exo32Bold)
-    ButtonStyle1Mod3(830, 0, 240, 55, "-> Edit Mode", Exo24Bold, true, 'StateMachine="Edit"')
+    ButtonStyle1Mod3(830, 0, 240, 55, "-> Edit Mode", Exo24Bold, true, 'StateMachine="Edit"; EditActivityScroll=0')
     local TermFont=Exo24
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
