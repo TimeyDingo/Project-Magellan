@@ -135,13 +135,20 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         SetData[TermToDisplayAndEdit][1] = BackspaceController(SetData[TermToDisplayAndEdit][1], 0.5, 0.1)
 
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
-            SetData[TermToDisplayAndEdit][1] = SetData[TermToDisplayAndEdit][1] .. love.system.getClipboardText()
+            local clipboardText = love.system.getClipboardText()
+            local Text = SetData[TermToDisplayAndEdit][1]
+            local beforeCursor = Text:sub(1, EditCursorPosition)
+            local afterCursor = Text:sub(EditCursorPosition + 1)
+
+            -- Insert clipboard text at the cursor position
+            SetData[TermToDisplayAndEdit][1] = beforeCursor .. clipboardText .. afterCursor
+            EditCursorPosition = EditCursorPosition + #clipboardText  -- Update cursor position
         end
 
         -- Move the cursor with arrow keys
-        if ButtonDebounce("left", 0.1) then
+        if ButtonDebounce("left",0.1) then
             EditCursorPosition = math.max(0, EditCursorPosition - 1)
-        elseif ButtonDebounce("right", 0.1) then
+        elseif ButtonDebounce("right",0.1) then
             EditCursorPosition = math.min(#SetData[TermToDisplayAndEdit][1], EditCursorPosition + 1)
         end
     end
