@@ -12,6 +12,7 @@ function FlashcardActivity()
     DisplayFlashCard(scaling(578,1920,Settings.XRes),scaling(308,1080,Settings.YRes),scaling(763,1920,Settings.XRes),scaling(464,1080,Settings.YRes),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),Exo24Bold)
     FlashCardKeyboardControls()
     ButtonStyle1Mod3(578, 800, 763, 100, "Swap Display Order", Exo24Bold, true, "FlashCardChangeDisplaySideFirst()")
+    --ButtonStyle1Mod3(1341,308,500,464,"Note here", Exo24Bold, true) !! Add note thing here
 end
 function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then

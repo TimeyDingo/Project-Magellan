@@ -46,6 +46,7 @@ function LoadEdit()
     EditActivityScroll=0
     EditActivitySelectedTerm = nil
     EditActivitySelectedDefinition = nil
+    EditCursorPosition=0
 end
 function LoadMouseClickDebounce()
     DebounceTimer=0

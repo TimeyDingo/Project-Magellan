@@ -108,6 +108,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     -- Check for mouse click to select the box
     if isHovered and love.mouse.isDown(1) then
         EditActivitySelectedDefinition = TermToDisplayAndEdit
+        EditCursorPosition = #SetData[TermToDisplayAndEdit][1]
         EditActivitySelectedTerm = nil
     end
 
@@ -123,27 +124,47 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedDefinition == TermToDisplayAndEdit then
         function love.textinput(t)
-            SetData[TermToDisplayAndEdit][1] = SetData[TermToDisplayAndEdit][1] .. t
+            local Text = SetData[TermToDisplayAndEdit][1]
+            local beforeCursor = Text:sub(1, EditCursorPosition)
+            local afterCursor = Text:sub(EditCursorPosition + 1)
+
+            SetData[TermToDisplayAndEdit][1] = beforeCursor .. t .. afterCursor
+            EditCursorPosition = EditCursorPosition + #t
         end
+
         SetData[TermToDisplayAndEdit][1] = BackspaceController(SetData[TermToDisplayAndEdit][1], 0.5, 0.1)
+
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             SetData[TermToDisplayAndEdit][1] = SetData[TermToDisplayAndEdit][1] .. love.system.getClipboardText()
+        end
+
+        -- Move the cursor with arrow keys
+        if ButtonDebounce("left", 0.1) then
+            EditCursorPosition = math.max(0, EditCursorPosition - 1)
+        elseif ButtonDebounce("right", 0.1) then
+            EditCursorPosition = math.min(#SetData[TermToDisplayAndEdit][1], EditCursorPosition + 1)
         end
     end
 
     -- Draw the text inside the box
     local Text = SetData[TermToDisplayAndEdit][1]
-    local _, wrappedText = TextFont:getWrap(Text, BoxW)
+    local displayText = Text
+
+    -- Add cursor only if the box is selected
+    if EditActivitySelectedDefinition == TermToDisplayAndEdit then
+        displayText = Text:sub(1, EditCursorPosition) .. "|" .. Text:sub(EditCursorPosition + 1)  -- Add cursor to the text
+    end
+
+    local _, wrappedText = TextFont:getWrap(displayText, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
     local textY = BoxY + (BoxH - wrappedHeight) / 2
-    love.graphics.printf(Text, BoxX, textY, BoxW, "center")
+    love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
 
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
 end
-
 function EditActivityRemoveTerm(TermToRemove)
     if TermToRemove==nil then
         print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
