@@ -134,7 +134,6 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
 end
-
 function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
     -- Scaling logic
     if Scaling == true then
@@ -270,6 +269,9 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
             SetTitle=SetTitle..t
         end
         SetTitle=BackspaceController(SetTitle,1,0.1)
+    else
+        function love.textinput(t)
+        end 
     end
     local Text=SetTitle
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
