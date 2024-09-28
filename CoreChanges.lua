@@ -55,8 +55,6 @@ function BackspaceController(String,HoldDelay, ShortHoldDelay)
         Held=true
         local byteoffset = utf8.offset(String, -1)
         if byteoffset then
-            -- remove the last UTF-8 character.
-            -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
             String = string.sub(String, 1, byteoffset - 1)
         end
     end

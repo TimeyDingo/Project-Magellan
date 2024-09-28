@@ -45,11 +45,11 @@ function EditActivity()
 end
 function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
     -- Scaling logic
-    if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings.XRes)
-        BoxY=scaling(BoxY,1080,Settings.YRes)
-        BoxW=scaling(BoxW,1920,Settings.XRes)
-        BoxH=scaling(BoxH,1080,Settings.YRes)
+    if Scaling == true then
+        BoxX = scaling(BoxX, 1920, Settings.XRes)
+        BoxY = scaling(BoxY, 1080, Settings.YRes)
+        BoxW = scaling(BoxW, 1920, Settings.XRes)
+        BoxH = scaling(BoxH, 1080, Settings.YRes)
     end
 
     -- Check if the mouse is over the box
@@ -59,6 +59,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     if isHovered and love.mouse.isDown(1) then
         EditActivitySelectedTerm = TermToDisplayAndEdit
         EditActivitySelectedDefinition = nil
+        EditCursorPositionTerm = #SetData[TermToDisplayAndEdit][2]  -- Set cursor to the end of the text
     end
 
     -- Set color based on whether this box is selected or hovered
@@ -73,20 +74,48 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         function love.textinput(t)
-            SetData[TermToDisplayAndEdit][2] = SetData[TermToDisplayAndEdit][2] .. t
+            local Text = SetData[TermToDisplayAndEdit][2]
+            local beforeCursor = Text:sub(1, EditCursorPositionTerm)
+            local afterCursor = Text:sub(EditCursorPositionTerm + 1)
+
+            SetData[TermToDisplayAndEdit][2] = beforeCursor .. t .. afterCursor
+            EditCursorPositionTerm = EditCursorPositionTerm + #t
         end
-        SetData[TermToDisplayAndEdit][2] = BackspaceController(SetData[TermToDisplayAndEdit][2], 0.5, 0.1)
+
+        SetData[TermToDisplayAndEdit][2] = BackspaceController(SetData[TermToDisplayAndEdit][2], 1, 0.2)
+
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
-            SetData[TermToDisplayAndEdit][2] = SetData[TermToDisplayAndEdit][2] .. love.system.getClipboardText()
+            local clipboardText = love.system.getClipboardText()
+            local Text = SetData[TermToDisplayAndEdit][2]
+            local beforeCursor = Text:sub(1, EditCursorPositionTerm)
+            local afterCursor = Text:sub(EditCursorPositionTerm + 1)
+
+            -- Insert clipboard text at the cursor position
+            SetData[TermToDisplayAndEdit][2] = beforeCursor .. clipboardText .. afterCursor
+            EditCursorPositionTerm = EditCursorPositionTerm + #clipboardText  -- Update cursor position
+        end
+
+        -- Move the cursor with arrow keys
+        if ButtonDebounce("left",0.1) then
+            EditCursorPositionTerm = math.max(0, EditCursorPositionTerm - 1)
+        elseif ButtonDebounce("right",0.1) then
+            EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit][2], EditCursorPositionTerm + 1)
         end
     end
 
     -- Draw the text inside the box
     local Text = SetData[TermToDisplayAndEdit][2]
-    local _, wrappedText = TextFont:getWrap(Text, BoxW)
+    local displayText = Text
+
+    -- Add cursor only if the box is selected
+    if EditActivitySelectedTerm == TermToDisplayAndEdit then
+        displayText = Text:sub(1, EditCursorPositionTerm) .. "|" .. Text:sub(EditCursorPositionTerm + 1)  -- Add cursor to the text
+    end
+
+    local _, wrappedText = TextFont:getWrap(displayText, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
     local textY = BoxY + (BoxH - wrappedHeight) / 2
-    love.graphics.printf(Text, BoxX, textY, BoxW, "center")
+    love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
     
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
@@ -132,7 +161,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
             EditCursorPosition = EditCursorPosition + #t
         end
 
-        SetData[TermToDisplayAndEdit][1] = BackspaceController(SetData[TermToDisplayAndEdit][1], 0.5, 0.1)
+        SetData[TermToDisplayAndEdit][1] = BackspaceController(SetData[TermToDisplayAndEdit][1], 1, 0.2)
 
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             local clipboardText = love.system.getClipboardText()
