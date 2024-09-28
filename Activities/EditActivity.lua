@@ -82,8 +82,20 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
             EditCursorPositionTerm = EditCursorPositionTerm + #t
         end
 
-        SetData[TermToDisplayAndEdit][2] = BackspaceController(SetData[TermToDisplayAndEdit][2], 1, 0.2)
+        -- Extract the text before the cursor for backspacing
+        local TextBeforeCursor = SetData[TermToDisplayAndEdit][2]:sub(1, EditCursorPositionTerm)
 
+        -- Call BackspaceController to handle the text before the cursor
+        TextBeforeCursor = BackspaceController(TextBeforeCursor, 1, 0.2)  -- Use suitable hold delay values
+
+        -- Update the full text after backspacing
+        local RemainingText = SetData[TermToDisplayAndEdit][2]:sub(EditCursorPositionTerm + 1)
+        SetData[TermToDisplayAndEdit][2] = TextBeforeCursor .. RemainingText
+
+        -- Update cursor position after backspacing
+        EditCursorPositionTerm = #TextBeforeCursor  -- Update cursor position based on backspacing
+
+        -- Handle Ctrl+V for pasting
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             local clipboardText = love.system.getClipboardText()
             local Text = SetData[TermToDisplayAndEdit][2]
@@ -96,9 +108,9 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         end
 
         -- Move the cursor with arrow keys
-        if ButtonDebounce("left",0.1) then
+        if ButtonDebounce("left", 0.1) then
             EditCursorPositionTerm = math.max(0, EditCursorPositionTerm - 1)
-        elseif ButtonDebounce("right",0.1) then
+        elseif ButtonDebounce("right", 0.1) then
             EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit][2], EditCursorPositionTerm + 1)
         end
     end
@@ -122,6 +134,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     love.graphics.setLineWidth(ThinLine)
 end
+
 function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
     -- Scaling logic
     if Scaling == true then
@@ -137,7 +150,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     -- Check for mouse click to select the box
     if isHovered and love.mouse.isDown(1) then
         EditActivitySelectedDefinition = TermToDisplayAndEdit
-        EditCursorPosition = #SetData[TermToDisplayAndEdit][1]
+        EditCursorPosition = #SetData[TermToDisplayAndEdit][1]  -- Place cursor at the end
         EditActivitySelectedTerm = nil
     end
 
@@ -157,12 +170,25 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
             local beforeCursor = Text:sub(1, EditCursorPosition)
             local afterCursor = Text:sub(EditCursorPosition + 1)
 
+            -- Update text with input
             SetData[TermToDisplayAndEdit][1] = beforeCursor .. t .. afterCursor
             EditCursorPosition = EditCursorPosition + #t
         end
 
-        SetData[TermToDisplayAndEdit][1] = BackspaceController(SetData[TermToDisplayAndEdit][1], 1, 0.2)
+        -- Extract the text before the cursor for backspacing
+        local TextBeforeCursor = SetData[TermToDisplayAndEdit][1]:sub(1, EditCursorPosition)
 
+        -- Call BackspaceController to handle the text before the cursor
+        TextBeforeCursor = BackspaceController(TextBeforeCursor, 1, 0.2)  -- Use suitable hold delay values
+
+        -- Update the full text after backspacing
+        local RemainingText = SetData[TermToDisplayAndEdit][1]:sub(EditCursorPosition + 1)
+        SetData[TermToDisplayAndEdit][1] = TextBeforeCursor .. RemainingText
+
+        -- Update cursor position after backspacing
+        EditCursorPosition = #TextBeforeCursor  -- Update cursor position based on backspacing
+
+        -- Handle Ctrl+V for pasting
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             local clipboardText = love.system.getClipboardText()
             local Text = SetData[TermToDisplayAndEdit][1]
@@ -175,9 +201,9 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         end
 
         -- Move the cursor with arrow keys
-        if ButtonDebounce("left",0.1) then
+        if ButtonDebounce("left", 0.1) then
             EditCursorPosition = math.max(0, EditCursorPosition - 1)
-        elseif ButtonDebounce("right",0.1) then
+        elseif ButtonDebounce("right", 0.1) then
             EditCursorPosition = math.min(#SetData[TermToDisplayAndEdit][1], EditCursorPosition + 1)
         end
     end
