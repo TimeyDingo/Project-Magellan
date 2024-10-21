@@ -11,6 +11,28 @@ require "Activities/MissileDefenseActivity"
 require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
 require "Activities/ViewSet"
+--[[
+1440x900
+2732x1536
+1760x990
+1680x1050
+1600x900
+1366x768
+1280x1024
+1280x720
+1128x634
+1024x768
+800x600
+640x480
+maybe just two input boxes that restrain minimum input to 480x480
+https://love2d.org/wiki/love.window.getDesktopDimensions
+https://love2d.org/forums/viewtopic.php?t=9751
+
+https://fonts.google.com/specimen/Atkinson+Hyperlegible
+https://github.com/2dengine/profile.lua
+https://www.youtube.com/watch?v=py0iF3mwy2E
+-show correct answers after finishing test mode
+]]
 tove = require "tove"
 utf8 = require("utf8")
 function love.load()
