@@ -307,3 +307,122 @@ function SettingsFullscreenButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValu
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
+function ResolutionDropDownMenuMk1(BoxX,BoxY,BoxW,BoxH,TextFont,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil then
+        print("In DropDownMenuMk1() BoxX is reporting as: "..tostring(BoxX))
+        print("In DropDownMenuMk1() BoxY is reporting as: "..tostring(BoxY))
+        print("In DropDownMenuMk1() BoxW is reporting as: "..tostring(BoxW))
+        print("In DropDownMenuMk1() BoxH is reporting as: "..tostring(BoxH))
+        print("In DropDownMenuMk1() Scaling is reporting as: "..tostring(Scaling))
+        return 0
+    end
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
+    local BoxXX=BoxX
+    local BoxYY=BoxY
+    local BoxWW=BoxW
+    local BoxHH=BoxH
+    Text=Settings.XRes.." x "..Settings.YRes
+    local TW=TextFont:getWidth(Text)
+    local TH=TextFont:getHeight(Text)
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW+scaling(500,1920,Settings.XRes), BoxH)
+
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2  -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected or SettingsResolutionDropDownClicked then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) and love.mouse.isDown("1") then -- Button clicked
+            SettingsResolutionDropDownClicked=true
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    if SettingsResolutionDropDownClicked then
+        local XScale=scaling(20,1920,Settings.XRes)
+        local YSpacing=scaling(5,1080,Settings.YRes)
+        local MiniBoxHeight=BoxHH/3.7
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "640 x 480", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*1, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*2, BoxWW, MiniBoxHeight, "1024 x 768", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*3, BoxWW, MiniBoxHeight, "1128 x 634", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*4, BoxWW, MiniBoxHeight, "1280 x 720", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*5, BoxWW, MiniBoxHeight, "13600 x 768", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*6, BoxWW, MiniBoxHeight, "1440 x 900", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*7, BoxWW, MiniBoxHeight, "1600 x 900", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*8, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*9, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*10, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
+        --[[
+640x480
+800x600
+1024x768
+1128x634
+1280x720
+1366x768
+1440x900
+1600x900
+1680x1050
+1760x990
+2732x1536
+]]
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW+scaling(500,1920,Settings.XRes), BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
+end
+function ResolutionDropDownButton(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Action)--Be able to run a function
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
+        print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
+        print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
+        print("In ButtonStyle1Mod3() BoxW is reporting as: "..tostring(BoxW))
+        print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
+        print("In ButtonStyle1Mod3() Text is reporting as: "..tostring(Text))
+        print("In ButtonStyle1Mod3() TextFont is reporting as: "..tostring(TextFont))
+        return
+    end
+    love.graphics.setFont(TextFont)
+    local TH = TextFont:getHeight(Text)
+    local TW = TextFont:getWidth(Text)
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
+    -- Check if mouse is over the box
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW+scaling(480,1920,Settings.XRes), BoxH)
+    
+    -- Coordinates for the text
+    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+    local textY = BoxY + (BoxH - TH) / 2  -- Center the text vertically
+    
+    love.graphics.print(Text, textX, textY)
+    love.graphics.setLineWidth(MediumLine)
+    if Selected then
+        love.graphics.setColor(255, 255, 255)
+        if love.mouse.isDown(1) and MouseClickDebounce(0.5) then -- Button clicked
+            if Action then
+                local actionFunc, err = load(Action)
+                if actionFunc then
+                    actionFunc()
+                else
+                    print("Error in action string: " .. err)
+                end
+            end
+            return true
+        end
+    else
+        love.graphics.setColor(255, 153, 0)
+    end
+    love.graphics.rectangle("line", BoxX, BoxY, BoxW+scaling(480,1920,Settings.XRes), BoxH)
+    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255)
+end

@@ -16,15 +16,21 @@ function LoadBackdrops()
     ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
     local SelectActionMenuFile = love.filesystem.read("SVG/SelectMenu.svg")
     SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
+    local SettingsMenuFile = love.filesystem.read("SVG/SettingsMenu.svg")
+    SettingsMenuBackdrop = tove.newGraphics(SettingsMenuFile,Settings.XRes,Settings.YRes)
     local GameBarFile = love.filesystem.read("SVG/GameBar.svg")
     GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
 end
 function LoadSettings()
+    love.window.setMode(0, 0)
+    DetectedX = love.graphics.getWidth()
+    DetectedY = love.graphics.getHeight()
     Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
         love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
     end
     SettingsResolution=Settings.XRes
+    SettingsResolutionDropDownClicked=false
     SettingsFullscreen=toboolean(Settings.Fullscreen)
     math.randomseed (os.time())
 end
