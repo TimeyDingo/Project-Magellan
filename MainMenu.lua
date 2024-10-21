@@ -349,7 +349,7 @@ function ResolutionDropDownMenuMk1(BoxX,BoxY,BoxW,BoxH,TextFont,Scaling)
         local XScale=scaling(20,1920,Settings.XRes)
         local YSpacing=scaling(5,1080,Settings.YRes)
         local MiniBoxHeight=BoxHH/3.7
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "854 x 480", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "854 x 480", Exo24, false, "ApplyResolutionSettings(854,480)")
         ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*1, BoxWW, MiniBoxHeight, "1024 x 576", Exo24, false, Action)
         ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*2, BoxWW, MiniBoxHeight, "1128 x 634", Exo24, false, Action)
         ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*3, BoxWW, MiniBoxHeight, "1280 x 720", Exo24, false, Action)
