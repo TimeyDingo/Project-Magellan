@@ -28,8 +28,12 @@ function toboolean(str)
     end
     return bool
 end
-function scaling(OriginalPos,OriginalResolution,NewResolution)
-    return (OriginalPos*NewResolution)/OriginalResolution
+function scaling(OriginalPos,OriginalResolution,NewResolution,floor)
+    local Value=(OriginalPos*NewResolution)/OriginalResolution
+    if floor then
+        Value=math.floor(Value)
+    end
+    return Value
 end
 function BackspaceController(String,HoldDelay, ShortHoldDelay)
     String=tostring(String)

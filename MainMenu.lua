@@ -349,30 +349,19 @@ function ResolutionDropDownMenuMk1(BoxX,BoxY,BoxW,BoxH,TextFont,Scaling)
         local XScale=scaling(20,1920,Settings.XRes)
         local YSpacing=scaling(5,1080,Settings.YRes)
         local MiniBoxHeight=BoxHH/3.7
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "640 x 480", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*1, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*2, BoxWW, MiniBoxHeight, "1024 x 768", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*3, BoxWW, MiniBoxHeight, "1128 x 634", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*4, BoxWW, MiniBoxHeight, "1280 x 720", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*5, BoxWW, MiniBoxHeight, "13600 x 768", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*6, BoxWW, MiniBoxHeight, "1440 x 900", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*7, BoxWW, MiniBoxHeight, "1600 x 900", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*8, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*9, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
-        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*10, BoxWW, MiniBoxHeight, "800 x 600", Exo24, false, Action)
-        --[[
-640x480
-800x600
-1024x768
-1128x634
-1280x720
-1366x768
-1440x900
-1600x900
-1680x1050
-1760x990
-2732x1536
-]]
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "854 x 480", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*1, BoxWW, MiniBoxHeight, "1024 x 576", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*2, BoxWW, MiniBoxHeight, "1128 x 634", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*3, BoxWW, MiniBoxHeight, "1280 x 720", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*4, BoxWW, MiniBoxHeight, "1366 x 768", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*5, BoxWW, MiniBoxHeight, "1440 x 810", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*6, BoxWW, MiniBoxHeight, "1600 x 900", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*7, BoxWW, MiniBoxHeight, "1680 x 1050", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*8, BoxWW, MiniBoxHeight, "1760 x 990", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*9, BoxWW, MiniBoxHeight, "1920 x 1080", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*10, BoxWW, MiniBoxHeight, "2560 x 1440", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*11, BoxWW, MiniBoxHeight, "2732 x 1536", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*12, BoxWW, MiniBoxHeight, "3840 x 2160", Exo24, false, Action)
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW+scaling(500,1920,Settings.XRes), BoxH)
     love.graphics.setLineWidth(ThinLine)

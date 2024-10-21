@@ -1,4 +1,5 @@
 function LoadFonts()
+    --[[
     Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings.FontModifier)
     Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings.FontModifier)
     Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings.FontModifier)
@@ -8,6 +9,15 @@ function LoadFonts()
     Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings.FontModifier)
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings.FontModifier)
     Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings.FontModifier*5)
+    ]]
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1920*1080,Settings.XRes*Settings.YRes))
+    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1920*1080,Settings.XRes*Settings.YRes))
+    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1920*1080,Settings.XRes*Settings.YRes))
+    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1920*1080,Settings.XRes*Settings.YRes))
+    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1920*1080,Settings.XRes*Settings.YRes))
+    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1920*1080,Settings.XRes*Settings.YRes))
+    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1920*1080,Settings.XRes*Settings.YRes))
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1920*1080,Settings.XRes*Settings.YRes))
 end
 function LoadBackdrops()
     local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
@@ -92,9 +102,30 @@ function ConfirmSettings()
         Settings.Fullscreen=false
     end
     SaveSettings(Settings)
+    LoadFonts()
     LoadSettings()
     LoadBackdrops()
     LoadActivities()
+end
+function ApplyResolutionSettings(XResolutionToApply,YResolutionToApply)
+    Settings.XRes=XResolutionToApply
+    Settings.YRes=YResolutionToApply
+
+    --[[
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxH+YSpacing, BoxWW, MiniBoxHeight, "854 x 480", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*1, BoxWW, MiniBoxHeight, "1024 x 576", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*2, BoxWW, MiniBoxHeight, "1128 x 634", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*3, BoxWW, MiniBoxHeight, "1280 x 720", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*4, BoxWW, MiniBoxHeight, "1366 x 768", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*5, BoxWW, MiniBoxHeight, "1440 x 810", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*6, BoxWW, MiniBoxHeight, "1600 x 900", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*7, BoxWW, MiniBoxHeight, "1680 x 1050", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*8, BoxWW, MiniBoxHeight, "1760 x 990", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*9, BoxWW, MiniBoxHeight, "1920 x 1080", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*10, BoxWW, MiniBoxHeight, "2560 x 1440", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*11, BoxWW, MiniBoxHeight, "2732 x 1536", Exo24, false, Action)
+        ResolutionDropDownButton(BoxXX+XScale, BoxYY+BoxHH+YSpacing+MiniBoxHeight*12, BoxWW, MiniBoxHeight, "3840 x 2160", Exo24, false, Action)
+    ]]
 end
 function LoadViewSet()
     ViewActivityScroll=0

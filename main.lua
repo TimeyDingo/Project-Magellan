@@ -103,12 +103,9 @@ function love.draw()
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
-            --SettingResolutionButtons(300,253,402,122,"1024x576",Exo24Bold,1024, true)
-            --SettingResolutionButtons(754,253,402,122,"1280x720",Exo24Bold,1280, true)
-            --SettingResolutionButtons(1209,253,402,122,"1920x1080",Exo24Bold,1920,true)
             --SettingsFullscreenButtons(300,486,402,122,"Fullscreen",Exo24Bold,true,true)
             --SettingsFullscreenButtons(1209,486,402,122,"Windowed",Exo24Bold,false,true)
-            --ButtonStyle1Mod3(754,720,402,122,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
+            ButtonStyle1Mod3(754,880,402,110,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
             ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
             ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
             ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
