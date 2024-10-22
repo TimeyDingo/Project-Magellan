@@ -9,6 +9,7 @@ function LoadFonts()
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings.FontModifier)
     Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings.FontModifier*5)
     ]] 
+    --[[
     Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,720,Settings.YRes,true))
     Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,720,Settings.YRes,true))
     Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,720,Settings.YRes,true))
@@ -16,6 +17,14 @@ function LoadFonts()
     Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,720,Settings.YRes,true))
     Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,720,Settings.YRes,true))
     Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,720,Settings.YRes,true))
+    ]]
+    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true))
+    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true))
+    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
+    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true))
+    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true))
+    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1080,Settings.YRes,true))
 end
 function LoadBackdrops()
     local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
