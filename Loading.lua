@@ -1,23 +1,4 @@
 function LoadFonts()
-    --[[
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", 20-Settings.FontModifier)
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", 24-Settings.FontModifier)
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 24-Settings.FontModifier)
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 20-Settings.FontModifier)
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 28-Settings.FontModifier)
-    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", 28-Settings.FontModifier)
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", 32-Settings.FontModifier)
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", 45-Settings.FontModifier*5)
-    ]] 
-    --[[
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,720,Settings.YRes,true))
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,720,Settings.YRes,true))
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,720,Settings.YRes,true))
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,720,Settings.YRes,true))
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,720,Settings.YRes,true))
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,720,Settings.YRes,true))
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,720,Settings.YRes,true))
-    ]]
     Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true))
     Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true))
     Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
@@ -43,6 +24,7 @@ function LoadSettings()
     love.window.setMode(0, 0)
     DetectedX = love.graphics.getWidth()
     DetectedY = love.graphics.getHeight()
+    DetectedRes = DetectedX .. " x " .. DetectedY
     Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
     if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
         love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})

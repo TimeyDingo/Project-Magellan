@@ -103,8 +103,6 @@ function love.draw()
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
-            --SettingsFullscreenButtons(300,486,402,122,"Fullscreen",Exo24Bold,true,true)
-            --SettingsFullscreenButtons(1209,486,402,122,"Windowed",Exo24Bold,false,true)
             ButtonStyle1Mod3(754,880,402,110,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
             ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
             ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')

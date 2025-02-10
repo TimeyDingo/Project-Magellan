@@ -410,6 +410,9 @@ function ResolutionDropDownButton(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scalin
         end
     else
         love.graphics.setColor(255, 153, 0)
+        if DetectedRes==Text then
+            love.graphics.setColor(0,255,0)
+        end
     end
     love.graphics.rectangle("line", BoxX, BoxY, BoxW+scaling(480,1920,Settings.XRes), BoxH)
     love.graphics.setLineWidth(ThinLine)
