@@ -11,6 +11,7 @@ require "Activities/MissileDefenseActivity"
 require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
 require "Activities/ViewSet"
+require "95Styling"
 --[[
 1440x900
 2732x1536
@@ -98,8 +99,8 @@ function love.draw()
                 ListofSets()
                 SetPreview()
             end
-            ButtonStyle1Mod3(1491,88,50,50,"~",Exo24Bold,true,"StateMachine='Settings Menu'")
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5ButtonHighlight(1542,93,55,55,true,"StateMachine='Settings Menu'")
+            N5ButtonHighlight(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
