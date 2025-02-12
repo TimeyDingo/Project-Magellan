@@ -4,7 +4,7 @@ function ListofSets()
         print("In ListofSets() MainMenuScroll is reporting as: "..tostring(MainMenuScroll))
         return
     end
-    N5BoxHighlight(267, 156, 656, 651, true,true)
+    N5BoxHighlight(267, 156, 656, 651, true, {255,255,255} ,true)
     love.graphics.setLineWidth(ThinLine)
     local NumberofSets=CheckSavedSets()
     if NumberofSets==nil or SetData==nil then

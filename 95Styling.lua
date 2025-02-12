@@ -60,7 +60,7 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--
     love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
-function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, Scaling)--Used to highlight a box like the X or <- in 95 style
+function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling)--Used to highlight a box like the X or <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
         print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
         print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
@@ -75,7 +75,7 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, Scaling)--Used to highligh
         BoxH=scaling(BoxH,1080,Settings.YRes)
     end
     if fill==true then
-        love.graphics.setColor(255,255,255)
+        love.graphics.setColor(FillColor[1],FillColor[2],FillColor[3])
         love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
     end
     love.graphics.setLineWidth(MediumLine)
