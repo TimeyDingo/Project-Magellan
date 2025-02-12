@@ -12,57 +12,57 @@ function ListofSets()
         print("In ListofSets() SetData is reporting as: "..tostring(SetData))
         return
     end
-    local ButtonX=scaling(283,1920,Settings.XRes)
-    local ButtonWidth=scaling(624,1920,Settings.XRes)
-    local ButtonHeight=scaling(59,1080,Settings.YRes)
+    local ButtonX=283
+    local ButtonWidth=624
+    local ButtonHeight=59
     if NumberofSets>0 then
         if SetData[1+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(173,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[1+MainMenuScroll][1]),Exo24,1+MainMenuScroll)
+        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,Exo24,tostring(SetData[1+MainMenuScroll][1]))
     end
     if NumberofSets>1 then
         if SetData[2+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(266,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[2+MainMenuScroll][1]),Exo24,2+MainMenuScroll) 
+        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,Exo24,tostring(SetData[2+MainMenuScroll][1]))
     end
     if NumberofSets>2 then
         if SetData[3+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(359,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[3+MainMenuScroll][1]),Exo24,3+MainMenuScroll)
+        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,Exo24,tostring(SetData[3+MainMenuScroll][1]))
     end
     if NumberofSets>3 then
         if SetData[4+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(452,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[4+MainMenuScroll][1]),Exo24,4+MainMenuScroll)
+        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,Exo24,tostring(SetData[4+MainMenuScroll][1]))
     end
     if NumberofSets>4 then
         if SetData[5+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(545,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[5+MainMenuScroll][1]),Exo24,5+MainMenuScroll)
+        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,Exo24,tostring(SetData[5+MainMenuScroll][1]))
     end
     if NumberofSets>5 then
         if SetData[6+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(638,1080,Settings.YRes),ButtonWidth,ButtonHeight,tostring(SetData[6+MainMenuScroll][1]),Exo24,6+MainMenuScroll)
+        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,Exo24,tostring(SetData[6+MainMenuScroll][1]))
     end
     if NumberofSets>6 then
         if SetData[7+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        MainMenuSetListButtons(ButtonX,scaling(731,1080,Settings.YRes),ButtonWidth,ButtonHeight, tostring(SetData[7+MainMenuScroll][1]),Exo24,7+MainMenuScroll)
+        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,Exo24,tostring(SetData[7+MainMenuScroll][1]))
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -175,48 +175,6 @@ function ActivityBackdrop()
     love.graphics.setFont(Exo60Black)
     love.graphics.print(StateMachine, scaling(596,1920,Settings.XRes), scaling(1,1080,Settings.YRes))
     love.graphics.setFont(Exo24)
-end
-function MainMenuSetListButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
-    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or ClickedValue==nil or SetToPreview==nil then
-        print("In MainMenuSetListButtons() BoxX is reporting as: "..tostring(BoxX))
-        print("In MainMenuSetListButtons() BoxY is reporting as: "..tostring(BoxY))
-        print("In MainMenuSetListButtons() BoxW is reporting as: "..tostring(BoxW))
-        print("In MainMenuSetListButtons() BoxH is reporting as: "..tostring(BoxH))
-        print("In MainMenuSetListButtons() Text is reporting as: "..tostring(Text))
-        print("In MainMenuSetListButtons() TextFont is reporting as: "..tostring(TextFont))
-        print("In MainMenuSetListButtons() ClickedValue is reporting as: "..tostring(ClickedValue))
-        print("In MainMenuSetListButtons() SetToPreview is reporting as: "..tostring(SetToPreview))
-        return
-    end
-    love.graphics.setFont(TextFont)
-    local TH = TextFont:getHeight(Text)
-    local TW = TextFont:getWidth(Text)
-    if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings.XRes)
-        BoxY=scaling(BoxY,1080,Settings.YRes)
-        BoxW=scaling(BoxW,1920,Settings.XRes)
-        BoxH=scaling(BoxH,1080,Settings.YRes)
-    end
-    -- Check if mouse is over the box
-    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
-    
-    -- Coordinates for the text
-    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
-    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
-    
-    love.graphics.print(Text, textX, textY)
-    love.graphics.setLineWidth(MediumLine)
-    if Selected or SetToPreview==ClickedValue then
-        love.graphics.setColor(255, 255, 255)
-        if love.mouse.isDown(1) then --! clicked
-            SetToPreview=ClickedValue
-        end
-    else
-        love.graphics.setColor(255, 153, 0)
-    end
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-    love.graphics.setColor(255, 255, 255)
 end
 function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or ClickedValue==nil then

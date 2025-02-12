@@ -12,30 +12,12 @@ require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
 require "Activities/ViewSet"
 require "95Styling"
+tove = require "tove"
+utf8 = require("utf8")
 --[[
-1440x900
-2732x1536
-1760x990
-1680x1050
-1600x900
-1366x768
-1280x1024
-1280x720
-1128x634
-1024x768
-800x600
-640x480
-maybe just two input boxes that restrain minimum input to 480x480
-https://love2d.org/wiki/love.window.getDesktopDimensions
-https://love2d.org/forums/viewtopic.php?t=9751
-
-https://fonts.google.com/specimen/Atkinson+Hyperlegible
-https://github.com/2dengine/profile.lua
 https://www.youtube.com/watch?v=py0iF3mwy2E
 -show correct answers after finishing test mode
 ]]
-tove = require "tove"
-utf8 = require("utf8")
 function love.load()
     LoadSettings()
     LoadFonts()
@@ -98,8 +80,8 @@ function love.draw()
                 ListofSets()
                 SetPreview()
             end
-            N5ButtonHighlight(1542,93,55,55,true,"StateMachine='Settings Menu'")
-            N5ButtonHighlight(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
