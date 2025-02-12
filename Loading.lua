@@ -33,6 +33,10 @@ function LoadSettings()
     SettingsResolutionDropDownClicked=false
     SettingsFullscreen=toboolean(Settings.Fullscreen)
     math.randomseed (os.time())
+    
+    ThickLine=scaling(5,1080,Settings.YRes,true)
+    MediumLine=scaling(3,1080,Settings.YRes,true)
+    ThinLine=scaling(1,1080,Settings.YRes,true)
 end
 function LoadActivities()
     LoadFlashcards()
@@ -56,15 +60,6 @@ function LoadEdit()
 end
 function LoadMouseClickDebounce()
     DebounceTimer=0
-end
-function LoadLineThickness()
-    local MediumLineSubtraction=0
-    if Settings.LineModifier > 0 then
-        MediumLineSubtraction=1
-    end
-    ThickLine=5-Settings.LineModifier
-    MediumLine=3-MediumLineSubtraction
-    ThinLine=1
 end
 function ConfirmSettings()
     if SettingsResolution==1920 then

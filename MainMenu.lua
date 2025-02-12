@@ -4,14 +4,7 @@ function ListofSets()
         print("In ListofSets() MainMenuScroll is reporting as: "..tostring(MainMenuScroll))
         return
     end
-    local TopLeftX=scaling(267,1920,Settings.XRes)
-    local TopLeftY=scaling(156,1080,Settings.YRes)
-    local Width=scaling(656,1920,Settings.XRes)
-    local Height=scaling(651,1080,Settings.YRes)
-    love.graphics.setLineWidth(ThickLine)
-    love.graphics.setColor(22, 22, 22)
-    love.graphics.rectangle("line", TopLeftX,TopLeftY,Width,Height)
-    love.graphics.setColor(255,255,255)
+    N5BoxHighlight(267, 156, 656, 651, true,true)
     love.graphics.setLineWidth(ThinLine)
     local NumberofSets=CheckSavedSets()
     if NumberofSets==nil or SetData==nil then

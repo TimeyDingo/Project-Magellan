@@ -1,4 +1,4 @@
-function N5ButtonHighlight(BoxX, BoxY, BoxW, BoxH, Scaling, Action)--Used to highlight a box like the X or <- in 95 style
+function N5ButtonHighlight(BoxX, BoxY, BoxW, BoxH, Scaling, Action)--Used to highlight a button like the X or <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
         print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
         print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
@@ -6,7 +6,6 @@ function N5ButtonHighlight(BoxX, BoxY, BoxW, BoxH, Scaling, Action)--Used to hig
         print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
         return
     end
-    love.graphics.setLineWidth(3)
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings.XRes)
         BoxY=scaling(BoxY,1080,Settings.YRes)
@@ -45,7 +44,35 @@ function N5ButtonHighlight(BoxX, BoxY, BoxW, BoxH, Scaling, Action)--Used to hig
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
     end
-    love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
+function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, Scaling)--Used to highlight a box like the X or <- in 95 style
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
+        print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
+        print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
+        print("In ButtonStyle1Mod3() BoxW is reporting as: "..tostring(BoxW))
+        print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
+        return
+    end
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
+    if fill==true then
+        love.graphics.setColor(255,255,255)
+        love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    end
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
+end
+
