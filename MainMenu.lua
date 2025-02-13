@@ -110,13 +110,15 @@ function SetPreview()
             end
         end
         love.graphics.setColor(255,255,255,255)
-        ButtonStyle1Mod3(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), "Delete Set", Exo24Bold, false, "DeleteSet()")
+        N5Button(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), false, "DeleteSet()", false,Exo24Bold,"Delete Set")
+        --ButtonStyle1Mod3(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), "Delete Set", Exo24Bold, false, "DeleteSet()")
     end
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)
 end
 function ImportMenuTitle()
-    CenterText(scaling(201,1920,Settings.XRes),scaling(-288,1080,Settings.YRes),Input,Exo28)
+    love.graphics.setColor(0,0,0)
+    CenterText(scaling(201,1920,Settings.XRes),scaling(-293,1080,Settings.YRes),Input,Exo28)
     function love.textinput(t)
         Input=Input..t
     end
@@ -159,7 +161,7 @@ function ImportMenuSetPastingAndPreview()
                 y = y + WrapDistance  -- Move to the next line after wrapping
 
                 -- Check for overflow and hide text if necessary
-                if y > scaling(800,1080,Settings.YRes) then
+                if y > scaling(670,1080,Settings.YRes) then
                     love.graphics.setColor(255, 255, 255, 0)  -- Hide text if it goes too far down the screen
                 end
             end

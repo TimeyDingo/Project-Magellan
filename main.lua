@@ -72,9 +72,9 @@ function love.draw()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             BackdropDraw(MainMenuBackdrop)
-            ButtonStyle1Mod3(261,833,689,41,"Select",Exo24Bold,true,'if SetToPreview>0 then StateMachine="Set Options" end')
-            ButtonStyle1Mod3(261,889,689,41,"Create New Set",Exo24Bold,true, "CreateNewSet()")
-            ButtonStyle1Mod3(327,944,624,41,"Import Quizlet Set",Exo24Bold,true,'StateMachine="Import Menu"')
+            N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,Exo24,"Select")
+            N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,Exo24, "Create New Set")
+            N5Button(261, 944, 689, 41, true, 'StateMachine="Import Menu"' , true ,Exo24, "Import Quizlet Set")
             if Deleting==false then
                 SetData = LoadSavedSetsIntoMemory()
                 ListofSets()
@@ -87,16 +87,16 @@ function love.draw()
             BackdropDraw(SettingsMenuBackdrop)
             ButtonStyle1Mod3(754,880,402,110,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
             ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
-            ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Import Menu" then
             BackdropDraw(ImportMenuBackdrop)
             ImportMenuTitle()
             ImportMenuSetPastingAndPreview()
-            ButtonStyle1Mod3(1691, 88, 50, 50, "<-",Exo24Bold,true, 'StateMachine = "Main Menu"; Paste = ""; Input = ""')
-            ButtonStyle1Mod3(1751,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
-            ButtonStyle1Mod3(1020,887,290,96,"Confirm",Exo24Bold,true,'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""')
+            N5Button(1749,93,55,55,true,'StateMachine = "Main Menu"; Paste = ""; Input = ""')
+            N5Button(1810,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1020, 887, 290, 96, true, 'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""' , true ,Exo24Bold,"Confirm")
         end
         if StateMachine=="Set Options" then
             SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
@@ -115,8 +115,8 @@ function love.draw()
             --ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold,true)
-            ButtonStyle1Mod3(1491,88,50,50,"<-",Exo24Bold,true, 'StateMachine = "Main Menu"')
-            ButtonStyle1Mod3(1551,88,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
         if StateMachine=="Edit" then
             ActivityBackdrop()
