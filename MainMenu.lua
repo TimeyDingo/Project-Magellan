@@ -72,7 +72,7 @@ function ListofSets()
 end
 function SetPreview()
     local x = scaling(976,1920,Settings.XRes)  -- Starting X position for text drawing
-    local y = scaling(156,1080,Settings.YRes)  -- Starting Y position for text drawing
+    local y = scaling(170,1080,Settings.YRes)  -- Starting Y position for text drawing
     local WrapDistance = 0
     if SetToPreview == nil or SetData == nil or Settings == nil then
         print("In SetPreview() SetToPreview is reporting as: "..tostring(SetToPreview))
@@ -83,8 +83,14 @@ function SetPreview()
     if SetToPreview > 0 and SetData[SetToPreview] then
         local setTitle = SetData[SetToPreview][1]
         local dataSet = SetData[SetToPreview][2]
-        CenteredTextBox(scaling(976,1920,Settings.XRes), scaling(135,1080,Settings.YRes), scaling(673,1920,Settings.XRes), scaling(59,1080,Settings.YRes), tostring(setTitle), Exo28Bold)
+        N5BoxHighlight(976, 180, 673, 100, false, {}, true)-- box around title
+        love.graphics.setColor(195,199,203)--title cover
+        love.graphics.rectangle("fill",scaling(1226,1920,Settings.XRes),scaling(155,1080,Settings.YRes),scaling(174,1920,Settings.XRes),scaling(110,1080,Settings.YRes))--title cover
+        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, Exo28Bold, tostring(setTitle))--title
+        love.graphics.setColor(0,0,0,255)
+        CenteredTextBox(1176,120,273,110,"Set Title", IBM34Bold, true)--title
         love.graphics.setFont(Exo24)
+        N5BoxHighlight(976, 320, 673, 585, false, {}, true)-- box around preview
         y = y + scaling(25,1080,Settings.YRes)  -- Move to the next line
         if dataSet == nil then
             print("In SetPreview() dataSet is reporting as: "..tostring(dataSet))
@@ -111,7 +117,6 @@ function SetPreview()
         end
         love.graphics.setColor(255,255,255,255)
         N5Button(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), false, "DeleteSet()", false,Exo24Bold,"Delete Set")
-        --ButtonStyle1Mod3(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), "Delete Set", Exo24Bold, false, "DeleteSet()")
     end
     love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(Exo24)

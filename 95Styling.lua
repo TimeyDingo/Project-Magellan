@@ -60,7 +60,7 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--
     love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
-function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling)--Used to highlight a box like the X or <- in 95 style
+function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFont, Text)--Used to highlight a box like the X or <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
         print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
         print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
@@ -77,6 +77,17 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling)--Used 
     if fill==true then
         love.graphics.setColor(FillColor[1],FillColor[2],FillColor[3])
         love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    end
+    if TextFont and Text then
+        love.graphics.setColor(0,0,0)
+        local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+        love.graphics.setFont(TextFont)
+        local TH = TextFont:getHeight(Text)
+        local TW = TextFont:getWidth(Text)
+            -- Coordinates for the text
+        local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+        local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+        love.graphics.print(Text, textX, textY)
     end
     love.graphics.setLineWidth(MediumLine)
     love.graphics.setColor(255, 255, 255) -- white

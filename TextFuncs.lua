@@ -113,15 +113,16 @@ function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings.XRes)
-        BoxY=scaling(BoxY,1080,Settings.YRes)
-        BoxW=scaling(BoxW,1920,Settings.XRes)
-        BoxH=scaling(BoxH,1080,Settings.YRes)
+        BoxX=scaling(BoxX,1920,Settings.XRes,true)
+        BoxY=scaling(BoxY,1080,Settings.YRes,true)
+        BoxW=scaling(BoxW,1920,Settings.XRes,true)
+        BoxH=scaling(BoxH,1080,Settings.YRes,true)
     end
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
     local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
     love.graphics.print(Text, textX, textY)
+    return TH, TW
 end
 function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or Text==nil or TextFont==nil then
