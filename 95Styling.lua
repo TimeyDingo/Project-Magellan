@@ -99,3 +99,35 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFo
     love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
+function N5ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then
+        print("In ScrollBar() BoxX is reporting as: "..tostring(BoxX))
+        print("In ScrollBar() BoxY is reporting as: "..tostring(BoxY))
+        print("In ScrollBar() BoxW is reporting as: "..tostring(BoxW))
+        print("In ScrollBar() BoxH is reporting as: "..tostring(BoxH))
+        print("In ScrollBar() MinNumberOfItems is reporting as: "..tostring(MinNumberOfItems))
+        print("In ScrollBar() NumberOfItems is reporting as: "..tostring(NumberOfItems))
+        return 0
+    end
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
+    N5BoxHighlight(BoxX-scaling(5,1920,Settings.XRes), BoxY, BoxW+scaling(10,1920,Settings.XRes), BoxH*1.3125, true, {255,255,255} , false)
+    love.graphics.setColor(255, 153, 0)
+    local ScrollingOrigin=BoxY+BoxH
+    N5Button(BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems, false ,"", {195,199,203})
+    --ove.graphics.rectangle("fill",BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems)
+    if (ButtonDebounce("up", 0.1) or YScroll>0)and CurrentScroll > 0 then
+        CurrentScroll = CurrentScroll - 1
+        YScroll=0
+    end
+    if (ButtonDebounce("down", 0.1) or YScroll<0) and CurrentScroll < NumberOfItems-MinNumberOfItems then
+        CurrentScroll = CurrentScroll + 1
+        YScroll=0
+    end
+    love.graphics.setColor(255,255,255)
+    return CurrentScroll
+end

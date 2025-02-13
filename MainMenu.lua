@@ -66,7 +66,7 @@ function ListofSets()
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
-        MainMenuScroll=ScrollBar(935,136,17,542,7,NumberofSets,MainMenuScroll,true)
+        MainMenuScroll=N5ScrollBar(935,156,17,497,7,NumberofSets,MainMenuScroll,true)
     end
     love.graphics.setColor(255,255,255)
 end
