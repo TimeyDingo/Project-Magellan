@@ -7,8 +7,8 @@ function MatchingActivity()
         print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
         return
     end
-    CenterText(0, scaling(-450,1080,Settings.YRes), SetTitle, Exo32Bold)
-    CenterText(0,scaling(-400,1080,Settings.YRes),tostring(#MatchingActivity4XTable).."/4",Exo32Bold)--?? The count
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
+    N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, Exo32Bold, tostring(#MatchingActivity4XTable).."/4")
     if #MatchingActivity4XTable==0 then
         GenerateMatchingData()
         LoadMatching()
@@ -47,7 +47,7 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     
     -- Draw the wrapped text
-    love.graphics.setColor(255, 255, 255)  -- Set text color to white
+    love.graphics.setColor(0, 0, 0)  -- Set text color to black
     love.graphics.printf(Text, textX, textY, BoxW, "center")
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     -- Handle mouse input
@@ -58,7 +58,6 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
     end
     if MatchingActivityCurrentCard == CardNumber then
         if love.mouse.isDown(1) then
-            love.graphics.setColor(255, 255, 255)
             MatchingActivityPositions[Pair][PairSubset][1] = love.mouse.getX() - BoxW / 2
             MatchingActivityPositions[Pair][PairSubset][2] = love.mouse.getY() - BoxH / 2
         else
@@ -69,11 +68,22 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
     if MatchingActivityCurrentCard == CardNumber then
-        love.graphics.setColor(255, 255, 255)  -- Set border color
+        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+        love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+        love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+        love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+        love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     else
-        love.graphics.setColor(255, 153, 0)
+        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+        love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+        love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
     end
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
     
     -- Reset line width and color
     love.graphics.setLineWidth(ThinLine)
