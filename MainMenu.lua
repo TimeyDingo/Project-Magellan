@@ -174,7 +174,7 @@ function ImportMenuSetPastingAndPreview()
                 y = y + WrapDistance  -- Move to the next line after wrapping
 
                 -- Check for overflow and hide text if necessary
-                if y > scaling(670,1080,Settings.YRes) then
+                if y > scaling(650,1080,Settings.YRes) then
                     love.graphics.setColor(255, 255, 255, 0)  -- Hide text if it goes too far down the screen
                 end
             end

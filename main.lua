@@ -101,16 +101,16 @@ function love.draw()
         if StateMachine=="Set Options" then
             SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
             BackdropDraw(SelectActionBackdrop)
-            ButtonStyle1Mod3(300,253,402,122,"View/Edit",Exo24Bold,true, 'StateMachine = "View Set"')
-            ButtonStyle1Mod3(754,253,402,122,"Flashcards",Exo24Bold,true, 'StateMachine = "Flashcards"')
-            ButtonStyle1Mod3(300,486,402,122,"Missile Defense",Exo24Bold,true, 'StateMachine = "Missile Defense"; LoadMissileDefense()')
+            N5Button(300, 253, 402, 122, true, 'StateMachine = "View Set"', false,Exo24Bold,"View/Edit")
+            N5Button(754, 253, 402, 122, true, 'StateMachine = "Flashcards"', false,Exo24Bold,"Flashcards")
+            N5Button(754, 486, 402, 122, true, 'StateMachine = "Missile Defense"; LoadMissileDefense()', false,Exo24Bold,"Missile Defense")
             --ButtonStyle1Mod3(754,486,402,122,"Word Search",Exo24Bold,true, 'StateMachine = "Word Search"')
             if NumberOfTerms>4 then 
-                ButtonStyle1Mod3(1209,486,402,122,"Test",Exo24Bold,true, 'StateMachine = "Test"')
-                ButtonStyle1Mod3(1209,253,402,122,"Matching",Exo24Bold,true, 'StateMachine = "Matching"; LoadMatching()')
+                N5Button(1209, 486, 402, 122, true, 'StateMachine = "Test"', false,Exo24Bold, "Test")
+                N5Button(1209, 253, 402, 122, true, 'StateMachine = "Matching"; LoadMatching()', false,Exo24Bold,"Matching")
             else
-                ButtonStyle1(1209,486,402,122,"Not Enough Terms",Exo24Bold,true)
-                ButtonStyle1(1209,253,402,122,"Not Enough Terms",Exo24Bold,true)
+                N5Button(1209, 486, 402, 122, true, "", false,Exo24Bold, "Not Enough Terms")
+                N5Button(1209, 253, 402, 122, true, "", false,Exo24Bold, "Not Enough Terms")
             end
             --ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)

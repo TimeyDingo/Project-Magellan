@@ -118,7 +118,7 @@ function N5ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentS
     N5BoxHighlight(BoxX-scaling(5,1920,Settings.XRes), BoxY, BoxW+scaling(10,1920,Settings.XRes), BoxH*1.3125, true, {255,255,255} , false)
     love.graphics.setColor(255, 153, 0)
     local ScrollingOrigin=BoxY+BoxH
-    N5Button(BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems, false ,"", {195,199,203})
+    N5Button(BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems, false, "", {195,199,203})
     --ove.graphics.rectangle("fill",BoxX,BoxY+(ScrollingOrigin/NumberOfItems)*CurrentScroll,BoxW,ScrollingOrigin/NumberOfItems*MinNumberOfItems)
     if (ButtonDebounce("up", 0.1) or YScroll>0)and CurrentScroll > 0 then
         CurrentScroll = CurrentScroll - 1

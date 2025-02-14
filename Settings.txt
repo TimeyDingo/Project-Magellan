@@ -1,5 +1,5 @@
-XRes=1760
-YRes=990
+XRes=1600
+YRes=900
 MSAA=2
 Fullscreen=false
 FontModifier=4
