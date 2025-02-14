@@ -2,9 +2,6 @@ function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-450,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-410,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-370,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
@@ -32,6 +29,11 @@ function MissileDefenseActivity()
     if MissileDefenseLevelUpTimer>2.5 then
         MissileDefenseLevelUp2()
     end
+    love.graphics.setColor(0,0,0)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-440,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-400,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-360,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
+    love.graphics.setColor(255,255,255)
 end
 function MissileDefenseDisplayChallenges()
     local speedFactor=50
@@ -161,9 +163,8 @@ function MissileDefenseDisplay()
     end
     local LargePoint=10
     local TrailingPoint=2
-    love.graphics.setColor(255,153,0)
-    love.graphics.rectangle("line", 0, scaling(65,1080, Settings.YRes), scaling(1320, 1920, Settings.XRes), scaling(850, 1080, Settings.YRes))
-    love.graphics.setColor(255,255,255)
+    N5BoxHighlight(0, 88, 1320, 825, true, {255,255,255}, true)
+    love.graphics.setColor(0,0,0)--terain color
     --? Terrain
     local flattenedPoints = {}
     for _, TerrainPoints in ipairs(TerrainPoints) do
