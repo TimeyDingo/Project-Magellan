@@ -120,44 +120,44 @@ function love.draw()
         end
         if StateMachine=="Edit" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797, 3, 50, 50, "<-", Exo24Bold, true, 'EditActivityCallBackoutPopup()')            
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, "EditActivityCallBackoutPopup()")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             EditActivity()
         end
         if StateMachine=="Flashcards" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadFlashcards()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadFlashcards()')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             FlashcardActivity()
         end
         if StateMachine=="Matching" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadMatching()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadMatching()')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             MatchingActivity()
         end
         if StateMachine=="Missile Defense" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             MissileDefenseActivity()
         end
         if StateMachine=="Word Search" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             WordSearchActivity()
         end
         if StateMachine=="Test" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadTestActivity()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadTestActivity()')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             TestActivity()
         end
         if StateMachine=="View Set" then
             ActivityBackdrop()
-            ButtonStyle1Mod3(1797,3,50,50,"<-",Exo24Bold,true,'StateMachine = "Set Options"; LoadViewSet()')
-            ButtonStyle1Mod3(1867,3,50,50,"X",Exo24Bold,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadViewSet()')
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
             ViewActivity()
         end
     end
