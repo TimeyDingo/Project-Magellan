@@ -9,36 +9,36 @@ function EditActivity()
             return
         end
         EditableTitle(660, 60, 600, 60, Exo32Bold,true)
-        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0')
+        N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, Exo24Bold, "-> View Mode")
         local TermFont=Exo24
         local DefinitionFont=Exo20
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
-        CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Terms",Exo24Bold)
-        CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
+        N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Terms")
+        N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Definitions")
         ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
         ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1')
         if NumberOfTerms>0 then
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 200+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(1+EditActivityScroll)')
+            N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, Exo24Bold, "X")
         end
         if NumberOfTerms>1 then
             EditableDisplayTerm(20,420+MediumLine,870,200,2+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,420+MediumLine,910,200,2+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 420+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(2+EditActivityScroll)')
+            N5Button(890, 420+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(2+EditActivityScroll)', false, Exo24Bold, "X")
         end
         if NumberOfTerms>2 then
             EditableDisplayTerm(20,640+MediumLine,870,200,3+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,640+MediumLine,910,200,3+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 640+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(3+EditActivityScroll)')
+            N5Button(890, 640+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(3+EditActivityScroll)', false, Exo24Bold, "X")
         end
         if NumberOfTerms>3 then
             EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 860+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(4+EditActivityScroll)')
-            EditActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
+            N5Button(890, 860+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(4+EditActivityScroll)', false, Exo24Bold, "X")
+            EditActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
         end
     end
     love.graphics.setColor(255,255,255)
