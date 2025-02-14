@@ -31,7 +31,7 @@ function ViewActivity()
     if NumberOfTerms>3 then
         N5BoxHighlight(20, 860+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[4+ViewActivityScroll][2])
         N5BoxHighlight(990, 860+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[4+ViewActivityScroll][1])
-        ViewActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,ViewActivityScroll,true)
+        ViewActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,ViewActivityScroll,true)
     end
     love.graphics.setColor(255,255,255)
 end
