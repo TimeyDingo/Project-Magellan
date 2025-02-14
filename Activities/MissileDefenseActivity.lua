@@ -61,7 +61,7 @@ function MissileDefenseDisplayChallenges()
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        MissileDefenseDisplayChallenge(1320,100,600,300,MissileDefenseChallenges[1].Challenge,true,MissileDefenseChallenge1Failed)
+        MissileDefenseDisplayChallenge(1320,125,600,275,MissileDefenseChallenges[1].Challenge,true,MissileDefenseChallenge1Failed)
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge1AccumulatedTime >= 1 then
@@ -75,7 +75,7 @@ function MissileDefenseDisplayChallenges()
                 MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
-        MissileDefenseTimerDisplay(1320,60+ThickLine,40-ThickLine,true,1)
+        MissileDefenseTimerDisplay(1320,85+ThickLine,40-ThickLine,true,1)
     end
     if MissileDefenseChallengeCount>1 then
         MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2].Challenge,true,MissileDefenseChallenge2Failed)
@@ -122,9 +122,9 @@ function MissileDefenseResponse()
     local TextFont=Exo32Bold
     love.graphics.setFont(TextFont)
     local BoxX=0
-    local BoxY=915
+    local BoxY=930
     local BoxW=1320
-    local BoxH=165
+    local BoxH=140
     local Scaling=true
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings.XRes)
@@ -132,8 +132,9 @@ function MissileDefenseResponse()
         BoxW=scaling(BoxW,1920,Settings.XRes)
         BoxH=scaling(BoxH,1080,Settings.YRes)
     end
-    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(255,255,255)
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0, 0, 0)
     function love.textinput(t)
         MissileDefenseTypedResponse=MissileDefenseTypedResponse..t
     end
@@ -146,10 +147,14 @@ function MissileDefenseResponse()
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
     if ButtonDebounce("return", 0.5) then
         MissileDefenseCheckResponse()
         MissileDefenseTypedResponse=""
@@ -163,7 +168,7 @@ function MissileDefenseDisplay()
     end
     local LargePoint=10
     local TrailingPoint=2
-    N5BoxHighlight(0, 88, 1320, 825, true, {255,255,255}, true)
+    N5BoxHighlight(0, 88, 1320, 825, true, {200,200,200}, true)
     love.graphics.setColor(0,0,0)--terain color
     --? Terrain
     local flattenedPoints = {}
@@ -214,19 +219,24 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         print("In MissileDefenseDisplayChallenge() Failed is reporting as: "..tostring(Failed))
         return
     end
+    local InitialFont=Exo28
+    local newSize=28
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
     local BoxR,BoxG,BoxB=255,153,0
     if Failed==true then
         Text="FAILED"
         BoxR,BoxG,BoxB=215,54,64
+    else
+        BoxR,BoxG,BoxB=200,200,200
     end
-        local InitialFont=Exo28
-        local newSize=28
-        if Scaling==true then
-            BoxX=scaling(BoxX,1920,Settings.XRes)
-            BoxY=scaling(BoxY,1080,Settings.YRes)
-            BoxW=scaling(BoxW,1920,Settings.XRes)
-            BoxH=scaling(BoxH,1080,Settings.YRes)
-        end
+        love.graphics.setColor(BoxR,BoxG,BoxB)
+        love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+        love.graphics.setColor(0,0,0)--text color
         local function getWrappedHeight(font, text, width)
             local _, wrappedText = font:getWrap(text, width)
             return #wrappedText * font:getHeight()
@@ -246,10 +256,14 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         
         love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
         love.graphics.setLineWidth(MediumLine)
-        love.graphics.setColor(BoxR, BoxG, BoxB)
-        love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-        love.graphics.setLineWidth(ThinLine)
+        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+        love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+        love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
         love.graphics.setColor(255, 255, 255)
+        love.graphics.setLineWidth(1)
 
 end
 function MissileDefenseCheckResponse()

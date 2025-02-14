@@ -137,9 +137,9 @@ function LoadMissileDefense()
     MissileDefenseCorrectResponses=0
     MissileDefenseLevelUpTimer=0
     MissileDefenseLevelUp=false
-    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
-    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
-    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
