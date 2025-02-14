@@ -20,12 +20,12 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--
         love.graphics.setColor(0,0,0)
         local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
         love.graphics.setFont(TextFont)
-        local TH = TextFont:getHeight(Text)
-        local TW = TextFont:getWidth(Text)
-            -- Coordinates for the text
-        local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
-        local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
-        love.graphics.print(Text, textX, textY)
+        local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
+        local _, wrappedText = TextFont:getWrap(Text, BoxW)
+        local wrappedHeight = #wrappedText * TextFont:getHeight()
+        -- Coordinates for the text
+        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
+        love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)    -- Check if mouse is over the box
     love.graphics.setLineWidth(MediumLine)
@@ -82,12 +82,12 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFo
         love.graphics.setColor(0,0,0)
         local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
         love.graphics.setFont(TextFont)
-        local TH = TextFont:getHeight(Text)
-        local TW = TextFont:getWidth(Text)
-            -- Coordinates for the text
-        local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
-        local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
-        love.graphics.print(Text, textX, textY)
+        local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
+        local _, wrappedText = TextFont:getWrap(Text, BoxW)
+        local wrappedHeight = #wrappedText * TextFont:getHeight()
+        -- Coordinates for the text
+        local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
+        love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     end
     love.graphics.setLineWidth(MediumLine)
     love.graphics.setColor(255, 255, 255) -- white
