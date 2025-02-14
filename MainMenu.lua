@@ -187,8 +187,8 @@ end
 function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
-    love.graphics.setFont(Exo60Black)
-    love.graphics.print(StateMachine, scaling(596,1920,Settings.XRes), scaling(1,1080,Settings.YRes))
+    love.graphics.setFont(IBM60Bold)
+    love.graphics.print(StateMachine, scaling(1150,1920,Settings.XRes), scaling(3,1080,Settings.YRes))
     love.graphics.setFont(Exo24)
 end
 function SettingResolutionButtons(BoxX,BoxY,BoxW,BoxH,Text,TextFont,ClickedValue,Scaling)

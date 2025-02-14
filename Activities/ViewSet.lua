@@ -6,7 +6,7 @@ function ViewActivity()
         print("In ViewActivity() ViewActivityScroll is reporting as: "..tostring(ViewActivityScroll))
         return
     end
-    N5BoxHighlight(830, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
     N5Button(830, 90, 240, 50, true, 'StateMachine="Edit"; EditActivityScroll=0', false, Exo24Bold,"-> Edit Mode")
     local TermFont=Exo24
     local DefinitionFont=Exo20

@@ -8,7 +8,7 @@ function EditActivity()
             print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
             return
         end
-        EditableTitle(660, 60, 600, 60, Exo32Bold,true)
+        EditableTitle(660, 145, 600, 50, Exo32Bold,true)
         N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, Exo24Bold, "-> View Mode")
         local TermFont=Exo24
         local DefinitionFont=Exo20
@@ -51,7 +51,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         BoxW = scaling(BoxW, 1920, Settings.XRes)
         BoxH = scaling(BoxH, 1080, Settings.YRes)
     end
-
+    
     -- Check if the mouse is over the box
     local isHovered = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
@@ -68,9 +68,11 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     elseif isHovered then
         love.graphics.setColor(200, 200, 200)  -- Lighter hover color
     else
-        love.graphics.setColor(255, 153, 0)  -- Default color
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
-
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         function love.textinput(t)
@@ -114,7 +116,6 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
             EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit][2], EditCursorPositionTerm + 1)
         end
     end
-
     -- Draw the text inside the box
     local Text = SetData[TermToDisplayAndEdit][2]
     local displayText = Text
@@ -123,16 +124,22 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         displayText = Text:sub(1, EditCursorPositionTerm) .. "|" .. Text:sub(EditCursorPositionTerm + 1)  -- Add cursor to the text
     end
-
+    --text wrapping
     local _, wrappedText = TextFont:getWrap(displayText, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
     local textY = BoxY + (BoxH - wrappedHeight) / 2
     love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
     
-    -- Draw the box border
+    --95 box border
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
 end
 function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
     -- Scaling logic
@@ -159,8 +166,11 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     elseif isHovered then
         love.graphics.setColor(200, 200, 200)  -- Lighter hover color
     else
-        love.graphics.setColor(255, 153, 0)  -- Default color
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
 
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedDefinition == TermToDisplayAndEdit then
@@ -221,26 +231,16 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     local textY = BoxY + (BoxH - wrappedHeight) / 2
     love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
 
-    -- Draw the box border
+    --95 box border
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-end
-function EditActivityRemoveTerm(TermToRemove)
-    if TermToRemove==nil then
-        print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
-        return
-    end
-    Deleting=true
-    EditActivityScroll=0
-    table.remove(SetData, TermToRemove)
-    NumberOfTerms=NumberOfTerms-1
-    Deleting=false
-end
-function EditActivityCallBackoutPopup()
-    PopupCall = true
-    PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
-    PopUpMessage = "Unsaved Edits will be lost"
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
 end
 function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or Scaling==nil or SetTitle==nil then
@@ -262,7 +262,7 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
-        love.graphics.setColor(255, 153, 0)
+        love.graphics.setColor(255, 255, 255)  -- Highlight color for selected
         EditActivitySelectedTerm = nil
         EditActivitySelectedDefinition = nil
         function love.textinput(t)
@@ -271,8 +271,14 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
         SetTitle=BackspaceController(SetTitle,1,0.1)
     else
         function love.textinput(t)
-        end 
+        end
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
+    -- black color text
+    love.graphics.setColor(0,0,0)
     local Text=SetTitle
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
@@ -281,12 +287,30 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    if Selected then
-        love.graphics.setColor(255, 255, 255)
-    else
-        love.graphics.setColor(255, 153, 0)
-    end
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
+    --95 box border
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
+end
+function EditActivityRemoveTerm(TermToRemove)
+    if TermToRemove==nil then
+        print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
+        return
+    end
+    Deleting=true
+    EditActivityScroll=0
+    table.remove(SetData, TermToRemove)
+    NumberOfTerms=NumberOfTerms-1
+    Deleting=false
+end
+function EditActivityCallBackoutPopup()
+    PopupCall = true
+    PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
+    PopUpMessage = "Unsaved Edits will be lost"
 end
