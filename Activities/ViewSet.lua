@@ -6,35 +6,38 @@ function ViewActivity()
         print("In ViewActivity() ViewActivityScroll is reporting as: "..tostring(ViewActivityScroll))
         return
     end
-    CenterText(0,scaling(-450,1080,Settings.YRes),SetTitle,Exo32Bold)
-    ButtonStyle1Mod3(830, 0, 240, 55, "-> Edit Mode", Exo24Bold, true, 'StateMachine="Edit"; EditActivityScroll=0')
+    N5BoxHighlight(830, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
+    N5Button(830, 90, 240, 50, true, 'StateMachine="Edit"; EditActivityScroll=0', false, Exo24Bold,"-> Edit Mode")
     local TermFont=Exo24
     local DefinitionFont=Exo20
     local NumberOfTerms=#SetData
     love.graphics.setColor(40,40,40)
     love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
     love.graphics.setColor(255,255,255)
-    CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Terms",Exo24Bold)
-    CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
+    N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Terms")
+    N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Definitions")
     if NumberOfTerms>0 then
-        DisplayTerm(20,200+MediumLine,910,200,SetData[1+ViewActivityScroll][2],TermFont,true)
-        DisplayDefinition(990,200+MediumLine,910,200,SetData[1+ViewActivityScroll][1],DefinitionFont,true)
+        N5BoxHighlight(20, 200+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[1+ViewActivityScroll][2])
+        N5BoxHighlight(990, 200+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[1+ViewActivityScroll][1])
     end
     if NumberOfTerms>1 then
-        DisplayTerm(20,420+MediumLine,910,200,SetData[2+ViewActivityScroll][2],TermFont,true)
-        DisplayDefinition(990,420+MediumLine,910,200,SetData[2+ViewActivityScroll][1],DefinitionFont,true)
+        N5BoxHighlight(20, 420+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[2+ViewActivityScroll][2])
+        N5BoxHighlight(990, 420+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[2+ViewActivityScroll][1])
     end
     if NumberOfTerms>2 then
-        DisplayTerm(20,640+MediumLine,910,200,SetData[3+ViewActivityScroll][2],TermFont,true)
-        DisplayDefinition(990,640+MediumLine,910,200,SetData[3+ViewActivityScroll][1],DefinitionFont,true)
+        N5BoxHighlight(20, 640+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[3+ViewActivityScroll][2])
+        N5BoxHighlight(990, 640+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[3+ViewActivityScroll][1])
     end
     if NumberOfTerms>3 then
-        DisplayTerm(20,860+MediumLine,910,200,SetData[4+ViewActivityScroll][2],TermFont,true)
-        DisplayDefinition(990,860+MediumLine,910,200,SetData[4+ViewActivityScroll][1],DefinitionFont,true)
+        N5BoxHighlight(20, 860+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[4+ViewActivityScroll][2])
+        N5BoxHighlight(990, 860+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[4+ViewActivityScroll][1])
         ViewActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,ViewActivityScroll,true)
     end
     love.graphics.setColor(255,255,255)
 end
+--[[ old display
+        --DisplayTerm(20,420+MediumLine,910,200,SetData[2+ViewActivityScroll][2],TermFont,true)
+        --DisplayDefinition(990,420+MediumLine,910,200,SetData[2+ViewActivityScroll][1],DefinitionFont,true)
 function DisplayTerm(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
         print("In DisplayTerm() BoxX is reporting as: "..tostring(BoxX))
@@ -93,3 +96,4 @@ function DisplayDefinition(BoxX, BoxY, BoxW, BoxH, Text, TextFont,Scaling)
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
+]]
