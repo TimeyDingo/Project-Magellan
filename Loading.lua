@@ -24,6 +24,11 @@ function LoadBackdrops()
 end
 function LoadSettings()
     love.window.setMode(0, 0)
+    if ANTIFLICKER then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
+    
     DetectedX = love.graphics.getWidth()
     DetectedY = love.graphics.getHeight()
     DetectedRes = DetectedX .. " x " .. DetectedY
@@ -33,12 +38,14 @@ function LoadSettings()
     end
     SettingsResolution=Settings.XRes
     SettingsResolutionDropDownClicked=false
-    SettingsFullscreen=toboolean(Settings.Fullscreen)
     math.randomseed (os.time())
     
     ThickLine=scaling(5,1080,Settings.YRes,true)
     MediumLine=scaling(3,1080,Settings.YRes,true)
     ThinLine=scaling(1,1080,Settings.YRes,true)
+    if ANTIFLICKER then
+        love.timer.sleep(0.5)
+    end
 end
 function LoadActivities()
     LoadFlashcards()
@@ -102,6 +109,7 @@ function ApplyResolutionSettings(XResolutionToApply,YResolutionToApply)
     LoadSettings()
     LoadBackdrops()
     LoadActivities()
+    --love.timer.sleep(1)
 end
 function LoadViewSet()
     ViewActivityScroll=0

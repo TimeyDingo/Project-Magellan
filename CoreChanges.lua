@@ -14,11 +14,13 @@ function IsClickInBox(ClickX,ClickY,boxX, boxY, boxWidth, boxHeight)
     return ClickX >= boxX and ClickX <= boxX + boxWidth and ClickY >= boxY and ClickY <= boxY + boxHeight
 end
 function MouseClickDebounce(DebouncePeriod)
-    if love.mouse.isDown(1) and DebounceTimer>DebouncePeriod then
-        DebounceTimer=0
-        return true
-    else
-        return false
+    if love.window.hasMouseFocus() then
+        if love.mouse.isDown(1) and DebounceTimer>DebouncePeriod then
+            DebounceTimer=0
+            return true
+        else
+            return false
+        end
     end
 end
 function toboolean(str)
