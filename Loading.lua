@@ -12,6 +12,12 @@ function LoadFonts()
     ThickLine=scaling(5,1080,Settings.YRes,true)
     MediumLine=scaling(3,1080,Settings.YRes,true)
     ThinLine=scaling(1,1080,Settings.YRes,true)
+
+
+    --Fonts for setting menu preview
+    SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
+    SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true))
+    SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true))
 end
 function LoadBackdrops()
     local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
@@ -26,7 +32,7 @@ function LoadBackdrops()
     GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
 end
 function LoadSettings()
-    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3,AudioVolume=0,DarkMode=false,ReducedFlicker=false,FontSelected="Exo"}
+    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModRaw=4, FontModPercent=5, LineModifier=3, AudioRaw=0, AudioPercent=5, DarkMode=false,ReducedFlicker=false,FontSelected="Exo2"}
     LoadSettingsIO(Settings)
     love.window.setMode(0, 0)
     if Settings.ReducedFlicker then
@@ -212,11 +218,15 @@ function LoadMatching()
         table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
     end
 end
-function ApplySettings()
-    if Settings.XRes>DetectedX then
+function ApplySettings(NewX,NewY)
+    local PrevX=Settings.XRes
+    local PrevY=Settings.YRes
+    Settings.XRes=NewX
+    Settings.YRes=NewY
+    if NewX>DetectedX then
         Settings.XRes=DetectedX
     end
-    if Settings.YRes>DetectedY then
+    if NewY>DetectedY then
         Settings.YRes=DetectedY
     end
     LoadFonts()
@@ -233,4 +243,6 @@ function ApplySettings()
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
     end
+    Settings.FontModRaw=scaling(Settings.FontModRaw,PrevX,Settings.XRes)
+    Settings.AudioRaw=scaling(Settings.AudioRaw,PrevX,Settings.XRes)
 end

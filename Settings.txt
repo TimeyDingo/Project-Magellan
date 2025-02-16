@@ -1,10 +1,12 @@
-XRes=1280
-YRes=720
+XRes=1440
+YRes=810
 MSAA=2
 Fullscreen=false
-FontModifier=500
+FontModRaw=604
+FontModPercent=0.11141060197664
 LineModifier=3
-AudioVolume=500
+AudioRaw=766.38360175695
+AudioPercent=0.69499946723073
 DarkMode=false
 ReducedFlicker=false
-FontSelected=Exo
+FontSelected=Exo2

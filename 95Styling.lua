@@ -217,8 +217,8 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
     end
     return Value
 end
-function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
-    if BoxX == nil or BoxY == nil or BoxW == nil or BoxH == nil or Scaling == nil or Value == nil then
+function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, RawValue, Percentage)
+    if BoxX == nil or BoxY == nil or BoxW == nil or BoxH == nil or Scaling == nil or RawValue == nil then
         print("Invalid parameters")
         return
     end
@@ -234,17 +234,24 @@ function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
     if Selected then
         if love.mouse.isDown(1) then -- Button clicked
             if MouseX<BoxX+BoxW-Padding and MouseX>BoxX+Padding then
-                Value=MouseX
+                RawValue=MouseX
             end
         end
     end
     local LineY = BoxY + BoxH / 2
     love.graphics.setLineWidth(ThickLine*2)
     local LineStart=BoxX+Padding
-    local LineEnd=BoxX+BoxX-Padding
+    local LineEnd=BoxX+BoxW-Padding
     local LineLength=LineEnd-LineStart
     love.graphics.line(BoxX+Padding, LineY+Padding, BoxX+BoxW-Padding, LineY+Padding)
-    N5Button(Value, LineY-Padding/2, LineLength/35, Padding*3, false, "", true, Exo24, "", Selected)
+    N5Button(RawValue, LineY-Padding/2, LineLength/25, Padding*3, false, "", true, Exo24, "", Selected)
     love.graphics.setLineWidth(1)
-    return Value
+    if RawValue<BoxX+Padding then
+        RawValue=LineEnd
+    end
+    if RawValue>BoxX+BoxW-Padding then
+        RawValue=LineStart
+    end
+    Percentage=(RawValue-LineStart)/LineLength
+    return RawValue, Percentage
 end

@@ -96,22 +96,26 @@ function love.draw()
             local Padding=scaling(10,1920,Settings.XRes)
             local YSpacing=scaling(44.5,1080,Settings.YRes)
             local BoxHeight=scaling(24,634,Settings.YRes)
-            N5Button(RSBX+Padding,RSBY+Padding,RSBW-Padding*2,BoxHeight,false,"Settings.XRes=854; Settings.YRes=480; ApplySettings()",true,Exo24,"854 x 480")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*1,RSBW-Padding*2,BoxHeight,false,"Settings.XRes=1024; Settings.YRes=576; ApplySettings()",true,Exo24,"1024 x 576")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*2,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1128; Settings.YRes=634; ApplySettings()", true, Exo24, "1128 x 634")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*3,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1280; Settings.YRes=720; ApplySettings()", true, Exo24, "1280 x 720")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*4,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1366; Settings.YRes=768; ApplySettings()", true, Exo24, "1366 x 768")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*5,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1440; Settings.YRes=810; ApplySettings()", true, Exo24, "1440 x 810")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*6,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1600; Settings.YRes=900; ApplySettings()", true, Exo24, "1600 x 900")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*7,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1760; Settings.YRes=990; ApplySettings()", true, Exo24, "1760 x 990")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*8,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1920; Settings.YRes=1080; ApplySettings()", true, Exo24, "1920 x 1080")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*9,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=2560; Settings.YRes=1440; ApplySettings()", true, Exo24, "2560 x 1440")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*10,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=2732; Settings.YRes=1536; ApplySettings()", true, Exo24, "2732 x 1536")
-            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*11,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=3840; Settings.YRes=2160; ApplySettings()", true, Exo24, "3840 x 2160")
+            N5Button(RSBX+Padding,RSBY+Padding,RSBW-Padding*2,BoxHeight,false,"ApplySettings(854,480)",true,Exo24,"854 x 480")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*1,RSBW-Padding*2,BoxHeight,false,"ApplySettings(1024,576)",true,Exo24,"1024 x 576")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*2,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1128,634)", true, Exo24, "1128 x 634")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*3,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1280,720)", true, Exo24, "1280 x 720")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*4,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1366,768)", true, Exo24, "1366 x 768")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*5,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1440,810)", true, Exo24, "1440 x 810")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*6,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1600,900)", true, Exo24, "1600 x 900")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*7,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1760,990)", true, Exo24, "1760 x 990")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*8,RSBW-Padding*2,BoxHeight, false, "ApplySettings(1920,1080)", true, Exo24, "1920 x 1080")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*9,RSBW-Padding*2,BoxHeight, false, "ApplySettings(2560,1440)", true, Exo24, "2560 x 1440")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*10,RSBW-Padding*2,BoxHeight, false, "ApplySettings(2732,1536)", true, Exo24, "2732 x 1536")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*11,RSBW-Padding*2,BoxHeight, false, "ApplySettings(3840,2160)", true, Exo24, "3840 x 2160")
             --
             --font selector
-            N5BoxWithTitle(261,178,411,55,true,"Current Font",Settings.XRes.. " x " ..Settings.YRes)
-            N5BoxWithTitle(261,261,411,573,true,"Select A Font")
+            N5BoxWithTitle(261,178,411,55,true,"Current Font",Settings.FontSelected)
+            local FSBX,FSBY,FSBW,FSBH=N5BoxWithTitle(261,261,411,573,true,"Select A Font")
+            N5Button(FSBX+Padding,FSBY+Padding,FSBW-Padding*2,BoxHeight,false,"Settings.FontSelected='Exo2'",true,SExo24,"Exo2")
+            N5Button(FSBX+Padding,FSBY+Padding+YSpacing*1,FSBW-Padding*2,BoxHeight,false,"Settings.FontSelected='AtkinsonHyperlegible'",true,SAHL24,"AtkinsonHyperlegible")
+            N5Button(FSBX+Padding,FSBY+Padding+YSpacing*2,FSBW-Padding*2,BoxHeight, false, "Settings.FontSelected='IBMPlex'", true, SIBM24, "IBMPlex")
+            N5Button(FSBX+Padding,FSBY+Padding+YSpacing*3,FSBW-Padding*2,BoxHeight, false, "Settings.FontSelected='Stylized'", true, SExo24, "Stylized (Exo2+IBM)")
             --dark mode
             local DMTX,DMTY,DMTW,DMTH=N5BoxWithTitle(744,436,411,79,true,"Dark Mode?","",true)
             Settings.DarkMode=N5TickBox(DMTX,DMTY,DMTW,DMTH, false, Settings.DarkMode)
@@ -121,11 +125,11 @@ function love.draw()
             --
             --Font size
             local FSTX,FSTY,FSTW,FSTH=N5BoxWithTitle(744,693,411,79,true,"Font Size Modifier","",true)
-            Settings.FontModifier=N5Slider(FSTX,FSTY,FSTW,FSTH, false, Settings.FontModifier)
+            Settings.FontModRaw,Settings.FontModPercent=N5Slider(FSTX,FSTY,FSTW,FSTH, false, Settings.FontModRaw,Settings.FontModPercent)
             --
             --Audio
             local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
-            Settings.AudioVolume=N5Slider(AVTX,AVTY,AVTW,AVTH, false, Settings.AudioVolume)
+            Settings.AudioRaw,Settings.AudioPercent=N5Slider(AVTX,AVTY,AVTW,AVTH, false, Settings.AudioRaw,Settings.AudioPercent)
             --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu';love.load()")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
@@ -203,6 +207,7 @@ function love.draw()
     end
     love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
     love.graphics.print(MouseDX.."x"..MouseDY,scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
+    love.graphics.print(Settings.FontModRaw.."x"..Settings.FontModPercent,scaling(200,1920,Settings.XRes),scaling(150,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,Exo24Bold,true,PopupAction)
     end
