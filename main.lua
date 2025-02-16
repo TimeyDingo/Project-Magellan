@@ -20,6 +20,7 @@ https://www.youtube.com/watch?v=py0iF3mwy2E
 ]]
 function love.load()
     ANTIFLICKER=false
+    DARKMODE=false
     LoadSettings()
     LoadFonts()
     LoadBackdrops()
@@ -100,10 +101,10 @@ function love.draw()
             N5BoxWithTitle(261,261,411,573,true,"Select A Font")
             --dark mode
             local DMTX,DMTY,DMTW,DMTH=N5BoxWithTitle(744,436,411,79,true,"Dark Mode?","",true)
-            N5TickBox(DMTX,DMTY,DMTW,DMTH, false, true)
+            DARKMODE=N5TickBox(DMTX,DMTY,DMTW,DMTH, false, DARKMODE)
             --
             local RFTX,RFTY,RFTW,RFTH=N5BoxWithTitle(744,565,411,79,true,"Reduced Flicker?","",true)
-            N5TickBox(RFTX,RFTY,RFTW,RFTH, false, true)
+            ANTIFLICKER=N5TickBox(RFTX,RFTY,RFTW,RFTH, false, ANTIFLICKER)
             --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")

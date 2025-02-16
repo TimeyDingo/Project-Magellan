@@ -170,14 +170,24 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
         print("Invalid parameters")
         return
     end
-
     if Scaling == true then
         BoxX = scaling(BoxX, 1920, Settings.XRes)
         BoxY = scaling(BoxY, 1080, Settings.YRes)
         BoxW = scaling(BoxW, 1920, Settings.XRes)
         BoxH = scaling(BoxH, 1080, Settings.YRes)
     end
-
+    --clicking
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    if Selected then
+        if love.mouse.isDown(1) and MouseClickDebounce(0.5) then -- Button clicked
+            if Value==false then
+                Value=true
+            else
+                Value=false
+            end
+        end
+    end
+    --
     local padding = scaling(10, 1920, Settings.XRes)
     
     -- Calculate effective dimensions after padding
@@ -191,8 +201,6 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
     local squareX = BoxX + padding + (effectiveWidth - squareSize) / 2
     local squareY = BoxY + padding + (effectiveHeight - squareSize) / 2
 
-    -- Now draw the outer box as you already do
-    
     love.graphics.setLineWidth(MediumLine)
     love.graphics.setColor(255, 255, 255) -- white
     love.graphics.rectangle("fill",squareX,squareY,squareSize,squareSize)
@@ -203,8 +211,9 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
     love.graphics.line(squareX, squareY, squareX, squareY + squareSize) -- vertical left
     love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
-    if Value then
+    if Value then --draw the tick
         love.graphics.setColor(255,0,0)
         love.graphics.line(squareX, squareY, squareX+squareSize, squareY + squareSize)
     end
+    return Value
 end
