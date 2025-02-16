@@ -37,6 +37,8 @@ function love.load()
     HeldTime=0
     NumberOfTerms=0
     YScroll=0
+    MouseHistory = {}
+    MouseHistory.maxEntries = 10
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -70,6 +72,7 @@ function love.draw()
     W=love.graphics.getPixelWidth()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
+    MouseDX, MouseDY=MouseDelta()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             BackdropDraw(MainMenuBackdrop)
@@ -87,7 +90,21 @@ function love.draw()
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
             ButtonStyle1Mod3(754,880,402,110,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
-            ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
+            --ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
+            --resolution
+            N5BoxWithTitle(1249,178,411,55,true,"Current Resolution",Settings.XRes.. " x " ..Settings.YRes)
+            N5BoxWithTitle(1249,261,411,573,true,"Select A Resolution")
+            --
+            --font selector
+            N5BoxWithTitle(261,178,411,55,true,"Current Font",Settings.XRes.. " x " ..Settings.YRes)
+            N5BoxWithTitle(261,261,411,573,true,"Select A Font")
+            --dark mode
+            local DMTX,DMTY,DMTW,DMTH=N5BoxWithTitle(744,436,411,79,true,"Dark Mode?","",true)
+            N5TickBox(DMTX,DMTY,DMTW,DMTH, false, true)
+            --
+            local RFTX,RFTY,RFTW,RFTH=N5BoxWithTitle(744,565,411,79,true,"Reduced Flicker?","",true)
+            N5TickBox(RFTX,RFTY,RFTW,RFTH, false, true)
+            --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
         end
@@ -163,6 +180,7 @@ function love.draw()
         end
     end
     love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
+    love.graphics.print(MouseDX.."x"..MouseDY,scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,Exo24Bold,true,PopupAction)
     end

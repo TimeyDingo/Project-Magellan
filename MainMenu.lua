@@ -292,7 +292,8 @@ function ResolutionDropDownMenuMk1(BoxX,BoxY,BoxW,BoxH,TextFont,Scaling)
     local BoxYY=BoxY
     local BoxWW=BoxW
     local BoxHH=BoxH
-    N5BoxWithTitle(100,100,500,500,true,"test")
+    N5BoxWithTitle(1249,178,411,55,true,"Current Resolution",Settings.XRes.. " x " ..Settings.YRes)
+    N5BoxWithTitle(1249,261,411,573,true,"Select A Resolution")
     Text=Settings.XRes.." x "..Settings.YRes
     local TW=TextFont:getWidth(Text)
     local TH=TextFont:getHeight(Text)

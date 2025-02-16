@@ -1,9 +1,9 @@
 function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--Used to highlight a button like the X or <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
-        print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
-        print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
-        print("In ButtonStyle1Mod3() BoxW is reporting as: "..tostring(BoxW))
-        print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
+        print("In N5Button() BoxX is reporting as: "..tostring(BoxX))
+        print("In N5Button() BoxY is reporting as: "..tostring(BoxY))
+        print("In N5Button() BoxW is reporting as: "..tostring(BoxW))
+        print("In N5Button() BoxH is reporting as: "..tostring(BoxH))
         return
     end
     if Scaling==true then
@@ -62,10 +62,10 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--
 end
 function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFont, Text)--Used to highlight a box like the X or <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
-        print("In ButtonStyle1Mod3() BoxX is reporting as: "..tostring(BoxX))
-        print("In ButtonStyle1Mod3() BoxY is reporting as: "..tostring(BoxY))
-        print("In ButtonStyle1Mod3() BoxW is reporting as: "..tostring(BoxW))
-        print("In ButtonStyle1Mod3() BoxH is reporting as: "..tostring(BoxH))
+        print("In N5BoxHighlight() BoxX is reporting as: "..tostring(BoxX))
+        print("In N5BoxHighlight() BoxY is reporting as: "..tostring(BoxY))
+        print("In N5BoxHighlight() BoxW is reporting as: "..tostring(BoxW))
+        print("In N5BoxHighlight() BoxH is reporting as: "..tostring(BoxH))
         return
     end
     if Scaling==true then
@@ -101,12 +101,12 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFo
 end
 function N5ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then
-        print("In ScrollBar() BoxX is reporting as: "..tostring(BoxX))
-        print("In ScrollBar() BoxY is reporting as: "..tostring(BoxY))
-        print("In ScrollBar() BoxW is reporting as: "..tostring(BoxW))
-        print("In ScrollBar() BoxH is reporting as: "..tostring(BoxH))
-        print("In ScrollBar() MinNumberOfItems is reporting as: "..tostring(MinNumberOfItems))
-        print("In ScrollBar() NumberOfItems is reporting as: "..tostring(NumberOfItems))
+        print("In N5ScrollBar() BoxX is reporting as: "..tostring(BoxX))
+        print("In N5ScrollBar() BoxY is reporting as: "..tostring(BoxY))
+        print("In N5ScrollBar() BoxW is reporting as: "..tostring(BoxW))
+        print("In N5ScrollBar() BoxH is reporting as: "..tostring(BoxH))
+        print("In N5ScrollBar() MinNumberOfItems is reporting as: "..tostring(MinNumberOfItems))
+        print("In N5ScrollBar() NumberOfItems is reporting as: "..tostring(NumberOfItems))
         return 0
     end
     if Scaling==true then
@@ -131,14 +131,14 @@ function N5ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentS
     love.graphics.setColor(255,255,255)
     return CurrentScroll
 end
-function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title)
+function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title,Text, InnerFillTurnOff)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Title==nil then
-        print("In ScrollBar() BoxX is reporting as: "..tostring(BoxX))
-        print("In ScrollBar() BoxY is reporting as: "..tostring(BoxY))
-        print("In ScrollBar() BoxW is reporting as: "..tostring(BoxW))
-        print("In ScrollBar() BoxH is reporting as: "..tostring(BoxH))
-        print("In ScrollBar() MinNumberOfItems is reporting as: "..tostring(Scaling))
-        print("In ScrollBar() NumberOfItems is reporting as: "..tostring(Title))
+        print("In N5BoxWithTitle() BoxX is reporting as: "..tostring(BoxX))
+        print("In N5BoxWithTitle() BoxY is reporting as: "..tostring(BoxY))
+        print("In N5BoxWithTitle() BoxW is reporting as: "..tostring(BoxW))
+        print("In N5BoxWithTitle() BoxH is reporting as: "..tostring(BoxH))
+        print("In N5BoxWithTitle() MinNumberOfItems is reporting as: "..tostring(Scaling))
+        print("In N5BoxWithTitle() NumberOfItems is reporting as: "..tostring(Title))
         return 0
     end
     local BoxDiff=10
@@ -150,12 +150,61 @@ function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title)
         BoxDiff=scaling(10,1920,Settings.XRes)--difference factor between inner box and outer box
     end
     N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, false, {})-- outer black box on the outside
-    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*3, BoxW-BoxDiff*2, BoxH-BoxDiff*4, true, {255,255,255})--white box on the inside
+    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, {255,255,255}, false, Exo24Bold, Text)--white box on the inside
     love.graphics.setColor(195,199,203)--title cover
+    if InnerFillTurnOff then
+        local InFill=scaling(2,1128,Settings.XRes)
+        local InFill2=scaling(4,1128,Settings.XRes)
+        love.graphics.rectangle("fill",BoxX+BoxDiff-InFill, BoxY+BoxDiff*2-InFill, BoxW-BoxDiff*2+InFill2, BoxH-BoxDiff*2.5+InFill2)
+    end
     local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)--same print as later just to get the text width
     love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH)
     love.graphics.setColor(0,0,0,255) -- title text color
     CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)-- actual text of the title in the top middle of the outer line
     love.graphics.setColor(255,255,255)
     love.graphics.setFont(Exo24)
+    return BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5 --return the x,y,width,height of the inner box
+end
+function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
+    if BoxX == nil or BoxY == nil or BoxW == nil or BoxH == nil or Scaling == nil or Value == nil then
+        print("Invalid parameters")
+        return
+    end
+
+    if Scaling == true then
+        BoxX = scaling(BoxX, 1920, Settings.XRes)
+        BoxY = scaling(BoxY, 1080, Settings.YRes)
+        BoxW = scaling(BoxW, 1920, Settings.XRes)
+        BoxH = scaling(BoxH, 1080, Settings.YRes)
+    end
+
+    local padding = scaling(10, 1920, Settings.XRes)
+    
+    -- Calculate effective dimensions after padding
+    local effectiveWidth = BoxW - 2 * padding
+    local effectiveHeight = BoxH - 2 * padding
+    
+    -- Determine square size
+    local squareSize = math.min(effectiveWidth, effectiveHeight)
+    
+    -- Calculate square's top-left coordinates for centering
+    local squareX = BoxX + padding + (effectiveWidth - squareSize) / 2
+    local squareY = BoxY + padding + (effectiveHeight - squareSize) / 2
+
+    -- Now draw the outer box as you already do
+    
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.rectangle("fill",squareX,squareY,squareSize,squareSize)
+    love.graphics.line(squareX, squareY + squareSize, squareX + squareSize, squareY + squareSize) -- horizontal bottom
+    love.graphics.line(squareX + squareSize, squareY, squareX + squareSize, squareY + squareSize) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line(squareX, squareY, squareX + squareSize, squareY) -- horizontal top
+    love.graphics.line(squareX, squareY, squareX, squareY + squareSize) -- vertical left
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
+    if Value then
+        love.graphics.setColor(255,0,0)
+        love.graphics.line(squareX, squareY, squareX+squareSize, squareY + squareSize)
+    end
 end

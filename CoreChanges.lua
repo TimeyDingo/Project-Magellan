@@ -13,6 +13,27 @@ end
 function IsClickInBox(ClickX,ClickY,boxX, boxY, boxWidth, boxHeight)
     return ClickX >= boxX and ClickX <= boxX + boxWidth and ClickY >= boxY and ClickY <= boxY + boxHeight
 end
+function MouseDelta()
+    -- Get current mouse position
+    local MouseX, MouseY = love.mouse.getX(), love.mouse.getY()
+
+    -- Get previous position from history if available
+    local prevMouseX, prevMouseY = MouseHistory[#MouseHistory] and MouseHistory[#MouseHistory].x or MouseX, 
+                                   MouseHistory[#MouseHistory] and MouseHistory[#MouseHistory].y or MouseY
+
+    -- Calculate delta
+    local DX, DY = MouseX - prevMouseX, MouseY - prevMouseY
+
+    -- Add current position to history
+    table.insert(MouseHistory, {x = MouseX, y = MouseY})
+
+    -- Keep the table size limited
+    if #MouseHistory > MouseHistory.maxEntries then
+        table.remove(MouseHistory, 1)  -- Remove the oldest entry
+    end
+
+    return DX, DY
+end
 function MouseClickDebounce(DebouncePeriod)
     if love.window.hasMouseFocus() then
         if love.mouse.isDown(1) and DebounceTimer>DebouncePeriod then
