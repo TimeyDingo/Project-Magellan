@@ -1,4 +1,4 @@
-function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--Used to highlight a button like the X or <- in 95 style
+function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text, ExternalPress)--Used to highlight a button like the X o` <- in 95 style
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil then
         print("In N5Button() BoxX is reporting as: "..tostring(BoxX))
         print("In N5Button() BoxY is reporting as: "..tostring(BoxY))
@@ -29,7 +29,7 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text)--
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)    -- Check if mouse is over the box
     love.graphics.setLineWidth(MediumLine)
-    if Selected then
+    if Selected or ExternalPress then
         love.graphics.setColor(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
@@ -215,5 +215,36 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
         love.graphics.setColor(255,0,0)
         love.graphics.line(squareX, squareY, squareX+squareSize, squareY + squareSize)
     end
+    return Value
+end
+function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
+    if BoxX == nil or BoxY == nil or BoxW == nil or BoxH == nil or Scaling == nil or Value == nil then
+        print("Invalid parameters")
+        return
+    end
+    if Scaling == true then
+        BoxX = scaling(BoxX, 1920, Settings.XRes)
+        BoxY = scaling(BoxY, 1080, Settings.YRes)
+        BoxW = scaling(BoxW, 1920, Settings.XRes)
+        BoxH = scaling(BoxH, 1080, Settings.YRes)
+    end
+    --clicking
+    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
+    local Padding = scaling(10, 1920, Settings.XRes)
+    if Selected then
+        if love.mouse.isDown(1) then -- Button clicked
+            if MouseX<BoxX+BoxW-Padding and MouseX>BoxX+Padding then
+                Value=MouseX
+            end
+        end
+    end
+    local LineY = BoxY + BoxH / 2
+    love.graphics.setLineWidth(ThickLine*2)
+    local LineStart=BoxX+Padding
+    local LineEnd=BoxX+BoxX-Padding
+    local LineLength=LineEnd-LineStart
+    love.graphics.line(BoxX+Padding, LineY+Padding, BoxX+BoxW-Padding, LineY+Padding)
+    N5Button(Value, LineY-Padding/2, LineLength/35, Padding*3, false, "", true, Exo24, "", Selected)
+    love.graphics.setLineWidth(1)
     return Value
 end

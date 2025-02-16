@@ -21,6 +21,8 @@ https://www.youtube.com/watch?v=py0iF3mwy2E
 function love.load()
     ANTIFLICKER=false
     DARKMODE=false
+    FONTSIZEMOD=500
+    VOLUME=500
     LoadSettings()
     LoadFonts()
     LoadBackdrops()
@@ -102,9 +104,17 @@ function love.draw()
             --dark mode
             local DMTX,DMTY,DMTW,DMTH=N5BoxWithTitle(744,436,411,79,true,"Dark Mode?","",true)
             DARKMODE=N5TickBox(DMTX,DMTY,DMTW,DMTH, false, DARKMODE)
-            --
+            --antiflicker
             local RFTX,RFTY,RFTW,RFTH=N5BoxWithTitle(744,565,411,79,true,"Reduced Flicker?","",true)
             ANTIFLICKER=N5TickBox(RFTX,RFTY,RFTW,RFTH, false, ANTIFLICKER)
+            --
+            --Font size
+            local FSTX,FSTY,FSTW,FSTH=N5BoxWithTitle(744,693,411,79,true,"Font Size Modifier","",true)
+            FONTSIZEMOD=N5Slider(FSTX,FSTY,FSTW,FSTH, false, FONTSIZEMOD)
+            --
+            --Audio
+            local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
+            VOLUME=N5Slider(AVTX,AVTY,AVTW,AVTH, false, VOLUME)
             --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
