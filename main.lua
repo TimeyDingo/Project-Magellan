@@ -126,19 +126,9 @@ function love.draw()
             --Font size
             local FSTX,FSTY,FSTW,FSTH=N5BoxWithTitle(744,693,411,79,true,"Font Size Modifier","",true)
             Settings.FontModRaw,Settings.FontModPercent=N5Slider(FSTX,FSTY,FSTW,FSTH, false, Settings.FontModRaw,Settings.FontModPercent)
-            -- Convert percent into a signed scaling factor
-            local deviation = (Settings.FontModPercent - 0.5) * 2 -- Ranges from -1 to 1
-            local FontChange = math.floor(scaling(deviation * 10, 1920, Settings.XRes))
-            
-            -- Ensure FontChange has the correct flipping behavior
-            if Settings.FontModPercent < 0.5 then
-                FontChange = -math.abs(FontChange) -- Force negative change
-            else
-                FontChange = math.abs(FontChange)  -- Force positive change
-            end
-            SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes)+FontChange)
-            SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes)+FontChange)
-            SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes)+FontChange)
+            SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes)+FontTransform())
+            SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes)+FontTransform())
+            SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes)+FontTransform())
             --
             --Audio
             local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
@@ -220,7 +210,6 @@ function love.draw()
     end
     love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
     love.graphics.print(MouseDX.."x"..MouseDY,scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
-    love.graphics.print(Settings.FontModRaw.."x"..Settings.FontModPercent,scaling(200,1920,Settings.XRes),scaling(150,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,Exo24Bold,true,PopupAction)
     end
