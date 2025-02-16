@@ -13,8 +13,7 @@ function LoadFonts()
     MediumLine=scaling(3,1080,Settings.YRes,true)
     ThinLine=scaling(1,1080,Settings.YRes,true)
 
-
-    --Fonts for setting menu preview
+    --fonts for setting
     SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
     SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true))
     SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true))
