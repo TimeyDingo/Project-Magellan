@@ -29,7 +29,7 @@ function LoadSettings()
     Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3,AudioVolume=0,DarkMode=false,ReducedFlicker=false,FontSelected="Exo"}
     LoadSettingsIO(Settings)
     love.window.setMode(0, 0)
-    if ANTIFLICKER then
+    if Settings.ReducedFlicker then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
     end
@@ -37,7 +37,7 @@ function LoadSettings()
     DetectedY = love.graphics.getHeight()
     DetectedRes = DetectedX .. " x " .. DetectedY
     love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
-    if ANTIFLICKER then
+    if Settings.ReducedFlicker then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
     end
@@ -69,35 +69,8 @@ function LoadMouseClickDebounce()
     DebounceTimer=0
 end
 function ConfirmSettings()
-    if SettingsResolution==1920 then
-        Settings.XRes=1920
-        Settings.YRes=1080
-        Settings.FontModifier=0
-        Settings.LineModifier=0
-    end
-    if SettingsResolution==1280 then
-        Settings.XRes=1280
-        Settings.YRes=720
-        Settings.FontModifier=3
-        Settings.LineModifier=2
-    end
-    if SettingsResolution==1024 then
-        Settings.XRes=1024
-        Settings.YRes=576
-        Settings.FontModifier=4
-        Settings.LineModifier=3
-    end
-    if SettingsFullscreen==true then
-        Settings.Fullscreen=true
-    end
-    if SettingsFullscreen==false then
-        Settings.Fullscreen=false
-    end
     SaveSettings(Settings)
-    LoadFonts()
-    LoadSettings()
-    LoadBackdrops()
-    LoadActivities()
+    love.load()
 end
 function LoadViewSet()
     ViewActivityScroll=0
@@ -239,11 +212,25 @@ function LoadMatching()
         table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
     end
 end
-function ApplySettingsLoad()
+function ApplySettings()
+    if Settings.XRes>DetectedX then
+        Settings.XRes=DetectedX
+    end
+    if Settings.YRes>DetectedY then
+        Settings.YRes=DetectedY
+    end
     LoadFonts()
     LoadBackdrops()
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
     love.window.setMode(Settings.XRes,Settings.YRes)
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
 end
