@@ -9,6 +9,9 @@ function LoadFonts()
     Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1080,Settings.YRes,true))
     IBM34Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
     IBM60Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
+    ThickLine=scaling(5,1080,Settings.YRes,true)
+    MediumLine=scaling(3,1080,Settings.YRes,true)
+    ThinLine=scaling(1,1080,Settings.YRes,true)
 end
 function LoadBackdrops()
     local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
@@ -23,29 +26,24 @@ function LoadBackdrops()
     GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
 end
 function LoadSettings()
+    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3,AudioVolume=0,DarkMode=false,ReducedFlicker=false,FontSelected="Exo"}
+    LoadSettingsIO(Settings)
     love.window.setMode(0, 0)
     if ANTIFLICKER then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
     end
-    
     DetectedX = love.graphics.getWidth()
     DetectedY = love.graphics.getHeight()
     DetectedRes = DetectedX .. " x " .. DetectedY
-    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
-    if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+    love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+    if ANTIFLICKER then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
     end
     SettingsResolution=Settings.XRes
     SettingsResolutionDropDownClicked=false
     math.randomseed (os.time())
-    
-    ThickLine=scaling(5,1080,Settings.YRes,true)
-    MediumLine=scaling(3,1080,Settings.YRes,true)
-    ThinLine=scaling(1,1080,Settings.YRes,true)
-    if ANTIFLICKER then
-        love.timer.sleep(0.5)
-    end
 end
 function LoadActivities()
     LoadFlashcards()
@@ -100,16 +98,6 @@ function ConfirmSettings()
     LoadSettings()
     LoadBackdrops()
     LoadActivities()
-end
-function ApplyResolutionSettings(XResolutionToApply,YResolutionToApply)
-    Settings.XRes=XResolutionToApply
-    Settings.YRes=YResolutionToApply
-    SaveSettings(Settings)
-    LoadFonts()
-    LoadSettings()
-    LoadBackdrops()
-    LoadActivities()
-    --love.timer.sleep(1)
 end
 function LoadViewSet()
     ViewActivityScroll=0
@@ -250,4 +238,12 @@ function LoadMatching()
         local y2 = math.random(yMin, yMax)
         table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
     end
+end
+function ApplySettingsLoad()
+    LoadFonts()
+    LoadBackdrops()
+    LoadActivities()
+    LoadMouseClickDebounce()
+    LoadPopup()
+    love.window.setMode(Settings.XRes,Settings.YRes)
 end

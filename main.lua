@@ -19,16 +19,13 @@ https://www.youtube.com/watch?v=py0iF3mwy2E
 -show correct answers after finishing test mode
 ]]
 function love.load()
-    ANTIFLICKER=false
-    DARKMODE=false
-    FONTSIZEMOD=500
-    VOLUME=500
     LoadSettings()
     LoadFonts()
     LoadBackdrops()
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
+
     StateMachine="Main Menu"
     Input=""
     Paste=""
@@ -92,29 +89,43 @@ function love.draw()
         end
         if StateMachine=="Settings Menu" then
             BackdropDraw(SettingsMenuBackdrop)
-            ButtonStyle1Mod3(754,880,402,110,"Confirm",Exo24Bold,true, 'ConfirmSettings()')
-            --ResolutionDropDownMenuMk1(835-MediumLine,200,300,125,Exo24Bold,true)
+            N5Button(754,880,402,110, true, 'ConfirmSettings()', true, Exo24Bold, "Save Settings")
             --resolution
             N5BoxWithTitle(1249,178,411,55,true,"Current Resolution",Settings.XRes.. " x " ..Settings.YRes)
-            N5BoxWithTitle(1249,261,411,573,true,"Select A Resolution")
+            local RSBX,RSBY,RSBW,RSBH=N5BoxWithTitle(1249,261,411,573,true,"Select A Resolution")
+            local Padding=scaling(10,1920,Settings.XRes)
+            local YSpacing=scaling(44.5,1080,Settings.YRes)
+            local BoxHeight=scaling(24,634,Settings.YRes)
+            N5Button(RSBX+Padding,RSBY+Padding,RSBW-Padding*2,BoxHeight,false,"Settings.XRes=854; Settings.YRes=480; ApplySettingsLoad()",true,Exo24,"854 x 480")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*1,RSBW-Padding*2,BoxHeight,false,"Settings.XRes=1024; Settings.YRes=576; ApplySettingsLoad()",true,Exo24,"1024 x 576")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*2,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1128; Settings.YRes=634; ApplySettingsLoad()", true, Exo24, "1128 x 634")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*3,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1280; Settings.YRes=720; ApplySettingsLoad()", true, Exo24, "1280 x 720")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*4,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1366; Settings.YRes=768; ApplySettingsLoad()", true, Exo24, "1366 x 768")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*5,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1440; Settings.YRes=810; ApplySettingsLoad()", true, Exo24, "1440 x 810")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*6,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1600; Settings.YRes=900; ApplySettingsLoad()", true, Exo24, "1600 x 900")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*7,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1760; Settings.YRes=990; ApplySettingsLoad()", true, Exo24, "1760 x 990")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*8,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=1920; Settings.YRes=1080; ApplySettingsLoad()", true, Exo24, "1920 x 1080")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*9,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=2560; Settings.YRes=1440; ApplySettingsLoad()", true, Exo24, "2560 x 1440")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*10,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=2732; Settings.YRes=1536; ApplySettingsLoad()", true, Exo24, "2732 x 1536")
+            N5Button(RSBX+Padding,RSBY+Padding+YSpacing*11,RSBW-Padding*2,BoxHeight, false, "Settings.XRes=3840; Settings.YRes=2160; ApplySettingsLoad()", true, Exo24, "3840 x 2160")
             --
             --font selector
             N5BoxWithTitle(261,178,411,55,true,"Current Font",Settings.XRes.. " x " ..Settings.YRes)
             N5BoxWithTitle(261,261,411,573,true,"Select A Font")
             --dark mode
             local DMTX,DMTY,DMTW,DMTH=N5BoxWithTitle(744,436,411,79,true,"Dark Mode?","",true)
-            DARKMODE=N5TickBox(DMTX,DMTY,DMTW,DMTH, false, DARKMODE)
+            Settings.DarkMode=N5TickBox(DMTX,DMTY,DMTW,DMTH, false, Settings.DarkMode)
             --antiflicker
             local RFTX,RFTY,RFTW,RFTH=N5BoxWithTitle(744,565,411,79,true,"Reduced Flicker?","",true)
-            ANTIFLICKER=N5TickBox(RFTX,RFTY,RFTW,RFTH, false, ANTIFLICKER)
+            Settings.ReducedFlicker=N5TickBox(RFTX,RFTY,RFTW,RFTH, false, Settings.ReducedFlicker)
             --
             --Font size
             local FSTX,FSTY,FSTW,FSTH=N5BoxWithTitle(744,693,411,79,true,"Font Size Modifier","",true)
-            FONTSIZEMOD=N5Slider(FSTX,FSTY,FSTW,FSTH, false, FONTSIZEMOD)
+            Settings.FontModifier=N5Slider(FSTX,FSTY,FSTW,FSTH, false, Settings.FontModifier)
             --
             --Audio
             local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
-            VOLUME=N5Slider(AVTX,AVTY,AVTW,AVTH, false, VOLUME)
+            Settings.AudioVolume=N5Slider(AVTX,AVTY,AVTW,AVTH, false, Settings.AudioVolume)
             --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")

@@ -8,6 +8,10 @@ function SaveSettings(Settings)
         file:write("Fullscreen=" .. tostring(Settings.Fullscreen) .. "\n")
         file:write("FontModifier=" .. tostring(Settings.FontModifier) .. "\n")
         file:write("LineModifier=" .. tostring(Settings.LineModifier) .. "\n")
+        file:write("AudioVolume=".. tostring(Settings.AudioVolume) .. "\n")
+        file:write("DarkMode=".. tostring(Settings.DarkMode) .. "\n")
+        file:write("ReducedFlicker=".. tostring(Settings.ReducedFlicker) .. "\n")
+        file:write("FontSelected=".. tostring(Settings.FontSelected) .. "\n")
         
         file:close() -- Close the file
         return 1 -- Success
@@ -30,6 +34,14 @@ function LoadSettingsIO(Settings)
         Settings.FontModifier=tonumber(line:match("=(.+)"))
         line=file:read("*l")
         Settings.LineModifier=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.AudioVolume=tonumber(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.DarkMode=toboolean(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.ReducedFlicker=toboolean(line:match("=(.+)"))
+        line=file:read("*l")
+        Settings.FontSelected=tostring(line:match("=(.+)"))
         file:close()
         return 1 -- Success
     else
