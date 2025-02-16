@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=py0iF3mwy2E
 -show correct answers after finishing test mode
 ]]
 function love.load()
-    ANTIFLICKER=true
+    ANTIFLICKER=false
     LoadSettings()
     LoadFonts()
     LoadBackdrops()

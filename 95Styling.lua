@@ -131,3 +131,31 @@ function N5ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentS
     love.graphics.setColor(255,255,255)
     return CurrentScroll
 end
+function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Title==nil then
+        print("In ScrollBar() BoxX is reporting as: "..tostring(BoxX))
+        print("In ScrollBar() BoxY is reporting as: "..tostring(BoxY))
+        print("In ScrollBar() BoxW is reporting as: "..tostring(BoxW))
+        print("In ScrollBar() BoxH is reporting as: "..tostring(BoxH))
+        print("In ScrollBar() MinNumberOfItems is reporting as: "..tostring(Scaling))
+        print("In ScrollBar() NumberOfItems is reporting as: "..tostring(Title))
+        return 0
+    end
+    local BoxDiff=10
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+        BoxDiff=scaling(10,1920,Settings.XRes)--difference factor between inner box and outer box
+    end
+    N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, false, {})-- outer black box on the outside
+    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*3, BoxW-BoxDiff*2, BoxH-BoxDiff*4, true, {255,255,255})--white box on the inside
+    love.graphics.setColor(195,199,203)--title cover
+    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)--same print as later just to get the text width
+    love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH)
+    love.graphics.setColor(0,0,0,255) -- title text color
+    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)-- actual text of the title in the top middle of the outer line
+    love.graphics.setColor(255,255,255)
+    love.graphics.setFont(Exo24)
+end
