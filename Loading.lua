@@ -1,22 +1,33 @@
 function LoadFonts()
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true))
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true))
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true))
-    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1080,Settings.YRes,true))
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true))
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1080,Settings.YRes,true))
-    IBM34Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
-    IBM60Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
-    ThickLine=scaling(5,1080,Settings.YRes,true)
-    MediumLine=scaling(3,1080,Settings.YRes,true)
-    ThinLine=scaling(1,1080,Settings.YRes,true)
-
-    --fonts for setting
+    if Settings.FontSelected=="Stylized" then
+        Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true))
+        Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true))
+        Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
+        Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true))
+        Exo28=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1080,Settings.YRes,true))
+        Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true))
+        Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+        Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1080,Settings.YRes,true))
+        IBM34Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
+        IBM60Bold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
+    end
+    if Settings.FontSelected=="Exo2" then
+        
+    end
+    if Settings.FontSelected=="AtkinsonHyperlegible" then
+        
+    end
+    if Settings.FontSelected=="IBMPlex" then
+        
+    end
+    --fonts for setting menu
     SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
     SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true))
     SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true))
+    --line settings
+    ThickLine=scaling(5,1080,Settings.YRes,true)
+    MediumLine=scaling(3,1080,Settings.YRes,true)
+    ThinLine=scaling(1,1080,Settings.YRes,true)
 end
 function LoadBackdrops()
     local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")

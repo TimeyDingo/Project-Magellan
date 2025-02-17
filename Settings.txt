@@ -9,4 +9,4 @@ AudioRaw=766.38360175695
 AudioPercent=0.69499946723073
 DarkMode=false
 ReducedFlicker=false
-FontSelected=Exo2
+FontSelected=Stylized
