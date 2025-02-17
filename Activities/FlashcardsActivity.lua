@@ -55,13 +55,13 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     end
     --95 box border
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.setColorF(255, 255, 255) -- white
     love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
     love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.setColorF(0, 0, 0) -- black
     love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
     love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
 function FlashCardKeyboardControls()

@@ -77,13 +77,14 @@ function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFon
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.setColorF(0, 0, 0) -- black
     love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
     love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.setColorF(0, 0, 0) -- black
+    love.graphics.setColorF(255, 255, 255) -- white
     love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
     love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
 function TestActivityCheckIfEnoughTerms()

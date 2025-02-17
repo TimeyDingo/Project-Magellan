@@ -233,16 +233,14 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
         BoxW=scaling(BoxWUnscalled,1920,Settings.XRes)
         BoxH=scaling(BoxHUnscalled,1080,Settings.YRes)
     end
+
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
     local textY = (BoxY + (BoxH - TH) / 2)-scaling(90,1080,Settings.YRes)  -- Center the text vertically
-    love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255,255,255)
-    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-    love.graphics.setColor(255,153,0)
+    N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, true, {195,199,203}, false,SExo24,"",true)
+    love.graphics.setColor(0,0,0)
     love.graphics.print(MessageType, textX, textY)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255)
     if BackoutAction==nil then
         BackoutAction="PopupCall=false"
     end

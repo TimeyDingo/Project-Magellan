@@ -1,5 +1,23 @@
 love.graphics.setColorF = love.graphics.setColor
 function love.graphics.setColor(r,g,b,a) --! converting love2D shitty color space to rgb color
+    if Settings.DarkMode then
+        if r==0 and g==0 and b==170 then
+            goto Done
+        end
+        if r==56 and g==110 and b==110 then
+            goto Done
+        end
+        if r==244 and g==244 and b==244 then
+            goto Done
+        end
+        if r==0.949 and g==0.733 and b==0.020 then
+            goto Done
+        end
+        r=255-r
+        g=255-g
+        b=255-b
+    end
+    ::Done::
     r, g, b = r/255, g/255, b/255
 	love.graphics.setColorF(r,g,b,a)
 end

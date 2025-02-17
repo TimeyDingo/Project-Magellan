@@ -30,12 +30,12 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text, E
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)    -- Check if mouse is over the box
     love.graphics.setLineWidth(MediumLine)
     if Selected or ExternalPress then
-        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.setColorF(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.setColorF(0, 0, 0) -- black
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
         if love.mouse.isDown(1) and MouseClickDebounce(0.5) then -- Button clicked
@@ -50,10 +50,10 @@ function N5Button(BoxX, BoxY, BoxW, BoxH, Scaling, Action, Fill,TextFont,Text, E
             return true
         end
     else
-        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.setColorF(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
-        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.setColorF(0, 0, 0) -- black
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
     end
@@ -90,18 +90,18 @@ function N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, fill, FillColor, Scaling, TextFo
         love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     end
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.setColorF(255, 255, 255) -- white
     love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
     love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.setColorF(0, 0, 0) -- black
     love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
     love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     if invert then
         love.graphics.setLineWidth(MediumLine)
-        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.setColorF(0, 0, 0) -- black
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.setColorF(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     end
@@ -211,14 +211,14 @@ function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
     local squareY = BoxY + padding + (effectiveHeight - squareSize) / 2
 
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.setColorF(255, 255, 255) -- white
     love.graphics.rectangle("fill",squareX,squareY,squareSize,squareSize)
     love.graphics.line(squareX, squareY + squareSize, squareX + squareSize, squareY + squareSize) -- horizontal bottom
     love.graphics.line(squareX + squareSize, squareY, squareX + squareSize, squareY + squareSize) -- vertical right
-    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.setColorF(0, 0, 0) -- black
     love.graphics.line(squareX, squareY, squareX + squareSize, squareY) -- horizontal top
     love.graphics.line(squareX, squareY, squareX, squareY + squareSize) -- vertical left
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255)
     love.graphics.setLineWidth(1)
     if Value then --draw the tick
         love.graphics.setColor(255,0,0)

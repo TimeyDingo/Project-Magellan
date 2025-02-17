@@ -68,19 +68,19 @@ function DisplayMatchingCard(BoxX, BoxY, Text, TextFont, Pair, PairSubset, CardN
     -- Draw the box border
     love.graphics.setLineWidth(MediumLine)
     if MatchingActivityCurrentCard == CardNumber then
-        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.setColorF(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.setColorF(0, 0, 0) -- black
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     else
-        love.graphics.setColor(255, 255, 255) -- white
+        love.graphics.setColorF(255, 255, 255) -- white
         love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
         love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
-        love.graphics.setColor(0, 0, 0) -- black
+        love.graphics.setColorF(0, 0, 0) -- black
         love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
         love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
     end
