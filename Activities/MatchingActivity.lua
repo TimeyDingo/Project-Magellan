@@ -7,8 +7,8 @@ function MatchingActivity()
         print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
         return
     end
-    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
-    N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, Exo32Bold, tostring(#MatchingActivity4XTable).."/4")
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
+    N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, SmallHeaderBold, tostring(#MatchingActivity4XTable).."/4")
     if #MatchingActivity4XTable==0 then
         GenerateMatchingData()
         LoadMatching()
@@ -19,7 +19,7 @@ function MatchingActivity()
     for i = 1, #MatchingActivity4XTable do
         for j = 1, 2 do
             CardNumber=CardNumber+1
-            MatchingActivityPositions[i][j][3], MatchingActivityPositions[i][j][4] = DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], MatchingActivity4XTable[i][j], Exo24, i,j, CardNumber)--i + (j-1) * NumberOfTerms
+            MatchingActivityPositions[i][j][3], MatchingActivityPositions[i][j][4] = DisplayMatchingCard(MatchingActivityPositions[i][j][1], MatchingActivityPositions[i][j][2], MatchingActivity4XTable[i][j], BodyFont, i,j, CardNumber)--i + (j-1) * NumberOfTerms
         end
     end
 end

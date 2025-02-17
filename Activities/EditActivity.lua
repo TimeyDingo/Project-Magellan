@@ -8,36 +8,36 @@ function EditActivity()
             print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
             return
         end
-        EditableTitle(660, 145, 600, 50, Exo32Bold,true)
-        N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, Exo24Bold, "-> View Mode")
-        local TermFont=Exo24
-        local DefinitionFont=Exo20
+        EditableTitle(660, 145, 600, 50, SmallHeaderBold,true)
+        N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
+        local TermFont=BodyFont
+        local DefinitionFont=SmallBodyFont
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
-        N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Terms")
-        N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Definitions")
-        N5Button(1522, 6, 200, 75, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)',true, Exo24Bold, "Save Set")
-        N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1' ,true, Exo24Bold, "+++")
+        N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Terms")
+        N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Definitions")
+        N5Button(1522, 6, 200, 75, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)',true, BodyFontBold, "Save Set")
+        N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1' ,true, BodyFontBold, "+++")
         if NumberOfTerms>0 then
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
-            N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, Exo24Bold, "X")
+            N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>1 then
             EditableDisplayTerm(20,420+MediumLine,870,200,2+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,420+MediumLine,910,200,2+EditActivityScroll,DefinitionFont,true)
-            N5Button(890, 420+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(2+EditActivityScroll)', false, Exo24Bold, "X")
+            N5Button(890, 420+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(2+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>2 then
             EditableDisplayTerm(20,640+MediumLine,870,200,3+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,640+MediumLine,910,200,3+EditActivityScroll,DefinitionFont,true)
-            N5Button(890, 640+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(3+EditActivityScroll)', false, Exo24Bold, "X")
+            N5Button(890, 640+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(3+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>3 then
             EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
-            N5Button(890, 860+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(4+EditActivityScroll)', false, Exo24Bold, "X")
+            N5Button(890, 860+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(4+EditActivityScroll)', false, BodyFontBold, "X")
             EditActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
         end
     end

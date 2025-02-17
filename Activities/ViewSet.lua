@@ -6,16 +6,16 @@ function ViewActivity()
         print("In ViewActivity() ViewActivityScroll is reporting as: "..tostring(ViewActivityScroll))
         return
     end
-    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
-    N5Button(830, 90, 240, 50, true, 'StateMachine="Edit"; EditActivityScroll=0', false, Exo24Bold,"-> Edit Mode")
-    local TermFont=Exo24
-    local DefinitionFont=Exo20
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
+    N5Button(830, 90, 240, 50, true, 'StateMachine="Edit"; EditActivityScroll=0', false, BodyFontBold,"-> Edit Mode")
+    local TermFont=BodyFont
+    local DefinitionFont=SmallBodyFont
     local NumberOfTerms=#SetData
     love.graphics.setColor(40,40,40)
     love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
     love.graphics.setColor(255,255,255)
-    N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Terms")
-    N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Definitions")
+    N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Terms")
+    N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Definitions")
     if NumberOfTerms>0 then
         N5BoxHighlight(20, 200+MediumLine, 910, 200, true, {255,255,255}, true, TermFont, SetData[1+ViewActivityScroll][2])
         N5BoxHighlight(990, 200+MediumLine, 910, 200, true, {255,255,255}, true, DefinitionFont, SetData[1+ViewActivityScroll][1])

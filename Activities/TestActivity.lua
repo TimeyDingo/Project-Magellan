@@ -1,26 +1,26 @@
 function TestActivity()
     TestActivityCheckIfEnoughTerms()
-    local TermFont=Exo24
-    local DefinitionFont=Exo20
+    local TermFont=BodyFont
+    local DefinitionFont=SmallBodyFont
     love.graphics.setColor(40,40,40)
     love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
     love.graphics.setColor(255,255,255)
-    N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Terms")
-    N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, Exo32Bold, "Definitions")
+    N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Terms")
+    N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Definitions")
     local AnsweredCount, TotalQuestions = TestActivityCalculateHowManyHaveBeenAnswered()
     if AnsweredCount==nil or TotalQuestions==nil or TestActivityTestTable==nil then
         print("In TestActivity() AnsweredCount is reporting as: "..tostring(AnsweredCount))
         print("In TestActivity() TotalQuestions is reporting as: "..tostring(TotalQuestions))
         print("In TestActivity() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
     end
-    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, Exo32Bold, SetTitle)
-    N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, Exo32Bold, AnsweredCount.."/"..TotalQuestions)
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
+    N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, SmallHeaderBold, AnsweredCount.."/"..TotalQuestions)
     N5BoxHighlight(20,530+MediumLine,910,200, true, {255,255,255}, true, TermFont, TestActivityTestTable[1+TestActivityScroll].TermToTest)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].CorrectAnswerPos,910,200,TestActivityTestTable[1+TestActivityScroll].CorrectAnswer,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer1,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3,DefinitionFont,true)
-    N5Button(20, 120, 300, 80, true, 'TestActivityCheckAnswers()', true,Exo24Bold,"Check Answers")
+    N5Button(20, 120, 300, 80, true, 'TestActivityCheckAnswers()', true,BodyFontBold,"Check Answers")
     TestActivityScroll=N5ScrollBar(940,200,40,680,1,NumberOfTerms,TestActivityScroll,true)
     love.graphics.setColor(255,255,255)
 end

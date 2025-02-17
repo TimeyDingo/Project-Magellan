@@ -150,19 +150,19 @@ function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title,Text, InnerFillTurnOff
         BoxDiff=scaling(10,1920,Settings.XRes)--difference factor between inner box and outer box
     end
     N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, false, {})-- outer black box on the outside
-    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, {255,255,255}, false, Exo24Bold, Text)--white box on the inside
+    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, {255,255,255}, false, BodyFontBold, Text)--white box on the inside
     love.graphics.setColor(195,199,203)--title cover
     if InnerFillTurnOff then
         local InFill=scaling(2,1128,Settings.XRes)
         local InFill2=scaling(4,1128,Settings.XRes)
         love.graphics.rectangle("fill",BoxX+BoxDiff-InFill, BoxY+BoxDiff*2-InFill, BoxW-BoxDiff*2+InFill2, BoxH-BoxDiff*2.5+InFill2)
     end
-    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)--same print as later just to get the text width
+    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)--same print as later just to get the text width
     love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH)
     love.graphics.setColor(0,0,0,255) -- title text color
-    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, IBM34Bold, false)-- actual text of the title in the top middle of the outer line
+    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)-- actual text of the title in the top middle of the outer line
     love.graphics.setColor(255,255,255)
-    love.graphics.setFont(Exo24)
+    love.graphics.setFont(BodyFont)
     return BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5 --return the x,y,width,height of the inner box
 end
 function N5TickBox(BoxX, BoxY, BoxW, BoxH, Scaling, Value)
@@ -244,7 +244,7 @@ function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, RawValue, Percentage)
     local LineEnd=BoxX+BoxW-Padding
     local LineLength=LineEnd-LineStart
     love.graphics.line(BoxX+Padding, LineY+Padding, BoxX+BoxW-Padding, LineY+Padding)
-    N5Button(RawValue, LineY-Padding/2, LineLength/25, Padding*3, false, "", true, Exo24, "", Selected)
+    N5Button(RawValue, LineY-Padding/2, LineLength/25, Padding*3, false, "", true, BodyFont, "", Selected)
     love.graphics.setLineWidth(1)
     if RawValue<BoxX+Padding then
         RawValue=LineEnd

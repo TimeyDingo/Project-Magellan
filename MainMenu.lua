@@ -20,49 +20,49 @@ function ListofSets()
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,Exo24,tostring(SetData[1+MainMenuScroll][1]))
+        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,BodyFont,tostring(SetData[1+MainMenuScroll][1]))
     end
     if NumberofSets>1 then
         if SetData[2+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,Exo24,tostring(SetData[2+MainMenuScroll][1]))
+        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,BodyFont,tostring(SetData[2+MainMenuScroll][1]))
     end
     if NumberofSets>2 then
         if SetData[3+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,Exo24,tostring(SetData[3+MainMenuScroll][1]))
+        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,BodyFont,tostring(SetData[3+MainMenuScroll][1]))
     end
     if NumberofSets>3 then
         if SetData[4+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,Exo24,tostring(SetData[4+MainMenuScroll][1]))
+        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,BodyFont,tostring(SetData[4+MainMenuScroll][1]))
     end
     if NumberofSets>4 then
         if SetData[5+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,Exo24,tostring(SetData[5+MainMenuScroll][1]))
+        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,BodyFont,tostring(SetData[5+MainMenuScroll][1]))
     end
     if NumberofSets>5 then
         if SetData[6+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,Exo24,tostring(SetData[6+MainMenuScroll][1]))
+        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,BodyFont,tostring(SetData[6+MainMenuScroll][1]))
     end
     if NumberofSets>6 then
         if SetData[7+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,Exo24,tostring(SetData[7+MainMenuScroll][1]))
+        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,BodyFont,tostring(SetData[7+MainMenuScroll][1]))
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -87,15 +87,15 @@ function SetPreview()
         N5BoxHighlight(976, 180, 673, 100, false, {}, true)-- box around title
         love.graphics.setColor(195,199,203)--title cover
         love.graphics.rectangle("fill",scaling(1226,1920,Settings.XRes),scaling(155,1080,Settings.YRes),scaling(174,1920,Settings.XRes),scaling(110,1080,Settings.YRes))--title cover
-        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, Exo28Bold, tostring(setTitle))--title
+        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, LargeBodyFontBold, tostring(setTitle))--title
         love.graphics.setColor(0,0,0,255)
-        CenteredTextBox(1176,120,273,110,"Set Title", IBM34Bold, true)--title
-        love.graphics.setFont(Exo24)
+        CenteredTextBox(1176,120,273,110,"Set Title", MediumHeaderBold, true)--title
+        love.graphics.setFont(BodyFont)
         N5BoxHighlight(976, 320, 673, 585, false, {}, true)-- box around preview
         love.graphics.setColor(195,199,203)--title cover
         love.graphics.rectangle("fill",scaling(1240,1920,Settings.XRes),scaling(295,1080,Settings.YRes),scaling(150,1920,Settings.XRes),scaling(110,1080,Settings.YRes))--preview cover
         love.graphics.setColor(0,0,0,255)
-        CenteredTextBox(1176,260,273,110," Preview ", IBM34Bold, true)--preview title
+        CenteredTextBox(1176,260,273,110," Preview ", MediumHeaderBold, true)--preview title
         N5BoxHighlight(986, 350, 653, 545, true, {255,255,255}, true)--white box
         -- or at least comment it
         love.graphics.setColor(0,0,0,255)
@@ -111,27 +111,27 @@ function SetPreview()
                 love.graphics.setColor(255,255,255,0)
             end
             -- Add wrapping for the term text box
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, Exo20Bold)
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, SmallBodyFontBold)
             y = y + WrapDistance + scaling(0,1080,Settings.YRes)  -- Move to the next line after wrapping
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
             -- Wrap the definition as you already have
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, Exo20)
+            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, SmallBodyFont)
             y = y + WrapDistance  -- Move to the next line
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
         end
         love.graphics.setColor(255,255,255,255)
-        N5Button(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), false, "DeleteSet()", false,Exo24Bold,"Delete Set")
+        N5Button(x + scaling(80,1920,Settings.XRes), scaling(895,1080,Settings.YRes) + scaling(35,1080,Settings.YRes), scaling(673,1920,Settings.XRes) - scaling(160,1920,Settings.XRes), scaling(50,1080,Settings.YRes), false, "DeleteSet()", false,BodyFontBold,"Delete Set")
     end
     love.graphics.setColor(255,255,255,255)
-    love.graphics.setFont(Exo24)
+    love.graphics.setFont(BodyFont)
 end
 function ImportMenuTitle()
     love.graphics.setColor(0,0,0)
-    CenterText(scaling(201,1920,Settings.XRes),scaling(-293,1080,Settings.YRes),Input,Exo28)
+    CenterText(scaling(201,1920,Settings.XRes),scaling(-293,1080,Settings.YRes),Input,LargeBodyFont)
     function love.textinput(t)
         Input=Input..t
     end
@@ -157,7 +157,7 @@ function ImportMenuSetPastingAndPreview()
             table.insert(sections, section)
         end
 
-        love.graphics.setFont(Exo24)
+        love.graphics.setFont(BodyFont)
         y = y + scaling(20,1080,Settings.YRes)  -- Move to the next line
 
         for i, section in ipairs(sections) do
@@ -166,11 +166,11 @@ function ImportMenuSetPastingAndPreview()
             
             if definition and term then
                 -- Draw the definition text box with wrapping
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, Exo20Bold)
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, SmallBodyFontBold)
                 y = y + WrapDistance  -- Move to the next line after wrapping
                 
                 -- Draw the term text box with wrapping
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, Exo20)
+                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, SmallBodyFont)
                 y = y + WrapDistance  -- Move to the next line after wrapping
 
                 -- Check for overflow and hide text if necessary
@@ -181,13 +181,13 @@ function ImportMenuSetPastingAndPreview()
         end
 
         love.graphics.setColor(255, 255, 255, 255)  -- Reset the color after hiding
-        love.graphics.setFont(Exo24)
+        love.graphics.setFont(BodyFont)
     end
 end
 function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
-    love.graphics.setFont(IBM60Bold)
+    love.graphics.setFont(LargerHeader2)
     love.graphics.print(StateMachine, scaling(1150,1920,Settings.XRes), scaling(3,1080,Settings.YRes))
-    love.graphics.setFont(Exo24)
+    love.graphics.setFont(BodyFont)
 end

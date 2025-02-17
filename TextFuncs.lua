@@ -240,8 +240,8 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
     if BackoutAction==nil then
         BackoutAction="PopupCall=false"
     end
-    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine,BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},BackoutAction)
-    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
+    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine,BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Cancel", BodyFont, true,{0,255,0,255,153,0},BackoutAction)
+    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Confirm", BodyFont, true,{255,0,0,255,153,0},Action)
 end
 function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then

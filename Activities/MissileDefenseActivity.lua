@@ -30,9 +30,9 @@ function MissileDefenseActivity()
         MissileDefenseLevelUp2()
     end
     love.graphics.setColor(0,0,0)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-440,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-400,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-360,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-440,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),BodyFontBold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-400,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),BodyFontBold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-360,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),BodyFontBold)
     love.graphics.setColor(255,255,255)
 end
 function MissileDefenseDisplayChallenges()
@@ -119,7 +119,7 @@ function MissileDefenseResponse()
         print("In MissileDefenseResponse() MissileDefenseTypedResponse is reporting as: "..tostring(MissileDefenseTypedResponse))
         return
     end
-    local TextFont=Exo32Bold
+    local TextFont=SmallHeaderBold
     love.graphics.setFont(TextFont)
     local BoxX=0
     local BoxY=930
@@ -219,7 +219,7 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         print("In MissileDefenseDisplayChallenge() Failed is reporting as: "..tostring(Failed))
         return
     end
-    local InitialFont=Exo28
+    local InitialFont=LargeBodyFont
     local newSize=28
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings.XRes)
@@ -394,7 +394,7 @@ function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
 end
 function MissileDefenseLevelUp1()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader1)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
@@ -403,7 +403,7 @@ function MissileDefenseLevelUp1()
 end
 function MissileDefenseLevelUp2()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader1)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
