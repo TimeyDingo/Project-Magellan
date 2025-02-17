@@ -8,37 +8,37 @@ function EditActivity()
             print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
             return
         end
-        EditableTitle(660, 60, 600, 60, Exo32Bold,true)
-        ButtonStyle1Mod3(830, 0, 240, 55, "-> View Mode", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0')
-        local TermFont=Exo24
-        local DefinitionFont=Exo20
+        EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
+        N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
+        local TermFont=BodyFont
+        local DefinitionFont=SmallBodyFont
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
-        CenterText(scaling(-485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Terms",Exo24Bold)
-        CenterText(scaling(485,1920,Settings.XRes),scaling(-380,1080,Settings.YRes),"Definitions",Exo24Bold)
-        ButtonStyle1Mod3(850, 120, 220, 80, "Save Set", Exo24Bold, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)')
-        ButtonStyle1Mod3(1090, 120, 80, 80, "+++", Exo24Bold, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1')
+        N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Terms")
+        N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Definitions")
+        N5Button(1522, 6, 200, 75, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)',true, BodyFontBold, "Save Set")
+        N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1' ,true, BodyFontBold, "+++")
         if NumberOfTerms>0 then
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 200+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(1+EditActivityScroll)')
+            N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>1 then
             EditableDisplayTerm(20,420+MediumLine,870,200,2+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,420+MediumLine,910,200,2+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 420+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(2+EditActivityScroll)')
+            N5Button(890, 420+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(2+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>2 then
             EditableDisplayTerm(20,640+MediumLine,870,200,3+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,640+MediumLine,910,200,3+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 640+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(3+EditActivityScroll)')
+            N5Button(890, 640+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(3+EditActivityScroll)', false, BodyFontBold, "X")
         end
         if NumberOfTerms>3 then
             EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
-            ButtonStyle1Mod3(890, 860+MediumLine, 40, 200, "X", Exo24Bold, true, 'EditActivityRemoveTerm(4+EditActivityScroll)')
-            EditActivityScroll=ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
+            N5Button(890, 860+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(4+EditActivityScroll)', false, BodyFontBold, "X")
+            EditActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
         end
     end
     love.graphics.setColor(255,255,255)
@@ -51,7 +51,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         BoxW = scaling(BoxW, 1920, Settings.XRes)
         BoxH = scaling(BoxH, 1080, Settings.YRes)
     end
-
+    
     -- Check if the mouse is over the box
     local isHovered = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     
@@ -68,9 +68,11 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     elseif isHovered then
         love.graphics.setColor(200, 200, 200)  -- Lighter hover color
     else
-        love.graphics.setColor(255, 153, 0)  -- Default color
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
-
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         function love.textinput(t)
@@ -114,7 +116,6 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
             EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit][2], EditCursorPositionTerm + 1)
         end
     end
-
     -- Draw the text inside the box
     local Text = SetData[TermToDisplayAndEdit][2]
     local displayText = Text
@@ -123,16 +124,22 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         displayText = Text:sub(1, EditCursorPositionTerm) .. "|" .. Text:sub(EditCursorPositionTerm + 1)  -- Add cursor to the text
     end
-
+    --text wrapping
     local _, wrappedText = TextFont:getWrap(displayText, BoxW)
     local wrappedHeight = #wrappedText * TextFont:getHeight()
     local textY = BoxY + (BoxH - wrappedHeight) / 2
     love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
     
-    -- Draw the box border
+    --95 box border
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
+    love.graphics.setColorF(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColorF(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
 end
 function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextFont, Scaling)
     -- Scaling logic
@@ -159,8 +166,11 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     elseif isHovered then
         love.graphics.setColor(200, 200, 200)  -- Lighter hover color
     else
-        love.graphics.setColor(255, 153, 0)  -- Default color
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
 
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedDefinition == TermToDisplayAndEdit then
@@ -221,26 +231,16 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     local textY = BoxY + (BoxH - wrappedHeight) / 2
     love.graphics.printf(displayText, BoxX, textY, BoxW, "center")
 
-    -- Draw the box border
+    --95 box border
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-end
-function EditActivityRemoveTerm(TermToRemove)
-    if TermToRemove==nil then
-        print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
-        return
-    end
-    Deleting=true
-    EditActivityScroll=0
-    table.remove(SetData, TermToRemove)
-    NumberOfTerms=NumberOfTerms-1
-    Deleting=false
-end
-function EditActivityCallBackoutPopup()
-    PopupCall = true
-    PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
-    PopUpMessage = "Unsaved Edits will be lost"
+    love.graphics.setColorF(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColorF(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColorF(255, 255, 255)
+    love.graphics.setLineWidth(1)
 end
 function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or Scaling==nil or SetTitle==nil then
@@ -262,7 +262,7 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     end
     local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
     if Selected then
-        love.graphics.setColor(255, 153, 0)
+        love.graphics.setColor(255, 255, 255)  -- Highlight color for selected
         EditActivitySelectedTerm = nil
         EditActivitySelectedDefinition = nil
         function love.textinput(t)
@@ -271,8 +271,14 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
         SetTitle=BackspaceController(SetTitle,1,0.1)
     else
         function love.textinput(t)
-        end 
+        end
+        love.graphics.setColor(180, 180, 180)  -- Default color
     end
+    --95 box background
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0,0,0)--text color
+    -- black color text
+    love.graphics.setColor(0,0,0)
     local Text=SetTitle
     local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
     local _, wrappedText = TextFont:getWrap(Text, BoxW)
@@ -281,12 +287,30 @@ function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    if Selected then
-        love.graphics.setColor(255, 255, 255)
-    else
-        love.graphics.setColor(255, 153, 0)
-    end
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
+    --95 box border
+    love.graphics.setLineWidth(MediumLine)
+    love.graphics.setColor(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColor(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     love.graphics.setColor(255, 255, 255)
+    love.graphics.setLineWidth(1)
+end
+function EditActivityRemoveTerm(TermToRemove)
+    if TermToRemove==nil then
+        print("In EditActivityRemoveTerm() TermToRemove is reporting as: "..tostring(TermToRemove))
+        return
+    end
+    Deleting=true
+    EditActivityScroll=0
+    table.remove(SetData, TermToRemove)
+    NumberOfTerms=NumberOfTerms-1
+    Deleting=false
+end
+function EditActivityCallBackoutPopup()
+    PopupCall = true
+    PopupAction = 'StateMachine = "Set Options"; LoadEdit(); PopupCall=false'
+    PopUpMessage = "Unsaved Edits will be lost"
 end

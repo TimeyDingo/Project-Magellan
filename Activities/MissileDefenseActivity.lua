@@ -2,9 +2,9 @@ function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-450,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-410,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),Exo24Bold)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-370,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),Exo24Bold)
+    if MissileDefenseSurviveTimer<0.1 then
+        Sounds.MissileDefenseStart:play()
+    end
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
@@ -16,6 +16,9 @@ function MissileDefenseActivity()
             MissileDefenseLevelUp=true
         end
         if MissileDefenseAChallengeFailed==true then
+            if MissileDefenseChallengeFailedStep1Timer<1 then
+                Sounds.MissileHit:play()
+            end
             MissileDefenseChallengeFailedStep1Timer=MissileDefenseChallengeFailedStep1Timer+1
         end
         if MissileDefenseChallengeFailedStep1Timer>160 then
@@ -32,6 +35,11 @@ function MissileDefenseActivity()
     if MissileDefenseLevelUpTimer>2.5 then
         MissileDefenseLevelUp2()
     end
+    love.graphics.setColor(0,0,0)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-440,1080,Settings.YRes),"Survived Time: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer)),BodyFontBold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-400,1080,Settings.YRes),"Lives Remaining: "..tostring(MissileDefenseLivesRemaining),BodyFontBold)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-360,1080,Settings.YRes),"Level: "..tostring(MissileDefenseSpeedFactor),BodyFontBold)
+    love.graphics.setColor(255,255,255)
 end
 function MissileDefenseDisplayChallenges()
     local speedFactor=50
@@ -59,7 +67,7 @@ function MissileDefenseDisplayChallenges()
         MissileDefenseTimer=0
     end
     if MissileDefenseChallengeCount>0 then
-        MissileDefenseDisplayChallenge(1320,100,600,300,MissileDefenseChallenges[1].Challenge,true,MissileDefenseChallenge1Failed)
+        MissileDefenseDisplayChallenge(1320,125,600,275,MissileDefenseChallenges[1].Challenge,true,MissileDefenseChallenge1Failed)
         if MissileDefenseChallenge1Failed==false then
             MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime + (love.timer.getDelta() * speedFactor)
             if MissileDefenseChallenge1AccumulatedTime >= 1 then
@@ -73,7 +81,7 @@ function MissileDefenseDisplayChallenges()
                 MissileDefenseChallenge1AccumulatedTime = MissileDefenseChallenge1AccumulatedTime - 1  -- Keep any leftover time for the next frame
             end
         end
-        MissileDefenseTimerDisplay(1320,60+ThickLine,40-ThickLine,true,1)
+        MissileDefenseTimerDisplay(1320,85+ThickLine,40-ThickLine,true,1)
     end
     if MissileDefenseChallengeCount>1 then
         MissileDefenseDisplayChallenge(1320,440,600,300,MissileDefenseChallenges[2].Challenge,true,MissileDefenseChallenge2Failed)
@@ -117,12 +125,12 @@ function MissileDefenseResponse()
         print("In MissileDefenseResponse() MissileDefenseTypedResponse is reporting as: "..tostring(MissileDefenseTypedResponse))
         return
     end
-    local TextFont=Exo32Bold
+    local TextFont=SmallHeaderBold
     love.graphics.setFont(TextFont)
     local BoxX=0
-    local BoxY=915
+    local BoxY=930
     local BoxW=1320
-    local BoxH=165
+    local BoxH=140
     local Scaling=true
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings.XRes)
@@ -130,8 +138,9 @@ function MissileDefenseResponse()
         BoxW=scaling(BoxW,1920,Settings.XRes)
         BoxH=scaling(BoxH,1080,Settings.YRes)
     end
-    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(255,255,255)
+    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+    love.graphics.setColor(0, 0, 0)
     function love.textinput(t)
         MissileDefenseTypedResponse=MissileDefenseTypedResponse..t
     end
@@ -144,10 +153,14 @@ function MissileDefenseResponse()
     local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
     love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 153, 0)
-    love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255) -- white
+    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+    love.graphics.setColorF(0, 0, 0) -- black
+    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+    love.graphics.setColorF(255, 255, 255)
+    love.graphics.setLineWidth(1)
     if ButtonDebounce("return", 0.5) then
         MissileDefenseCheckResponse()
         MissileDefenseTypedResponse=""
@@ -161,9 +174,8 @@ function MissileDefenseDisplay()
     end
     local LargePoint=10
     local TrailingPoint=2
-    love.graphics.setColor(255,153,0)
-    love.graphics.rectangle("line", 0, scaling(65,1080, Settings.YRes), scaling(1320, 1920, Settings.XRes), scaling(850, 1080, Settings.YRes))
-    love.graphics.setColor(255,255,255)
+    N5BoxHighlight(0, 88, 1320, 825, true, {200,200,200}, true)
+    love.graphics.setColor(0,0,0)--terain color
     --? Terrain
     local flattenedPoints = {}
     for _, TerrainPoints in ipairs(TerrainPoints) do
@@ -182,6 +194,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[1].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[1].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
         if MissileDefenseChallenges[2].IndividualTimer>0 then
             love.graphics.setPointSize(LargePoint)
@@ -190,6 +205,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[2].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[2].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
         if MissileDefenseChallenges[3].IndividualTimer>0 then
             love.graphics.setPointSize(LargePoint)
@@ -198,6 +216,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[3].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[3].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
     end
     love.graphics.setPointSize(1)
@@ -213,19 +234,24 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         print("In MissileDefenseDisplayChallenge() Failed is reporting as: "..tostring(Failed))
         return
     end
+    local InitialFont=LargeBodyFont
+    local newSize=28
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
     local BoxR,BoxG,BoxB=255,153,0
     if Failed==true then
         Text="FAILED"
         BoxR,BoxG,BoxB=215,54,64
+    else
+        BoxR,BoxG,BoxB=200,200,200
     end
-        local InitialFont=Exo28
-        local newSize=28
-        if Scaling==true then
-            BoxX=scaling(BoxX,1920,Settings.XRes)
-            BoxY=scaling(BoxY,1080,Settings.YRes)
-            BoxW=scaling(BoxW,1920,Settings.XRes)
-            BoxH=scaling(BoxH,1080,Settings.YRes)
-        end
+        love.graphics.setColor(BoxR,BoxG,BoxB)
+        love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
+        love.graphics.setColor(0,0,0)--text color
         local function getWrappedHeight(font, text, width)
             local _, wrappedText = font:getWrap(text, width)
             return #wrappedText * font:getHeight()
@@ -245,10 +271,14 @@ function MissileDefenseDisplayChallenge(BoxX, BoxY, BoxW, BoxH, Text, Scaling, F
         
         love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
         love.graphics.setLineWidth(MediumLine)
-        love.graphics.setColor(BoxR, BoxG, BoxB)
-        love.graphics.rectangle("line", BoxX, BoxY, BoxW, BoxH)
-        love.graphics.setLineWidth(ThinLine)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColorF(255, 255, 255) -- white
+        love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
+        love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
+        love.graphics.setColorF(0, 0, 0) -- black
+        love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
+        love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
+        love.graphics.setColorF(255, 255, 255)
+        love.graphics.setLineWidth(1)
 
 end
 function MissileDefenseCheckResponse()
@@ -259,9 +289,10 @@ function MissileDefenseCheckResponse()
         return
     end
     Deleting=true
-    local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
+    local LowerCaseResponse=trim(string.lower(MissileDefenseTypedResponse))
     if MissileDefenseChallengeCount>0 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[1].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[1].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[1].IncomingMissilePathingPoints
@@ -271,7 +302,8 @@ function MissileDefenseCheckResponse()
         end
     end
     if MissileDefenseChallengeCount>1 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[2].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[2].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[2].IncomingMissilePathingPoints
@@ -281,7 +313,8 @@ function MissileDefenseCheckResponse()
         end
     end
     if MissileDefenseChallengeCount>2 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[3].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[3].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[3].IncomingMissilePathingPoints
@@ -358,6 +391,7 @@ end
 function MissileDefenseFailed()
     StateMachine="Set Options"
     PopupCall = true
+    Sounds.GameEnd:play()
     PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'
     PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer))
     BackoutAction= 'PopupCall=false'
@@ -379,7 +413,7 @@ function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
 end
 function MissileDefenseLevelUp1()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
@@ -388,7 +422,7 @@ function MissileDefenseLevelUp1()
 end
 function MissileDefenseLevelUp2()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",Exo60Black)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)

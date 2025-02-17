@@ -99,7 +99,7 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Actio
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
+function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling,Align,title)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
         print("In CenteredTextBox() BoxX is reporting as: "..tostring(BoxX))
         print("In CenteredTextBox() BoxY is reporting as: "..tostring(BoxY))
@@ -113,15 +113,27 @@ function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling)
     local TH = TextFont:getHeight(Text)
     local TW = TextFont:getWidth(Text)
     if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings.XRes)
-        BoxY=scaling(BoxY,1080,Settings.YRes)
-        BoxW=scaling(BoxW,1920,Settings.XRes)
-        BoxH=scaling(BoxH,1080,Settings.YRes)
+        BoxX=scaling(BoxX,1920,Settings.XRes,true)
+        BoxY=scaling(BoxY,1080,Settings.YRes,true)
+        BoxW=scaling(BoxW,1920,Settings.XRes,true)
+        BoxH=scaling(BoxH,1080,Settings.YRes,true)
     end
     -- Coordinates for the text
-    local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
-    local textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
-    love.graphics.print(Text, textX, textY)
+    local textX
+    local textY
+    if Align=="left" then
+        textX = BoxX  -- Center the text horizontally
+        textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    else
+        textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
+        textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
+    end
+    if title~= nil then
+        love.graphics.print( title, TextFont, textX, textY)
+    else
+        love.graphics.print(Text, textX, textY)
+    end
+    return TH, TW
 end
 function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or Text==nil or TextFont==nil then
@@ -151,11 +163,6 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     -- Print the wrapped and centered text
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")
     return totalHeight
-end
-function BackdropDraw(Backdrop)
-    love.graphics.translate(Settings.XRes/2, Settings.YRes/2)
-    Backdrop:draw()
-    love.graphics.translate(-Settings.XRes/2, -Settings.YRes/2)
 end
 function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling,RGB, Action)--Be able to run a function
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or RGB==nil then
@@ -226,21 +233,19 @@ function ConfirmActionPopup(MessageType,TextFont,Scaling,Action,BackoutAction)
         BoxW=scaling(BoxWUnscalled,1920,Settings.XRes)
         BoxH=scaling(BoxHUnscalled,1080,Settings.YRes)
     end
+
     -- Coordinates for the text
     local textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
     local textY = (BoxY + (BoxH - TH) / 2)-scaling(90,1080,Settings.YRes)  -- Center the text vertically
-    love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255,255,255)
-    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setLineWidth(ThinLine)
-    love.graphics.setColor(255,153,0)
+    N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, true, {195,199,203}, false,SExo24,"",true)
+    love.graphics.setColor(0,0,0)
     love.graphics.print(MessageType, textX, textY)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColorF(255, 255, 255)
     if BackoutAction==nil then
         BackoutAction="PopupCall=false"
     end
-    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine,BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Cancel", Exo24, true,{0,255,0,255,153,0},BackoutAction)
-    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Confirm", Exo24, true,{255,0,0,255,153,0},Action)
+    ButtonStyle1Mod3WithRGB(BoxXUnscalled+MediumLine,BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Cancel", BodyFont, true,{0,255,0,255,153,0},BackoutAction)
+    ButtonStyle1Mod3WithRGB(960-MediumLine, BoxYUnscalled+BoxHUnscalled-152-MediumLine, 300, 152+MediumLine, "Confirm", BodyFont, true,{255,0,0,255,153,0},Action)
 end
 function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScroll,Scaling)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or MinNumberOfItems==nil or NumberOfItems==nil or NumberOfItems<MinNumberOfItems-1 then

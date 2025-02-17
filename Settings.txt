@@ -1,6 +1,12 @@
-XRes=1600
-YRes=900
+XRes=1440
+YRes=810
 MSAA=2
 Fullscreen=false
-FontModifier=4
+FontModRaw=709
+FontModPercent=0.48876909254268
 LineModifier=3
+AudioRaw=622
+AudioPercent=0.17610062893082
+DarkMode=false
+ReducedFlicker=true
+FontSelected=Stylized

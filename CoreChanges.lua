@@ -1,6 +1,24 @@
 love.graphics.setColorF = love.graphics.setColor
 function love.graphics.setColor(r,g,b,a) --! converting love2D shitty color space to rgb color
-	r, g, b = r/255, g/255, b/255
+    if Settings.DarkMode then
+        if r==0 and g==0 and b==170 then
+            goto Done
+        end
+        if r==56 and g==110 and b==110 then
+            goto Done
+        end
+        if r==244 and g==244 and b==244 then
+            goto Done
+        end
+        if r==0.949 and g==0.733 and b==0.020 then
+            goto Done
+        end
+        r=255-r
+        g=255-g
+        b=255-b
+    end
+    ::Done::
+    r, g, b = r/255, g/255, b/255
 	love.graphics.setColorF(r,g,b,a)
 end
 function isMouseOverBox(boxX, boxY, boxWidth, boxHeight)
@@ -13,12 +31,35 @@ end
 function IsClickInBox(ClickX,ClickY,boxX, boxY, boxWidth, boxHeight)
     return ClickX >= boxX and ClickX <= boxX + boxWidth and ClickY >= boxY and ClickY <= boxY + boxHeight
 end
+function MouseDelta()
+    -- Get current mouse position
+    local MouseX, MouseY = love.mouse.getX(), love.mouse.getY()
+
+    -- Get previous position from history if available
+    local prevMouseX, prevMouseY = MouseHistory[#MouseHistory] and MouseHistory[#MouseHistory].x or MouseX, 
+                                   MouseHistory[#MouseHistory] and MouseHistory[#MouseHistory].y or MouseY
+
+    -- Calculate delta
+    local DX, DY = MouseX - prevMouseX, MouseY - prevMouseY
+
+    -- Add current position to history
+    table.insert(MouseHistory, {x = MouseX, y = MouseY})
+
+    -- Keep the table size limited
+    if #MouseHistory > MouseHistory.maxEntries then
+        table.remove(MouseHistory, 1)  -- Remove the oldest entry
+    end
+
+    return DX, DY
+end
 function MouseClickDebounce(DebouncePeriod)
-    if love.mouse.isDown(1) and DebounceTimer>DebouncePeriod then
-        DebounceTimer=0
-        return true
-    else
-        return false
+    if love.window.hasMouseFocus() then
+        if love.mouse.isDown(1) and DebounceTimer>DebouncePeriod then
+            DebounceTimer=0
+            return true
+        else
+            return false
+        end
     end
 end
 function toboolean(str)
@@ -121,4 +162,7 @@ end
 function SmudgeColor(colorA, colorB, percent)
     local r, g, b = colorA.r-(colorA.r-colorB.r)*percent, colorA.g-(colorA.g-colorB.g)*percent, colorA.b-(colorA.b-colorB.b)*percent
     return {r=r,g=g,b=b}
+end
+function trim(s)
+    return s:match("^%s*(.-)%s*$")
 end

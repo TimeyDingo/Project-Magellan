@@ -1,37 +1,75 @@
 function LoadFonts()
-    Exo20=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true))
-    Exo20Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true))
-    Exo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
-    Exo24Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true))
-    Exo28=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1080,Settings.YRes,true))
-    Exo28Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true))
-    Exo32Bold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
-    Exo60Black=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(45,1080,Settings.YRes,true))
-end
-function LoadBackdrops()
-    local MainMenuFile = love.filesystem.read("SVG/MainMenu.svg")
-    MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings.XRes,Settings.YRes)
-    local ImportMenuFile = love.filesystem.read("SVG/ImportMenu.svg")
-    ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
-    local SelectActionMenuFile = love.filesystem.read("SVG/SelectMenu.svg")
-    SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
-    local SettingsMenuFile = love.filesystem.read("SVG/SettingsMenu.svg")
-    SettingsMenuBackdrop = tove.newGraphics(SettingsMenuFile,Settings.XRes,Settings.YRes)
-    local GameBarFile = love.filesystem.read("SVG/GameBar.svg")
-    GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
+    if Settings.FontSelected=="Stylized" then
+        SmallBodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        SmallBodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        BodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        BodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        SmallHeaderBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+        MediumHeaderBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
+        LargeHeader=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
+    end
+    if Settings.FontSelected=="Exo2" then
+        SmallBodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        SmallBodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        BodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        BodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFont=love.graphics.newFont("Fonts/Exo2.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFontBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        SmallHeaderBold=love.graphics.newFont("Fonts/Exo2-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+        MediumHeaderBold=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(34,1080,Settings.YRes,true))
+        LargeHeader=love.graphics.newFont("Fonts/Exo2-Black.ttf", scaling(60,1080,Settings.YRes,true))
+    end
+    if Settings.FontSelected=="AtkinsonHyperlegible" then
+        SmallBodyFont=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        SmallBodyFontBold=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        BodyFont=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        BodyFontBold=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFont=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFontBold=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        SmallHeaderBold=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+        MediumHeaderBold=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(34,1080,Settings.YRes,true))
+        LargeHeader=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Bold.ttf", scaling(60,1080,Settings.YRes,true))
+    end
+    if Settings.FontSelected=="IBMPlex" then
+        SmallBodyFont=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        SmallBodyFontBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        BodyFont=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        BodyFontBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFont=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFontBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(28,1080,Settings.YRes,true)+FontTransform())
+        SmallHeaderBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(32,1080,Settings.YRes,true))
+        MediumHeaderBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
+        LargeHeader=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
+    end
+    --fonts for setting menu
+    SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
+    SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true))
+    SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true))
+    --line settings
+    ThickLine=scaling(5,1080,Settings.YRes,true)
+    MediumLine=scaling(3,1080,Settings.YRes,true)
+    ThinLine=scaling(1,1080,Settings.YRes,true)
 end
 function LoadSettings()
+    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModRaw=4, FontModPercent=5, LineModifier=3, AudioRaw=0, AudioPercent=5, DarkMode=false,ReducedFlicker=false,FontSelected="Exo2"}
+    LoadSettingsIO(Settings)
     love.window.setMode(0, 0)
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
     DetectedX = love.graphics.getWidth()
     DetectedY = love.graphics.getHeight()
     DetectedRes = DetectedX .. " x " .. DetectedY
-    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModifier=4, LineModifier=3}
-    if LoadSettingsIO(Settings) == 1 then--? If loading is successful 
-        love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+    love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
     end
     SettingsResolution=Settings.XRes
     SettingsResolutionDropDownClicked=false
-    SettingsFullscreen=toboolean(Settings.Fullscreen)
     math.randomseed (os.time())
 end
 function LoadActivities()
@@ -57,54 +95,9 @@ end
 function LoadMouseClickDebounce()
     DebounceTimer=0
 end
-function LoadLineThickness()
-    local MediumLineSubtraction=0
-    if Settings.LineModifier > 0 then
-        MediumLineSubtraction=1
-    end
-    ThickLine=5-Settings.LineModifier
-    MediumLine=3-MediumLineSubtraction
-    ThinLine=1
-end
 function ConfirmSettings()
-    if SettingsResolution==1920 then
-        Settings.XRes=1920
-        Settings.YRes=1080
-        Settings.FontModifier=0
-        Settings.LineModifier=0
-    end
-    if SettingsResolution==1280 then
-        Settings.XRes=1280
-        Settings.YRes=720
-        Settings.FontModifier=3
-        Settings.LineModifier=2
-    end
-    if SettingsResolution==1024 then
-        Settings.XRes=1024
-        Settings.YRes=576
-        Settings.FontModifier=4
-        Settings.LineModifier=3
-    end
-    if SettingsFullscreen==true then
-        Settings.Fullscreen=true
-    end
-    if SettingsFullscreen==false then
-        Settings.Fullscreen=false
-    end
     SaveSettings(Settings)
-    LoadFonts()
-    LoadSettings()
-    LoadBackdrops()
-    LoadActivities()
-end
-function ApplyResolutionSettings(XResolutionToApply,YResolutionToApply)
-    Settings.XRes=XResolutionToApply
-    Settings.YRes=YResolutionToApply
-    SaveSettings(Settings)
-    LoadFonts()
-    LoadSettings()
-    LoadBackdrops()
-    LoadActivities()
+    love.load()
 end
 function LoadViewSet()
     ViewActivityScroll=0
@@ -140,9 +133,9 @@ function LoadMissileDefense()
     MissileDefenseCorrectResponses=0
     MissileDefenseLevelUpTimer=0
     MissileDefenseLevelUp=false
-    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
-    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
-    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(65,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[1].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(196,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[2].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(664,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
+    MissileDefenseChallenges[3].IncomingMissilePathingPoints=GenerateMissilePoints(scaling(1132,1920, Settings.XRes), scaling(88,1080, Settings.YRes), scaling(664,1920, Settings.XRes), TerrainMinY-scaling(200,1080,Settings.YRes), 600)
 end
 function GenerateTerrainPoints(MinX, MinY, Width, Height, Subdivisions)
     local TableOfPoints = {}
@@ -244,5 +237,66 @@ function LoadMatching()
         local x2 = math.random(xMin, xMax)
         local y2 = math.random(yMin, yMax)
         table.insert(MatchingActivityPositions, {{x1, y1, w1, h1}, {x2, y2, w2, h2}})
+    end
+end
+function ApplySettings(NewX,NewY)
+    local PrevX=Settings.XRes
+    local PrevY=Settings.YRes
+    Settings.XRes=NewX
+    Settings.YRes=NewY
+    if NewX>DetectedX then
+        Settings.XRes=DetectedX
+    end
+    if NewY>DetectedY then
+        Settings.YRes=DetectedY
+    end
+    LoadFonts()
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
+    LoadActivities()
+    LoadMouseClickDebounce()
+    LoadPopup()
+    love.window.setMode(Settings.XRes,Settings.YRes)
+    if Settings.ReducedFlicker then
+        love.timer.sleep(0.5)
+        love.mouse.setPosition(0,0)
+    end
+    Settings.FontModRaw=scaling(Settings.FontModRaw,PrevX,Settings.XRes)
+    Settings.AudioRaw=scaling(Settings.AudioRaw,PrevX,Settings.XRes)
+end
+function FontTransform()
+    -- Convert percent into a signed scaling factor
+    local deviation = (Settings.FontModPercent - 0.5) * 2 -- Ranges from -1 to 1
+    local FontChange = math.floor(scaling(deviation * 10, 1920, Settings.XRes))
+
+    -- Ensure FontChange has the correct flipping behavior
+    if Settings.FontModPercent < 0.5 then
+        FontChange = -math.abs(FontChange) -- Force negative change
+    else
+        FontChange = math.abs(FontChange)  -- Force positive change
+    end
+    return FontChange
+end
+function LoadSounds()
+    Sounds={}
+    Sounds.blip1=love.audio.newSource("SoundEffects/Blip_Select1.wav", "static")
+    Sounds.blip2=love.audio.newSource("SoundEffects/Blip_Select2.wav", "static")
+    Sounds.blip3=love.audio.newSource("SoundEffects/Blip_Select3.wav", "static")
+    Sounds.blip4=love.audio.newSource("SoundEffects/Blip_Select4.wav", "static")
+    Sounds.blip5=love.audio.newSource("SoundEffects/Blip_Select5.wav", "static")
+    Sounds.GameEnd=love.audio.newSource("SoundEffects/Game Over.wav", "static")
+    Sounds.GameSelected=love.audio.newSource("SoundEffects/Game_Selected.wav", "static")
+    Sounds.MissileDefenseStart=love.audio.newSource("SoundEffects/Missle_Defense_Start.wav", "static")
+    Sounds.MissileIncoming=love.audio.newSource("SoundEffects/Missle_Incoming.wav", "static")
+    Sounds.MissileHit=love.audio.newSource("SoundEffects/Missle_Let_Thru.wav", "static")
+    Sounds.Success=love.audio.newSource("SoundEffects/Success.wav", "static")
+    Sounds.MissileDestroyed=(love.audio.newSource("SoundEffects/MissileDestroyed.wav", "static"))
+    --Sounds.blip1:play()
+end
+function SetSoundVolume(volume)
+    for _, sound in pairs(Sounds) do
+        sound:setVolume(volume)
     end
 end
