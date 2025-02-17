@@ -13,7 +13,6 @@ require "Activities/WordSearchActivity"
 require "Activities/ViewSet"
 require "95Styling"
 require "backdrops"
-tove = require "tove"
 utf8 = require("utf8")
 --[[
 https://www.youtube.com/watch?v=py0iF3mwy2E
@@ -22,7 +21,6 @@ https://www.youtube.com/watch?v=py0iF3mwy2E
 function love.load()
     LoadSettings()
     LoadFonts()
-    LoadBackdrops()
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
@@ -82,7 +80,6 @@ function love.draw()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             N5MainMenu()
-            --BackdropDraw(MainMenuBackdrop)
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,BodyFont,"Select")
             N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,BodyFont, "Create New Set")
             N5Button(261, 944, 689, 41, true, 'StateMachine="Import Menu"' , true ,BodyFont, "Import Quizlet Set")
@@ -95,7 +92,6 @@ function love.draw()
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Settings Menu" then
-            --BackdropDraw(SettingsMenuBackdrop)
             N5SettingMenu()
             N5Button(754,880,402,110, true, 'ConfirmSettings()', true, BodyFontBold, "Save Settings")
             --resolution
@@ -146,7 +142,6 @@ function love.draw()
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Import Menu" then
-            --BackdropDraw(ImportMenuBackdrop)
             N5ImportMenu()
             ImportMenuTitle()
             ImportMenuSetPastingAndPreview()
@@ -157,7 +152,6 @@ function love.draw()
         if StateMachine=="Set Options" then
             SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
             N5SelectMenu()
-            --BackdropDraw(SelectActionBackdrop)
             N5Button(300, 253, 402, 122, true, 'StateMachine = "View Set"', false,BodyFontBold,"View/Edit")
             N5Button(754, 253, 402, 122, true, 'StateMachine = "Flashcards"', false,BodyFontBold,"Flashcards")
             N5Button(754, 486, 402, 122, true, 'StateMachine = "Missile Defense"; LoadMissileDefense()', false,BodyFontBold,"Missile Defense")

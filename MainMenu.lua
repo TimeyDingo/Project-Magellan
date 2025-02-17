@@ -184,8 +184,3 @@ function ImportMenuSetPastingAndPreview()
         love.graphics.setFont(BodyFont)
     end
 end
-function ActivityBackdrop()
-    BackdropDraw(GameBarBackdrop)
-    love.graphics.setColor(255,255,255)
-    CenteredTextBox(1150,0,340,86,StateMachine,LargeHeader, true, "left")
-end

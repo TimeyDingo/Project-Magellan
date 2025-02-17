@@ -52,44 +52,6 @@ function LoadFonts()
     MediumLine=scaling(3,1080,Settings.YRes,true)
     ThinLine=scaling(1,1080,Settings.YRes,true)
 end
-function LoadBackdrops()
-    if Settings.FontSelected=="Stylized" or Settings.FontSelected=="IBMPlex" then
-        local MainMenuFile = love.filesystem.read("SVG/Stylized/MainMenu.svg")
-        MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings.XRes,Settings.YRes)
-        local ImportMenuFile = love.filesystem.read("SVG/Stylized/ImportMenu.svg")
-        ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
-        local SelectActionMenuFile = love.filesystem.read("SVG/Stylized/SelectMenu.svg")
-        SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
-        local SettingsMenuFile = love.filesystem.read("SVG/Stylized/SettingsMenu.svg")
-        SettingsMenuBackdrop = tove.newGraphics(SettingsMenuFile,Settings.XRes,Settings.YRes)
-        local GameBarFile = love.filesystem.read("SVG/Stylized/GameBar.svg")
-        GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
-    end
-    if Settings.FontSelected=="Exo2" then
-        local MainMenuFile = love.filesystem.read("SVG/Exo2/MainMenu.svg")
-        MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings.XRes,Settings.YRes)
-        local ImportMenuFile = love.filesystem.read("SVG/Exo2/ImportMenu.svg")
-        ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
-        local SelectActionMenuFile = love.filesystem.read("SVG/Exo2/SelectMenu.svg")
-        SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
-        local SettingsMenuFile = love.filesystem.read("SVG/Exo2/SettingsMenu.svg")
-        SettingsMenuBackdrop = tove.newGraphics(SettingsMenuFile,Settings.XRes,Settings.YRes)
-        local GameBarFile = love.filesystem.read("SVG/Exo2/GameBar.svg")
-        GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
-    end
-    if Settings.FontSelected=="AtkinsonHyperlegible" then
-        local MainMenuFile = love.filesystem.read("SVG/Atikson/MainMenu.svg")
-        MainMenuBackdrop = tove.newGraphics(MainMenuFile,Settings.XRes,Settings.YRes)
-        local ImportMenuFile = love.filesystem.read("SVG/Atikson/ImportMenu.svg")
-        ImportMenuBackdrop = tove.newGraphics(ImportMenuFile,Settings.XRes,Settings.YRes)
-        local SelectActionMenuFile = love.filesystem.read("SVG/Atikson/SelectMenu.svg")
-        SelectActionBackdrop = tove.newGraphics(SelectActionMenuFile,Settings.XRes,Settings.YRes)
-        local SettingsMenuFile = love.filesystem.read("SVG/Atikson/SettingsMenu.svg")
-        SettingsMenuBackdrop = tove.newGraphics(SettingsMenuFile,Settings.XRes,Settings.YRes)
-        local GameBarFile = love.filesystem.read("SVG/Atikson/GameBar.svg")
-        GameBarBackdrop = tove.newGraphics(GameBarFile,Settings.XRes,Settings.YRes)
-    end
-end
 function LoadSettings()
     Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModRaw=4, FontModPercent=5, LineModifier=3, AudioRaw=0, AudioPercent=5, DarkMode=false,ReducedFlicker=false,FontSelected="Exo2"}
     LoadSettingsIO(Settings)
@@ -289,7 +251,6 @@ function ApplySettings(NewX,NewY)
         Settings.YRes=DetectedY
     end
     LoadFonts()
-    LoadBackdrops()
     if Settings.ReducedFlicker then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)

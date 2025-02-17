@@ -164,11 +164,6 @@ function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)
     love.graphics.printf(Text, BoxX, textY, BoxW, "center")
     return totalHeight
 end
-function BackdropDraw(Backdrop)
-    love.graphics.translate(Settings.XRes/2, Settings.YRes/2)
-    Backdrop:draw()
-    love.graphics.translate(-Settings.XRes/2, -Settings.YRes/2)
-end
 function ButtonStyle1Mod3WithRGB(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling,RGB, Action)--Be able to run a function
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil or RGB==nil then
         print("In ButtonStyle1Mod3WithRGB() BoxX is reporting as: "..tostring(BoxX))
