@@ -99,7 +99,7 @@ function ButtonStyle1Mod3(BoxX, BoxY, BoxW, BoxH, Text, TextFont, Scaling, Actio
     love.graphics.setLineWidth(ThinLine)
     love.graphics.setColor(255, 255, 255)
 end
-function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling,Align)
+function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling,Align,title)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Text==nil or TextFont==nil then
         print("In CenteredTextBox() BoxX is reporting as: "..tostring(BoxX))
         print("In CenteredTextBox() BoxY is reporting as: "..tostring(BoxY))
@@ -128,7 +128,11 @@ function CenteredTextBox(BoxX,BoxY,BoxW,BoxH,Text,TextFont, Scaling,Align)
         textX = BoxX + (BoxW - TW) / 2  -- Center the text horizontally
         textY = BoxY + (BoxH - TH) / 2        -- Center the text vertically
     end
-    love.graphics.print(Text, textX, textY)
+    if title~= nil then
+        love.graphics.print( title, TextFont, textX, textY)
+    else
+        love.graphics.print(Text, textX, textY)
+    end
     return TH, TW
 end
 function CenteredTextBoxWithWrapping(BoxX, BoxY, BoxW, Text, TextFont, Scaling)

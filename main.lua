@@ -12,6 +12,7 @@ require "Activities/TestActivity"
 require "Activities/WordSearchActivity"
 require "Activities/ViewSet"
 require "95Styling"
+require "backdrops"
 tove = require "tove"
 utf8 = require("utf8")
 --[[
@@ -80,7 +81,8 @@ function love.draw()
     ]]
     if PopupCall==false then
         if StateMachine=="Main Menu" then
-            BackdropDraw(MainMenuBackdrop)
+            N5MainMenu()
+            --BackdropDraw(MainMenuBackdrop)
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,BodyFont,"Select")
             N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,BodyFont, "Create New Set")
             N5Button(261, 944, 689, 41, true, 'StateMachine="Import Menu"' , true ,BodyFont, "Import Quizlet Set")
@@ -89,11 +91,12 @@ function love.draw()
                 ListofSets()
                 SetPreview()
             end
-            N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'")
-            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'",true,SmallHeaderBold,"~")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Settings Menu" then
-            BackdropDraw(SettingsMenuBackdrop)
+            --BackdropDraw(SettingsMenuBackdrop)
+            N5SettingMenu()
             N5Button(754,880,402,110, true, 'ConfirmSettings()', true, BodyFontBold, "Save Settings")
             --resolution
             N5BoxWithTitle(1249,178,411,55,true,"Current Resolution",Settings.XRes.. " x " ..Settings.YRes)
@@ -139,20 +142,22 @@ function love.draw()
             local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
             Settings.AudioRaw,Settings.AudioPercent=N5Slider(AVTX,AVTY,AVTW,AVTH, false, Settings.AudioRaw,Settings.AudioPercent)
             --
-            N5Button(1542,93,55,55,true,"StateMachine='Main Menu';love.load()")
-            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Main Menu';love.load()",true,SmallHeaderBold,"<-")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Import Menu" then
-            BackdropDraw(ImportMenuBackdrop)
+            --BackdropDraw(ImportMenuBackdrop)
+            N5ImportMenu()
             ImportMenuTitle()
             ImportMenuSetPastingAndPreview()
-            N5Button(1749,93,55,55,true,'StateMachine = "Main Menu"; Paste = ""; Input = ""')
-            N5Button(1810,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1749,93,55,55,true,'StateMachine = "Main Menu"; Paste = ""; Input = ""',true,SmallHeaderBold,"<-")
+            N5Button(1810,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             N5Button(1020, 887, 290, 96, true, 'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""' , true ,BodyFontBold,"Confirm")
         end
         if StateMachine=="Set Options" then
             SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
-            BackdropDraw(SelectActionBackdrop)
+            N5SelectMenu()
+            --BackdropDraw(SelectActionBackdrop)
             N5Button(300, 253, 402, 122, true, 'StateMachine = "View Set"', false,BodyFontBold,"View/Edit")
             N5Button(754, 253, 402, 122, true, 'StateMachine = "Flashcards"', false,BodyFontBold,"Flashcards")
             N5Button(754, 486, 402, 122, true, 'StateMachine = "Missile Defense"; LoadMissileDefense()', false,BodyFontBold,"Missile Defense")
@@ -167,54 +172,54 @@ function love.draw()
             --ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold,true)
-            N5Button(1542,93,55,55,true,"StateMachine='Main Menu'")
-            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5Button(1542,93,55,55,true,"StateMachine='Main Menu'",true,SmallHeaderBold,"<-")
+            N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Edit" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, "EditActivityCallBackoutPopup()")
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Edit")
+            N5Button(1751, 6, 75, 75, true, "EditActivityCallBackoutPopup()",true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             EditActivity()
         end
         if StateMachine=="Flashcards" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadFlashcards()')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Flashcards")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadFlashcards()',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             FlashcardActivity()
         end
         if StateMachine=="Matching" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadMatching()')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Matching")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadMatching()',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             MatchingActivity()
         end
         if StateMachine=="Missile Defense" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Missile Defense")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             MissileDefenseActivity()
         end
         if StateMachine=="Word Search" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Word Search")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             WordSearchActivity()
         end
         if StateMachine=="Test" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadTestActivity()')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("Test")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadTestActivity()',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             TestActivity()
         end
         if StateMachine=="View Set" then
-            ActivityBackdrop()
-            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadViewSet()')
-            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'")
+            N5GameBar("View Set")
+            N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"; LoadViewSet()',true,SmallHeaderBold,"<-")
+            N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             ViewActivity()
         end
     end
     love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
-    love.graphics.print(MouseDX.."x"..MouseDY,scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
+    love.graphics.print("FPS:"..love.timer.getFPS(),scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,BodyFontBold,true,PopupAction)
     end
