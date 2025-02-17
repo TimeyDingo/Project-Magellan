@@ -158,7 +158,7 @@ function N5BoxWithTitle(BoxX,BoxY,BoxW,BoxH,Scaling,Title,Text, InnerFillTurnOff
         love.graphics.rectangle("fill",BoxX+BoxDiff-InFill, BoxY+BoxDiff*2-InFill, BoxW-BoxDiff*2+InFill2, BoxH-BoxDiff*2.5+InFill2)
     end
     local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)--same print as later just to get the text width
-    love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH)
+    love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH)--title cover
     love.graphics.setColor(0,0,0,255) -- title text color
     CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)-- actual text of the title in the top middle of the outer line
     love.graphics.setColor(255,255,255)

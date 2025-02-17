@@ -111,13 +111,13 @@ function SetPreview()
                 love.graphics.setColor(255,255,255,0)
             end
             -- Add wrapping for the term text box
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), term, SmallBodyFontBold)
+            WrapDistance = CenteredTextBoxWithWrapping(x+scaling(23,1920,Settings.XRes), y, scaling(630,1920,Settings.XRes), term, SmallBodyFontBold)
             y = y + WrapDistance + scaling(0,1080,Settings.YRes)  -- Move to the next line after wrapping
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
             -- Wrap the definition as you already have
-            WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, SmallBodyFont)
+            WrapDistance = CenteredTextBoxWithWrapping(x+scaling(23,1920,Settings.XRes), y, scaling(630,1920,Settings.XRes), definition, SmallBodyFont)
             y = y + WrapDistance  -- Move to the next line
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)

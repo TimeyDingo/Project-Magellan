@@ -25,7 +25,6 @@ function love.load()
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
-
     StateMachine="Main Menu"
     Input=""
     Paste=""
@@ -39,6 +38,7 @@ function love.load()
     YScroll=0
     MouseHistory = {}
     MouseHistory.maxEntries = 10
+    DarkModeShade=love.graphics.newShader(DarkModeShader)
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -73,6 +73,9 @@ function love.draw()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
     MouseDX, MouseDY=MouseDelta()
+    if Settings.DarkMode then
+        love.graphics.setShader(DarkModeShade)
+    end
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             BackdropDraw(MainMenuBackdrop)
@@ -213,4 +216,5 @@ function love.draw()
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,BodyFontBold,true,PopupAction)
     end
+    love.graphics.setShader()
 end
