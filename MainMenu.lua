@@ -187,7 +187,5 @@ end
 function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
-    love.graphics.setFont(LargeHeader)
-    love.graphics.print(StateMachine, scaling(1150,1920,Settings.XRes), scaling(3,1080,Settings.YRes))
-    love.graphics.setFont(BodyFont)
+    CenteredTextBox(1150,0,340,86,StateMachine,LargeHeader, true, "left")
 end
