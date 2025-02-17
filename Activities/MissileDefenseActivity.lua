@@ -13,6 +13,9 @@ function MissileDefenseActivity()
             MissileDefenseLevelUp=true
         end
         if MissileDefenseAChallengeFailed==true then
+            if MissileDefenseChallengeFailedStep1Timer<1 then
+                Sounds.MissileHit:play()
+            end
             MissileDefenseChallengeFailedStep1Timer=MissileDefenseChallengeFailedStep1Timer+1
         end
         if MissileDefenseChallengeFailedStep1Timer>160 then
@@ -274,9 +277,10 @@ function MissileDefenseCheckResponse()
         return
     end
     Deleting=true
-    local LowerCaseResponse=string.lower(MissileDefenseTypedResponse)
+    local LowerCaseResponse=trim(string.lower(MissileDefenseTypedResponse))
     if MissileDefenseChallengeCount>0 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[1].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[1].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[1].IncomingMissilePathingPoints
@@ -286,7 +290,8 @@ function MissileDefenseCheckResponse()
         end
     end
     if MissileDefenseChallengeCount>1 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[2].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[2].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[2].IncomingMissilePathingPoints
@@ -296,7 +301,8 @@ function MissileDefenseCheckResponse()
         end
     end
     if MissileDefenseChallengeCount>2 then
-        if LowerCaseResponse==string.lower(MissileDefenseChallenges[3].Answer) then
+        if LowerCaseResponse==trim(string.lower(MissileDefenseChallenges[3].Answer)) then
+            Sounds.MissileDestroyed:play()
             MissileDefenseCorrectResponses=MissileDefenseCorrectResponses+1
             MissileDefenseChallengeCount=MissileDefenseChallengeCount-1
             local TransferTable=MissileDefenseChallenges[3].IncomingMissilePathingPoints
@@ -373,6 +379,7 @@ end
 function MissileDefenseFailed()
     StateMachine="Set Options"
     PopupCall = true
+    Sounds.GameEnd:play()
     PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'
     PopUpMessage = "You Failed, Survived: "..string.format("%.1f",tostring(MissileDefenseSurviveTimer))
     BackoutAction= 'PopupCall=false'
@@ -394,7 +401,7 @@ function MissileDefenseTimerDisplay(BoxX,BoxY,BoxH,Scaling,Challenge)
 end
 function MissileDefenseLevelUp1()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader1)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)
@@ -403,7 +410,7 @@ function MissileDefenseLevelUp1()
 end
 function MissileDefenseLevelUp2()
     local TerrainMinY=scaling(915,1920,Settings.XRes)
-    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader1)
+    CenterText(scaling(-296,1920,Settings.XRes),scaling(-300,1080,Settings.YRes),"Next Level",LargeHeader)
     Deleting=true
     table.remove(MissileDefenseChallenges,3)
     table.remove(MissileDefenseChallenges,2)

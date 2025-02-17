@@ -7,6 +7,6 @@ FontModPercent=0.48876909254268
 LineModifier=3
 AudioRaw=766.38360175695
 AudioPercent=0.69499946723073
-DarkMode=true
+DarkMode=false
 ReducedFlicker=false
 FontSelected=Stylized

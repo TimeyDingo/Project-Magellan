@@ -24,6 +24,7 @@ function love.load()
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
+    LoadSounds()
     StateMachine="Main Menu"
     Input=""
     Paste=""

@@ -279,3 +279,19 @@ function FontTransform()
     end
     return FontChange
 end
+function LoadSounds()
+    Sounds={}
+    Sounds.blip1=love.audio.newSource("SoundEffects/Blip_Select1.wav", "static")
+    Sounds.blip2=love.audio.newSource("SoundEffects/Blip_Select2.wav", "static")
+    Sounds.blip3=love.audio.newSource("SoundEffects/Blip_Select3.wav", "static")
+    Sounds.blip4=love.audio.newSource("SoundEffects/Blip_Select4.wav", "static")
+    Sounds.blip5=love.audio.newSource("SoundEffects/Blip_Select5.wav", "static")
+    Sounds.GameEnd=love.audio.newSource("SoundEffects/Game Over.wav", "static")
+    Sounds.GameSelected=love.audio.newSource("SoundEffects/Game_Selected.wav", "static")
+    Sounds.MissileDefenseStart=love.audio.newSource("SoundEffects/Missle_Defense_Start.wav", "static")
+    Sounds.MissileIncoming=love.audio.newSource("SoundEffects/Missle_Incoming.wav", "static")
+    Sounds.MissileHit=love.audio.newSource("SoundEffects/Missle_Let_Thru.wav", "static")
+    Sounds.Success=love.audio.newSource("SoundEffects/Success.wav", "static")
+    Sounds.MissileDestroyed=(love.audio.newSource("SoundEffects/MissileDestroyed.wav", "static"))
+    --Sounds.blip1:play()
+end
