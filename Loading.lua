@@ -295,3 +295,8 @@ function LoadSounds()
     Sounds.MissileDestroyed=(love.audio.newSource("SoundEffects/MissileDestroyed.wav", "static"))
     --Sounds.blip1:play()
 end
+function SetSoundVolume(volume)
+    for _, sound in pairs(Sounds) do
+        sound:setVolume(volume)
+    end
+end

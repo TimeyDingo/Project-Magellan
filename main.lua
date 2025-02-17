@@ -132,6 +132,11 @@ function love.draw()
             --Audio
             local AVTX,AVTY,AVTW,AVTH=N5BoxWithTitle(744,308,411,79,true,"Audio Volume","",true)
             Settings.AudioRaw,Settings.AudioPercent=N5Slider(AVTX,AVTY,AVTW,AVTH, false, Settings.AudioRaw,Settings.AudioPercent)
+            local Selected = isMouseOverBox(AVTX, AVTY, AVTW, AVTH)
+            if Selected and math.abs(MouseDY)>0.5 then
+                Sounds.MissileIncoming:play()
+            end
+            SetSoundVolume(Settings.AudioPercent)
             --
             N5Button(1542,93,55,55,true,"StateMachine='Main Menu';love.load()",true,SmallHeaderBold,"<-")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
@@ -184,6 +189,7 @@ function love.draw()
         end
         if StateMachine=="Missile Defense" then
             N5GameBar("Missile Defense")
+            N5Button(1642, 6, 100, 75, true, 'SetSoundVolume(0)',true,SmallHeaderBold,"Mute")
             N5Button(1751, 6, 75, 75, true, 'StateMachine = "Set Options"',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             MissileDefenseActivity()

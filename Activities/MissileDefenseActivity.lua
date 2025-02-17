@@ -2,6 +2,9 @@ function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
+    if MissileDefenseSurviveTimer<0.1 then
+        Sounds.MissileDefenseStart:play()
+    end
     if Deleting==false then
         MissileDefenseDisplay()
         MissileDefenseDisplayChallenges()
@@ -191,6 +194,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[1].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[1].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
         if MissileDefenseChallenges[2].IndividualTimer>0 then
             love.graphics.setPointSize(LargePoint)
@@ -199,6 +205,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[2].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[2].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
         if MissileDefenseChallenges[3].IndividualTimer>0 then
             love.graphics.setPointSize(LargePoint)
@@ -207,6 +216,9 @@ function MissileDefenseDisplay()
             love.graphics.setPointSize(TrailingPoint)
             love.graphics.points(MissileDefenseChallenges[3].TrailPoints)
             love.graphics.setColor(255,255,255)
+            if MissileDefenseChallenges[3].IndividualTimer<5 then
+                Sounds.MissileIncoming:play()
+            end
         end
     end
     love.graphics.setPointSize(1)
