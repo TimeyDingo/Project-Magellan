@@ -187,7 +187,7 @@ end
 function ActivityBackdrop()
     BackdropDraw(GameBarBackdrop)
     love.graphics.setColor(255,255,255)
-    love.graphics.setFont(LargerHeader2)
+    love.graphics.setFont(LargeHeader)
     love.graphics.print(StateMachine, scaling(1150,1920,Settings.XRes), scaling(3,1080,Settings.YRes))
     love.graphics.setFont(BodyFont)
 end
