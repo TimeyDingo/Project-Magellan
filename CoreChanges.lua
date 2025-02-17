@@ -1,6 +1,6 @@
 love.graphics.setColorF = love.graphics.setColor
 function love.graphics.setColor(r,g,b,a) --! converting love2D shitty color space to rgb color
-	r, g, b = r/255, g/255, b/255
+    r, g, b = r/255, g/255, b/255
 	love.graphics.setColorF(r,g,b,a)
 end
 function isMouseOverBox(boxX, boxY, boxWidth, boxHeight)

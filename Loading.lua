@@ -318,21 +318,14 @@ function FontTransform()
     end
     return FontChange
 end
+--[[
 DarkModeShader = [[
+float amount=1;
+
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) {
-    vec4 pixel = Texel(texture, texture_coords);
-
-    vec3 targetColor = vec3(.22, 0.43, 0.43); // Hardcoded red color
-    vec3 newColor = vec3(0.0, 0.0, 0.0);    // Hardcoded blue color
-    float tolerance = 0.1;                  // Tolerance for color matching
-
-    // Compute difference
-    float diff = distance(pixel.rgb, targetColor);
-
-    // Replace color if within tolerance
-    if (diff < tolerance) {
-        return vec4(newColor, pixel.a);
-    }
+    vec4 pixel = Texel(texture, texture_coords); // Get the pixel color
+    pixel.rgb = mix(pixel.rgb, 1.0 - pixel.rgb, amount); // Invert based on amount
     return pixel * color;
 }
+
 ]]
