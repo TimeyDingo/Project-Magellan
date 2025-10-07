@@ -314,3 +314,27 @@ function file_exists(name)
     local f=io.open(name,"r")
     if f~=nil then io.close(f) return true else return false end
  end
+ function DictionaryLoader(debug)
+    if Dictionary==nil then
+        return
+    end
+    local file = io.open("dictionary.txt", "r")
+    if file==nil then
+        print("Dictionary is missing")
+        io.close(file)
+        return
+    end
+    local Dictionary={}
+    while (true) do
+        local line=file:read("*l")
+        if debug then
+            print(line)
+        end
+        if line==nil then
+            break
+        end
+        table.insert(Dictionary,line)
+    end
+    io.close(file)
+    return Dictionary
+ end

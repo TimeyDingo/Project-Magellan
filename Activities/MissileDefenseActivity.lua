@@ -1,3 +1,4 @@
+--!! bug on level up where empty missiles are deployed
 function MissileDefenseActivity()
     SetTitle, SetData=LoadIndividualSet(SetToPreview)
     love.graphics.setLineWidth(MediumLine)

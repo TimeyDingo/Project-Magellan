@@ -1,0 +1,5 @@
+1. Rich text formating (.md)
+2. math symbols
+3. autofill dictionary and autocorrect
+4. image support
+5. android build

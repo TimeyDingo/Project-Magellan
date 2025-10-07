@@ -79,6 +79,8 @@ function LoadActivities()
     LoadViewSet()
     LoadMissileDefense()
     LoadTestActivity()
+    Dictionary={}
+    Dictionary=DictionaryLoader()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
