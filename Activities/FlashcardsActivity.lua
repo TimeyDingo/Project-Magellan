@@ -65,7 +65,7 @@ function DisplayFlashCard(BoxX, BoxY, BoxW, BoxH, Text, TextFont)
     love.graphics.setLineWidth(1)
 end
 function FlashCardKeyboardControls()
-    if ButtonDebounce("left", 0.5) or YScroll>0 then
+    if ButtonDebounce("left", 0.5) or ButtonDebounce("a", 0.5) or YScroll>0 then
         if FlashCardActivityFlashCard==1 then
             FlashCardActivityFlashCard=#SetData
             YScroll=0
@@ -75,7 +75,7 @@ function FlashCardKeyboardControls()
         end
         FlashCardActivityFlashCardSide=FlashCardActivityDisplaySideFirst
     end
-    if ButtonDebounce("right", 0.5) or YScroll<0 then
+    if ButtonDebounce("right", 0.5) or ButtonDebounce("d", 0.5) or YScroll<0 then
         if FlashCardActivityFlashCard==#SetData then
             FlashCardActivityFlashCard=1
             YScroll=0
@@ -89,6 +89,9 @@ function FlashCardKeyboardControls()
         FlipCard()
     end
     if ButtonDebounce("down", 0.5) then
+        FlipCard()
+    end
+    if ButtonDebounce("space", 0.5) then
         FlipCard()
     end
 end
