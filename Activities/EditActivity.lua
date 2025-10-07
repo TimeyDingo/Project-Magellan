@@ -178,12 +178,12 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
             local Text = SetData[TermToDisplayAndEdit][1]
             local beforeCursor = Text:sub(1, EditCursorPosition)
             local afterCursor = Text:sub(EditCursorPosition + 1)
-
+            
             -- Update text with input
             SetData[TermToDisplayAndEdit][1] = beforeCursor .. t .. afterCursor
             EditCursorPosition = EditCursorPosition + #t
         end
-
+        
         -- Extract the text before the cursor for backspacing
         local TextBeforeCursor = SetData[TermToDisplayAndEdit][1]:sub(1, EditCursorPosition)
 
@@ -207,6 +207,14 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
             -- Insert clipboard text at the cursor position
             SetData[TermToDisplayAndEdit][1] = beforeCursor .. clipboardText .. afterCursor
             EditCursorPosition = EditCursorPosition + #clipboardText  -- Update cursor position
+        end
+        if ButtonDebounce("return", 1) then
+            local Text = SetData[TermToDisplayAndEdit][1]
+            local beforeCursor = Text:sub(1, EditCursorPosition)
+            local afterCursor = Text:sub(EditCursorPosition + 1)
+            local newline = "\n"
+            SetData[TermToDisplayAndEdit][1] = beforeCursor .. newline .. afterCursor
+            EditCursorPosition = EditCursorPosition + #newline  -- Update cursor position
         end
 
         -- Move the cursor with arrow keys

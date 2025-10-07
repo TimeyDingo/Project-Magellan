@@ -1,1 +1,3 @@
-Test Set--DefA;;TermA:: DefB;; TermB:: DefC;; TermC:: DefD;; TermD
+Test Set--DefA
+Test
+Test;;TermA:: DefB;; TermB:: DefC;; TermC:: DefD;; TermD

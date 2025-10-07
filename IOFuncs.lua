@@ -137,7 +137,7 @@ function LoadSavedSetsIntoMemory()
             local Filename = "SavedSets/Set" .. i .. ".txt"
             local file = io.open(Filename, "r")
             if file then
-                local line = file:read("*l") -- Read the first line
+                local line = file:read("*a") -- Read the first line
                 file:close()
 
                 if line then
@@ -177,7 +177,6 @@ function LoadSavedSetsIntoMemory()
         }
     }
         ]]
-    --https://chatgpt.com/c/1103cb13-78ec-4355-ba4b-3ac590cb4d2c
 end
 function SaveSetsToFile(SetData, Filename)
     if SetData==nil or Filename==nil then
@@ -223,7 +222,7 @@ function LoadIndividualSet(SetToLoad)
         print("In LoadIndividualSet() file is reporting as: "..tostring(file))
         return
     end
-    local line = file:read("*l")    
+    local line = file:read("*a")    
     file:close()
     if line then
         local title, data = line:match("^(.-)%-%-(.+)$")
