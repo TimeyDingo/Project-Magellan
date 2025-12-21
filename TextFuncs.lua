@@ -277,3 +277,63 @@ function ScrollBar(BoxX,BoxY,BoxW,BoxH,MinNumberOfItems,NumberOfItems,CurrentScr
     love.graphics.setColor(255,255,255)
     return CurrentScroll
 end
+function ContainerHorizontal(BoxX,BoxY,BoxW,BoxH,NumberOfElements, Spacing, Scaling)
+     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or NumberOfElements==nil or Spacing==nil then
+        print("In ContainerHorizontal() BoxX is reporting as: "..tostring(BoxX))
+        print("In ContainerHorizontal() BoxY is reporting as: "..tostring(BoxY))
+        print("In ContainerHorizontal() BoxW is reporting as: "..tostring(BoxW))
+        print("In ContainerHorizontal() BoxH is reporting as: "..tostring(BoxH))
+        print("In ContainerHorizontal() NumberOfElements is reporting as: "..tostring(NumberOfElements))
+        print("In ContainerHorizontal() Spacing is reporting as: "..tostring(Spacing))
+        return 0
+    end
+    if Scaling==true then
+        BoxX=scaling(BoxX,1920,Settings.XRes)
+        BoxY=scaling(BoxY,1080,Settings.YRes)
+        BoxW=scaling(BoxW,1920,Settings.XRes)
+        BoxH=scaling(BoxH,1080,Settings.YRes)
+    end
+    local ElementPositions={}
+    local HorizontalSpace=BoxW
+    local ElementWidth = (HorizontalSpace - Spacing * (NumberOfElements - 1)) / NumberOfElements
+    local x=BoxX
+    local y=BoxY
+    local height=BoxH
+    for i = 1, NumberOfElements do
+        table.insert(ElementPositions, {x, y, ElementWidth, height})
+        x = x + ElementWidth + Spacing
+    end
+    return ElementPositions
+end
+function ContainerVertical(BoxX, BoxY, BoxW, BoxH, NumberOfElements, Spacing, Scaling)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or NumberOfElements==nil or Spacing==nil then
+        print("In ContainerVertical() BoxX is reporting as: "..tostring(BoxX))
+        print("In ContainerVertical() BoxY is reporting as: "..tostring(BoxY))
+        print("In ContainerVertical() BoxW is reporting as: "..tostring(BoxW))
+        print("In ContainerVertical() BoxH is reporting as: "..tostring(BoxH))
+        print("In ContainerVertical() NumberOfElements is reporting as: "..tostring(NumberOfElements))
+        print("In ContainerVertical() Spacing is reporting as: "..tostring(Spacing))
+        return 0
+    end
+
+    if Scaling == true then
+        BoxX = scaling(BoxX, 1920, Settings.XRes)
+        BoxY = scaling(BoxY, 1080, Settings.YRes)
+        BoxW = scaling(BoxW, 1920, Settings.XRes)
+        BoxH = scaling(BoxH, 1080, Settings.YRes)
+    end
+
+    local ElementPositions = {}
+    local VerticalSpace = BoxH
+    local ElementHeight = (VerticalSpace - Spacing * (NumberOfElements - 1)) / NumberOfElements
+    local x = BoxX
+    local y = BoxY
+    local width = BoxW
+
+    for i = 1, NumberOfElements do
+        table.insert(ElementPositions, {x, y, width, ElementHeight})
+        y = y + ElementHeight + Spacing
+    end
+
+    return ElementPositions
+end

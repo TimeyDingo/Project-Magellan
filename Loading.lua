@@ -71,6 +71,9 @@ function LoadSettings()
     SettingsResolution=Settings.XRes
     SettingsResolutionDropDownClicked=false
     math.randomseed (os.time())
+    TextEntry={}
+    TextEntryWriter=0
+    EditCursorPosition=0
 end
 function LoadActivities()
     LoadFlashcards()
@@ -96,6 +99,7 @@ function LoadEdit()
 end
 function LoadMouseClickDebounce()
     DebounceTimer=0
+    DebounceTimers={}
 end
 function ConfirmSettings()
     SaveSettings(Settings)

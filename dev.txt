@@ -3,3 +3,19 @@
 3. autofill dictionary and autocorrect
 4. image support
 5. android build
+
+
+
+Magellan updates
+1. Test should show which were false vs correct instead of just a final score
+2. The application should track how well each term is learned by using data from the matching, missile, and test modes to determine which terms the user is worst/best with their guess vs hit/accuracy rate
+3. Spellcheck lol
+4. Graph/image support in definition creation
+5. auto updater that can be enabled similiar to how minecraft mods let you know when they are out of date, and the user can choose to continue or update
+6. android build
+7. Clicking to move cursor in edit mode fuck the slow arrow only moving of the cursor in text entry
+8. Update text entry to feel more like google docs, it just feels off like the backspace rate
+9. Clicking to move the scroll bar on tests and viewing/editing sets
+10. port over text entry stuff from sub game
+11. Crashes when using : or ; in definition or term
+12. buggy behavior in missile defense

@@ -41,6 +41,7 @@ function love.load()
 end
 function love.update(dt)
     dt = love.timer.getDelta()
+    UpdateDebounceTimers()
     DebounceTimer=DebounceTimer+dt
     if love.keyboard.isDown("lshift") and love.keyboard.isDown("escape") then --? allows game to be closed quickly for debugging
         love.event.quit()
@@ -74,6 +75,7 @@ function love.draw()
     MouseDX, MouseDY=MouseDelta()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
+            --N5Window(244, 79, 1431, 922, true, "Project Copernicus", true,{{"StateMachine='Settings Menu'","~"},{"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'","X"}})
             N5MainMenu()
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,BodyFont,"Select")
             N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,BodyFont, "Create New Set")

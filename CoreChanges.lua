@@ -166,3 +166,67 @@ end
 function trim(s)
     return s:match("^%s*(.-)%s*$")
 end
+function CenterBoxX(desiredWidth)
+    local screenWidth = 1920
+    print( (screenWidth - desiredWidth) / 2)
+    return (screenWidth - desiredWidth) / 2
+end
+function TextEntryIndexFromKey(key)
+    if key == nil then
+        print("In TextEntryIndexFromKey() key is nil")
+        return nil
+    end
+    for index, value in ipairs(TextEntry) do
+        if value[1] == key then
+            return index
+        end
+    end
+    return nil
+end
+function TextEntryKeyFromIndex(index)
+    if index == nil then
+        print("In TextEntryKeyFromIndex() index is nil")
+        return nil
+    end
+    if TextEntry[index] ~= nil then
+        return TextEntry[index][1]
+    end
+    return nil
+end
+function PrintTextEntries()
+    for i, v in ipairs(TextEntry) do
+        print(i, v[1], v[2])
+        print(TextEntryWriter)
+    end
+end
+
+function UpdateDebounceTimers()
+    dt = love.timer.getDelta()
+    for i, v in ipairs(DebounceTimers) do
+        DebounceTimers[i][2]=DebounceTimers[i][2]+dt
+    end
+end
+function DebounceIndexFromKey(key)
+    if key == nil then
+        print("In DebounceIndexFromKey() key is nil")
+        return nil
+    end
+    for index, value in ipairs(DebounceTimers) do
+        if value[1] == key then
+            return index
+        end
+    end
+    return nil
+end
+function DebounceMk2(ButtonToDebounce, DebouncePeriod, Key)
+    local Index = DebounceIndexFromKey(Key)
+    if Index==nil then
+        table.insert(DebounceTimers,{Key,0})
+    end
+    if love.keyboard.isDown(ButtonToDebounce) and DebounceTimers[Index][2]>DebouncePeriod then
+        DebounceTimers[Index][2]=0
+        return true
+    else
+        return false
+    end
+end
