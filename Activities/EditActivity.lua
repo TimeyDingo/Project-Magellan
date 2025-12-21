@@ -8,7 +8,8 @@ function EditActivity()
             print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
             return
         end
-        EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
+        --EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
+        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle)
         N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
         local TermFont=BodyFont
         local DefinitionFont=SmallBodyFont
@@ -248,62 +249,6 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
     love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
     love.graphics.setColorF(255, 255, 255)
-    love.graphics.setLineWidth(1)
-end
-function EditableTitle(BoxX, BoxY, BoxW, BoxH, TextFont,Scaling)
-    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or TextFont==nil or Scaling==nil or SetTitle==nil then
-        print("In EditableTitle() BoxX is reporting as: "..tostring(BoxX))
-        print("In EditableTitle() BoxY is reporting as: "..tostring(BoxY))
-        print("In EditableTitle() BoxW is reporting as: "..tostring(BoxW))
-        print("In EditableTitle() BoxH is reporting as: "..tostring(BoxH))
-        print("In EditableTitle() TextFont is reporting as: "..tostring(TextFont))
-        print("In EditableTitle() Scaling is reporting as: "..tostring(Scaling))
-        print("In EditableTitle() SetTitle is reporting as: "..tostring(SetTitle))
-        return
-    end
-    love.graphics.setFont(TextFont)
-    if Scaling==true then
-        BoxX=scaling(BoxX,1920,Settings.XRes)
-        BoxY=scaling(BoxY,1080,Settings.YRes)
-        BoxW=scaling(BoxW,1920,Settings.XRes)
-        BoxH=scaling(BoxH,1080,Settings.YRes)
-    end
-    local Selected = isMouseOverBox(BoxX, BoxY, BoxW, BoxH)
-    if Selected then
-        love.graphics.setColor(255, 255, 255)  -- Highlight color for selected
-        EditActivitySelectedTerm = nil
-        EditActivitySelectedDefinition = nil
-        function love.textinput(t)
-            SetTitle=SetTitle..t
-        end
-        SetTitle=BackspaceController(SetTitle,1,0.1)
-    else
-        function love.textinput(t)
-        end
-        love.graphics.setColor(180, 180, 180)  -- Default color
-    end
-    --95 box background
-    love.graphics.rectangle("fill", BoxX, BoxY, BoxW, BoxH)
-    love.graphics.setColor(0,0,0)--text color
-    -- black color text
-    love.graphics.setColor(0,0,0)
-    local Text=SetTitle
-    local TH = TextFont:getHeight() * #Text / BoxW -- Estimate height based on wrapping
-    local _, wrappedText = TextFont:getWrap(Text, BoxW)
-    local wrappedHeight = #wrappedText * TextFont:getHeight()
-    -- Coordinates for the text
-    local textY = BoxY + (BoxH - wrappedHeight) / 2  -- Center the text vertically
-    love.graphics.printf(Text, BoxX, textY, BoxW, "center")  -- Print wrapped and centered text
-    love.graphics.setLineWidth(MediumLine)
-    --95 box border
-    love.graphics.setLineWidth(MediumLine)
-    love.graphics.setColor(255, 255, 255) -- white
-    love.graphics.line( BoxX, BoxY+BoxH, BoxX+BoxW, BoxY+BoxH) -- horizontal bottom
-    love.graphics.line( BoxX+BoxW, BoxY, BoxX+BoxW, BoxY+BoxH) -- vertical right
-    love.graphics.setColor(0, 0, 0) -- black
-    love.graphics.line( BoxX, BoxY, BoxX+BoxW, BoxY) -- horizontal top
-    love.graphics.line( BoxX, BoxY, BoxX, BoxY+BoxH) -- vertical left
-    love.graphics.setColor(255, 255, 255)
     love.graphics.setLineWidth(1)
 end
 function EditActivityRemoveTerm(TermToRemove)

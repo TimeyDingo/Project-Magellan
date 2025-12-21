@@ -264,30 +264,37 @@ function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, RawValue, Percentage)
     Percentage=(RawValue-LineStart)/LineLength
     return RawValue, Percentage
 end
-function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Title,TextEntryKey,InnerFillTurnOff)
-    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Title==nil then
+function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFillTurnOff,NoPrompt,InitialEntry)
+    if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Prompt==nil then
         print("In N5TextEntryBox() BoxX is reporting as: "..tostring(BoxX))
         print("In N5TextEntryBox() BoxY is reporting as: "..tostring(BoxY))
         print("In N5TextEntryBox() BoxW is reporting as: "..tostring(BoxW))
         print("In N5TextEntryBox() BoxH is reporting as: "..tostring(BoxH))
         print("In N5TextEntryBox() Scaling is reporting as: "..tostring(Scaling))
-        print("In N5TextEntryBox() Title is reporting as: "..tostring(Title))
+        print("In N5TextEntryBox() Title is reporting as: "..tostring(Prompt))
         print("In N5TextEntryBox() TextEntryKey is reporting as: "..tostring(TextEntryKey))
         return 0
     end
     local index = TextEntryIndexFromKey(TextEntryKey)
+    local Entry = ""
+    if InitialEntry then
+        Entry = InitialEntry
+    end
     if index == nil then
-        table.insert(TextEntry, { TextEntryKey, ""})
+        table.insert(TextEntry, { TextEntryKey, Entry})
         index = #TextEntry
         return 0
     end
     local BoxDiff=10
+    if NoPrompt then
+        BoxDiff = 0
+    end
     if Scaling==true then
         BoxX=scaling(BoxX,1920,Settings.XRes)
         BoxY=scaling(BoxY,1080,Settings.YRes)
         BoxW=scaling(BoxW,1920,Settings.XRes)
         BoxH=scaling(BoxH,1080,Settings.YRes)
-        BoxDiff=scaling(10,1920,Settings.XRes)--difference factor between inner box and outer box
+        BoxDiff=scaling(BoxDiff,1920,Settings.XRes)--difference factor between inner box and outer box
     end
 
     local Selected = isMouseOverBox(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5)
@@ -370,10 +377,10 @@ function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Title,TextEntryKey,InnerFill
         local InFill2=scaling(4,1128,Settings.XRes)
         love.graphics.rectangle("fill",BoxX+BoxDiff-InFill, BoxY+BoxDiff*2-InFill, BoxW-BoxDiff*2+InFill2, BoxH-BoxDiff*2.5+InFill2)
     end
-    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)--same print as later just to get the text width
+    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, MediumHeaderBold, false)--same print as later just to get the text width
     love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH-BoxDiff)--title cover
     love.graphics.setColor(0,0,0,255) -- title text color
-    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Title, MediumHeaderBold, false)-- actual text of the title in the top middle of the outer line
+    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, MediumHeaderBold, false)-- actual text of the title in the top middle of the outer line
     love.graphics.setColor(255,255,255)
     love.graphics.setFont(BodyFont)
     return TextEntry[index][2], BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5 --return the x,y,width,height of the inner box
