@@ -9,7 +9,7 @@ function EditActivity()
             return
         end
         --EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
-        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle)
+        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle,true)
         N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
         local TermFont=BodyFont
         local DefinitionFont=SmallBodyFont

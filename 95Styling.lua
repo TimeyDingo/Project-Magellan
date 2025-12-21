@@ -264,7 +264,7 @@ function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, RawValue, Percentage)
     Percentage=(RawValue-LineStart)/LineLength
     return RawValue, Percentage
 end
-function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFillTurnOff,NoPrompt,InitialEntry)
+function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFillTurnOff,NoPrompt,InitialEntry,BackdropColorChanging)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Prompt==nil then
         print("In N5TextEntryBox() BoxX is reporting as: "..tostring(BoxX))
         print("In N5TextEntryBox() BoxY is reporting as: "..tostring(BoxY))
@@ -370,7 +370,15 @@ function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFil
     end
     
     N5BoxHighlight(BoxX, BoxY, BoxW, BoxH, false, {})-- outer black box on the outside
-    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, {255,255,255}, false, BodyFontBold, Text)--white box on the inside
+    local InnerBoxColor={255,255,255}
+    if index==TextEntryWriter and BackdropColorChanging then
+        InnerBoxColor={255,255,255} --selected
+    elseif isMouseOverBox(BoxX, BoxY, BoxW, BoxH) then
+        InnerBoxColor={200,200,200}--hover
+    else
+        InnerBoxColor={180,180,180}--notclicked or hovered
+    end
+    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, InnerBoxColor, false, BodyFontBold, Text)--white box on the inside
     love.graphics.setColor(195,199,203)--title cover
     if InnerFillTurnOff then
         local InFill=scaling(2,1128,Settings.XRes)
