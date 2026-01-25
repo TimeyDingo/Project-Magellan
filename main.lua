@@ -75,6 +75,10 @@ function love.draw()
     MouseDX, MouseDY=MouseDelta()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
+            TextEntry={} -- clear text entry table each time the main menu is reached
+            TextEntryWriter=0 -- clear text entry writer positon
+            EditCursorPosition=0 -- clear edit position
+            
             --N5Window(244, 79, 1431, 922, true, "Project Copernicus", true,{{"StateMachine='Settings Menu'","~"},{"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'","X"}})
             N5MainMenu()
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,BodyFont,"Select")

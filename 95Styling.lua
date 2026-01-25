@@ -264,7 +264,7 @@ function N5Slider(BoxX, BoxY, BoxW, BoxH, Scaling, RawValue, Percentage)
     Percentage=(RawValue-LineStart)/LineLength
     return RawValue, Percentage
 end
-function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFillTurnOff,NoPrompt,InitialEntry,BackdropColorChanging)
+function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFillTurnOff,NoPrompt,InitialEntry,BackdropColorChanging,Font)
     if BoxX==nil or BoxY==nil or BoxW==nil or BoxH==nil or Scaling==nil or Prompt==nil then
         print("In N5TextEntryBox() BoxX is reporting as: "..tostring(BoxX))
         print("In N5TextEntryBox() BoxY is reporting as: "..tostring(BoxY))
@@ -378,17 +378,17 @@ function N5TextEntryBox(BoxX,BoxY,BoxW,BoxH,Scaling,Prompt,TextEntryKey,InnerFil
     else
         InnerBoxColor={180,180,180}--notclicked or hovered
     end
-    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, InnerBoxColor, false, BodyFontBold, Text)--white box on the inside
+    N5BoxHighlight(BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5, true, InnerBoxColor, false, Font, Text)--white box on the inside
     love.graphics.setColor(195,199,203)--title cover
     if InnerFillTurnOff then
         local InFill=scaling(2,1128,Settings.XRes)
         local InFill2=scaling(4,1128,Settings.XRes)
         love.graphics.rectangle("fill",BoxX+BoxDiff-InFill, BoxY+BoxDiff*2-InFill, BoxW-BoxDiff*2+InFill2, BoxH-BoxDiff*2.5+InFill2)
     end
-    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, MediumHeaderBold, false)--same print as later just to get the text width
+    local TH, TW=CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, Font, false)--same print as later just to get the text width
     love.graphics.rectangle("fill",BoxX+(BoxW-TW)/2,BoxY-BoxDiff*2-BoxDiff/2,TW,TH-BoxDiff)--title cover
     love.graphics.setColor(0,0,0,255) -- title text color
-    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, MediumHeaderBold, false)-- actual text of the title in the top middle of the outer line
+    CenteredTextBox(BoxX,BoxY-BoxDiff*6,BoxW,BoxDiff*11,Prompt, Font, false)-- actual text of the title in the top middle of the outer line
     love.graphics.setColor(255,255,255)
     love.graphics.setFont(BodyFont)
     return TextEntry[index][2], BoxX+BoxDiff, BoxY+BoxDiff*2, BoxW-BoxDiff*2, BoxH-BoxDiff*2.5 --return the x,y,width,height of the inner box

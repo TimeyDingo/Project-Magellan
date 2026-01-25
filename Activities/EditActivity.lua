@@ -1,4 +1,6 @@
 function EditActivity()
+    local TermFont=BodyFont
+    local DefinitionFont=SmallBodyFont
     if Deleting==false then
         if SetTitle==nil or SetData==nil or NumberOfTerms==nil or Settings==nil or EditActivityScroll==nil or Deleting==true then
             print("In EditActivity() SetTitle is reporting as: "..tostring(SetTitle))
@@ -11,8 +13,6 @@ function EditActivity()
         --EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
         SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle,true)
         N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
-        local TermFont=BodyFont
-        local DefinitionFont=SmallBodyFont
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
@@ -21,6 +21,7 @@ function EditActivity()
         N5Button(1522, 6, 200, 75, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)',true, BodyFontBold, "Save Set")
         N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1' ,true, BodyFontBold, "+++")
         if NumberOfTerms>0 then
+            --SetTitle=N5TextEntryBox(20,200+MediumLine,870,200,true,"","EditActivityTitle",false,true,SetTitle,true,TermFont)
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
             N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, BodyFontBold, "X")
