@@ -68,11 +68,14 @@ function love.update(dt)
     end
 end
 function love.draw()
-    H=love.graphics.getPixelHeight()
-    W=love.graphics.getPixelWidth()
+    H=love.graphics.getHeight()
+    W=love.graphics.getWidth()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
+    H=H*.8
+    W=W*.8
     MouseDX, MouseDY=MouseDelta()
+    print(love.graphics.getDPIScale( ))
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             TextEntry={} -- clear text entry table each time the main menu is reached
@@ -91,7 +94,11 @@ function love.draw()
             end
             N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'",true,SmallHeaderBold,"~")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
+            ButtonStyle1(0,0,100,100,"TEST",LargeBodyFontBold,true)
+            CenterText(0,0,"TEST",LargeBodyFontBold)
         end
+
+        
         if StateMachine=="Settings Menu" then
             N5SettingMenu()
             N5Button(754,880,402,110, true, 'ConfirmSettings()', true, BodyFontBold, "Save Settings")
