@@ -26,6 +26,7 @@ function love.load()
     LoadMouseClickDebounce()
     LoadPopup()
     LoadSounds()
+    CheckForUpdates()
     StateMachine="Main Menu"
     Input=""
     Paste=""
@@ -39,8 +40,6 @@ function love.load()
     YScroll=0
     MouseHistory = {}
     MouseHistory.maxEntries = 10
-    code, body = https.request("https://github.com/TimeyDingo/Project-Magellan")
-    print(tostring(body))
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -75,8 +74,6 @@ function love.draw()
     W=love.graphics.getWidth()
     MouseX = love.mouse.getX()
     MouseY = love.mouse.getY()
-    H=H*.8
-    W=W*.8
     MouseDX, MouseDY=MouseDelta()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
