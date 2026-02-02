@@ -26,7 +26,6 @@ function love.load()
     LoadMouseClickDebounce()
     LoadPopup()
     LoadSounds()
-    CheckForUpdates()
     StateMachine="Main Menu"
     Input=""
     Paste=""
@@ -40,6 +39,7 @@ function love.load()
     YScroll=0
     MouseHistory = {}
     MouseHistory.maxEntries = 10
+    CheckForUpdates("0.0.10")
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -93,8 +93,6 @@ function love.draw()
             end
             N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'",true,SmallHeaderBold,"~")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
-            ButtonStyle1(0,0,100,100,"TEST",LargeBodyFontBold,true)
-            CenterText(0,0,"TEST",LargeBodyFontBold)
         end
 
         

@@ -14,7 +14,6 @@ function SaveSettings(Settings)
         file:write("DarkMode=".. tostring(Settings.DarkMode) .. "\n")
         file:write("ReducedFlicker=".. tostring(Settings.ReducedFlicker) .. "\n")
         file:write("FontSelected=".. tostring(Settings.FontSelected) .. "\n")
-        file:write("FontSelected=".. tostring(Settings.CurrentVersion) .. "\n")
         file:close() -- Close the file
         return 1 -- Success
     else
@@ -48,8 +47,6 @@ function LoadSettingsIO(Settings)
         Settings.ReducedFlicker=toboolean(line:match("=(.+)"))
         line=file:read("*l")
         Settings.FontSelected=tostring(line:match("=(.+)"))
-        line=file:read("*l")
-        Settings.CurrentVersion=tostring(line:match("=(.+)"))
         file:close()
         return 1 -- Success
     else

@@ -53,7 +53,7 @@ function LoadFonts()
     ThinLine=scaling(1,1080,Settings.YRes,true)
 end
 function LoadSettings()
-    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModRaw=4, FontModPercent=5, LineModifier=3, AudioRaw=0, AudioPercent=5, DarkMode=false,ReducedFlicker=false,FontSelected="Exo2", CurrentVersion="0.0.10"}
+    Settings={XRes=1024,YRes=576,MSAA=2,Fullscreen=false, FontModRaw=4, FontModPercent=5, LineModifier=3, AudioRaw=0, AudioPercent=5, DarkMode=false,ReducedFlicker=false,FontSelected="Exo2"}
     LoadSettingsIO(Settings)
     love.window.setMode(0, 0)
     if Settings.ReducedFlicker then
@@ -306,14 +306,15 @@ function SetSoundVolume(volume)
         sound:setVolume(volume)
     end
 end
-function CheckForUpdates()
+function CheckForUpdates(CurrentVersion)
     local HttpsStatus
     local HttpsText
     HttpsStatus, HttpsText = https.request("https://github.com/TimeyDingo/Project-Magellan")
     local version = HttpsText:match("Current Version:%s*([%d%.]+)")
-    if version~=Settings.CurrentVersion then
+    print(CurrentVersion,version)
+    if version~=CurrentVersion then
         PopupCall=true
-        PopupAction=""
+        PopupAction="love.system.openURL('https://github.com/TimeyDingo/Project-Magellan/releases');PopupCall=false"
         PopUpMessage="New update for Project Magellan detected, update?"
     end
 end
