@@ -14,3 +14,6 @@ This software is intended as an offline replacement for flashcard apps such as q
 1. clone the files
 2. open compilation instructions.txt
 3. enjoy
+
+
+Current Version: 0.0.10

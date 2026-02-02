@@ -14,6 +14,7 @@ require "Activities.ViewSet"
 require "95Styling"
 require "backdrops"
 utf8 = require("utf8")
+https = require("https")
 --[[
 https://www.youtube.com/watch?v=py0iF3mwy2E
 -show correct answers after finishing test mode
@@ -38,6 +39,8 @@ function love.load()
     YScroll=0
     MouseHistory = {}
     MouseHistory.maxEntries = 10
+    code, body = https.request("https://github.com/TimeyDingo/Project-Magellan")
+    print(tostring(body))
 end
 function love.update(dt)
     dt = love.timer.getDelta()
@@ -75,7 +78,6 @@ function love.draw()
     H=H*.8
     W=W*.8
     MouseDX, MouseDY=MouseDelta()
-    print(love.graphics.getDPIScale( ))
     if PopupCall==false then
         if StateMachine=="Main Menu" then
             TextEntry={} -- clear text entry table each time the main menu is reached
