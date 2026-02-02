@@ -60,10 +60,10 @@ function LoadSettings()
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
     end
-    DetectedX = love.graphics.getPixelWidth()
-    DetectedY = love.graphics.getPixelHeight()
+    DetectedX = love.graphics.getWidth()
+    DetectedY = love.graphics.getHeight()
     DetectedRes = DetectedX .. " x " .. DetectedY
-    love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen)})
+    love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen), usedpiscale=false})
     if Settings.ReducedFlicker then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
@@ -76,9 +76,6 @@ function LoadSettings()
     EditCursorPosition=0
     print(DetectedX,DetectedY)
     print(Settings.XRes, Settings.YRes)
-    --! fix for dpi scaling issue
-    --Settings.XRes=Settings.XRes*.80
-    --Settings.YRes=Settings.YRes*.80
 end
 function LoadActivities()
     LoadFlashcards()
