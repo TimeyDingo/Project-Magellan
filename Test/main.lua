@@ -7,10 +7,13 @@ end
 function love.draw()
     H=love.graphics.getHeight()
     W=love.graphics.getWidth()
-    CenterText(0,0,"TEST",LargeBodyFontBold)
-    mousex,mousey = love.mouse.getPosition()
-    
-    CenterText(-200,0,mousey,LargeBodyFontBold)
+    x, y = love.mouse.getPosition( )
+    down = love.mouse.isDown(1)
+    x=tostring(x)
+    y=tostring(y)
+    down=tostring(down)
+    Test=x..","..y..","..down
+    CenterText(0,0,Test,LargeBodyFontBold)
 end
 
 function CenterText(X,Y,Text,TextFont)

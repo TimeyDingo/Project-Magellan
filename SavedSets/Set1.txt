@@ -1,1 +1,1 @@
-adfadsfasdfa--DefA;;TermA::DefB;; TermB::DefC;; TermC::DefD;;TermD
+adfadsfasdfa--DefA;;TermA::a;;TermD

@@ -11,7 +11,7 @@ function EditActivity()
             return
         end
         --EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
-        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle,true)
+        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle,true, BodyFontBold)
         N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); StateMachine="View Set"; EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))

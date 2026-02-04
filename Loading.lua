@@ -43,10 +43,22 @@ function LoadFonts()
         MediumHeaderBold=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(34,1080,Settings.YRes,true))
         LargeHeader=love.graphics.newFont("Fonts/IBMPlexMono-Bold.ttf", scaling(60,1080,Settings.YRes,true))
     end
+    if Settings.FontSelected=="OpenDyslexic" then
+        SmallBodyFont=love.graphics.newFont("Fonts/OpenDyslexic-Regular.otf", scaling(16,1080,Settings.YRes,true)+FontTransform())
+        SmallBodyFontBold=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(16,1080,Settings.YRes,true)+FontTransform())
+        BodyFont=love.graphics.newFont("Fonts/OpenDyslexic-Regular.otf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        BodyFontBold=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(20,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFont=love.graphics.newFont("Fonts/OpenDyslexic-Regular.otf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        LargeBodyFontBold=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(24,1080,Settings.YRes,true)+FontTransform())
+        SmallHeaderBold=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(24,1080,Settings.YRes,true))
+        MediumHeaderBold=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(28,1080,Settings.YRes,true))
+        LargeHeader=love.graphics.newFont("Fonts/OpenDyslexic-Bold.otf", scaling(56,1080,Settings.YRes,true))
+    end
     --fonts for setting menu
     SExo24=love.graphics.newFont("Fonts/Exo2.ttf", scaling(24,1080,Settings.YRes,true))
     SIBM24=love.graphics.newFont("Fonts/IBMPlexMono-Regular.ttf", scaling(24,1080,Settings.YRes,true))
     SAHL24=love.graphics.newFont("Fonts/AtkinsonHyperlegible-Regular.ttf", scaling(24,1080,Settings.YRes,true))
+    SOD24=love.graphics.newFont("Fonts/OpenDyslexic-Regular.otf", scaling(24,1080,Settings.YRes,true))
     --line settings
     ThickLine=scaling(5,1080,Settings.YRes,true)
     MediumLine=scaling(3,1080,Settings.YRes,true)
@@ -311,7 +323,6 @@ function CheckForUpdates(CurrentVersion)
     local HttpsText
     HttpsStatus, HttpsText = https.request("https://github.com/TimeyDingo/Project-Magellan")
     local version = HttpsText:match("Current Version:%s*([%d%.]+)")
-    print(CurrentVersion,version)
     if version~=CurrentVersion then
         PopupCall=true
         PopupAction="love.system.openURL('https://github.com/TimeyDingo/Project-Magellan/releases');PopupCall=false"

@@ -312,8 +312,8 @@ end
 function file_exists(name)
     local f=io.open(name,"r")
     if f~=nil then io.close(f) return true else return false end
- end
- function DictionaryLoader(debug)
+end
+function DictionaryLoader(debug)
     if Dictionary==nil then
         return
     end
@@ -336,4 +336,4 @@ function file_exists(name)
     end
     io.close(file)
     return Dictionary
- end
+end
