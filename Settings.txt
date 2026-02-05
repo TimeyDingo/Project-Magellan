@@ -9,4 +9,4 @@ AudioRaw=622
 AudioPercent=0.17610062893082
 DarkMode=false
 ReducedFlicker=false
-FontSelected=OpenDyslexic
+FontSelected=Stylized

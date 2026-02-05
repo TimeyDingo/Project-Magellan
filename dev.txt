@@ -18,7 +18,7 @@ Magellan updates
 10. port over text entry stuff from sub game
 11. Crashes when using : or ; in definition or term
 12. buggy behavior in missile defense
-14. XML for sets
+14. lua for sets
 
 
 done

@@ -23,7 +23,7 @@ end
 function LoadSettingsIO(Settings)
     local file = io.open("Settings.txt", "r")
     if file then
-        line=file:read("*l")
+        local line=file:read("*l")
         Settings.XRes=tonumber(line:match("=(.+)"))
         line=file:read("*l")
         Settings.YRes=tonumber(line:match("=(.+)"))
@@ -313,27 +313,74 @@ function file_exists(name)
     local f=io.open(name,"r")
     if f~=nil then io.close(f) return true else return false end
 end
-function DictionaryLoader(debug)
-    if Dictionary==nil then
+function LUASetRead(SetToLoad)
+    if SetToLoad==nil then
+        print("In XMLSetRead() SetToLoad is reporting as: "..tostring(SetToLoad))
         return
     end
-    local file = io.open("dictionary.txt", "r")
+    --[[
+    return {
+        Title="Set1", Terms=4,
+        {Term="TermA",Definition="DefinitionA",UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term="TermB",Definition="DefinitionB",UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term="TermC",Definition="DefinitionC",UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term="TermD",Definition="DefinitionD",UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    }
+    ]]
+    local filename = "SavedSets/Set" .. SetToLoad .. ".lua"
+    local NumberofSets = CheckSavedSets()
+    if SetToLoad > NumberofSets then
+        print("In XMLSetRead() SetToLoad is greater then NumberofSets")
+        return
+    end
+    local file = io.open(filename, "r")
     if file==nil then
-        print("Dictionary is missing")
-        io.close(file)
+        print("In XMLSetRead() file is reporting as: "..tostring(file))
         return
     end
-    local Dictionary={}
-    while (true) do
-        local line=file:read("*l")
-        if debug then
-            print(line)
+    local line
+    line = file:read("*a")    
+    file:close()
+    if line then
+        local actionFunc, err = load(line)
+        if actionFunc then
+            return actionFunc()
+        else
+            print("Error in action string: " .. err)
         end
-        if line==nil then
-            break
-        end
-        table.insert(Dictionary,line)
     end
-    io.close(file)
-    return Dictionary
+end
+function LUASetWrite(SetToSave,SetTable)
+    if SetToSave==nil or SetTable==nil then
+        print("In LUAFileWrite() SetToSave is reporting as: "..tostring(SetToSave))
+        print("In LUAFileWrite() SetTable is reporting as: "..tostring(SetTable))
+        return
+    end
+    local filename = "SavedSets/Set" .. SetToSave .. ".lua"
+    local file = io.open(filename, "w")
+    if file==nil then
+        print("In LUAFileWrite() file is reporting as: "..tostring(file))
+        return
+    end
+    --[[
+        return {
+        Title='Set1', Terms=4,
+        {Term='TermA',Definition='DefinitionA',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term='TermB',Definition='DefinitionB',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term='TermC',Definition='DefinitionC',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+        {Term='TermD',Definition='DefinitionD',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    }
+    ]]
+    SaveString="Return {\n".."Title=".."'"..SetTable.Title.."', "
+    SaveString=SaveString.."Terms="..SetTable.Terms..",\n"
+    for i = 1, SetTable.Terms do
+        SaveString=SaveString.."{Term=".."'"..SetTable[i].Term.."',"
+        SaveString=SaveString.."Definition=".."'"..SetTable[i].Definition.."',"
+        SaveString=SaveString.."UserSeenTimes="..SetTable[i].UserSeenTimes..","
+        SaveString=SaveString.."UserCorrectTimes="..SetTable[i].UserCorrectTimes..","
+        SaveString=SaveString.."Image="..SetTable[i].Image.."},"
+    end
+    SaveString=SaveString.."}"
+    file:write(SaveString)
+    file:close()
 end
