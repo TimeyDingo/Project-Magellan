@@ -1,16 +1,22 @@
 function FlashcardActivity()
     --SetTitle, SetData = LUASetRead(SetToPreview)
     SetData = LUASetRead(SetToPreview)
-    if FlashCardActivityFlashCardSide==nil or SetTitle==nil or SetData==nil then
+    if FlashCardActivityFlashCardSide==nil or SetData==nil then
         print("In FlashcardActivity() FlashCardActivityFlashCardSide is reporting as: "..tostring(FlashCardActivityFlashCardSide))
-        print("In FlashcardActivity() SetTitle is reporting as: "..tostring(SetTitle))
         print("In FlashcardActivity() SetData is reporting as: "..tostring(SetData))
         return
     end
     N5BoxHighlight(830, 143, 240, 50, true, {255,255,255}, true, SmallHeaderBold, tostring(FlashCardActivityFlashCard).."/"..tostring(#SetData))
-    N5BoxHighlight(660, 198, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)--145, 90
+    N5BoxHighlight(660, 198, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetData.Title)--145, 90
     --CenterText(0,0,tostring(SetData[2][2]),Exo24)
-    DisplayFlashCard(scaling(578,1920,Settings.XRes),scaling(308,1080,Settings.YRes),scaling(763,1920,Settings.XRes),scaling(464,1080,Settings.YRes),tostring(SetData[FlashCardActivityFlashCard][FlashCardActivityFlashCardSide]),BodyFontBold)
+    local FlashCardText=" "
+    if FlashCardActivityFlashCardSide==1 then 
+        FlashCardText=tostring(SetData[FlashCardActivityFlashCard].Term)
+    end
+    if FlashCardActivityFlashCardSide==2 then 
+        FlashCardText=tostring(SetData[FlashCardActivityFlashCard].Definition)
+    end
+    DisplayFlashCard(scaling(578,1920,Settings.XRes),scaling(308,1080,Settings.YRes),scaling(763,1920,Settings.XRes),scaling(464,1080,Settings.YRes),FlashCardText,BodyFontBold)
     FlashCardKeyboardControls()
     N5Button(578, 800, 763, 100, true, "FlashCardChangeDisplaySideFirst()", true, BodyFontBold,"Swap Display Order")
     --ButtonStyle1Mod3(1341,308,500,464,"Note here", Exo24Bold, true) !! Add note thing here
