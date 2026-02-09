@@ -9,6 +9,7 @@ function love.conf(t)
     t.window.fullscreen=false
     t.console = true
     t.highdpi = false
+    t.window.vsync = 0
     t.graphics.lowpower = true
     
     
