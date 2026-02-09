@@ -213,11 +213,11 @@ function GenerateTestingData()
         local wrongAnswers = generateUniqueNumbersExclude(3, SetData.Terms, i)
         local Positions = generateUniqueNumbers(4, 4)
         table.insert(TestActivityTestTable, {
-            TermToTest = SetData[i][2],
-            CorrectAnswer = SetData[i][1],
-            WrongAnswer1 = SetData[wrongAnswers[1]][1],
-            WrongAnswer2 = SetData[wrongAnswers[2]][1],
-            WrongAnswer3 = SetData[wrongAnswers[3]][1],
+            TermToTest = SetData[i].Definition,
+            CorrectAnswer = SetData[i].Term,
+            WrongAnswer1 = SetData[wrongAnswers[1]].Term,
+            WrongAnswer2 = SetData[wrongAnswers[2]].Term,
+            WrongAnswer3 = SetData[wrongAnswers[3]].Term,
             CorrectAnswerPos = Positions[1],
             WrongAnswer1Pos = Positions[2],
             WrongAnswer2Pos = Positions[3],

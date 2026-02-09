@@ -13,7 +13,7 @@ function TestActivity()
         print("In TestActivity() TotalQuestions is reporting as: "..tostring(TotalQuestions))
         print("In TestActivity() TestActivityTestTable is reporting as: "..tostring(TestActivityTestTable))
     end
-    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetData.Title)
     N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, SmallHeaderBold, AnsweredCount.."/"..TotalQuestions)
     N5BoxHighlight(20,530+MediumLine,910,200, true, {255,255,255}, true, TermFont, TestActivityTestTable[1+TestActivityScroll].TermToTest)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].CorrectAnswerPos,910,200,TestActivityTestTable[1+TestActivityScroll].CorrectAnswer,DefinitionFont,true)
