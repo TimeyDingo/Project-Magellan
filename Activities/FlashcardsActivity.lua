@@ -1,5 +1,6 @@
 function FlashcardActivity()
-    SetTitle, SetData = LUASetRead(SetToPreview)
+    --SetTitle, SetData = LUASetRead(SetToPreview)
+    SetData = LUASetRead(SetToPreview)
     if FlashCardActivityFlashCardSide==nil or SetTitle==nil or SetData==nil then
         print("In FlashcardActivity() FlashCardActivityFlashCardSide is reporting as: "..tostring(FlashCardActivityFlashCardSide))
         print("In FlashcardActivity() SetTitle is reporting as: "..tostring(SetTitle))

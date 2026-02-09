@@ -1,6 +1,7 @@
 --!! bug on level up where empty missiles are deployed
 function MissileDefenseActivity()
-    SetTitle, SetData=LUASetRead(SetToPreview)
+    --SetTitle, SetData=LUASetRead(SetToPreview)
+    SetData = LUASetRead(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
     if MissileDefenseSurviveTimer<0.1 then

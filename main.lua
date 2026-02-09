@@ -54,8 +54,10 @@ function love.update(dt)
         PopUpMessage="Close Software?"
     end
     if StateMachine=="Edit" and EditActivityLoadOnce==false then
-        SetTitle, SetData, NumberOfTerms=LUASetRead(SetToPreview)
+        --SetTitle, SetData, NumberOfTerms=LUASetRead(SetToPreview)
+        SetData=LUASetRead(SetToPreview)
         EditActivityLoadOnce=true
+        --!!!!! this can potentially be removed now with the SetState function
     end
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer = MissileDefenseTimer + dt
