@@ -124,6 +124,11 @@ function LUASetWrite(SetToSave,SetTable)
     SaveString=SaveString.."}"
     file:write(SaveString)
     file:close()
+    SetDataCollated = LUALoadAllSets()
+    NumberofSets=GetSavedSetCount()
+    if SetToPreview then
+        SetData = LUASetRead(SetToPreview)
+    end
 end
 function CreateNewSet()
     Deleting=true
@@ -214,6 +219,7 @@ function ImportAQuizletSet(Title, SetString)
         print("In ImportAQuizletSet() SetString is reporting as: " .. tostring(SetString))
         return
     end
+    --? clean up text entry
     SetString = SetString:gsub("[%c]", " ") --? sub out control characters for blank spaces so new lines are gone, etc
     for i = 1, #SetString do
         local char = string.sub(SetString, i, i) --? get individual characters
@@ -221,12 +227,37 @@ function ImportAQuizletSet(Title, SetString)
             local char2 = string.sub(SetString, i + 1, i + 1)
             local charback = string.sub(SetString, i - 1, i - 1)
             if char2 ~= char and charback~=char then
-                SetString = string.sub(SetString, 1, i - 1) .. "|" .. string.sub(SetString, i + 1)
-                print(SetString)
+                SetString = string.sub(SetString, 1, i - 1) .. "|" .. string.sub(SetString, i + 1) --? replace individual ; or : with |
             end
         end
     end
-
+    --
+    --? convert text to proper format
+    local DataToSave={Title=Title, Terms=0}
+    --[[
+    return {
+    Title='Set1', Terms=4,
+    {Term='TermA',Definition='DefinitionA',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermB',Definition='DefinitionB',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermC',Definition='DefinitionC',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermD',Definition='DefinitionD',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+}
+    ]]
+    if SetString then
+        for item in SetString:gmatch("[^::]+") do
+            local subData = {}
+            for subItem in item:gmatch("[^;;]+") do
+                table.insert(subData, subItem)
+            end
+            local PreSub={Term=subData[1],Definition=subData[2],UserSeenTimes=0,UserCorrectTimes=0,Image=false}
+            table.insert(DataToSave, PreSub)
+            DataToSave.Terms=DataToSave.Terms+1
+        end
+    end
+    --
+    CreateNewSet()
+    local SetToOverwrite=GetSavedSetCount()
+    LUASetWrite(SetToOverwrite,DataToSave)
 end
 function LUALoadAllSets()
     local Data={}
