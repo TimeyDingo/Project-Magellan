@@ -1,5 +1,5 @@
 function MatchingActivity()
-    SetTitle, SetData = LoadIndividualSet(SetToPreview)
+    SetTitle, SetData = LUASetRead(SetToPreview)
     if SetTitle==nil or SetData==nil or MatchingActivity4XTable==nil or MatchingActivityPositions==nil then
         print("In MatchingActivity() SetTitle is reporting as: "..tostring(SetTitle))
         print("In MatchingActivity() SetData is reporting as: "..tostring(SetData))

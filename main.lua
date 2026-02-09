@@ -26,10 +26,9 @@ function love.load()
     LoadMouseClickDebounce()
     LoadPopup()
     LoadSounds()
-    StateMachine="Main Menu"
+    SetStateMachine("Main Menu")
     Input=""
     Paste=""
-    SetData={}
     SetToPreview=0
     BackspaceTimer=0
     MainMenuScroll=0
@@ -55,10 +54,9 @@ function love.update(dt)
         PopUpMessage="Close Software?"
     end
     if StateMachine=="Edit" and EditActivityLoadOnce==false then
-        SetTitle, SetData, NumberOfTerms=LoadIndividualSet(SetToPreview)
+        SetTitle, SetData, NumberOfTerms=LUASetRead(SetToPreview)
         EditActivityLoadOnce=true
     end
-    StateMachine=tostring(StateMachine)
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer = MissileDefenseTimer + dt
     end
@@ -78,21 +76,17 @@ function love.draw()
     MouseDX, MouseDY=MouseDelta()
     if PopupCall==false then
         if StateMachine=="Main Menu" then
-            TextEntry={} -- clear text entry table each time the main menu is reached
-            TextEntryWriter=0 -- clear text entry writer positon
-            EditCursorPosition=0 -- clear edit position
             
             --N5Window(244, 79, 1431, 922, true, "Project Copernicus", true,{{"StateMachine='Settings Menu'","~"},{"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'","X"}})
             N5MainMenu()
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then StateMachine="Set Options" end' , true ,BodyFont,"Select")
             N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,BodyFont, "Create New Set")
-            N5Button(261, 944, 689, 41, true, 'StateMachine="Import Menu"' , true ,BodyFont, "Import Quizlet Set")
+            N5Button(261, 944, 689, 41, true, 'SetStateMachine("Import Menu)' , true ,BodyFont, "Import Quizlet Set")
             if Deleting==false then
-                SetData = LoadSavedSetsIntoMemory()
                 ListofSets()
                 SetPreview()
             end
-            N5Button(1542,93,55,55,true,"StateMachine='Settings Menu'",true,SmallHeaderBold,"~")
+            N5Button(1542,93,55,55,true,"SetStateMachine('Settings Menu')",true,SmallHeaderBold,"~")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
 
@@ -151,7 +145,7 @@ function love.draw()
             end
             SetSoundVolume(Settings.AudioPercent)
             --
-            N5Button(1542,93,55,55,true,"StateMachine='Main Menu';love.load()",true,SmallHeaderBold,"<-")
+            N5Button(1542,93,55,55,true,"SetStateMachine('Main Menu');love.load()",true,SmallHeaderBold,"<-")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Import Menu" then
@@ -163,7 +157,7 @@ function love.draw()
             N5Button(1020, 887, 290, 96, true, 'StateMachine = "Main Menu"; ImportAQuizletSet(Input,Paste); Paste = ""; Input = ""' , true ,BodyFontBold,"Confirm")
         end
         if StateMachine=="Set Options" then
-            SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
+            SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
             N5SelectMenu()
             N5Button(300, 253, 402, 122, true, 'StateMachine = "View Set"', false,BodyFontBold,"View/Edit")
             N5Button(754, 253, 402, 122, true, 'StateMachine = "Flashcards"', false,BodyFontBold,"Flashcards")
@@ -179,7 +173,7 @@ function love.draw()
             --ButtonStyle1(300,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(754,720,402,122,"Reserved",Exo24Bold,true)
             --ButtonStyle1(1209,720,402,122,"Reserved",Exo24Bold,true)
-            N5Button(1542,93,55,55,true,"StateMachine='Main Menu'",true,SmallHeaderBold,"<-")
+            N5Button(1542,93,55,55,true,"SetStateMachine('Main Menu')",true,SmallHeaderBold,"<-")
             N5Button(1604,93,55,55,true,"PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
         end
         if StateMachine=="Edit" then
@@ -227,7 +221,7 @@ function love.draw()
         end
     end
     --love.graphics.print(MouseX.."x"..MouseY,scaling(200,1920,Settings.XRes),scaling(50,1080,Settings.YRes))--? Debug for mouse position
-    --love.graphics.print("FPS:"..love.timer.getFPS(),scaling(200,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
+    love.graphics.print("FPS:"..love.timer.getFPS(),scaling(100,1920,Settings.XRes),scaling(100,1080,Settings.YRes))--? Debug for mouse position
     if PopupCall==true then
         ConfirmActionPopup(PopUpMessage,BodyFontBold,true,PopupAction)
     end

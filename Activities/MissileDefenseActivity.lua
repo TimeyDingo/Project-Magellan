@@ -1,6 +1,6 @@
 --!! bug on level up where empty missiles are deployed
 function MissileDefenseActivity()
-    SetTitle, SetData=LoadIndividualSet(SetToPreview)
+    SetTitle, SetData=LUASetRead(SetToPreview)
     love.graphics.setLineWidth(MediumLine)
     MissileDefenseSurviveTimer=MissileDefenseSurviveTimer+love.timer.getDelta()
     if MissileDefenseSurviveTimer<0.1 then
@@ -390,7 +390,7 @@ function MissileDefenseChallengeFailedStep2(ChallengeThatWasFailed)
     MissileDefenseLivesRemaining=MissileDefenseLivesRemaining-1
 end
 function MissileDefenseFailed()
-    StateMachine="Set Options"
+    SetStateMachine("Set Options")
     PopupCall = true
     Sounds.GameEnd:play()
     PopupAction = 'StateMachine = "Missile Defense"; LoadMissileDefense(); PopupCall=false'

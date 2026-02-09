@@ -94,8 +94,6 @@ function LoadActivities()
     LoadViewSet()
     LoadMissileDefense()
     LoadTestActivity()
-    Dictionary={}
-    Dictionary=DictionaryLoader()
 end
 function LoadFlashcards()
     FlashCardActivityFlashCard=1
@@ -208,7 +206,7 @@ function LoadTestActivity()
     TestActivityScroll=0
 end
 function GenerateTestingData()
-    SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
+    SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
     TestActivityTestTable={}
     for i = 1, NumberOfTerms do
         local wrongAnswers = generateUniqueNumbersExclude(3, NumberOfTerms, i)
@@ -229,7 +227,7 @@ function GenerateTestingData()
     TestActivityTestTable=ShuffleTableCopy(TestActivityTestTable)
 end
 function GenerateMatchingData()
-    SetTitle, SetData, NumberOfTerms = LoadIndividualSet(SetToPreview)
+    SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
     local WhichCardsToMatchWith=generateUniqueNumbers(4, #SetData)
         MatchingActivity4XTable={
         {SetData[WhichCardsToMatchWith[1]][1],SetData[WhichCardsToMatchWith[1]][2]},
@@ -276,7 +274,7 @@ function ApplySettings(NewX,NewY)
     LoadActivities()
     LoadMouseClickDebounce()
     LoadPopup()
-    love.window.setMode(Settings.XRes,Settings.YRes)
+    love.window.setMode(Settings.XRes,Settings.YRes,{msaa=Settings.MSAA, fullscreen=toboolean(Settings.Fullscreen), borderless=toboolean(Settings.Fullscreen), usedpiscale=false})
     if Settings.ReducedFlicker then
         love.timer.sleep(0.5)
         love.mouse.setPosition(0,0)
@@ -328,4 +326,14 @@ function CheckForUpdates(CurrentVersion)
         PopupAction="love.system.openURL('https://github.com/TimeyDingo/Project-Magellan/releases');PopupCall=false"
         PopUpMessage="New update for Project Magellan detected, update?"
     end
+end
+function SetStateMachine(NewState)
+    Deleting=true
+    StateMachine=tostring(NewState)
+    SetData = LUALoadAllSets()
+    NumberofSets=GetSavedSetCount()
+    Deleting=false
+    TextEntry={} -- clear text entry table each time the main menu is reached
+    TextEntryWriter=0 -- clear text entry writer positon
+    EditCursorPosition=0 -- clear edit position
 end

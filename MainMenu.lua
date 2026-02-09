@@ -1,3 +1,11 @@
+    --[[
+    Title='Set1', Terms=4,
+    {Term='TermA',Definition='DefinitionA',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermB',Definition='DefinitionB',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermC',Definition='DefinitionC',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    {Term='TermD',Definition='DefinitionD',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
+    ]]
+
 function ListofSets()
     if Settings==nil or MainMenuScroll==nil then
         print("In ListofSets() Settings is reporting as: "..tostring(Settings))
@@ -6,7 +14,6 @@ function ListofSets()
     end
     N5BoxHighlight(267, 156, 656, 651, true, {255,255,255} ,true)
     love.graphics.setLineWidth(ThinLine)
-    local NumberofSets=CheckSavedSets()
     if NumberofSets==nil or SetData==nil then
         print("In ListofSets() NumberofSets is reporting as: "..tostring(NumberofSets))
         print("In ListofSets() SetData is reporting as: "..tostring(SetData))
@@ -20,49 +27,49 @@ function ListofSets()
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,BodyFont,tostring(SetData[1+MainMenuScroll][1]))
+        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,BodyFont,tostring(SetData[1+MainMenuScroll].Title))
     end
     if NumberofSets>1 then
         if SetData[2+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,BodyFont,tostring(SetData[2+MainMenuScroll][1]))
+        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,BodyFont,tostring(SetData[2+MainMenuScroll].Title))
     end
     if NumberofSets>2 then
         if SetData[3+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,BodyFont,tostring(SetData[3+MainMenuScroll][1]))
+        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,BodyFont,tostring(SetData[3+MainMenuScroll].Title))
     end
     if NumberofSets>3 then
         if SetData[4+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,BodyFont,tostring(SetData[4+MainMenuScroll][1]))
+        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,BodyFont,tostring(SetData[4+MainMenuScroll].Title))
     end
     if NumberofSets>4 then
         if SetData[5+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,BodyFont,tostring(SetData[5+MainMenuScroll][1]))
+        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,BodyFont,tostring(SetData[5+MainMenuScroll].Title))
     end
     if NumberofSets>5 then
         if SetData[6+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,BodyFont,tostring(SetData[6+MainMenuScroll][1]))
+        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,BodyFont,tostring(SetData[6+MainMenuScroll].Title))
     end
     if NumberofSets>6 then
         if SetData[7+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,BodyFont,tostring(SetData[7+MainMenuScroll][1]))
+        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,BodyFont,tostring(SetData[7+MainMenuScroll].Title))
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -81,13 +88,11 @@ function SetPreview()
         return
     end
     if SetToPreview > 0 and SetData[SetToPreview] then
-        local setTitle = SetData[SetToPreview][1]
-        local dataSet = SetData[SetToPreview][2]
         --clean this shit up
         N5BoxHighlight(976, 180, 673, 100, false, {}, true)-- box around title
         love.graphics.setColor(195,199,203)--title cover
         love.graphics.rectangle("fill",scaling(1226,1920,Settings.XRes),scaling(155,1080,Settings.YRes),scaling(174,1920,Settings.XRes),scaling(110,1080,Settings.YRes))--title cover
-        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, LargeBodyFontBold, tostring(setTitle))--title
+        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, LargeBodyFontBold, tostring(SetData[SetToPreview].Title))--title
         love.graphics.setColor(0,0,0,255)
         CenteredTextBox(1176,120,273,110,"Set Title", MediumHeaderBold, true)--title
         love.graphics.setFont(BodyFont)
@@ -100,18 +105,14 @@ function SetPreview()
         -- or at least comment it
         love.graphics.setColor(0,0,0,255)
         --y = y + scaling(25,1080,Settings.YRes)  -- Move to the next line
-        if dataSet == nil then
-            print("In SetPreview() dataSet is reporting as: "..tostring(dataSet))
-            return
-        end
-        for i, item in ipairs(dataSet) do
-            local definition = item[1]
-            local term = item[2]
+        for i=1, SetData[SetToPreview].Terms do
+            local definition = SetData[SetToPreview][i].Definition
+            local term = SetData[SetToPreview][i].Term
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end
             -- Add wrapping for the term text box
-            WrapDistance = CenteredTextBoxWithWrapping(x+scaling(23,1920,Settings.XRes), y, scaling(630,1920,Settings.XRes), term, SmallBodyFontBold)
+            local WrapDistance = CenteredTextBoxWithWrapping(x+scaling(23,1920,Settings.XRes), y, scaling(630,1920,Settings.XRes), term, SmallBodyFontBold)
             y = y + WrapDistance + scaling(0,1080,Settings.YRes)  -- Move to the next line after wrapping
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)

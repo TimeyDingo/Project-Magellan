@@ -89,7 +89,7 @@ function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFon
 end
 function TestActivityCheckIfEnoughTerms()
     if NumberOfTerms<4 then
-        StateMachine="Set Options"
+        SetStateMachine("Set Options")
         PopupCall = true
         PopupAction = 'StateMachine = "Set Options"; PopupCall=false'
         PopUpMessage = "Too few terms, 4 or more is needed"
@@ -123,6 +123,7 @@ function TestActivityCheckAnswers()
         end
     end
     StateMachine="Set Options"
+    SetStateMachine("Set Options")
     PopupCall = true
     PopupAction = 'StateMachine = "Set Options"; LoadTestActivity(); PopupCall=false'
     PopUpMessage = "You got: "..CorrectAnswers.."/"..TotalQuestions

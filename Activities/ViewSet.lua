@@ -1,5 +1,5 @@
 function ViewActivity()
-    SetTitle, SetData = LoadIndividualSet(SetToPreview)
+    SetTitle, SetData = LUASetRead(SetToPreview)
     if SetTitle==nil or SetData==nil or ViewActivityScroll==nil then
         print("In ViewActivity() SetTitle is reporting as: "..tostring(SetTitle))
         print("In ViewActivity() SetData is reporting as: "..tostring(SetData))
@@ -7,7 +7,7 @@ function ViewActivity()
         return
     end
     N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
-    N5Button(830, 90, 240, 50, true, 'StateMachine="Edit"; EditActivityScroll=0', false, BodyFontBold,"-> Edit Mode")
+    N5Button(830, 90, 240, 50, true, 'SetStateMachine("Edit"); EditActivityScroll=0', false, BodyFontBold,"-> Edit Mode")
     local TermFont=BodyFont
     local DefinitionFont=SmallBodyFont
     local NumberOfTerms=#SetData
