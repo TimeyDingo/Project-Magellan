@@ -57,12 +57,12 @@ function MissileDefenseDisplayChallenges()
     if MissileDefenseTimer>3 then
         if MissileDefenseChallengeCount<3 then
             MissileDefenseChallengeCount=MissileDefenseChallengeCount+1
-            RandomChallenge=math.random(1, #SetData)
+            RandomChallenge=math.random(1, SetData.Terms)
             if RandomChallenge==nil then
                 return
             end
-            ChallengeQuestion=SetData[RandomChallenge][1]
-            ChallengeAnswer=SetData[RandomChallenge][2]
+            ChallengeQuestion=SetData[RandomChallenge].Definition
+            ChallengeAnswer=SetData[RandomChallenge].Term
             MissileDefenseChallenges[MissileDefenseChallengeCount].Challenge=ChallengeQuestion
             MissileDefenseChallenges[MissileDefenseChallengeCount].Answer=ChallengeAnswer
         end

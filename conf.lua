@@ -9,4 +9,11 @@ function love.conf(t)
     t.window.fullscreen=false
     t.console = true
     t.highdpi = false
+    t.graphics.lowpower = true
+    
+    
+    t.modules.joystick = false
+    t.modules.physics = false
+    t.modules.touch = true
+    t.modules.video = true
 end
