@@ -167,7 +167,7 @@ function ImportMenuSetPastingAndPreview()
             
             if definition and term then
                 -- Draw the definition text box with wrapping
-                WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, SmallBodyFontBold)
+                local WrapDistance = CenteredTextBoxWithWrapping(x, y, scaling(673,1920,Settings.XRes), definition, SmallBodyFontBold)
                 y = y + WrapDistance  -- Move to the next line after wrapping
                 
                 -- Draw the term text box with wrapping
@@ -180,7 +180,6 @@ function ImportMenuSetPastingAndPreview()
                 end
             end
         end
-
         love.graphics.setColor(255, 255, 255, 255)  -- Reset the color after hiding
         love.graphics.setFont(BodyFont)
     end

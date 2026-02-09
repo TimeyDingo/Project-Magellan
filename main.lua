@@ -81,7 +81,7 @@ function love.draw()
             N5MainMenu()
             N5Button(261, 833, 689, 41, true, 'if SetToPreview>0 then SetStateMachine("Set Options") end' , true ,BodyFont,"Select")
             N5Button(261, 889, 689, 41, true, "CreateNewSet()" , true ,BodyFont, "Create New Set")
-            N5Button(261, 944, 689, 41, true, 'SetStateMachine("Import Menu)' , true ,BodyFont, "Import Quizlet Set")
+            N5Button(261, 944, 689, 41, true, 'SetStateMachine("Import Menu")' , true ,BodyFont, "Import Quizlet Set")
             if Deleting==false then
                 ListofSets()
                 SetPreview()

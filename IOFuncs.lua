@@ -56,7 +56,7 @@ function LoadSettingsIO(Settings)
 end
 function LUASetRead(SetToLoad)
     if SetToLoad==nil then
-        print("In SetToLoad() SetToLoad is reporting as: "..tostring(SetToLoad))
+        print("In LUASetRead() SetToLoad is reporting as: "..tostring(SetToLoad))
         return
     end
     --[[
@@ -71,12 +71,12 @@ function LUASetRead(SetToLoad)
     local filename = "SavedSets/Set" .. SetToLoad .. ".lua"
     local NumberofSets = GetSavedSetCount()
     if SetToLoad > NumberofSets then
-        print("In SetToLoad() SetToLoad is greater then NumberofSets")
+        print("In LUASetRead() SetToLoad is greater then NumberofSets")
         return
     end
     local file = io.open(filename, "r")
     if file==nil then
-        print("In SetToLoad() file is reporting as: "..tostring(file))
+        print("In LUASetRead() file is reporting as: "..tostring(file))
         return
     end
     local line
@@ -112,14 +112,14 @@ function LUASetWrite(SetToSave,SetTable)
         {Term='TermD',Definition='DefinitionD',UserSeenTimes=1,UserCorrectTimes=1,Image=false},
     }
     ]]
-    SaveString="Return {\n".."Title=".."'"..SetTable.Title.."', "
+    SaveString="return {\n".."Title=".."'"..SetTable.Title.."', "
     SaveString=SaveString.."Terms="..SetTable.Terms..",\n"
     for i = 1, SetTable.Terms do
         SaveString=SaveString.."{Term=".."'"..SetTable[i].Term.."',"
         SaveString=SaveString.."Definition=".."'"..SetTable[i].Definition.."',"
         SaveString=SaveString.."UserSeenTimes="..SetTable[i].UserSeenTimes..","
         SaveString=SaveString.."UserCorrectTimes="..SetTable[i].UserCorrectTimes..","
-        SaveString=SaveString.."Image="..SetTable[i].Image.."},"
+        SaveString=SaveString.."Image="..tostring(SetTable[i].Image).."},"
     end
     SaveString=SaveString.."}"
     file:write(SaveString)
@@ -128,6 +128,9 @@ end
 function CreateNewSet()
     Deleting=true
     local AmountOfSets=GetSavedSetCount()
+    if AmountOfSets then
+        
+    end
     local BlankSet={Title=AmountOfSets+1, Terms=1, {Term=' ',Definition=' ',UserSeenTimes=0,UserCorrectTimes=0,Image=false}}
     LUASetWrite(AmountOfSets+1,BlankSet)
     --incriment set counter
@@ -138,11 +141,13 @@ function CreateNewSet()
         print("In AddOneToSavedSetCount() file is reporting as: "..tostring(file))
         return
     end
-    SaveString="Return "..tostring(SetCount+1)
+    SaveString="return "..tostring(SetCount+1)
     file:write(SaveString)
     file:close()
     --
     SetToPreview=AmountOfSets
+    NumberofSets=GetSavedSetCount()
+    SetDataCollated = LUALoadAllSets()
     Deleting=false
 end
 function DeleteSet()
@@ -167,7 +172,7 @@ function DeleteSet()
             print("In RemoveOneFromSavedSetCount() file is reporting as: "..tostring(file))
             return
         end
-        SaveString="Return "..tostring(SetCount-1)
+        SaveString="return "..tostring(SetCount-1)
         file:write(SaveString)
         file:close()
         --
@@ -179,6 +184,8 @@ function DeleteSet()
         SetToPreview=0
     end
     YScroll=0
+    NumberofSets=GetSavedSetCount()
+    SetDataCollated = LUALoadAllSets()
     Deleting=false
 end
 function GetSavedSetCount()
@@ -200,32 +207,26 @@ function GetSavedSetCount()
         end
     end
 end
-function ImportAQuizletSet(Title, SetData)
-    if Title == nil or SetData == nil then
+function ImportAQuizletSet(Title, SetString)
+    print(SetString)
+    if Title == nil or SetString == nil then
         print("In ImportAQuizletSet() Title is reporting as: " .. tostring(Title))
-        print("In ImportAQuizletSet() SetData is reporting as: " .. tostring(SetData))
+        print("In ImportAQuizletSet() SetString is reporting as: " .. tostring(SetString))
         return
     end
-    --?? string processing to remove newlines and errant ; or :
-    SetData = SetData:gsub("[%c]", " ")
-    for i = 1, #SetData do
-        local char = string.sub(SetData, i, i)
-        if (char == ";" or char == ":") and i < #SetData then
-            local char2 = string.sub(SetData, i + 1, i + 1)
-            local charback = string.sub(SetData, i - 1, i - 1)
+    SetString = SetString:gsub("[%c]", " ") --? sub out control characters for blank spaces so new lines are gone, etc
+    for i = 1, #SetString do
+        local char = string.sub(SetString, i, i) --? get individual characters
+        if (char == ";" or char == ":") and i < #SetString then
+            local char2 = string.sub(SetString, i + 1, i + 1)
+            local charback = string.sub(SetString, i - 1, i - 1)
             if char2 ~= char and charback~=char then
-                SetData = string.sub(SetData, 1, i - 1) .. "|" .. string.sub(SetData, i + 1)
+                SetString = string.sub(SetString, 1, i - 1) .. "|" .. string.sub(SetString, i + 1)
+                print(SetString)
             end
         end
     end
-    local CurrentSetCount = 0
-    CurrentSetCount = GetSavedSetCount()
-    local NewFileName = "SavedSets/Set" .. (CurrentSetCount + 1) .. ".txt"
-    local file = io.open(NewFileName, "w")
-    local TextToWrite = Title .. "--" .. SetData
-    file:write(TextToWrite)
-    io.close(file)
-    AddOneToSavedSetCount()
+
 end
 function LUALoadAllSets()
     local Data={}
