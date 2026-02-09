@@ -21,7 +21,7 @@ function TestActivity()
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer2,DefinitionFont,true)
     TestActivityDisplayDefinition(990,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3Pos,910,200,TestActivityTestTable[1+TestActivityScroll].WrongAnswer3,DefinitionFont,true)
     N5Button(20, 120, 300, 80, true, 'TestActivityCheckAnswers()', true,BodyFontBold,"Check Answers")
-    TestActivityScroll=N5ScrollBar(940,200,40,680,1,NumberOfTerms,TestActivityScroll,true)
+    TestActivityScroll=N5ScrollBar(940,200,40,680,1,SetData.Terms,TestActivityScroll,true)
     love.graphics.setColor(255,255,255)
 end
 function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFont, Scaling)
@@ -88,9 +88,9 @@ function TestActivityDisplayDefinition(BoxX, Position, BoxW, BoxH, Text, TextFon
     love.graphics.setLineWidth(1)
 end
 function TestActivityCheckIfEnoughTerms()
-    if NumberOfTerms<4 then
+    if SetData.Terms<4 then
         PopupCall = true
-        PopupAction = 'SetStateMachine("Set Options); PopupCall=false'
+        PopupAction = 'SetStateMachine("Set Options"); PopupCall=false'
         PopUpMessage = "Too few terms, 4 or more is needed"
         BackoutAction= 'PopupCall=false'
     end

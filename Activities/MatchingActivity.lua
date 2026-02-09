@@ -1,14 +1,13 @@
 function MatchingActivity()
     --SetTitle, SetData = LUASetRead(SetToPreview)
     SetData = LUASetRead(SetToPreview)
-    if SetTitle==nil or SetData==nil or MatchingActivity4XTable==nil or MatchingActivityPositions==nil then
-        print("In MatchingActivity() SetTitle is reporting as: "..tostring(SetTitle))
+    if SetData==nil or MatchingActivity4XTable==nil or MatchingActivityPositions==nil then
         print("In MatchingActivity() SetData is reporting as: "..tostring(SetData))
         print("In MatchingActivity() MatchingActivity4XTable is reporting as: "..tostring(MatchingActivity4XTable))
         print("In MatchingActivity() MatchingActivityPositions is reporting as: "..tostring(MatchingActivityPositions))
         return
     end
-    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetTitle)
+    N5BoxHighlight(660, 145, 600, 50, true, {255,255,255}, true, SmallHeaderBold, SetData.Title)
     N5BoxHighlight(830, 90, 240, 50, true, {255,255,255}, true, SmallHeaderBold, tostring(#MatchingActivity4XTable).."/4")
     if #MatchingActivity4XTable==0 then
         GenerateMatchingData()

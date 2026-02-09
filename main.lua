@@ -62,7 +62,7 @@ function love.update(dt)
     if StateMachine=="Missile Defense" then
         MissileDefenseTimer = MissileDefenseTimer + dt
     end
-    if StateMachine=="Set Options" and NumberOfTerms>4 then --?? Load for the testing/matching activity
+    if StateMachine=="Set Options" and SetData.Terms>4 then --?? Load for the testing/matching activity
         GenerateTestingData()
         GenerateMatchingData()
     end
@@ -185,38 +185,38 @@ function love.draw()
         end
         if StateMachine=="Flashcards" then
             N5GameBar("Flashcards")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options); LoadFlashcards()',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options"); LoadFlashcards()',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             FlashcardActivity()
         end
         if StateMachine=="Matching" then
             N5GameBar("Matching")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options); LoadMatching()',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options"); LoadMatching()',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             MatchingActivity()
         end
         if StateMachine=="Missile Defense" then
             N5GameBar("Missile Defense")
             N5Button(1642, 6, 100, 75, true, 'SetSoundVolume(0)',true,SmallHeaderBold,"Mute")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options)',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options")',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             MissileDefenseActivity()
         end
         if StateMachine=="Word Search" then
             N5GameBar("Word Search")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options)',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options")',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             WordSearchActivity()
         end
         if StateMachine=="Test" then
             N5GameBar("Test")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options); LoadTestActivity()',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options"); LoadTestActivity()',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             TestActivity()
         end
         if StateMachine=="View Set" then
             N5GameBar("View Set")
-            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options); LoadViewSet()',true,SmallHeaderBold,"<-")
+            N5Button(1751, 6, 75, 75, true, 'SetStateMachine("Set Options"); LoadViewSet()',true,SmallHeaderBold,"<-")
             N5Button(1835, 6, 75, 75, true, "PopupCall=true; PopupAction='love.event.quit()';PopUpMessage='Close Software?'",true,SmallHeaderBold,"X")
             ViewActivity()
         end

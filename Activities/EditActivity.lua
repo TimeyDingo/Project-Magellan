@@ -1,46 +1,46 @@
 function EditActivity()
+    local BlankTerm={{Term=' ',Definition=' ',UserSeenTimes=0,UserCorrectTimes=0,Image=false}}
     local TermFont=BodyFont
     local DefinitionFont=SmallBodyFont
     if Deleting==false then
-        if SetTitle==nil or SetData==nil or NumberOfTerms==nil or Settings==nil or EditActivityScroll==nil or Deleting==true then
-            print("In EditActivity() SetTitle is reporting as: "..tostring(SetTitle))
+        if SetData==nil or Settings==nil or EditActivityScroll==nil or Deleting==true then
             print("In EditActivity() SetData is reporting as: "..tostring(SetData))
-            print("In EditActivity() NumberOfTerms is reporting as: "..tostring(NumberOfTerms))
             print("In EditActivity() Settings is reporting as: "..tostring(Settings))
             print("In EditActivity() EditActivityScroll is reporting as: "..tostring(EditActivityScroll))
             return
         end
         --EditableTitle(660, 145, 600, 50, SmallBodyFontBold,true)
-        SetTitle=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetTitle,true, BodyFontBold)
-        N5Button(830, 90, 240, 50, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview); SetStateMachine("View Set"); EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
+        SetData.Title=N5TextEntryBox(660,145,600,50,true,"","EditActivityTitle",false,true,SetData.Title,true, BodyFontBold)
+        N5Button(830, 90, 240, 50, true, 'LUASetWrite(SetToPreview,SetData); SetStateMachine("View Set"); EditActivityScroll=0', false, BodyFontBold, "-> View Mode")
         love.graphics.setColor(40,40,40)
         love.graphics.rectangle("fill",scaling(940,1920,Settings.XRes),scaling(200-MediumLine,1080,Settings.YRes),scaling(40,1920,Settings.XRes),scaling(950,1080,Settings.YRes))
         love.graphics.setColor(255,255,255)
         N5BoxHighlight(390, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Terms")
         N5BoxHighlight(1305, 145, 240, 50, true, {255,255,255}, true, SmallHeaderBold, "Definitions")
-        N5Button(1522, 6, 200, 75, true, 'SaveIndividualSet(SetTitle, SetData, SetToPreview)',true, BodyFontBold, "Save Set")
-        N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, {" "," "});NumberOfTerms=NumberOfTerms+1' ,true, BodyFontBold, "+++")
-        if NumberOfTerms>0 then
+        N5Button(1522, 6, 200, 75, true, 'LUASetWrite(SetToPreview,SetData)',true, BodyFontBold, "Save Set")
+
+        N5Button(1433, 6, 80, 75, true, 'table.insert(SetData, BlankTerm); SetData.Terms=SetData.Terms+1' ,true, BodyFontBold, "+++")
+        if SetData.Terms>0 then
             --SetTitle=N5TextEntryBox(20,200+MediumLine,870,200,true,"","EditActivityTitle",false,true,SetTitle,true,TermFont)
             EditableDisplayTerm(20,200+MediumLine,870,200,1+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,200+MediumLine,910,200,1+EditActivityScroll,DefinitionFont,true)
             N5Button(890, 200+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(1+EditActivityScroll)', false, BodyFontBold, "X")
         end
-        if NumberOfTerms>1 then
+        if SetData.Terms>1 then
             EditableDisplayTerm(20,420+MediumLine,870,200,2+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,420+MediumLine,910,200,2+EditActivityScroll,DefinitionFont,true)
             N5Button(890, 420+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(2+EditActivityScroll)', false, BodyFontBold, "X")
         end
-        if NumberOfTerms>2 then
+        if SetData.Terms>2 then
             EditableDisplayTerm(20,640+MediumLine,870,200,3+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,640+MediumLine,910,200,3+EditActivityScroll,DefinitionFont,true)
             N5Button(890, 640+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(3+EditActivityScroll)', false, BodyFontBold, "X")
         end
-        if NumberOfTerms>3 then
+        if SetData.Terms>3 then
             EditableDisplayTerm(20,860+MediumLine,870,200,4+EditActivityScroll,TermFont,true)
             EditableDisplayDefinition(990,860+MediumLine,910,200,4+EditActivityScroll,DefinitionFont,true)
             N5Button(890, 860+MediumLine, 40, 200, true, 'EditActivityRemoveTerm(4+EditActivityScroll)', false, BodyFontBold, "X")
-            EditActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,NumberOfTerms,EditActivityScroll,true)
+            EditActivityScroll=N5ScrollBar(940,200-MediumLine,40,750,4,SetData.Terms,EditActivityScroll,true)
         end
     end
     love.graphics.setColor(255,255,255)
@@ -61,7 +61,7 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     if isHovered and love.mouse.isDown(1) then
         EditActivitySelectedTerm = TermToDisplayAndEdit
         EditActivitySelectedDefinition = nil
-        EditCursorPositionTerm = #SetData[TermToDisplayAndEdit][2]  -- Set cursor to the end of the text
+        EditCursorPositionTerm = #SetData[TermToDisplayAndEdit].Term  -- Set cursor to the end of the text
     end
 
     -- Set color based on whether this box is selected or hovered
@@ -78,23 +78,23 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedTerm == TermToDisplayAndEdit then
         function love.textinput(t)
-            local Text = SetData[TermToDisplayAndEdit][2]
+            local Text = SetData[TermToDisplayAndEdit].Term
             local beforeCursor = Text:sub(1, EditCursorPositionTerm)
             local afterCursor = Text:sub(EditCursorPositionTerm + 1)
 
-            SetData[TermToDisplayAndEdit][2] = beforeCursor .. t .. afterCursor
+            SetData[TermToDisplayAndEdit].Term = beforeCursor .. t .. afterCursor
             EditCursorPositionTerm = EditCursorPositionTerm + #t
         end
 
         -- Extract the text before the cursor for backspacing
-        local TextBeforeCursor = SetData[TermToDisplayAndEdit][2]:sub(1, EditCursorPositionTerm)
+        local TextBeforeCursor = SetData[TermToDisplayAndEdit].Term:sub(1, EditCursorPositionTerm)
 
         -- Call BackspaceController to handle the text before the cursor
         TextBeforeCursor = BackspaceController(TextBeforeCursor, 1, 0.2)  -- Use suitable hold delay values
 
         -- Update the full text after backspacing
-        local RemainingText = SetData[TermToDisplayAndEdit][2]:sub(EditCursorPositionTerm + 1)
-        SetData[TermToDisplayAndEdit][2] = TextBeforeCursor .. RemainingText
+        local RemainingText = SetData[TermToDisplayAndEdit].Term:sub(EditCursorPositionTerm + 1)
+        SetData[TermToDisplayAndEdit].Term = TextBeforeCursor .. RemainingText
 
         -- Update cursor position after backspacing
         EditCursorPositionTerm = #TextBeforeCursor  -- Update cursor position based on backspacing
@@ -102,12 +102,12 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         -- Handle Ctrl+V for pasting
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             local clipboardText = love.system.getClipboardText()
-            local Text = SetData[TermToDisplayAndEdit][2]
+            local Text = SetData[TermToDisplayAndEdit].Term
             local beforeCursor = Text:sub(1, EditCursorPositionTerm)
             local afterCursor = Text:sub(EditCursorPositionTerm + 1)
 
             -- Insert clipboard text at the cursor position
-            SetData[TermToDisplayAndEdit][2] = beforeCursor .. clipboardText .. afterCursor
+            SetData[TermToDisplayAndEdit].Term = beforeCursor .. clipboardText .. afterCursor
             EditCursorPositionTerm = EditCursorPositionTerm + #clipboardText  -- Update cursor position
         end
 
@@ -115,11 +115,11 @@ function EditableDisplayTerm(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit, TextF
         if ButtonDebounce("left", 0.1) then
             EditCursorPositionTerm = math.max(0, EditCursorPositionTerm - 1)
         elseif ButtonDebounce("right", 0.1) then
-            EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit][2], EditCursorPositionTerm + 1)
+            EditCursorPositionTerm = math.min(#SetData[TermToDisplayAndEdit].Term, EditCursorPositionTerm + 1)
         end
     end
     -- Draw the text inside the box
-    local Text = SetData[TermToDisplayAndEdit][2]
+    local Text = SetData[TermToDisplayAndEdit].Term
     local displayText = Text
 
     -- Add cursor only if the box is selected
@@ -158,7 +158,7 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     -- Check for mouse click to select the box
     if isHovered and love.mouse.isDown(1) then
         EditActivitySelectedDefinition = TermToDisplayAndEdit
-        EditCursorPosition = #SetData[TermToDisplayAndEdit][1]  -- Place cursor at the end
+        EditCursorPosition = #SetData[TermToDisplayAndEdit].Definition  -- Place cursor at the end
         EditActivitySelectedTerm = nil
     end
 
@@ -177,24 +177,24 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
     -- Only allow editing if this box is currently selected
     if EditActivitySelectedDefinition == TermToDisplayAndEdit then
         function love.textinput(t)
-            local Text = SetData[TermToDisplayAndEdit][1]
+            local Text = SetData[TermToDisplayAndEdit].Definition
             local beforeCursor = Text:sub(1, EditCursorPosition)
             local afterCursor = Text:sub(EditCursorPosition + 1)
             
             -- Update text with input
-            SetData[TermToDisplayAndEdit][1] = beforeCursor .. t .. afterCursor
+            SetData[TermToDisplayAndEdit].Definition = beforeCursor .. t .. afterCursor
             EditCursorPosition = EditCursorPosition + #t
         end
         
         -- Extract the text before the cursor for backspacing
-        local TextBeforeCursor = SetData[TermToDisplayAndEdit][1]:sub(1, EditCursorPosition)
+        local TextBeforeCursor = SetData[TermToDisplayAndEdit].Definition:sub(1, EditCursorPosition)
 
         -- Call BackspaceController to handle the text before the cursor
         TextBeforeCursor = BackspaceController(TextBeforeCursor, 1, 0.2)  -- Use suitable hold delay values
 
         -- Update the full text after backspacing
-        local RemainingText = SetData[TermToDisplayAndEdit][1]:sub(EditCursorPosition + 1)
-        SetData[TermToDisplayAndEdit][1] = TextBeforeCursor .. RemainingText
+        local RemainingText = SetData[TermToDisplayAndEdit].Definition:sub(EditCursorPosition + 1)
+        SetData[TermToDisplayAndEdit].Definition = TextBeforeCursor .. RemainingText
 
         -- Update cursor position after backspacing
         EditCursorPosition = #TextBeforeCursor  -- Update cursor position based on backspacing
@@ -202,20 +202,20 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         -- Handle Ctrl+V for pasting
         if ButtonDebounce("v", 1) and love.keyboard.isDown('lctrl') == true then
             local clipboardText = love.system.getClipboardText()
-            local Text = SetData[TermToDisplayAndEdit][1]
+            local Text = SetData[TermToDisplayAndEdit].Definition
             local beforeCursor = Text:sub(1, EditCursorPosition)
             local afterCursor = Text:sub(EditCursorPosition + 1)
 
             -- Insert clipboard text at the cursor position
-            SetData[TermToDisplayAndEdit][1] = beforeCursor .. clipboardText .. afterCursor
+            SetData[TermToDisplayAndEdit].Definition = beforeCursor .. clipboardText .. afterCursor
             EditCursorPosition = EditCursorPosition + #clipboardText  -- Update cursor position
         end
         if ButtonDebounce("return", 1) then
-            local Text = SetData[TermToDisplayAndEdit][1]
+            local Text = SetData[TermToDisplayAndEdit].Definition
             local beforeCursor = Text:sub(1, EditCursorPosition)
             local afterCursor = Text:sub(EditCursorPosition + 1)
             local newline = "\n"
-            SetData[TermToDisplayAndEdit][1] = beforeCursor .. newline .. afterCursor
+            SetData[TermToDisplayAndEdit].Definition = beforeCursor .. newline .. afterCursor
             EditCursorPosition = EditCursorPosition + #newline  -- Update cursor position
         end
 
@@ -223,12 +223,12 @@ function EditableDisplayDefinition(BoxX, BoxY, BoxW, BoxH, TermToDisplayAndEdit,
         if ButtonDebounce("left", 0.1) then
             EditCursorPosition = math.max(0, EditCursorPosition - 1)
         elseif ButtonDebounce("right", 0.1) then
-            EditCursorPosition = math.min(#SetData[TermToDisplayAndEdit][1], EditCursorPosition + 1)
+            EditCursorPosition = math.min(#SetData[TermToDisplayAndEdit].Definition, EditCursorPosition + 1)
         end
     end
 
     -- Draw the text inside the box
-    local Text = SetData[TermToDisplayAndEdit][1]
+    local Text = SetData[TermToDisplayAndEdit].Definition
     local displayText = Text
 
     -- Add cursor only if the box is selected
@@ -259,8 +259,10 @@ function EditActivityRemoveTerm(TermToRemove)
     end
     Deleting=true
     EditActivityScroll=0
-    table.remove(SetData, TermToRemove)
-    NumberOfTerms=NumberOfTerms-1
+    if SetData.Terms>0 then
+        table.remove(SetData, TermToRemove)
+        SetData.Terms=SetData.Terms-1
+    end
     Deleting=false
 end
 function EditActivityCallBackoutPopup()

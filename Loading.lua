@@ -206,10 +206,11 @@ function LoadTestActivity()
     TestActivityScroll=0
 end
 function GenerateTestingData()
-    SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
+    --SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
+    SetData = LUASetRead(SetToPreview)
     TestActivityTestTable={}
-    for i = 1, NumberOfTerms do
-        local wrongAnswers = generateUniqueNumbersExclude(3, NumberOfTerms, i)
+    for i = 1, SetData.Terms do
+        local wrongAnswers = generateUniqueNumbersExclude(3, SetData.Terms, i)
         local Positions = generateUniqueNumbers(4, 4)
         table.insert(TestActivityTestTable, {
             TermToTest = SetData[i][2],
@@ -227,14 +228,17 @@ function GenerateTestingData()
     TestActivityTestTable=ShuffleTableCopy(TestActivityTestTable)
 end
 function GenerateMatchingData()
-    SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
-    local WhichCardsToMatchWith=generateUniqueNumbers(4, #SetData)
-        MatchingActivity4XTable={
-        {SetData[WhichCardsToMatchWith[1]][1],SetData[WhichCardsToMatchWith[1]][2]},
-        {SetData[WhichCardsToMatchWith[2]][1],SetData[WhichCardsToMatchWith[2]][2]},
-        {SetData[WhichCardsToMatchWith[3]][1],SetData[WhichCardsToMatchWith[3]][2]},
-        {SetData[WhichCardsToMatchWith[4]][1],SetData[WhichCardsToMatchWith[4]][2]}
+    --SetTitle, SetData, NumberOfTerms = LUASetRead(SetToPreview)
+    SetData = LUASetRead(SetToPreview)
+
+    local WhichCardsToMatchWith=generateUniqueNumbers(4, SetData.Terms)
+    MatchingActivity4XTable={
+        {SetData[WhichCardsToMatchWith[1]].Term,SetData[WhichCardsToMatchWith[1]].Definition},
+        {SetData[WhichCardsToMatchWith[2]].Term,SetData[WhichCardsToMatchWith[2]].Definition},
+        {SetData[WhichCardsToMatchWith[3]].Term,SetData[WhichCardsToMatchWith[3]].Definition},
+        {SetData[WhichCardsToMatchWith[4]].Term,SetData[WhichCardsToMatchWith[4]].Definition}
     }
+    
 end
 function LoadMatching()
     -- Define the range for random positions
