@@ -14,62 +14,62 @@ function ListofSets()
     end
     N5BoxHighlight(267, 156, 656, 651, true, {255,255,255} ,true)
     love.graphics.setLineWidth(ThinLine)
-    if NumberofSets==nil or SetData==nil then
+    if NumberofSets==nil or SetDataCollated==nil then
         print("In ListofSets() NumberofSets is reporting as: "..tostring(NumberofSets))
-        print("In ListofSets() SetData is reporting as: "..tostring(SetData))
+        print("In ListofSets() SetDataCollated is reporting as: "..tostring(SetDataCollated))
         return
     end
     local ButtonX=283
     local ButtonWidth=624
     local ButtonHeight=59
     if NumberofSets>0 then
-        if SetData[1+MainMenuScroll]==nil then
+        if SetDataCollated[1+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,BodyFont,tostring(SetData[1+MainMenuScroll].Title))
+        N5Button(ButtonX, 172, ButtonWidth, ButtonHeight, true, "SetToPreview=1+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[1+MainMenuScroll].Title))
     end
     if NumberofSets>1 then
-        if SetData[2+MainMenuScroll]==nil then
+        if SetDataCollated[2+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,BodyFont,tostring(SetData[2+MainMenuScroll].Title))
+        N5Button(ButtonX, 266, ButtonWidth, ButtonHeight, true, "SetToPreview=2+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[2+MainMenuScroll].Title))
     end
     if NumberofSets>2 then
-        if SetData[3+MainMenuScroll]==nil then
+        if SetDataCollated[3+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,BodyFont,tostring(SetData[3+MainMenuScroll].Title))
+        N5Button(ButtonX, 359, ButtonWidth, ButtonHeight, true, "SetToPreview=3+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[3+MainMenuScroll].Title))
     end
     if NumberofSets>3 then
-        if SetData[4+MainMenuScroll]==nil then
+        if SetDataCollated[4+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,BodyFont,tostring(SetData[4+MainMenuScroll].Title))
+        N5Button(ButtonX, 452, ButtonWidth, ButtonHeight, true, "SetToPreview=4+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[4+MainMenuScroll].Title))
     end
     if NumberofSets>4 then
-        if SetData[5+MainMenuScroll]==nil then
+        if SetDataCollated[5+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,BodyFont,tostring(SetData[5+MainMenuScroll].Title))
+        N5Button(ButtonX, 545, ButtonWidth, ButtonHeight, true, "SetToPreview=5+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[5+MainMenuScroll].Title))
     end
     if NumberofSets>5 then
-        if SetData[6+MainMenuScroll]==nil then
+        if SetDataCollated[6+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,BodyFont,tostring(SetData[6+MainMenuScroll].Title))
+        N5Button(ButtonX, 638, ButtonWidth, ButtonHeight, true, "SetToPreview=6+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[6+MainMenuScroll].Title))
     end
     if NumberofSets>6 then
-        if SetData[7+MainMenuScroll]==nil then
+        if SetDataCollated[7+MainMenuScroll]==nil then
             MainMenuScroll=0
             return
         end
-        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,BodyFont,tostring(SetData[7+MainMenuScroll].Title))
+        N5Button(ButtonX, 731, ButtonWidth, ButtonHeight, true, "SetToPreview=7+MainMenuScroll" , true ,BodyFont,tostring(SetDataCollated[7+MainMenuScroll].Title))
     end
     --Space between top and bottom is 17, space between buttons is 93
     if NumberofSets>6 then --?? scroll bar
@@ -81,18 +81,18 @@ function SetPreview()
     local x = scaling(976,1920,Settings.XRes)  -- Starting X position for text drawing
     local y = scaling(360,1080,Settings.YRes)  -- Starting Y position for text drawing
     local WrapDistance = 0
-    if SetToPreview == nil or SetData == nil or Settings == nil then
+    if SetToPreview == nil or SetDataCollated == nil or Settings == nil then
         print("In SetPreview() SetToPreview is reporting as: "..tostring(SetToPreview))
-        print("In SetPreview() SetData is reporting as: "..tostring(SetData))
+        print("In SetPreview() SetDataCollated is reporting as: "..tostring(SetDataCollated))
         print("In SetPreview() Settings is reporting as: "..tostring(Settings))
         return
     end
-    if SetToPreview > 0 and SetData[SetToPreview] then
+    if SetToPreview > 0 and SetDataCollated[SetToPreview] then
         --clean this shit up
         N5BoxHighlight(976, 180, 673, 100, false, {}, true)-- box around title
         love.graphics.setColor(195,199,203)--title cover
         love.graphics.rectangle("fill",scaling(1226,1920,Settings.XRes),scaling(155,1080,Settings.YRes),scaling(174,1920,Settings.XRes),scaling(110,1080,Settings.YRes))--title cover
-        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, LargeBodyFontBold, tostring(SetData[SetToPreview].Title))--title
+        N5BoxHighlight(986, 210, 653, 59, true, {255,255,255}, true, LargeBodyFontBold, tostring(SetDataCollated[SetToPreview].Title))--title
         love.graphics.setColor(0,0,0,255)
         CenteredTextBox(1176,120,273,110,"Set Title", MediumHeaderBold, true)--title
         love.graphics.setFont(BodyFont)
@@ -105,9 +105,9 @@ function SetPreview()
         -- or at least comment it
         love.graphics.setColor(0,0,0,255)
         --y = y + scaling(25,1080,Settings.YRes)  -- Move to the next line
-        for i=1, SetData[SetToPreview].Terms do
-            local definition = SetData[SetToPreview][i].Definition
-            local term = SetData[SetToPreview][i].Term
+        for i=1, SetDataCollated[SetToPreview].Terms do
+            local definition = SetDataCollated[SetToPreview][i].Definition
+            local term = SetDataCollated[SetToPreview][i].Term
             if y > scaling(850,1080,Settings.YRes) then
                 love.graphics.setColor(255,255,255,0)
             end

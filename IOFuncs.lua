@@ -56,7 +56,7 @@ function LoadSettingsIO(Settings)
 end
 function LUASetRead(SetToLoad)
     if SetToLoad==nil then
-        print("In XMLSetRead() SetToLoad is reporting as: "..tostring(SetToLoad))
+        print("In SetToLoad() SetToLoad is reporting as: "..tostring(SetToLoad))
         return
     end
     --[[
@@ -71,12 +71,12 @@ function LUASetRead(SetToLoad)
     local filename = "SavedSets/Set" .. SetToLoad .. ".lua"
     local NumberofSets = GetSavedSetCount()
     if SetToLoad > NumberofSets then
-        print("In XMLSetRead() SetToLoad is greater then NumberofSets")
+        print("In SetToLoad() SetToLoad is greater then NumberofSets")
         return
     end
     local file = io.open(filename, "r")
     if file==nil then
-        print("In XMLSetRead() file is reporting as: "..tostring(file))
+        print("In SetToLoad() file is reporting as: "..tostring(file))
         return
     end
     local line

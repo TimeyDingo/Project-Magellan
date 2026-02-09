@@ -330,8 +330,11 @@ end
 function SetStateMachine(NewState)
     Deleting=true
     StateMachine=tostring(NewState)
-    SetData = LUALoadAllSets()
+    SetDataCollated = LUALoadAllSets()
     NumberofSets=GetSavedSetCount()
+    if SetToPreview then
+        SetData = LUASetRead(SetToPreview)
+    end
     Deleting=false
     TextEntry={} -- clear text entry table each time the main menu is reached
     TextEntryWriter=0 -- clear text entry writer positon
